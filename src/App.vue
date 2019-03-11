@@ -21,7 +21,7 @@
       <button @click="showJSON = !showJSON">Show JSON</button>
     </div>
     <div class="count">
-      <p>{{ fontCount }}</p>
+      <p>Count: {{ fontCount }}</p>
       
     </div>
     <main>
