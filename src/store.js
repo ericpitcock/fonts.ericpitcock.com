@@ -11,6 +11,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    category(state) {
+      return state.filters.category
+    },
     googleFonts(state) {
       return state.googleFonts
     },

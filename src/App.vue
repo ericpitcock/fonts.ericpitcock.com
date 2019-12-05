@@ -3,10 +3,10 @@
     <header>
       <ul>
         <li
-          v-for="category in categories"
+          v-for="cat in categories"
           :key="key()"
-          @click="filters.category = category"
-          :class="{ 'active': filters.category == category }"
+          @click="category = cat"
+          :class="{ 'active': category == cat }"
         >
           {{ category }}
         </li>
@@ -66,6 +66,9 @@ export default {
     },
     filteredFonts() {
       return this.$store.getters.filteredFonts
+    },
+    category() {
+      return this.$store.getters.category
     },
     // old
     categories() {
