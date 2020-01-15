@@ -15,13 +15,13 @@
         </span>
       </div>
       <div class="sample-control">
-        <button @click="sampleType = null">Font name</button>
-        <button @click="sampleType = 'custom'">String (enter own, random)</button>
+        <button @click="fontSample = 'FontNameSample'">Font name</button>
+        <button @click="fontSample = 'CustomSample'">String (enter own, random)</button>
         <input v-model="customSample" type="text">
-        <button @click="sampleType = 'alphabet'">Alphabet</button>
-        <button @click="sampleType = 'paragraph'">Paragraph (enter own, random)</button>
-        <button @click="sampleType = 'layout'">Layout</button>
-        <button @click="sampleType = 'table'">Table</button>
+        <button @click="fontSample = 'AlphabetSample'">Alphabet</button>
+        <button @click="fontSample = 'ParagraphSample'">Paragraph (enter own, random)</button>
+        <button @click="fontSample = 'LayoutSample'">Layout</button>
+        <button @click="fontSample = 'TableSample'">Table</button>
         <button @click="showJSON = !showJSON">Show JSON</button>
       </div>
     </header>
@@ -45,7 +45,8 @@
           class="font__sample"
           :style="{ fontFamily: font.family }"
         >
-          {{ customSample || sample(font) }}
+          <!-- {{ customSample || sample(font) }} -->
+          <component :is="fontSample" />
         </div>
         <small v-if="showJSON">
           <pre>{{ font }}</pre>
@@ -56,137 +57,151 @@
 </template>
 
 <script>
-import WebFont from 'webfontloader'
-// import flexFilter from './filter.js'
+  import AlphabetSample from '@/components/samples/AlphabetSample'
+  import CustomSample from '@/components/samples/CustomSample'
+  import FontNameSample from '@/components/samples/FontNameSample'
+  import LayoutSample from '@/components/samples/LayoutSample'
+  import ParagraphSample from '@/components/samples/ParagraphSample'
+  import TableSample from '@/components/samples/TableSample'
+  import WebFont from 'webfontloader'
+  // import flexFilter from './filter.js'
 
-export default {
-  name: 'App',
-  data() {
-    return {
-      customSample: '',
-      alphabetSample: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*',
-      filters: {
-        category: 'monospace'
-        // variants: ['2'],
-        // subsets: ['latin']
+  export default {
+    name: 'App',
+    components: {
+      AlphabetSample,
+      CustomSample,
+      FontNameSample,
+      LayoutSample,
+      ParagraphSample,
+      TableSample
+    },
+    data() {
+      return {
+        customSample: '',
+        filters: {
+          category: 'monospace'
+          // variants: ['2'],
+          // subsets: ['latin']
+        },
+        fontSample: 'CustomSample',
+        criteria: [
+          { Field: 'category', Values: ['monospace'] },
+          // { Field: 'variants', Values: ['700'] }
+        ],
+        googleFonts: [],
+        loadedFonts: [],
+        // sampleType: null,
+        showJSON: false
+      };
+    },
+    computed: {
+      categories() {
+        return new Set(this.googleFonts.map(font => font.category))
       },
-      criteria: [
-        { Field: 'category', Values: ['monospace'] },
-        // { Field: 'variants', Values: ['700'] }
-      ],
-      googleFonts: [],
-      loadedFonts: [],
-      sampleType: null,
-      showJSON: false
-    };
-  },
-  computed: {
-    categories() {
-      return new Set(this.googleFonts.map(font => font.category))
-    },
-    filteredFonts() {
-      return this.googleFonts.filter(font => font.category == this.filters.category)
-    },
-    fontCount() {
-      return this.filteredFonts.length
-    }
-  },
-  methods: {
-    sample(font) {
-      switch (this.sampleType) {
-        case 'custom':
-          return this.customSample
-          break;
-        case 'alphabet':
-          return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*'
-          break;
-        case 'paragraph':
-          return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus tincidunt gravida. Integer tincidunt, nisi at luctus sagittis, felis leo molestie velit, sed semper orci mauris ullamcorper ante. Vestibulum sed dapibus eros. Morbi finibus nisi interdum lorem malesuada, in laoreet mauris consequat. Quisque eget metus rhoncus, mattis nisi non, pretium massa. Duis at condimentum massa. Maecenas condimentum faucibus ante, sit amet laoreet est auctor vitae. Donec sed risus lorem. Nam aliquam sapien in accumsan porta.'
-          break;
-        case 'layout':
-          return 'layout'
-          break;
-        case 'table':
-          return 'table'
-          break;
-        default:
-          return font.family
-          break;
+      filteredFonts() {
+        return this.googleFonts.filter(font => font.category == this.filters.category)
+      },
+      fontCount() {
+        return this.filteredFonts.length
       }
     },
-    fetchGoogleFonts() {
-      fetch(
-        'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
-      )
-      .then(response => response.json())
-      .then(response => this.googleFonts = response.items)
-    },
-    fontInfo(font) {
-      let label = font.variants.length > 1 ? 'weights' : 'weight'
-      // if it doesn't have italics
-      if (!font.variants.includes('italic')) {
-        return `${font.variants.length} ${label}`
-      } else {
-        return `${font.variants.length / 2} ${label} w/ italics`
-      }
-    },
-    key() {
-      return Math.random() * (999 - 1) + 1
-    },
-    loadFonts() {
-      WebFont.load({
-        google: {
-          families: this.loadedFonts
-        },
-        loading: function() {
-          this.fontsLoaded = false
-        },
-        active: function() {
-          this.fontsLoaded = true
-        },
-        inactive: function() {
-          this.fontsLoaded = false
-        },
-        fontloading: function(familyName, fvd) {
-          this.fontsLoaded = false
-        },
-        fontactive: function(familyName, fvd) {
-          this.fontsLoaded = true
-        },
-        fontinactive: function(familyName, fvd) {
-          this.fontsLoaded = false
+    methods: {
+      sample(font) {
+        switch (this.sampleType) {
+          case 'custom':
+            return this.customSample
+            break;
+          case 'alphabet':
+            return '<p>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<br />‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*</p>'
+            break;
+          case 'paragraph':
+            return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus tincidunt gravida. Integer tincidunt, nisi at luctus sagittis, felis leo molestie velit, sed semper orci mauris ullamcorper ante. Vestibulum sed dapibus eros. Morbi finibus nisi interdum lorem malesuada, in laoreet mauris consequat. Quisque eget metus rhoncus, mattis nisi non, pretium massa. Duis at condimentum massa. Maecenas condimentum faucibus ante, sit amet laoreet est auctor vitae. Donec sed risus lorem. Nam aliquam sapien in accumsan porta.'
+            break;
+          case 'layout':
+            return 'layout'
+            break;
+          case 'table':
+            return 'table'
+            break;
+          default:
+            return font.family
+            break;
         }
-      });
-    }
-  },
-  mounted() {
-    this.fetchGoogleFonts()
-    
-    // load fonts when visible
-    // var callback = function(entries, observer) { 
-    //   entries.forEach(entry => {
-    //     console.log(entry)
-    //   })
-    // }
-    // var options = {
-    //   root: null,
-    //   rootMargin: '0px',
-    //   threshold: 1.0
-    // }
-    // var observer = new IntersectionObserver(callback, options)
-    
-    // var target = document.querySelector('.font')
-    // observer.observe(target)
-    
-  },
-  watch: {
-    filteredFonts: function() {
-      let fonts = this.filteredFonts.map(font => font.family)
-      this.loadedFonts = fonts
-      this.loadFonts()
+      },
+      fetchGoogleFonts() {
+        fetch(
+          'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
+        )
+        .then(response => response.json())
+        .then(response => this.googleFonts = response.items)
+      },
+      fontInfo(font) {
+        let label = font.variants.length > 1 ? 'weights' : 'weight'
+        // if it doesn't have italics
+        if (!font.variants.includes('italic')) {
+          return `${font.variants.length} ${label}`
+        } else {
+          return `${font.variants.length / 2} ${label} w/ italics`
+        }
+      },
+      key() {
+        return Math.random() * (999 - 1) + 1
+      },
+      loadFonts() {
+        WebFont.load({
+          google: {
+            families: this.loadedFonts
+          },
+          loading: function() {
+            this.fontsLoaded = false
+          },
+          active: function() {
+            this.fontsLoaded = true
+          },
+          inactive: function() {
+            this.fontsLoaded = false
+          },
+          fontloading: function(familyName, fvd) {
+            this.fontsLoaded = false
+          },
+          fontactive: function(familyName, fvd) {
+            this.fontsLoaded = true
+          },
+          fontinactive: function(familyName, fvd) {
+            this.fontsLoaded = false
+          }
+        });
+      }
+    },
+    mounted() {
+      this.fetchGoogleFonts()
+      
+      // load fonts when visible
+      // var callback = function(entries, observer) { 
+      //   entries.forEach(entry => {
+      //     console.log(entry)
+      //   })
+      // }
+      // var options = {
+      //   root: null,
+      //   rootMargin: '0px',
+      //   threshold: 1.0
+      // }
+      // var observer = new IntersectionObserver(callback, options)
+      
+      // var target = document.querySelector('.font')
+      // observer.observe(target)
+      
+    },
+    watch: {
+      filteredFonts: function() {
+        let fonts = this.filteredFonts.map(font => font.family)
+        this.loadedFonts = fonts
+        this.loadFonts()
+      }
     }
   }
-};
 </script>
 
 <style lang="scss">
