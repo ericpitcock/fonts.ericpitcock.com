@@ -13,11 +13,12 @@
       </ul>
     </header>
     <div class="controls">
-      <button>String (enter own, random)</button>
+      <button @click="sampleType = 'custom'">String (enter own, random)</button>
       <input v-model="customSample" type="text">
-      <button>Paragraph (enter own, random)</button>
-      <button>Layout</button>
-      <button>Table</button>
+      <button @click="sampleType = 'alphabet'">Alphabet</button>
+      <button @click="sampleType = 'paragraph'">Paragraph (enter own, random)</button>
+      <button @click="sampleType = 'layout'">Layout</button>
+      <button @click="sampleType = 'table'">Table</button>
       <button @click="showJSON = !showJSON">Show JSON</button>
     </div>
     <div class="count">
@@ -26,9 +27,16 @@
     </div>
     <main>
       <div v-for="font in filteredFonts" :key="key()">
-        <div class="font" :style="{ fontFamily: font.family }">{{ sample(font.family) }}</div>
-        <div><span v-for="variant in font.variants" :key="key()">{{ variant }}</span> <span v-if="customSample">{{ font.family }}</span></div>
-        <small v-if="showJSON"><pre>{{ font }}</pre></small>
+        <div class="font" :style="{ fontFamily: font.family }">
+          {{ sample(font) }}
+        </div>
+        <div>
+          <span v-for="variant in font.variants" :key="key()">{{ variant }}</span>
+          <span v-if="customSample">{{ font.family }}</span>
+        </div>
+        <small v-if="showJSON">
+          <pre>{{ font }}</pre>
+        </small>
       </div>
     </main>
   </div>
@@ -43,6 +51,7 @@ export default {
   data() {
     return {
       customSample: '',
+      alphabetSample: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*',
       filters: {
         category: 'monospace'
         // variants: ['2'],
@@ -54,6 +63,7 @@ export default {
       ],
       googleFonts: [],
       loadedFonts: [],
+      sampleType: null,
       showJSON: false
     };
   },
@@ -71,7 +81,26 @@ export default {
   },
   methods: {
     sample(font) {
-      return this.customSample || font
+      switch (this.sampleType) {
+        case 'custom':
+          return this.customSample
+          break;
+        case 'alphabet':
+          return 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*'
+          break;
+        case 'paragraph':
+          return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus tincidunt gravida. Integer tincidunt, nisi at luctus sagittis, felis leo molestie velit, sed semper orci mauris ullamcorper ante. Vestibulum sed dapibus eros. Morbi finibus nisi interdum lorem malesuada, in laoreet mauris consequat. Quisque eget metus rhoncus, mattis nisi non, pretium massa. Duis at condimentum massa. Maecenas condimentum faucibus ante, sit amet laoreet est auctor vitae. Donec sed risus lorem. Nam aliquam sapien in accumsan porta.'
+          break;
+        case 'layout':
+          return 'layout'
+          break;
+        case 'table':
+          return 'table'
+          break;
+        default:
+          return font.family
+          break;
+      }
     },
     fetchGoogleFonts() {
       fetch(
