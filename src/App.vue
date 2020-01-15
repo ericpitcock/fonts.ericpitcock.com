@@ -20,7 +20,7 @@
         <input v-model="customSample" type="text">
         <button @click="fontSample = 'AlphabetSample'">Alphabet</button>
         <button @click="fontSample = 'ParagraphSample'">Paragraph (enter own, random)</button>
-        <button @click="fontSample = 'LayoutSample'">Layout</button>
+        <!-- <button @click="fontSample = 'LayoutSample'">Layout</button> -->
         <button @click="fontSample = 'TableSample'">Table</button>
         <button @click="showJSON = !showJSON">Show JSON</button>
       </div>
@@ -60,7 +60,7 @@
   import AlphabetSample from '@/components/samples/AlphabetSample'
   import CustomSample from '@/components/samples/CustomSample'
   import FontNameSample from '@/components/samples/FontNameSample'
-  import LayoutSample from '@/components/samples/LayoutSample'
+  // import LayoutSample from '@/components/samples/LayoutSample'
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
   import WebFont from 'webfontloader'
@@ -72,7 +72,7 @@
       AlphabetSample,
       CustomSample,
       FontNameSample,
-      LayoutSample,
+      // LayoutSample,
       ParagraphSample,
       TableSample
     },
@@ -211,12 +211,15 @@
     src: url('/fonts/390A5D_0_0.woff2') format('woff2');
   }
   body {
+    display: flex;
+    justify-content: center;
     font-family: 'CallingCode-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-size: 14px;
     // line-height: 18px;
     color: black;
   }
   #app {
+    flex: 0 1 1200px;
     height: 100%;
     display: flex;
     flex-direction: column
@@ -233,11 +236,14 @@
     }
   }
   .category-filters {
-    display: flex;
+    // display: flex;
+    // align-content: center;
+    // justify-content: center;
+    // background: red;
     // padding: 20px 0 0 30px;
     span {
-      position: relative;
-      padding: 0 0 3px 0;
+      // position: relative;
+      // padding: 0 0 3px 0;
       // border: 1px solid transparent;
       cursor: pointer;
       &.active {
@@ -258,21 +264,23 @@
     flex: 0 1 calc(100vh - 100px);
     padding: 30px;
     overflow: scroll;
-    background: #f6f6f6;
+    background: #fff;
   }
   .font {
     display: flex;
+    align-items: center;
     // flex-direction: column;
-    padding: 40px;
+    padding: 60px 20px;
     // background: #fff;
-    border: 1px solid transparent;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
     &:hover {
-      background: #fff;
-      border-color: #e6e6e6;
+      background: #fcfcfc;
+      // border-color: #e6e6e6;
       cursor: pointer;
     }
     & + & {
-      // margin-top: 30px;
+      margin-top: -1px;
     }
     .left {
       flex: 0 0 200px;
