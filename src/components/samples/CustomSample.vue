@@ -1,5 +1,5 @@
 <template>
-  <div>{{ getCustomSample }}</div>
+  <div class="custom-sample">{{ getCustomSample }}</div>
 </template>
 
 <script>
@@ -11,10 +11,12 @@
       ...mapGetters([
         'getCustomSample'
       ])
-    },
+    }
   }
 </script>
 
 <style>
-
+  .custom-sample {
+    font-size: 40px;
+  }
 </style>

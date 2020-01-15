@@ -75,4 +75,4 @@ export default new Vuex.Store({
       commit("updateCustomSample", value)
     }
   }
-});
+})

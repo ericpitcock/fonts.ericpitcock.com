@@ -30,6 +30,7 @@
           {{ sampleType }}
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
+        <button @click="showJSON = !showJSON">Show JSON</button>
       </div>
     </header>
     <main>
@@ -288,9 +289,9 @@
       padding: 2px 10px 0 10px;
       border: 1px solid #e6e6e6;
       font-size: 11px;
-      cursor: pointer;
-      &:hover {
-        background: #e6e6e6;
+      &:hover:not(.sample-control__button--active) {
+        background: lighten(yellow, 40%);
+        cursor: pointer;
       }
       &--active {
         background: yellow;
