@@ -1,10 +1,17 @@
 <template>
-  <div>CustomSample</div>
+  <div>{{ getCustomSample }}</div>
 </template>
 
 <script>
-  export default {
+  import { mapGetters } from 'vuex'
 
+  export default {
+    name: 'CustomSample',
+    computed: {
+      ...mapGetters([
+        'getCustomSample'
+      ])
+    },
   }
 </script>
 

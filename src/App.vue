@@ -3,32 +3,39 @@
     <header>
       <div class="category-filters">
         <span
-          v-for="category in categories"
-          :key="key()"
+          v-for="(category, index) in categories"
+          :key="index"
           @click="filters.category = category"
-          :class="{ 'active': filters.category == category }"
+          :class="['category-filters__filter-button', { 'active': filters.category == category }]"
         >
+          <span v-if="category == 'sans-serif'">TEXT</span>
+          <span v-if="category == 'display'">HEADLINE</span>
           {{ category }}
+        </span>
+        <span>
+          <input type="checkbox" id="recommended" name="recommended" checked>
+          <label for="recommended">Recommended only</label>
         </span>
         <span class="font-count">
           {{ fontCount }} fonts
         </span>
       </div>
       <div class="sample-control">
-        <button @click="fontSample = 'FontNameSample'">Font name</button>
-        <button @click="fontSample = 'CustomSample'">String (enter own, random)</button>
-        <input v-model="customSample" type="text">
-        <button @click="fontSample = 'AlphabetSample'">Alphabet</button>
-        <button @click="fontSample = 'ParagraphSample'">Paragraph (enter own, random)</button>
-        <!-- <button @click="fontSample = 'LayoutSample'">Layout</button> -->
-        <button @click="fontSample = 'TableSample'">Table</button>
-        <button @click="showJSON = !showJSON">Show JSON</button>
+        <div
+          v-for="(sampleType, index) in ['FontNameSample', 'AlphabetSample', 'ParagraphSample', 'TableSample']"
+          :key="index"
+          :class="['sample-control__button', { 'sample-control__button--active': fontSample == sampleType }]"
+          @click="fontSample = sampleType"
+        >
+          {{ sampleType }}
+        </div>
+        <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
       </div>
     </header>
     <main>
       <div
-        v-for="font in filteredFonts"
-        :key="key()"
+        v-for="(font, index) in filteredFonts"
+        :key="index"
         class="font"
       >
         <div class="left">
@@ -78,13 +85,13 @@
     },
     data() {
       return {
-        customSample: '',
+        // customSample: '',
         filters: {
           category: 'monospace'
           // variants: ['2'],
           // subsets: ['latin']
         },
-        fontSample: 'CustomSample',
+        fontSample: 'FontNameSample',
         criteria: [
           { Field: 'category', Values: ['monospace'] },
           // { Field: 'variants', Values: ['700'] }
@@ -96,6 +103,15 @@
       };
     },
     computed: {
+      customSample: {
+        get() {
+          return this.$store.state.customSample
+        },
+        set(value) {
+          // this.$store.dispatch('updateCustomSample', value)
+          this.$store.dispatch('updateCustomSample', value)
+        }
+      },
       categories() {
         return new Set(this.googleFonts.map(font => font.category))
       },
@@ -107,6 +123,11 @@
       }
     },
     methods: {
+      customFocus() {
+        this.fontSample = 'CustomSample'
+        console.log('custom focus')
+        
+      },
       sample(font) {
         switch (this.sampleType) {
           case 'custom':
@@ -145,9 +166,9 @@
           return `${font.variants.length / 2} ${label} w/ italics`
         }
       },
-      key() {
-        return Math.random() * (999 - 1) + 1
-      },
+      // key() {
+      //   return Math.random() * (999 - 1) + 1
+      // },
       loadFonts() {
         WebFont.load({
           google: {
@@ -213,9 +234,10 @@
   body {
     display: flex;
     justify-content: center;
+  }
+  body, input, select, textarea {
     font-family: 'CallingCode-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-size: 14px;
-    // line-height: 18px;
     color: black;
   }
   #app {
@@ -241,6 +263,9 @@
     // justify-content: center;
     // background: red;
     // padding: 20px 0 0 30px;
+    &__filter-button {
+      text-transform: capitalize;
+    }
     span {
       // position: relative;
       // padding: 0 0 3px 0;
@@ -254,7 +279,50 @@
     }
   }
   .sample-control {
-    
+    display: flex;
+    margin-left: -6px;
+    &__button {
+      display: flex;
+      align-items: center;
+      height: 29px;
+      padding: 2px 10px 0 10px;
+      border: 1px solid #e6e6e6;
+      font-size: 11px;
+      cursor: pointer;
+      &:hover {
+        background: #e6e6e6;
+      }
+      &--active {
+        background: yellow;
+      }
+      & + & {
+        border-left: none;
+      }
+      &:first-child {
+        padding-left: 15px;
+        border-radius: 15px 0 0 15px;
+      }
+      &:last-child {
+        padding-right: 15px;
+        border-radius: 0 15px 15px 0;
+      }
+    }
+    .custom-sample-input {
+      width: 300px;
+      padding: 0 15px;
+      border: 1px solid #e6e6e6;
+      border-left: none;
+      border-radius: 0 15px 15px 0;
+      font-size: 11px;
+      &::placeholder {
+        font-size: 11px;
+        color: black;
+      }
+      &:focus {
+        background: yellow;
+        outline: none;
+      }
+    }
   }
   .font-count {
     font-size: 12px;
@@ -268,14 +336,14 @@
   }
   .font {
     display: flex;
-    align-items: center;
+    // align-items: center;
     // flex-direction: column;
     padding: 60px 20px;
     // background: #fff;
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
     &:hover {
-      background: #fcfcfc;
+      // background: #fcfcfc;
       // border-color: #e6e6e6;
       cursor: pointer;
     }
@@ -294,7 +362,7 @@
     }
     &__sample {
       flex: 1 1 auto;
-      font-size: 40px;
+      // font-size: 40px;
       // background: lightgrey;
     }
     &__info {
