@@ -1,0 +1,1376 @@
+[
+ {
+   "Unicode": "0020",
+   "Character": "",
+   "Glyph name": "space",
+   "Character name": "SPACE"
+ },
+ {
+   "Unicode": "0021",
+   "Character": "!",
+   "Glyph name": "exclam",
+   "Character name": "EXCLAMATION MARK"
+ },
+ {
+   "Unicode": "0022",
+   "Character": "\"",
+   "Glyph name": "quotedbl",
+   "Character name": "QUOTATION MARK"
+ },
+ {
+   "Unicode": "0023",
+   "Character": "#",
+   "Glyph name": "numbersign",
+   "Character name": "NUMBER SIGN"
+ },
+ {
+   "Unicode": "0024",
+   "Character": "$",
+   "Glyph name": "dollar",
+   "Character name": "DOLLAR SIGN"
+ },
+ {
+   "Unicode": "0025",
+   "Character": "%",
+   "Glyph name": "percent",
+   "Character name": "PERCENT SIGN"
+ },
+ {
+   "Unicode": "0026",
+   "Character": "&",
+   "Glyph name": "ampersand",
+   "Character name": "AMPERSAND"
+ },
+ {
+   "Unicode": "0027",
+   "Character": "'",
+   "Glyph name": "quotesingle",
+   "Character name": "APOSTROPHE"
+ },
+ {
+   "Unicode": "0028",
+   "Character": "(",
+   "Glyph name": "parenleft",
+   "Character name": "LEFT PARENTHESIS"
+ },
+ {
+   "Unicode": "0029",
+   "Character": ")",
+   "Glyph name": "parenright",
+   "Character name": "RIGHT PARENTHESIS"
+ },
+ {
+   "Unicode": "002A",
+   "Character": "*",
+   "Glyph name": "asterisk",
+   "Character name": "ASTERISK"
+ },
+ {
+   "Unicode": "002B",
+   "Character": "+",
+   "Glyph name": "plus",
+   "Character name": "PLUS SIGN"
+ },
+ {
+   "Unicode": "002C",
+   "Character": ",",
+   "Glyph name": "comma",
+   "Character name": "COMMA"
+ },
+ {
+   "Unicode": "002D",
+   "Character": "-",
+   "Glyph name": "hyphen",
+   "Character name": "HYPHEN-MINUS"
+ },
+ {
+   "Unicode": "002E",
+   "Character": ".",
+   "Glyph name": "period",
+   "Character name": "FULL STOP"
+ },
+ {
+   "Unicode": "002F",
+   "Character": "/",
+   "Glyph name": "slash",
+   "Character name": "SOLIDUS"
+ },
+ {
+   "Unicode": "0030",
+   "Character": "0",
+   "Glyph name": "zero",
+   "Character name": "DIGIT ZERO"
+ },
+ {
+   "Unicode": "0031",
+   "Character": "1",
+   "Glyph name": "one",
+   "Character name": "DIGIT ONE"
+ },
+ {
+   "Unicode": "0032",
+   "Character": "2",
+   "Glyph name": "two",
+   "Character name": "DIGIT TWO"
+ },
+ {
+   "Unicode": "0033",
+   "Character": "3",
+   "Glyph name": "three",
+   "Character name": "DIGIT THREE"
+ },
+ {
+   "Unicode": "0034",
+   "Character": "4",
+   "Glyph name": "four",
+   "Character name": "DIGIT FOUR"
+ },
+ {
+   "Unicode": "0035",
+   "Character": "5",
+   "Glyph name": "five",
+   "Character name": "DIGIT FIVE"
+ },
+ {
+   "Unicode": "0036",
+   "Character": "6",
+   "Glyph name": "six",
+   "Character name": "DIGIT SIX"
+ },
+ {
+   "Unicode": "0037",
+   "Character": "7",
+   "Glyph name": "seven",
+   "Character name": "DIGIT SEVEN"
+ },
+ {
+   "Unicode": "0038",
+   "Character": "8",
+   "Glyph name": "eight",
+   "Character name": "DIGIT EIGHT"
+ },
+ {
+   "Unicode": "0039",
+   "Character": "9",
+   "Glyph name": "nine",
+   "Character name": "DIGIT NINE"
+ },
+ {
+   "Unicode": "003A",
+   "Character": ":",
+   "Glyph name": "colon",
+   "Character name": "COLON"
+ },
+ {
+   "Unicode": "003B",
+   "Character": ";",
+   "Glyph name": "semicolon",
+   "Character name": "SEMICOLON"
+ },
+ {
+   "Unicode": "003C",
+   "Character": "<",
+   "Glyph name": "less",
+   "Character name": "LESS-THAN SIGN"
+ },
+ {
+   "Unicode": "003D",
+   "Character": "=",
+   "Glyph name": "equal",
+   "Character name": "EQUALS SIGN"
+ },
+ {
+   "Unicode": "003E",
+   "Character": ">",
+   "Glyph name": "greater",
+   "Character name": "GREATER-THAN SIGN"
+ },
+ {
+   "Unicode": "003F",
+   "Character": "?",
+   "Glyph name": "question",
+   "Character name": "QUESTION MARK"
+ },
+ {
+   "Unicode": "0040",
+   "Character": "@",
+   "Glyph name": "at",
+   "Character name": "COMMERCIAL AT"
+ },
+ {
+   "Unicode": "0041",
+   "Character": "A",
+   "Glyph name": "A",
+   "Character name": "LATIN CAPITAL LETTER A"
+ },
+ {
+   "Unicode": "0042",
+   "Character": "B",
+   "Glyph name": "B",
+   "Character name": "LATIN CAPITAL LETTER B"
+ },
+ {
+   "Unicode": "0043",
+   "Character": "C",
+   "Glyph name": "C",
+   "Character name": "LATIN CAPITAL LETTER C"
+ },
+ {
+   "Unicode": "0044",
+   "Character": "D",
+   "Glyph name": "D",
+   "Character name": "LATIN CAPITAL LETTER D"
+ },
+ {
+   "Unicode": "0045",
+   "Character": "E",
+   "Glyph name": "E",
+   "Character name": "LATIN CAPITAL LETTER E"
+ },
+ {
+   "Unicode": "0046",
+   "Character": "F",
+   "Glyph name": "F",
+   "Character name": "LATIN CAPITAL LETTER F"
+ },
+ {
+   "Unicode": "0047",
+   "Character": "G",
+   "Glyph name": "G",
+   "Character name": "LATIN CAPITAL LETTER G"
+ },
+ {
+   "Unicode": "0048",
+   "Character": "H",
+   "Glyph name": "H",
+   "Character name": "LATIN CAPITAL LETTER H"
+ },
+ {
+   "Unicode": "0049",
+   "Character": "I",
+   "Glyph name": "I",
+   "Character name": "LATIN CAPITAL LETTER I"
+ },
+ {
+   "Unicode": "004A",
+   "Character": "J",
+   "Glyph name": "J",
+   "Character name": "LATIN CAPITAL LETTER J"
+ },
+ {
+   "Unicode": "004B",
+   "Character": "K",
+   "Glyph name": "K",
+   "Character name": "LATIN CAPITAL LETTER K"
+ },
+ {
+   "Unicode": "004C",
+   "Character": "L",
+   "Glyph name": "L",
+   "Character name": "LATIN CAPITAL LETTER L"
+ },
+ {
+   "Unicode": "004D",
+   "Character": "M",
+   "Glyph name": "M",
+   "Character name": "LATIN CAPITAL LETTER M"
+ },
+ {
+   "Unicode": "004E",
+   "Character": "N",
+   "Glyph name": "N",
+   "Character name": "LATIN CAPITAL LETTER N"
+ },
+ {
+   "Unicode": "004F",
+   "Character": "O",
+   "Glyph name": "O",
+   "Character name": "LATIN CAPITAL LETTER O"
+ },
+ {
+   "Unicode": "0050",
+   "Character": "P",
+   "Glyph name": "P",
+   "Character name": "LATIN CAPITAL LETTER P"
+ },
+ {
+   "Unicode": "0051",
+   "Character": "Q",
+   "Glyph name": "Q",
+   "Character name": "LATIN CAPITAL LETTER Q"
+ },
+ {
+   "Unicode": "0052",
+   "Character": "R",
+   "Glyph name": "R",
+   "Character name": "LATIN CAPITAL LETTER R"
+ },
+ {
+   "Unicode": "0053",
+   "Character": "S",
+   "Glyph name": "S",
+   "Character name": "LATIN CAPITAL LETTER S"
+ },
+ {
+   "Unicode": "0054",
+   "Character": "T",
+   "Glyph name": "T",
+   "Character name": "LATIN CAPITAL LETTER T"
+ },
+ {
+   "Unicode": "0055",
+   "Character": "U",
+   "Glyph name": "U",
+   "Character name": "LATIN CAPITAL LETTER U"
+ },
+ {
+   "Unicode": "0056",
+   "Character": "V",
+   "Glyph name": "V",
+   "Character name": "LATIN CAPITAL LETTER V"
+ },
+ {
+   "Unicode": "0057",
+   "Character": "W",
+   "Glyph name": "W",
+   "Character name": "LATIN CAPITAL LETTER W"
+ },
+ {
+   "Unicode": "0058",
+   "Character": "X",
+   "Glyph name": "X",
+   "Character name": "LATIN CAPITAL LETTER X"
+ },
+ {
+   "Unicode": "0059",
+   "Character": "Y",
+   "Glyph name": "Y",
+   "Character name": "LATIN CAPITAL LETTER Y"
+ },
+ {
+   "Unicode": "005A",
+   "Character": "Z",
+   "Glyph name": "Z",
+   "Character name": "LATIN CAPITAL LETTER Z"
+ },
+ {
+   "Unicode": "005B",
+   "Character": "[",
+   "Glyph name": "bracketleft",
+   "Character name": "LEFT SQUARE BRACKET"
+ },
+ {
+   "Unicode": "005C",
+   "Character": "\\",
+   "Glyph name": "backslash",
+   "Character name": "REVERSE SOLIDUS"
+ },
+ {
+   "Unicode": "005D",
+   "Character": "]",
+   "Glyph name": "bracketright",
+   "Character name": "RIGHT SQUARE BRACKET"
+ },
+ {
+   "Unicode": "005E",
+   "Character": "^",
+   "Glyph name": "asciicircum",
+   "Character name": "CIRCUMFLEX ACCENT"
+ },
+ {
+   "Unicode": "005F",
+   "Character": "_",
+   "Glyph name": "underscore",
+   "Character name": "LOW LINE"
+ },
+ {
+   "Unicode": "0060",
+   "Character": "`",
+   "Glyph name": "grave",
+   "Character name": "GRAVE ACCENT"
+ },
+ {
+   "Unicode": "0061",
+   "Character": "a",
+   "Glyph name": "a",
+   "Character name": "LATIN SMALL LETTER A"
+ },
+ {
+   "Unicode": "0062",
+   "Character": "b",
+   "Glyph name": "b",
+   "Character name": "LATIN SMALL LETTER B"
+ },
+ {
+   "Unicode": "0063",
+   "Character": "c",
+   "Glyph name": "c",
+   "Character name": "LATIN SMALL LETTER C"
+ },
+ {
+   "Unicode": "0064",
+   "Character": "d",
+   "Glyph name": "d",
+   "Character name": "LATIN SMALL LETTER D"
+ },
+ {
+   "Unicode": "0065",
+   "Character": "e",
+   "Glyph name": "e",
+   "Character name": "LATIN SMALL LETTER E"
+ },
+ {
+   "Unicode": "0066",
+   "Character": "f",
+   "Glyph name": "f",
+   "Character name": "LATIN SMALL LETTER F"
+ },
+ {
+   "Unicode": "0067",
+   "Character": "g",
+   "Glyph name": "g",
+   "Character name": "LATIN SMALL LETTER G"
+ },
+ {
+   "Unicode": "0068",
+   "Character": "h",
+   "Glyph name": "h",
+   "Character name": "LATIN SMALL LETTER H"
+ },
+ {
+   "Unicode": "0069",
+   "Character": "i",
+   "Glyph name": "i",
+   "Character name": "LATIN SMALL LETTER I"
+ },
+ {
+   "Unicode": "006A",
+   "Character": "j",
+   "Glyph name": "j",
+   "Character name": "LATIN SMALL LETTER J"
+ },
+ {
+   "Unicode": "006B",
+   "Character": "k",
+   "Glyph name": "k",
+   "Character name": "LATIN SMALL LETTER K"
+ },
+ {
+   "Unicode": "006C",
+   "Character": "l",
+   "Glyph name": "l",
+   "Character name": "LATIN SMALL LETTER L"
+ },
+ {
+   "Unicode": "006D",
+   "Character": "m",
+   "Glyph name": "m",
+   "Character name": "LATIN SMALL LETTER M"
+ },
+ {
+   "Unicode": "006E",
+   "Character": "n",
+   "Glyph name": "n",
+   "Character name": "LATIN SMALL LETTER N"
+ },
+ {
+   "Unicode": "006F",
+   "Character": "o",
+   "Glyph name": "o",
+   "Character name": "LATIN SMALL LETTER O"
+ },
+ {
+   "Unicode": "0070",
+   "Character": "p",
+   "Glyph name": "p",
+   "Character name": "LATIN SMALL LETTER P"
+ },
+ {
+   "Unicode": "0071",
+   "Character": "q",
+   "Glyph name": "q",
+   "Character name": "LATIN SMALL LETTER Q"
+ },
+ {
+   "Unicode": "0072",
+   "Character": "r",
+   "Glyph name": "r",
+   "Character name": "LATIN SMALL LETTER R"
+ },
+ {
+   "Unicode": "0073",
+   "Character": "s",
+   "Glyph name": "s",
+   "Character name": "LATIN SMALL LETTER S"
+ },
+ {
+   "Unicode": "0074",
+   "Character": "t",
+   "Glyph name": "t",
+   "Character name": "LATIN SMALL LETTER T"
+ },
+ {
+   "Unicode": "0075",
+   "Character": "u",
+   "Glyph name": "u",
+   "Character name": "LATIN SMALL LETTER U"
+ },
+ {
+   "Unicode": "0076",
+   "Character": "v",
+   "Glyph name": "v",
+   "Character name": "LATIN SMALL LETTER V"
+ },
+ {
+   "Unicode": "0077",
+   "Character": "w",
+   "Glyph name": "w",
+   "Character name": "LATIN SMALL LETTER W"
+ },
+ {
+   "Unicode": "0078",
+   "Character": "x",
+   "Glyph name": "x",
+   "Character name": "LATIN SMALL LETTER X"
+ },
+ {
+   "Unicode": "0079",
+   "Character": "y",
+   "Glyph name": "y",
+   "Character name": "LATIN SMALL LETTER Y"
+ },
+ {
+   "Unicode": "007A",
+   "Character": "z",
+   "Glyph name": "z",
+   "Character name": "LATIN SMALL LETTER Z"
+ },
+ {
+   "Unicode": "007B",
+   "Character": "{",
+   "Glyph name": "braceleft",
+   "Character name": "LEFT CURLY BRACKET"
+ },
+ {
+   "Unicode": "007C",
+   "Character": "|",
+   "Glyph name": "bar",
+   "Character name": "VERTICAL LINE"
+ },
+ {
+   "Unicode": "007D",
+   "Character": "}",
+   "Glyph name": "braceright",
+   "Character name": "RIGHT CURLY BRACKET"
+ },
+ {
+   "Unicode": "007E",
+   "Character": "~",
+   "Glyph name": "asciitilde",
+   "Character name": "TILDE"
+ },
+ {
+   "Unicode": "00A1",
+   "Character": "¡",
+   "Glyph name": "exclamdown",
+   "Character name": "INVERTED EXCLAMATION MARK"
+ },
+ {
+   "Unicode": "00A2",
+   "Character": "¢",
+   "Glyph name": "cent",
+   "Character name": "CENT SIGN"
+ },
+ {
+   "Unicode": "00A3",
+   "Character": "£",
+   "Glyph name": "sterling",
+   "Character name": "POUND SIGN"
+ },
+ {
+   "Unicode": "00A4",
+   "Character": "¤",
+   "Glyph name": "currency",
+   "Character name": "CURRENCY SIGN"
+ },
+ {
+   "Unicode": "00A5",
+   "Character": "¥",
+   "Glyph name": "yen",
+   "Character name": "YEN SIGN"
+ },
+ {
+   "Unicode": "00A6",
+   "Character": "¦",
+   "Glyph name": "brokenbar",
+   "Character name": "BROKEN BAR"
+ },
+ {
+   "Unicode": "00A7",
+   "Character": "§",
+   "Glyph name": "section",
+   "Character name": "SECTION SIGN"
+ },
+ {
+   "Unicode": "00A8",
+   "Character": "¨",
+   "Glyph name": "dieresis",
+   "Character name": "DIAERESIS"
+ },
+ {
+   "Unicode": "00A9",
+   "Character": "©",
+   "Glyph name": "copyright",
+   "Character name": "COPYRIGHT SIGN"
+ },
+ {
+   "Unicode": "00AA",
+   "Character": "ª",
+   "Glyph name": "ordfeminine",
+   "Character name": "FEMININE ORDINAL INDICATOR"
+ },
+ {
+   "Unicode": "00AB",
+   "Character": "«",
+   "Glyph name": "guillemotleft",
+   "Character name": "LEFT-POINTING DOUBLE ANGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "00AC",
+   "Character": "¬",
+   "Glyph name": "logicalnot",
+   "Character name": "NOT SIGN"
+ },
+ {
+   "Unicode": "00AE",
+   "Character": "®",
+   "Glyph name": "registered",
+   "Character name": "REGISTERED SIGN"
+ },
+ {
+   "Unicode": "00AF",
+   "Character": "¯",
+   "Glyph name": "macron",
+   "Character name": "MACRON"
+ },
+ {
+   "Unicode": "00B0",
+   "Character": "°",
+   "Glyph name": "degree",
+   "Character name": "DEGREE SIGN"
+ },
+ {
+   "Unicode": "00B1",
+   "Character": "±",
+   "Glyph name": "plusminus",
+   "Character name": "PLUS-MINUS SIGN"
+ },
+ {
+   "Unicode": "00B2",
+   "Character": "²",
+   "Glyph name": "twosuperior",
+   "Character name": "SUPERSCRIPT TWO"
+ },
+ {
+   "Unicode": "00B3",
+   "Character": "³",
+   "Glyph name": "threesuperior",
+   "Character name": "SUPERSCRIPT THREE"
+ },
+ {
+   "Unicode": "00B4",
+   "Character": "´",
+   "Glyph name": "acute",
+   "Character name": "ACUTE ACCENT"
+ },
+ {
+   "Unicode": "00B5",
+   "Character": "µ",
+   "Glyph name": "uni00B5",
+   "Character name": "MICRO SIGN"
+ },
+ {
+   "Unicode": "00B6",
+   "Character": "¶",
+   "Glyph name": "paragraph",
+   "Character name": "PILCROW SIGN"
+ },
+ {
+   "Unicode": "00B7",
+   "Character": "·",
+   "Glyph name": "periodcentered",
+   "Character name": "MIDDLE DOT"
+ },
+ {
+   "Unicode": "00B8",
+   "Character": "¸",
+   "Glyph name": "cedilla",
+   "Character name": "CEDILLA"
+ },
+ {
+   "Unicode": "00B9",
+   "Character": "¹",
+   "Glyph name": "onesuperior",
+   "Character name": "SUPERSCRIPT ONE"
+ },
+ {
+   "Unicode": "00BA",
+   "Character": "º",
+   "Glyph name": "ordmasculine",
+   "Character name": "MASCULINE ORDINAL INDICATOR"
+ },
+ {
+   "Unicode": "00BB",
+   "Character": "»",
+   "Glyph name": "guillemotright",
+   "Character name": "RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "00BC",
+   "Character": "¼",
+   "Glyph name": "onequarter",
+   "Character name": "VULGAR FRACTION ONE QUARTER"
+ },
+ {
+   "Unicode": "00BD",
+   "Character": "½",
+   "Glyph name": "onehalf",
+   "Character name": "VULGAR FRACTION ONE HALF"
+ },
+ {
+   "Unicode": "00BE",
+   "Character": "¾",
+   "Glyph name": "threequarters",
+   "Character name": "VULGAR FRACTION THREE QUARTERS"
+ },
+ {
+   "Unicode": "00BF",
+   "Character": "¿",
+   "Glyph name": "questiondown",
+   "Character name": "INVERTED QUESTION MARK"
+ },
+ {
+   "Unicode": "00C0",
+   "Character": "À",
+   "Glyph name": "Agrave",
+   "Character name": "LATIN CAPITAL LETTER A WITH GRAVE"
+ },
+ {
+   "Unicode": "00C1",
+   "Character": "Á",
+   "Glyph name": "Aacute",
+   "Character name": "LATIN CAPITAL LETTER A WITH ACUTE"
+ },
+ {
+   "Unicode": "00C2",
+   "Character": "Â",
+   "Glyph name": "Acircumflex",
+   "Character name": "LATIN CAPITAL LETTER A WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00C3",
+   "Character": "Ã",
+   "Glyph name": "Atilde",
+   "Character name": "LATIN CAPITAL LETTER A WITH TILDE"
+ },
+ {
+   "Unicode": "00C4",
+   "Character": "Ä",
+   "Glyph name": "Adieresis",
+   "Character name": "LATIN CAPITAL LETTER A WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00C5",
+   "Character": "Å",
+   "Glyph name": "Aring",
+   "Character name": "LATIN CAPITAL LETTER A WITH RING ABOVE"
+ },
+ {
+   "Unicode": "00C6",
+   "Character": "Æ",
+   "Glyph name": "AE",
+   "Character name": "LATIN CAPITAL LETTER AE"
+ },
+ {
+   "Unicode": "00C7",
+   "Character": "Ç",
+   "Glyph name": "Ccedilla",
+   "Character name": "LATIN CAPITAL LETTER C WITH CEDILLA"
+ },
+ {
+   "Unicode": "00C8",
+   "Character": "È",
+   "Glyph name": "Egrave",
+   "Character name": "LATIN CAPITAL LETTER E WITH GRAVE"
+ },
+ {
+   "Unicode": "00C9",
+   "Character": "É",
+   "Glyph name": "Eacute",
+   "Character name": "LATIN CAPITAL LETTER E WITH ACUTE"
+ },
+ {
+   "Unicode": "00CA",
+   "Character": "Ê",
+   "Glyph name": "Ecircumflex",
+   "Character name": "LATIN CAPITAL LETTER E WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00CB",
+   "Character": "Ë",
+   "Glyph name": "Edieresis",
+   "Character name": "LATIN CAPITAL LETTER E WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00CC",
+   "Character": "Ì",
+   "Glyph name": "Igrave",
+   "Character name": "LATIN CAPITAL LETTER I WITH GRAVE"
+ },
+ {
+   "Unicode": "00CD",
+   "Character": "Í",
+   "Glyph name": "Iacute",
+   "Character name": "LATIN CAPITAL LETTER I WITH ACUTE"
+ },
+ {
+   "Unicode": "00CE",
+   "Character": "Î",
+   "Glyph name": "Icircumflex",
+   "Character name": "LATIN CAPITAL LETTER I WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00CF",
+   "Character": "Ï",
+   "Glyph name": "Idieresis",
+   "Character name": "LATIN CAPITAL LETTER I WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00D0",
+   "Character": "Ð",
+   "Glyph name": "Eth",
+   "Character name": "LATIN CAPITAL LETTER ETH"
+ },
+ {
+   "Unicode": "00D1",
+   "Character": "Ñ",
+   "Glyph name": "Ntilde",
+   "Character name": "LATIN CAPITAL LETTER N WITH TILDE"
+ },
+ {
+   "Unicode": "00D2",
+   "Character": "Ò",
+   "Glyph name": "Ograve",
+   "Character name": "LATIN CAPITAL LETTER O WITH GRAVE"
+ },
+ {
+   "Unicode": "00D3",
+   "Character": "Ó",
+   "Glyph name": "Oacute",
+   "Character name": "LATIN CAPITAL LETTER O WITH ACUTE"
+ },
+ {
+   "Unicode": "00D4",
+   "Character": "Ô",
+   "Glyph name": "Ocircumflex",
+   "Character name": "LATIN CAPITAL LETTER O WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00D5",
+   "Character": "Õ",
+   "Glyph name": "Otilde",
+   "Character name": "LATIN CAPITAL LETTER O WITH TILDE"
+ },
+ {
+   "Unicode": "00D6",
+   "Character": "Ö",
+   "Glyph name": "Odieresis",
+   "Character name": "LATIN CAPITAL LETTER O WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00D7",
+   "Character": "×",
+   "Glyph name": "multiply",
+   "Character name": "MULTIPLICATION SIGN"
+ },
+ {
+   "Unicode": "00D8",
+   "Character": "Ø",
+   "Glyph name": "Oslash",
+   "Character name": "LATIN CAPITAL LETTER O WITH STROKE"
+ },
+ {
+   "Unicode": "00D9",
+   "Character": "Ù",
+   "Glyph name": "Ugrave",
+   "Character name": "LATIN CAPITAL LETTER U WITH GRAVE"
+ },
+ {
+   "Unicode": "00DA",
+   "Character": "Ú",
+   "Glyph name": "Uacute",
+   "Character name": "LATIN CAPITAL LETTER U WITH ACUTE"
+ },
+ {
+   "Unicode": "00DB",
+   "Character": "Û",
+   "Glyph name": "Ucircumflex",
+   "Character name": "LATIN CAPITAL LETTER U WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00DC",
+   "Character": "Ü",
+   "Glyph name": "Udieresis",
+   "Character name": "LATIN CAPITAL LETTER U WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00DD",
+   "Character": "Ý",
+   "Glyph name": "Yacute",
+   "Character name": "LATIN CAPITAL LETTER Y WITH ACUTE"
+ },
+ {
+   "Unicode": "00DE",
+   "Character": "Þ",
+   "Glyph name": "Thorn",
+   "Character name": "LATIN CAPITAL LETTER THORN"
+ },
+ {
+   "Unicode": "00DF",
+   "Character": "ß",
+   "Glyph name": "germandbls",
+   "Character name": "LATIN SMALL LETTER SHARP S"
+ },
+ {
+   "Unicode": "00E0",
+   "Character": "à",
+   "Glyph name": "agrave",
+   "Character name": "LATIN SMALL LETTER A WITH GRAVE"
+ },
+ {
+   "Unicode": "00E1",
+   "Character": "á",
+   "Glyph name": "aacute",
+   "Character name": "LATIN SMALL LETTER A WITH ACUTE"
+ },
+ {
+   "Unicode": "00E2",
+   "Character": "â",
+   "Glyph name": "acircumflex",
+   "Character name": "LATIN SMALL LETTER A WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00E3",
+   "Character": "ã",
+   "Glyph name": "atilde",
+   "Character name": "LATIN SMALL LETTER A WITH TILDE"
+ },
+ {
+   "Unicode": "00E4",
+   "Character": "ä",
+   "Glyph name": "adieresis",
+   "Character name": "LATIN SMALL LETTER A WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00E5",
+   "Character": "å",
+   "Glyph name": "aring",
+   "Character name": "LATIN SMALL LETTER A WITH RING ABOVE"
+ },
+ {
+   "Unicode": "00E6",
+   "Character": "æ",
+   "Glyph name": "ae",
+   "Character name": "LATIN SMALL LETTER AE"
+ },
+ {
+   "Unicode": "00E7",
+   "Character": "ç",
+   "Glyph name": "ccedilla",
+   "Character name": "LATIN SMALL LETTER C WITH CEDILLA"
+ },
+ {
+   "Unicode": "00E8",
+   "Character": "è",
+   "Glyph name": "egrave",
+   "Character name": "LATIN SMALL LETTER E WITH GRAVE"
+ },
+ {
+   "Unicode": "00E9",
+   "Character": "é",
+   "Glyph name": "eacute",
+   "Character name": "LATIN SMALL LETTER E WITH ACUTE"
+ },
+ {
+   "Unicode": "00EA",
+   "Character": "ê",
+   "Glyph name": "ecircumflex",
+   "Character name": "LATIN SMALL LETTER E WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00EB",
+   "Character": "ë",
+   "Glyph name": "edieresis",
+   "Character name": "LATIN SMALL LETTER E WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00EC",
+   "Character": "ì",
+   "Glyph name": "igrave",
+   "Character name": "LATIN SMALL LETTER I WITH GRAVE"
+ },
+ {
+   "Unicode": "00ED",
+   "Character": "í",
+   "Glyph name": "iacute",
+   "Character name": "LATIN SMALL LETTER I WITH ACUTE"
+ },
+ {
+   "Unicode": "00EE",
+   "Character": "î",
+   "Glyph name": "icircumflex",
+   "Character name": "LATIN SMALL LETTER I WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00EF",
+   "Character": "ï",
+   "Glyph name": "idieresis",
+   "Character name": "LATIN SMALL LETTER I WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00F0",
+   "Character": "ð",
+   "Glyph name": "eth",
+   "Character name": "LATIN SMALL LETTER ETH"
+ },
+ {
+   "Unicode": "00F1",
+   "Character": "ñ",
+   "Glyph name": "ntilde",
+   "Character name": "LATIN SMALL LETTER N WITH TILDE"
+ },
+ {
+   "Unicode": "00F2",
+   "Character": "ò",
+   "Glyph name": "ograve",
+   "Character name": "LATIN SMALL LETTER O WITH GRAVE"
+ },
+ {
+   "Unicode": "00F3",
+   "Character": "ó",
+   "Glyph name": "oacute",
+   "Character name": "LATIN SMALL LETTER O WITH ACUTE"
+ },
+ {
+   "Unicode": "00F4",
+   "Character": "ô",
+   "Glyph name": "ocircumflex",
+   "Character name": "LATIN SMALL LETTER O WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00F5",
+   "Character": "õ",
+   "Glyph name": "otilde",
+   "Character name": "LATIN SMALL LETTER O WITH TILDE"
+ },
+ {
+   "Unicode": "00F6",
+   "Character": "ö",
+   "Glyph name": "odieresis",
+   "Character name": "LATIN SMALL LETTER O WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00F7",
+   "Character": "÷",
+   "Glyph name": "divide",
+   "Character name": "DIVISION SIGN"
+ },
+ {
+   "Unicode": "00F8",
+   "Character": "ø",
+   "Glyph name": "oslash",
+   "Character name": "LATIN SMALL LETTER O WITH STROKE"
+ },
+ {
+   "Unicode": "00F9",
+   "Character": "ù",
+   "Glyph name": "ugrave",
+   "Character name": "LATIN SMALL LETTER U WITH GRAVE"
+ },
+ {
+   "Unicode": "00FA",
+   "Character": "ú",
+   "Glyph name": "uacute",
+   "Character name": "LATIN SMALL LETTER U WITH ACUTE"
+ },
+ {
+   "Unicode": "00FB",
+   "Character": "û",
+   "Glyph name": "ucircumflex",
+   "Character name": "LATIN SMALL LETTER U WITH CIRCUMFLEX"
+ },
+ {
+   "Unicode": "00FC",
+   "Character": "ü",
+   "Glyph name": "udieresis",
+   "Character name": "LATIN SMALL LETTER U WITH DIAERESIS"
+ },
+ {
+   "Unicode": "00FD",
+   "Character": "ý",
+   "Glyph name": "yacute",
+   "Character name": "LATIN SMALL LETTER Y WITH ACUTE"
+ },
+ {
+   "Unicode": "00FE",
+   "Character": "þ",
+   "Glyph name": "thorn",
+   "Character name": "LATIN SMALL LETTER THORN"
+ },
+ {
+   "Unicode": "00FF",
+   "Character": "ÿ",
+   "Glyph name": "ydieresis",
+   "Character name": "LATIN SMALL LETTER Y WITH DIAERESIS"
+ },
+ {
+   "Unicode": "0131",
+   "Character": "ı",
+   "Glyph name": "dotlessi",
+   "Character name": "LATIN SMALL LETTER DOTLESS I"
+ },
+ {
+   "Unicode": "0141",
+   "Character": "Ł",
+   "Glyph name": "Lslash",
+   "Character name": "LATIN CAPITAL LETTER L WITH STROKE"
+ },
+ {
+   "Unicode": "0142",
+   "Character": "ł",
+   "Glyph name": "lslash",
+   "Character name": "LATIN SMALL LETTER L WITH STROKE"
+ },
+ {
+   "Unicode": "0152",
+   "Character": "Œ",
+   "Glyph name": "OE",
+   "Character name": "LATIN CAPITAL LIGATURE OE"
+ },
+ {
+   "Unicode": "0153",
+   "Character": "œ",
+   "Glyph name": "oe",
+   "Character name": "LATIN SMALL LIGATURE OE"
+ },
+ {
+   "Unicode": "0160",
+   "Character": "Š",
+   "Glyph name": "Scaron",
+   "Character name": "LATIN CAPITAL LETTER S WITH CARON"
+ },
+ {
+   "Unicode": "0161",
+   "Character": "š",
+   "Glyph name": "scaron",
+   "Character name": "LATIN SMALL LETTER S WITH CARON"
+ },
+ {
+   "Unicode": "0178",
+   "Character": "Ÿ",
+   "Glyph name": "Ydieresis",
+   "Character name": "LATIN CAPITAL LETTER Y WITH DIAERESIS"
+ },
+ {
+   "Unicode": "017D",
+   "Character": "Ž",
+   "Glyph name": "Zcaron",
+   "Character name": "LATIN CAPITAL LETTER Z WITH CARON"
+ },
+ {
+   "Unicode": "017E",
+   "Character": "ž",
+   "Glyph name": "zcaron",
+   "Character name": "LATIN SMALL LETTER Z WITH CARON"
+ },
+ {
+   "Unicode": "0192",
+   "Character": "ƒ",
+   "Glyph name": "florin",
+   "Character name": "LATIN SMALL LETTER F WITH HOOK"
+ },
+ {
+   "Unicode": "02C6",
+   "Character": "ˆ",
+   "Glyph name": "circumflex",
+   "Character name": "MODIFIER LETTER CIRCUMFLEX ACCENT"
+ },
+ {
+   "Unicode": "02C7",
+   "Character": "ˇ",
+   "Glyph name": "caron",
+   "Character name": "CARON"
+ },
+ {
+   "Unicode": "02D8",
+   "Character": "˘",
+   "Glyph name": "breve",
+   "Character name": "BREVE"
+ },
+ {
+   "Unicode": "02D9",
+   "Character": "˙",
+   "Glyph name": "dotaccent",
+   "Character name": "DOT ABOVE"
+ },
+ {
+   "Unicode": "02DA",
+   "Character": "˚",
+   "Glyph name": "ring",
+   "Character name": "RING ABOVE"
+ },
+ {
+   "Unicode": "02DB",
+   "Character": "˛",
+   "Glyph name": "ogonek",
+   "Character name": "OGONEK"
+ },
+ {
+   "Unicode": "02DC",
+   "Character": "˜",
+   "Glyph name": "tilde",
+   "Character name": "SMALL TILDE"
+ },
+ {
+   "Unicode": "02DD",
+   "Character": "˝",
+   "Glyph name": "hungarumlaut",
+   "Character name": "DOUBLE ACUTE ACCENT"
+ },
+ {
+   "Unicode": "2013",
+   "Character": "–",
+   "Glyph name": "endash",
+   "Character name": "EN DASH"
+ },
+ {
+   "Unicode": "2014",
+   "Character": "—",
+   "Glyph name": "emdash",
+   "Character name": "EM DASH"
+ },
+ {
+   "Unicode": "2018",
+   "Character": "‘",
+   "Glyph name": "quoteleft",
+   "Character name": "LEFT SINGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "2019",
+   "Character": "’",
+   "Glyph name": "quoteright",
+   "Character name": "RIGHT SINGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "201A",
+   "Character": "‚",
+   "Glyph name": "quotesinglbase",
+   "Character name": "SINGLE LOW-9 QUOTATION MARK"
+ },
+ {
+   "Unicode": "201C",
+   "Character": "“",
+   "Glyph name": "quotedblleft",
+   "Character name": "LEFT DOUBLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "201D",
+   "Character": "”",
+   "Glyph name": "quotedblright",
+   "Character name": "RIGHT DOUBLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "201E",
+   "Character": "„",
+   "Glyph name": "quotedblbase",
+   "Character name": "DOUBLE LOW-9 QUOTATION MARK"
+ },
+ {
+   "Unicode": "2020",
+   "Character": "†",
+   "Glyph name": "dagger",
+   "Character name": "DAGGER"
+ },
+ {
+   "Unicode": "2021",
+   "Character": "‡",
+   "Glyph name": "daggerdbl",
+   "Character name": "DOUBLE DAGGER"
+ },
+ {
+   "Unicode": "2022",
+   "Character": "•",
+   "Glyph name": "bullet",
+   "Character name": "BULLET"
+ },
+ {
+   "Unicode": "2026",
+   "Character": "…",
+   "Glyph name": "ellipsis",
+   "Character name": "HORIZONTAL ELLIPSIS"
+ },
+ {
+   "Unicode": "2030",
+   "Character": "‰",
+   "Glyph name": "perthousand",
+   "Character name": "PER MILLE SIGN"
+ },
+ {
+   "Unicode": "2039",
+   "Character": "‹",
+   "Glyph name": "guilsinglleft",
+   "Character name": "SINGLE LEFT-POINTING ANGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "203A",
+   "Character": "›",
+   "Glyph name": "guilsinglright",
+   "Character name": "SINGLE RIGHT-POINTING ANGLE QUOTATION MARK"
+ },
+ {
+   "Unicode": "2044",
+   "Character": "⁄",
+   "Glyph name": "fraction",
+   "Character name": "FRACTION SLASH"
+ },
+ {
+   "Unicode": "20AC",
+   "Character": "€",
+   "Glyph name": "Euro",
+   "Character name": "EURO SIGN"
+ },
+ {
+   "Unicode": "2122",
+   "Character": "™",
+   "Glyph name": "trademark",
+   "Character name": "TRADE MARK SIGN"
+ },
+ {
+   "Unicode": "2212",
+   "Character": "−",
+   "Glyph name": "minus",
+   "Character name": "MINUS SIGN"
+ },
+ {
+   "Unicode": "FB01",
+   "Character": "ﬁ",
+   "Glyph name": "fi",
+   "Character name": "LATIN SMALL LIGATURE FI"
+ },
+ {
+   "Unicode": "FB02",
+   "Character": "ﬂ",
+   "Glyph name": "fl",
+   "Character name": "LATIN SMALL LIGATURE FL"
+ }
+]

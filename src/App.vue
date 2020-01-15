@@ -13,6 +13,7 @@
       </ul>
     </header>
     <div class="controls">
+      <button @click="sampleType = null">Font name</button>
       <button @click="sampleType = 'custom'">String (enter own, random)</button>
       <input v-model="customSample" type="text">
       <button @click="sampleType = 'alphabet'">Alphabet</button>
@@ -22,17 +23,28 @@
       <button @click="showJSON = !showJSON">Show JSON</button>
     </div>
     <div class="count">
-      <p>Count: {{ fontCount }}</p>
+      <p>{{ fontCount }} fonts</p>
       
     </div>
     <main>
-      <div v-for="font in filteredFonts" :key="key()">
-        <div class="font" :style="{ fontFamily: font.family }">
+      <div
+        v-for="font in filteredFonts"
+        :key="key()"
+        class="font"
+        
+      >
+        <div class="font__name">
+          <span v-if="sampleType != null">{{ font.family }}</span>
+        </div>
+        <div
+          class="font__sample"
+          :style="{ fontFamily: font.family }"
+        >
           {{ sample(font) }}
         </div>
-        <div>
-          <span v-for="variant in font.variants" :key="key()">{{ variant }}</span>
-          <span v-if="customSample">{{ font.family }}</span>
+        <div class="font__info">
+          <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
+          <span>{{ fontInfo(font) }}</span>
         </div>
         <small v-if="showJSON">
           <pre>{{ font }}</pre>
@@ -44,7 +56,7 @@
 
 <script>
 import WebFont from 'webfontloader'
-import flexFilter from './filter.js'
+// import flexFilter from './filter.js'
 
 export default {
   name: 'App',
@@ -109,6 +121,15 @@ export default {
       .then(response => response.json())
       .then(response => this.googleFonts = response.items)
     },
+    fontInfo(font) {
+      let label = font.variants.length > 1 ? 'weights' : 'weight'
+      // if it doesn't have italics
+      if (!font.variants.includes('italic')) {
+        return `${font.variants.length} ${label}`
+      } else {
+        return `${font.variants.length / 2} ${label} w/ italics`
+      }
+    },
     key() {
       return Math.random() * (999 - 1) + 1
     },
@@ -168,12 +189,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
   /*! minireset.css v0.0.4 | MIT License | github.com/jgthms/minireset.css */html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}img,embed,iframe,object,video{height:auto;max-width:100%}audio{max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0;text-align:left}
   body {
     margin: 0;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
+    background: #f6f6f6;
   }
   #app {
   }
@@ -206,9 +228,28 @@ export default {
     padding: 0 30px 30px;
   }
   .font {
-    font-size: 40px;
-    padding: 20px 0;
-    border-top: 1px solid #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    & + & {
+      margin-top: 30px;
+    }
+    &__name {
+      flex: 0 0 30px;
+      color: blue;
+    }
+    &__sample {
+      flex: 2;
+      font-size: 40px;
+    }
+    &__info {
+      flex: 0 0 30px;
+      display: flex;
+      align-items: flex-end;
+      color: gray;
+    }
   }
   small {
     font-size: 10px;
