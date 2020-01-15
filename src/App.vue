@@ -31,19 +31,21 @@
         :key="key()"
         class="font"
       >
-        <div class="font__name">
-          <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
-          <span>{{ font.family }}</span>
+        <div class="left">
+          <div class="font__name">
+            <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
+            <span>{{ font.family }}</span>
+          </div>
+          <div class="font__info">
+            <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
+            <span>{{ fontInfo(font) }}</span>
+          </div>
         </div>
         <div
           class="font__sample"
           :style="{ fontFamily: font.family }"
         >
-          {{ sample(font) }}
-        </div>
-        <div class="font__info">
-          <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
-          <span>{{ fontInfo(font) }}</span>
+          {{ customSample || sample(font) }}
         </div>
         <small v-if="showJSON">
           <pre>{{ font }}</pre>
@@ -84,7 +86,6 @@ export default {
     },
     filteredFonts() {
       return this.googleFonts.filter(font => font.category == this.filters.category)
-      // return this.googleFonts.flexFilter(this.criteria)
     },
     fontCount() {
       return this.filteredFonts.length
@@ -222,10 +223,11 @@ export default {
     span {
       position: relative;
       padding: 0 0 3px 0;
-      border: 1px solid transparent;
+      // border: 1px solid transparent;
       cursor: pointer;
       &.active {
-        border-bottom: 2px solid black;
+        // border-bottom: 2px solid black;
+        color: red;
       }
       & + span { margin-left: 20px; }
     }
@@ -245,12 +247,20 @@ export default {
   }
   .font {
     display: flex;
-    flex-direction: column;
-    padding: 15px 30px;
-    background: #fff;
-    border: 1px solid #e6e6e6;
+    // flex-direction: column;
+    padding: 40px;
+    // background: #fff;
+    border: 1px solid transparent;
+    &:hover {
+      background: #fff;
+      border-color: #e6e6e6;
+      cursor: pointer;
+    }
     & + & {
-      margin-top: 30px;
+      // margin-top: 30px;
+    }
+    .left {
+      flex: 0 0 200px;
     }
     &__name {
       flex: 0 0 30px;
@@ -260,7 +270,7 @@ export default {
       // background: lightseagreen;
     }
     &__sample {
-      flex: 2;
+      flex: 1 1 auto;
       font-size: 40px;
       // background: lightgrey;
     }
