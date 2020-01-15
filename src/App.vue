@@ -196,6 +196,9 @@
         });
       }
     },
+    created() {
+      this.$store.dispatch('fetchGoogleFonts')
+    },
     mounted() {
       this.fetchGoogleFonts()
       

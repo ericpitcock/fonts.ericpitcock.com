@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    customSample: '',
+    customSample: "",
     blacklisted: {
       sansSerif: [
         "Advent Pro",
@@ -58,21 +58,35 @@ export default new Vuex.Store({
         "Cormorant Unicase",
         "Inknut Antiqua"
       ]
-    }
+    },
+    googleFonts: null
   },
   getters: {
     getCustomSample(state) {
       return state.customSample
+    },
+    getGoogleFonts(state) {
+      return state.googleFonts
     }
   },
   mutations: {
     updateCustomSample(state, value) {
       state.customSample = value
+    },
+    setGoogleFonts(state, fonts) {
+      state.googleFonts = fonts
     }
   },
   actions: {
     updateCustomSample({ commit }, value) {
       commit("updateCustomSample", value)
+    },
+    fetchGoogleFonts({ commit }) {
+      fetch(
+        'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
+      )
+      .then(response => response.json())
+      .then(response => commit("setGoogleFonts", response.items))
     }
   }
-})
+});
