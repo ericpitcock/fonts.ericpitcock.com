@@ -1,40 +1,39 @@
 <template>
   <div id="app">
     <header>
-      <ul>
-        <li
+      <div class="category-filters">
+        <span
           v-for="category in categories"
           :key="key()"
           @click="filters.category = category"
           :class="{ 'active': filters.category == category }"
         >
           {{ category }}
-        </li>
-      </ul>
+        </span>
+        <span class="font-count">
+          {{ fontCount }} fonts
+        </span>
+      </div>
+      <div class="sample-control">
+        <button @click="sampleType = null">Font name</button>
+        <button @click="sampleType = 'custom'">String (enter own, random)</button>
+        <input v-model="customSample" type="text">
+        <button @click="sampleType = 'alphabet'">Alphabet</button>
+        <button @click="sampleType = 'paragraph'">Paragraph (enter own, random)</button>
+        <button @click="sampleType = 'layout'">Layout</button>
+        <button @click="sampleType = 'table'">Table</button>
+        <button @click="showJSON = !showJSON">Show JSON</button>
+      </div>
     </header>
-    <div class="controls">
-      <button @click="sampleType = null">Font name</button>
-      <button @click="sampleType = 'custom'">String (enter own, random)</button>
-      <input v-model="customSample" type="text">
-      <button @click="sampleType = 'alphabet'">Alphabet</button>
-      <button @click="sampleType = 'paragraph'">Paragraph (enter own, random)</button>
-      <button @click="sampleType = 'layout'">Layout</button>
-      <button @click="sampleType = 'table'">Table</button>
-      <button @click="showJSON = !showJSON">Show JSON</button>
-    </div>
-    <div class="count">
-      <p>{{ fontCount }} fonts</p>
-      
-    </div>
     <main>
       <div
         v-for="font in filteredFonts"
         :key="key()"
         class="font"
-        
       >
         <div class="font__name">
-          <span v-if="sampleType != null">{{ font.family }}</span>
+          <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
+          <span>{{ font.family }}</span>
         </div>
         <div
           class="font__sample"
@@ -195,42 +194,54 @@ export default {
     margin: 0;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
-    background: #f6f6f6;
   }
   #app {
+    height: 100%;
+    display: flex;
+    flex-direction: column
   }
   header {
-
-  }
-  .controls {
-    position: sticky;
-    top: 0;
+    // position: sticky;
+    // top: 0;
     padding: 30px;
     background: white;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #d3d3d3;
+    flex: 0 0 auto;
+    > * + * {
+      margin-top: 20px;
+    }
   }
-  ul {
+  .category-filters {
     display: flex;
-    list-style: none;
-    padding: 20px 0 0 30px;
+    // padding: 20px 0 0 30px;
+    span {
+      position: relative;
+      padding: 0 0 3px 0;
+      border: 1px solid transparent;
+      cursor: pointer;
+      &.active {
+        border-bottom: 2px solid black;
+      }
+      & + span { margin-left: 20px; }
+    }
   }
-  li {
-    position: relative;
-    padding: 0 0 3px 0;
-    border: 1px solid transparent;
-    cursor: pointer;
+  .sample-control {
+    
   }
-  li + li { margin-left: 20px; }
-  li.active {
-    border-bottom: 2px solid black;
+  .font-count {
+    font-size: 12px;
+    color: gray;
   }
   main {
-    padding: 0 30px 30px;
+    flex: 0 1 calc(100vh - 100px);
+    padding: 30px;
+    overflow: scroll;
+    background: #f6f6f6;
   }
   .font {
     display: flex;
     flex-direction: column;
-    padding: 30px;
+    padding: 15px 30px;
     background: #fff;
     border: 1px solid #e6e6e6;
     & + & {
@@ -238,17 +249,22 @@ export default {
     }
     &__name {
       flex: 0 0 30px;
+      display: flex;
+      align-items: center;
       color: blue;
+      // background: lightseagreen;
     }
     &__sample {
       flex: 2;
       font-size: 40px;
+      // background: lightgrey;
     }
     &__info {
       flex: 0 0 30px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       color: gray;
+      // background: lightskyblue;
     }
   }
   small {
