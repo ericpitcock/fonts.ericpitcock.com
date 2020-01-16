@@ -46,7 +46,6 @@
 
 <script>
   import FontContainer from '@/components/FontContainer'
-  // import WebFont from 'webfontloader'
   import { mapActions, mapGetters } from 'vuex'
   // import flexFilter from './filter.js'
 
@@ -80,7 +79,6 @@
           return this.$store.state.customSample
         },
         set(value) {
-          // this.$store.dispatch('updateCustomSample', value)
           this.$store.dispatch('updateCustomSample', value)
         }
       },
@@ -94,66 +92,11 @@
         'updateFontSample'
       ]),
       customFocus() {
-        // this.fontSample = 'CustomSample'
         this.$store.dispatch('updateFontSample', 'CustomSample')
-      },
-      // fontInfo(font) {
-      //   let label = font.variants.length > 1 ? 'weights' : 'weight'
-      //   // if it doesn't have italics
-      //   if (!font.variants.includes('italic')) {
-      //     return `${font.variants.length} ${label}`
-      //   } else {
-      //     return `${font.variants.length / 2} ${label} w/ italics`
-      //   }
-      // },
-      // loadFonts() {
-      //   WebFont.load({
-      //     google: {
-      //       families: this.loadedFonts
-      //     },
-      //     loading: function() {
-      //       this.fontsLoaded = false
-      //     },
-      //     active: function() {
-      //       this.fontsLoaded = true
-      //     },
-      //     inactive: function() {
-      //       this.fontsLoaded = false
-      //     },
-      //     fontloading: function(familyName, fvd) {
-      //       this.fontsLoaded = false
-      //     },
-      //     fontactive: function(familyName, fvd) {
-      //       this.fontsLoaded = true
-      //     },
-      //     fontinactive: function(familyName, fvd) {
-      //       this.fontsLoaded = false
-      //     }
-      //   });
-      // }
-    },
-    created() {
+      }
     },
     mounted() {
       this.$store.dispatch('fetchGoogleFonts')
-      
-      //load fonts when visible
-      // var callback = function(entries, observer) { 
-      //   entries.forEach(entry => {
-      //   console.log(entry)
-      // })
-      // }
-      // const options = {
-      //   root: null,
-      //   rootMargin: '0px',
-      //   threshold: 0.5
-      // }
-      // let observer = new IntersectionObserver(callback, options)
-
-      // const targets = document.querySelectorAll('.font')
-      // targets.forEach(target => {
-      //   observer.observe(target)
-      // })
     },
     // watch: {
     //   getFilteredFonts: function() {

@@ -1,5 +1,5 @@
 <template>
-  <div ref="fontContainer" class="font-container">
+  <div class="font-container">
     <div v-if=loading class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
@@ -57,7 +57,7 @@
     },
     computed: {
       ...mapGetters([
-        // 'getCategoryFilter',
+        'getCategoryFilter',
         // 'getFilteredFonts',
         // 'getFontCategories',
         'getFontSample',
@@ -88,18 +88,29 @@
           },
           fontloading: (familyName, fvd) => {
             this.loading = true
-            console.log(`fontloading: ${familyName}`);
+            // console.log(`fontloading: ${familyName}`)
           },
           fontactive: (familyName, fvd) => {
             this.loading = false
-            console.log(`fontactive: ${familyName}`);
+            console.log(`fontactive: ${familyName}`)
           },
           fontinactive: (familyName, fvd) => {
             this.loading = false
             this.error = true
-            console.log(`fontinactive: ${familyName}`);
+            console.log(`fontinactive: ${familyName}`)
           }
         });
+      }
+    },
+    watch: {
+      getCategoryFilter: function() {
+        this.observer.observe(this.$el)
+        console.log(this.getCategoryFilter)
+        
+        // console.log('filter changed')
+      },
+      getFontSample: function() {
+        console.log(this.getFontSample)
       }
     },
     mounted() {
@@ -107,7 +118,6 @@
       this.observer = new IntersectionObserver(entries => {
         const container = entries[0]
         if (container.isIntersecting) {
-          console.log(this.font.family)
           this.loadFont(this.font.family)
           this.observer.disconnect()
         }
@@ -116,10 +126,7 @@
         rootMargin: '0px',
         threshold: 0.25
       })
-      this.observer.observe(this.$refs.fontContainer)
-    },
-    updated() {
-      // console.log('updated')
+      this.observer.observe(this.$el)
     },
     destroyed() {
       this.observer.disconnect()
