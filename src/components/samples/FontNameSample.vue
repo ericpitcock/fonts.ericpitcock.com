@@ -17,6 +17,6 @@
 
 <style>
   .font-name-sample {
-    font-size: 40px;
+    /* font-size: 40px; */
   }
 </style>

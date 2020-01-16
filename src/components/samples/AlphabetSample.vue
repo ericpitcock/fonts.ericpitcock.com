@@ -12,7 +12,7 @@
 
 <style>
   .alphabet-sample {
-    font-size: 30px;
-    line-height: 36px;
+    /* font-size: 30px;
+    line-height: 36px; */
   }
 </style>

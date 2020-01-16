@@ -67,6 +67,7 @@ export default new Vuex.Store({
     ],
     categoryFilter: 'sans-serif',
     fontSample: 'FontNameSample',
+    globalFontSize: 20,
     googleFonts: [],
     showJSON: false
   },
@@ -82,6 +83,9 @@ export default new Vuex.Store({
     },
     getFontSample(state) {
       return state.fontSample
+    },
+    getGlobalFontSize(state) {
+      return state.globalFontSize
     },
     getGoogleFonts(state) {
       return state.googleFonts
@@ -115,6 +119,9 @@ export default new Vuex.Store({
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     },
+    setGlobalFontSize(state, value) {
+      state.globalFontSize = value
+    },
     setFontSample(state, value) {
       state.fontSample = value
     },
@@ -131,6 +138,9 @@ export default new Vuex.Store({
     },
     updateFontSample({ commit }, value) {
       commit('setFontSample', value)
+    },
+    updateGlobalFontSize({ commit }, value) {
+      commit('setGlobalFontSize', value)
     },
     fetchGoogleFonts({ commit }) {
       fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')

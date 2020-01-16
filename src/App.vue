@@ -31,6 +31,7 @@
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
         <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
+        <input type="range" min="12" max="60" step="1" v-model="fontSize" v-once>
       </div>
     </header>
     <main>
@@ -82,6 +83,14 @@
           this.$store.dispatch('updateCustomSample', value)
         }
       },
+      fontSize: {
+        get() {
+          return this.$store.state.getGlobalFontSize
+        },
+        set(value) {
+          this.$store.dispatch('updateGlobalFontSize', value)
+        }
+      },
       fontCount() {
         return this.getWhitelistedFonts.length
       }
@@ -117,11 +126,8 @@
     color: black;
   }
   #app {
-    // flex: 0 0 1200px;
     width: 100%;
     height: 100vh;
-    // display: flex;
-    // flex-direction: column
     display: grid;
     grid-template-rows: 130px 1fr;
     grid-template-columns: 1fr;
@@ -200,8 +206,7 @@
   main {
     grid-row: 2;
     grid-column: 1;
-    // flex: 0 1 calc(100vh - 100px);
-    padding: 30px;
+    padding: 0 30px 30px 30px;
     overflow: scroll;
     background: #fff;
   }

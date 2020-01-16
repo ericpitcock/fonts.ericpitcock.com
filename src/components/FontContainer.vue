@@ -17,13 +17,13 @@
       </div>
       <div
         class="font__sample"
-        :style="{ fontFamily: font.family }"
+        :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
       >
         <component :is="getFontSample" />
+        <div class="json" v-if="showJSON">
+          <small><pre>{{ font }}</pre></small>
+        </div>
       </div>
-      <small v-if="showJSON">
-        <pre>{{ font }}</pre>
-      </small>
     </div>
   </div>
 </template>
@@ -61,6 +61,7 @@
         // 'getFilteredFonts',
         // 'getFontCategories',
         'getFontSample',
+        'getGlobalFontSize',
         'showJSON'
         // 'getGoogleFonts'
       ])
@@ -87,7 +88,7 @@
         } else {
           fontStack = font.family
         }
-        console.log([fontStack])
+        // console.log([fontStack])
         WebFont.load({
           google: {
             //families: ['Open Sans:300,400,700']
@@ -170,8 +171,9 @@
   .font {
     display: flex;
     padding: 60px 20px;
-    border-top: 1px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
+    .font-container:not(:first-child) & {
+      border-top: 1px solid #e6e6e6;
+    }
     &:hover {
       cursor: pointer;
     }
@@ -189,6 +191,10 @@
     }
     &__sample {
       flex: 1 1 auto;
+      margin-left: 30px;
+      .json {
+        padding-top: 30px;
+      }
     }
     &__info {
       flex: 0 0 30px;
