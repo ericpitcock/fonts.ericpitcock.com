@@ -117,12 +117,18 @@
     color: black;
   }
   #app {
-    flex: 0 1 1200px;
-    height: 100%;
-    display: flex;
-    flex-direction: column
+    flex: 0 0 1200px;
+    height: 100vh;
+    // display: flex;
+    // flex-direction: column
+    display: grid;
+    grid-template-rows: 130px 1fr;
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
   }
   header {
+    grid-row: 1;
+    grid-column: 1;
     padding: 30px;
     background: white;
     border-bottom: 1px solid #d3d3d3;
@@ -188,7 +194,9 @@
     color: gray;
   }
   main {
-    flex: 0 1 calc(100vh - 100px);
+    grid-row: 2;
+    grid-column: 1;
+    // flex: 0 1 calc(100vh - 100px);
     padding: 30px;
     overflow: scroll;
     background: #fff;
