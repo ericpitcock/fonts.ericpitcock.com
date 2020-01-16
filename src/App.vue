@@ -31,7 +31,8 @@
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
         <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
-        <input type="range" min="12" max="60" step="1" v-model="fontSize" v-once>
+        <input type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
+        <!-- <input type="range" name="font-size" :value="fontSize || 20" min="12" max="100"> -->
       </div>
     </header>
     <main>
@@ -72,6 +73,7 @@
         'getFilteredFonts',
         'getFontCategories',
         'getFontSample',
+        'getGlobalFontSize',
         'getGoogleFonts',
         'getWhitelistedFonts'
       ]),
@@ -85,7 +87,7 @@
       },
       fontSize: {
         get() {
-          return this.$store.state.getGlobalFontSize
+          return this.getGlobalFontSize
         },
         set(value) {
           this.$store.dispatch('updateGlobalFontSize', value)
