@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <button class="json-button" @click="$store.dispatch('toggleJSON')">Show JSON</button>
     <header>
       <div class="category-filters">
         <span
@@ -30,9 +31,10 @@
           {{ sampleType }}
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
-        <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
-        <input type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
-        <!-- <input type="range" name="font-size" :value="fontSize || 20" min="12" max="100"> -->
+        <div class="font-size-slider">
+          <input name="font-size" type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
+          <label for="font-size">{{ fontSize }}px</label>
+        </div>
       </div>
     </header>
     <main>
@@ -70,6 +72,7 @@
     computed: {
       ...mapGetters([
         'getCategoryFilter',
+        'getCustomSample',
         'getFilteredFonts',
         'getFontCategories',
         'getFontSample',
@@ -79,7 +82,7 @@
       ]),
       customSample: {
         get() {
-          return this.$store.state.customSample
+          return this.getCustomSample
         },
         set(value) {
           this.$store.dispatch('updateCustomSample', value)
@@ -134,6 +137,11 @@
     grid-template-rows: 130px 1fr;
     grid-template-columns: 1fr;
     grid-column-gap: 0;
+  }
+  .json-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
   }
   header {
     grid-row: 1;
@@ -198,6 +206,14 @@
       &:focus {
         background: yellow;
         outline: none;
+      }
+    }
+    .font-size-slider {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      label {
+        margin-left: 10px;
       }
     }
   }
