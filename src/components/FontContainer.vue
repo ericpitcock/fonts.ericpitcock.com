@@ -72,7 +72,11 @@
         if (!font.variants.includes('italic')) {
           return `${font.variants.length} ${label}`
         } else {
-          return `${font.variants.length / 2} ${label} w/ italics`
+          let italicCount = 0
+          font.variants.forEach(variant => {
+            if (variant.includes('italic')) { italicCount++ }
+          })
+          return `${font.variants.length - italicCount} ${label} w/ italics`
         }
       },
       loadFont(font) {

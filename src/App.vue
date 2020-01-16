@@ -31,7 +31,6 @@
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
         <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
-        <button @click="$store.dispatch('updateCategoryFilter', 'monospace')">Monospace DEBUG</button>
       </div>
     </header>
     <main>
@@ -84,7 +83,7 @@
         }
       },
       fontCount() {
-        return this.getFilteredFonts.length
+        return this.getWhitelistedFonts.length
       }
     },
     methods: {

@@ -1,5 +1,6 @@
 <template>
-  <div class="custom-sample">{{ getCustomSample }}</div>
+  <!-- <div class="custom-sample">{{ getCustomSample }}</div> -->
+  <div class="custom-sample">The quick brown fox jumps over the lazy dog</div>
 </template>
 
 <script>
