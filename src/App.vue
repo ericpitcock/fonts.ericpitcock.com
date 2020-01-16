@@ -87,7 +87,7 @@
       return {
         // customSample: '',
         filters: {
-          category: 'monospace'
+          category: 'sans-serif'
           // variants: ['2'],
           // subsets: ['latin']
         },
@@ -198,21 +198,23 @@
     mounted() {
       this.fetchGoogleFonts()
       
-      // load fonts when visible
-      // var callback = function(entries, observer) { 
-      //   entries.forEach(entry => {
-      //     console.log(entry)
-      //   })
-      // }
-      // var options = {
-      //   root: null,
-      //   rootMargin: '0px',
-      //   threshold: 1.0
-      // }
-      // var observer = new IntersectionObserver(callback, options)
+      //load fonts when visible
+      var callback = function(entries, observer) { 
+        entries.forEach(entry => {
+          console.log(entry)
+        })
+      }
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+      }
+      let observer = new IntersectionObserver(callback, options)
       
-      // var target = document.querySelector('.font')
-      // observer.observe(target)
+      const targets = document.querySelectorAll('.font')
+      targets.forEach(target => {
+          observer.observe(target)
+      })
       
     },
     watch: {
