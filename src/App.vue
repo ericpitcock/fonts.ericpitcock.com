@@ -87,20 +87,12 @@
     },
     data() {
       return {
-        // customSample: '',
-        filters: {
-          category: 'monospace'
-          // variants: ['2'],
-          // subsets: ['latin']
-        },
         fontSample: 'FontNameSample',
         criteria: [
           { Field: 'category', Values: ['monospace'] },
           // { Field: 'variants', Values: ['700'] }
         ],
-        // googleFonts: [],
         loadedFonts: [],
-        // sampleType: null,
         showJSON: false
       };
     },
@@ -120,12 +112,6 @@
           this.$store.dispatch('updateCustomSample', value)
         }
       },
-      // categories() {
-      //   return new Set(this.getGoogleFonts.map(font => font.category))
-      // },
-      // filteredFonts() {
-      //   return this.getGoogleFonts.filter(font => font.category == this.filters.category)
-      // },
       fontCount() {
         return this.getFilteredFonts.length
       }
@@ -136,38 +122,7 @@
       ]),
       customFocus() {
         this.fontSample = 'CustomSample'
-        console.log('custom focus')
-        
       },
-      sample(font) {
-        switch (this.sampleType) {
-          case 'custom':
-            return this.customSample
-            break;
-          case 'alphabet':
-            return '<p>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<br />‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*</p>'
-            break;
-          case 'paragraph':
-            return 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus tincidunt gravida. Integer tincidunt, nisi at luctus sagittis, felis leo molestie velit, sed semper orci mauris ullamcorper ante. Vestibulum sed dapibus eros. Morbi finibus nisi interdum lorem malesuada, in laoreet mauris consequat. Quisque eget metus rhoncus, mattis nisi non, pretium massa. Duis at condimentum massa. Maecenas condimentum faucibus ante, sit amet laoreet est auctor vitae. Donec sed risus lorem. Nam aliquam sapien in accumsan porta.'
-            break;
-          case 'layout':
-            return 'layout'
-            break;
-          case 'table':
-            return 'table'
-            break;
-          default:
-            return font.family
-            break;
-        }
-      },
-      // fetchGoogleFonts() {
-      //   fetch(
-      //     'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
-      //   )
-      //   .then(response => response.json())
-      //   .then(response => this.googleFonts = response.items)
-      // },
       fontInfo(font) {
         let label = font.variants.length > 1 ? 'weights' : 'weight'
         // if it doesn't have italics
@@ -177,9 +132,6 @@
           return `${font.variants.length / 2} ${label} w/ italics`
         }
       },
-      // key() {
-      //   return Math.random() * (999 - 1) + 1
-      // },
       loadFonts() {
         WebFont.load({
           google: {
@@ -210,10 +162,6 @@
       this.$store.dispatch('fetchGoogleFonts')
     },
     mounted() {
-      // this.fetchGoogleFonts()
-      // console.log(this.getGoogleFonts)
-      // this.$store.dispatch('fetchGoogleFonts')
-      
       // load fonts when visible
       // var callback = function(entries, observer) { 
       //   entries.forEach(entry => {
@@ -263,8 +211,6 @@
     flex-direction: column
   }
   header {
-    // position: sticky;
-    // top: 0;
     padding: 30px;
     background: white;
     border-bottom: 1px solid #d3d3d3;
@@ -274,21 +220,11 @@
     }
   }
   .category-filters {
-    // display: flex;
-    // align-content: center;
-    // justify-content: center;
-    // background: red;
-    // padding: 20px 0 0 30px;
     &__filter-button {
       text-transform: capitalize;
     }
-    span {
-      // position: relative;
-      // padding: 0 0 3px 0;
-      // border: 1px solid transparent;
       cursor: pointer;
       &.active {
-        // border-bottom: 2px solid black;
         color: red;
       }
       & + span { margin-left: 20px; }
@@ -352,15 +288,10 @@
   }
   .font {
     display: flex;
-    // align-items: center;
-    // flex-direction: column;
     padding: 60px 20px;
-    // background: #fff;
     border-top: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
     &:hover {
-      // background: #fcfcfc;
-      // border-color: #e6e6e6;
       cursor: pointer;
     }
     & + & {
@@ -374,19 +305,15 @@
       display: flex;
       align-items: center;
       color: blue;
-      // background: lightseagreen;
     }
     &__sample {
       flex: 1 1 auto;
-      // font-size: 40px;
-      // background: lightgrey;
     }
     &__info {
       flex: 0 0 30px;
       display: flex;
       align-items: center;
       color: gray;
-      // background: lightskyblue;
     }
   }
   small {
