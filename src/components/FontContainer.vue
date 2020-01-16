@@ -80,9 +80,18 @@
         }
       },
       loadFont(font) {
+        // let fontStack = `${font.family}:${font.variants.join(', ')}`
+        let fontStack = ''
+        if (font.variants.length > 1) {
+          fontStack = `${font.family}:${font.variants.join(',')}`
+        } else {
+          fontStack = font.family
+        }
+        console.log([fontStack])
         WebFont.load({
           google: {
-            families: [font]
+            //families: ['Open Sans:300,400,700']
+            families: [fontStack]
           },
           loading: () => {
           },
@@ -116,7 +125,7 @@
       this.observer = new IntersectionObserver(entries => {
         const container = entries[0]
         if (container.isIntersecting) {
-          this.loadFont(this.font.family)
+          this.loadFont(this.font)
           this.observer.disconnect()
         }
       },{
