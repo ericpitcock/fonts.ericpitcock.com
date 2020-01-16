@@ -165,14 +165,10 @@
         padding-left: 15px;
         border-radius: 15px 0 0 15px;
       }
-      &:last-child {
-        padding-right: 15px;
-        border-radius: 0 15px 15px 0;
-      }
     }
     .custom-sample-input {
       width: 300px;
-      padding: 0 15px;
+      padding: 2px 0 0 15px;
       border: 1px solid #e6e6e6;
       border-left: none;
       border-radius: 0 15px 15px 0;

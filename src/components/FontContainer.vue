@@ -96,12 +96,12 @@
           },
           fontactive: (familyName, fvd) => {
             this.loading = false
-            console.log(`fontactive: ${familyName}`)
+            // console.log(`fontactive: ${familyName}`)
           },
           fontinactive: (familyName, fvd) => {
             this.loading = false
             this.error = true
-            console.log(`fontinactive: ${familyName}`)
+            // console.log(`fontinactive: ${familyName}`)
           }
         });
       }
