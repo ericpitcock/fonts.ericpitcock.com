@@ -1,5 +1,11 @@
 <template>
   <div ref="fontContainer" class="font-container">
+    <div v-if=loading class="loading">
+      <img src="/img/loading.gif" alt="loading">
+    </div>
+    <div v-if=error class="error">
+      <p>There was an error loading this font</p>
+    </div>
     <div class="font">
       <div class="left">
         <div class="font__name">
@@ -44,6 +50,8 @@
     data() {
       return {
         // fontSample: 'FontNameSample',
+        loading: true,
+        error: false,
         observer: null
       }
     },
@@ -71,23 +79,24 @@
           google: {
             families: [font]
           },
-          loading: function() {
-            this.fontsLoaded = false
+          loading: () => {
           },
-          active: function() {
-            this.fontsLoaded = true
+          active: () => {
           },
-          inactive: function() {
-            this.fontsLoaded = false
+          inactive: () => {
           },
-          fontloading: function(familyName, fvd) {
-            this.fontsLoaded = false
+          fontloading: (familyName, fvd) => {
+            this.loading = true
+            console.log(`fontloading: ${familyName}`);
           },
-          fontactive: function(familyName, fvd) {
-            this.fontsLoaded = true
+          fontactive: (familyName, fvd) => {
+            this.loading = false
+            console.log(`fontactive: ${familyName}`);
           },
-          fontinactive: function(familyName, fvd) {
-            this.fontsLoaded = false
+          fontinactive: (familyName, fvd) => {
+            this.loading = false
+            this.error = true
+            console.log(`fontinactive: ${familyName}`);
           }
         });
       }
@@ -104,7 +113,7 @@
       },{
         root: null,
         rootMargin: '0px',
-        threshold: 0.5
+        threshold: 0.25
       })
       this.observer.observe(this.$refs.fontContainer)
     },
@@ -115,6 +124,25 @@
 </script>
 
 <style lang="scss" scoped>
+  .font-container {
+    position: relative;
+    overflow: hidden;
+    .loading, .error {
+      position: absolute;
+      top: 1px;
+      right: 0;
+      bottom: 0;
+      left: 200px;
+      padding-right: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
+    .error {
+      color: red;
+    }
+  }
   .font {
     display: flex;
     padding: 60px 20px;

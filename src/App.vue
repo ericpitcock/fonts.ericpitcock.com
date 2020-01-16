@@ -39,36 +39,14 @@
         :key="index"
         :class="font.family.toLowerCase().split(' ').join('')"
         :font="font"
-      >
-      <template v-slot:font>
-        <!-- <div class="font">
-          <div class="left">
-            <div class="font__name">
-              <span>{{ font.family }}</span>
-            </div>
-            <div class="font__info">
-              <span>{{ fontInfo(font) }}</span>
-            </div>
-          </div>
-          <div
-            class="font__sample"
-            :style="{ fontFamily: font.family }"
-          >
-            <component :is="fontSample" />
-          </div>
-          <small v-if="showJSON">
-            <pre>{{ font }}</pre>
-          </small>
-        </div> -->
-      </template>
-      </FontContainer>
+      />
     </main>
   </div>
 </template>
 
 <script>
   import FontContainer from '@/components/FontContainer'
-  import WebFont from 'webfontloader'
+  // import WebFont from 'webfontloader'
   import { mapActions, mapGetters } from 'vuex'
   // import flexFilter from './filter.js'
 
