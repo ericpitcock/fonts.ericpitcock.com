@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    customSample: "",
+    customSample: 'Enter your words',
     blacklisted: {
       sansSerif: [
         "Advent Pro",
@@ -59,34 +59,53 @@ export default new Vuex.Store({
         "Inknut Antiqua"
       ]
     },
-    googleFonts: null
+    categoryFilter: 'sans-serif',
+    googleFonts: []
   },
   getters: {
+    getCategoryFilter(state) {
+      return state.categoryFilter
+    },
     getCustomSample(state) {
       return state.customSample
     },
+    getFontCategories(state, getters) {
+      return [...new Set(getters.getGoogleFonts.map(font => font.category))]
+    },
     getGoogleFonts(state) {
       return state.googleFonts
+    },
+    getLatinFonts(state) {
+
+    },
+    getFilteredFonts(state, getters) {
+      return getters.getGoogleFonts.filter(font => font.category == getters.getCategoryFilter)
     }
   },
   mutations: {
     updateCustomSample(state, value) {
       state.customSample = value
     },
+    setCategoryFilter(state, value) {
+      state.categoryFilter = value
+    },
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     }
   },
   actions: {
+    updateCategoryFilter({ commit }, value) {
+      commit('setCategoryFilter', value)
+    },
     updateCustomSample({ commit }, value) {
-      commit("updateCustomSample", value)
+      commit('updateCustomSample', value)
     },
     fetchGoogleFonts({ commit }) {
       fetch(
         'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
       )
       .then(response => response.json())
-      .then(response => commit("setGoogleFonts", response.items))
+      .then(response => commit('setGoogleFonts', response.items))
     }
   }
 });

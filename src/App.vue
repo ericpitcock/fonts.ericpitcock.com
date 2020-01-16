@@ -3,10 +3,10 @@
     <header>
       <div class="category-filters">
         <span
-          v-for="(category, index) in categories"
+          v-for="(category, index) in getFontCategories"
           :key="index"
-          @click="filters.category = category"
-          :class="['category-filters__filter-button', { 'active': filters.category == category }]"
+          @click="$store.dispatch('updateCategoryFilter', category)"
+          :class="['category-filters__filter-button', { 'active': getCategoryFilter == category }]"
         >
           <span v-if="category == 'sans-serif'">TEXT</span>
           <span v-if="category == 'display'">HEADLINE</span>
@@ -35,7 +35,7 @@
     </header>
     <main>
       <div
-        v-for="(font, index) in filteredFonts"
+        v-for="(font, index) in getFilteredFonts"
         :key="index"
         class="font"
       >
@@ -72,6 +72,7 @@
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
   import WebFont from 'webfontloader'
+  import { mapActions, mapGetters } from 'vuex'
   // import flexFilter from './filter.js'
 
   export default {
@@ -97,13 +98,19 @@
           { Field: 'category', Values: ['monospace'] },
           // { Field: 'variants', Values: ['700'] }
         ],
-        googleFonts: [],
+        // googleFonts: [],
         loadedFonts: [],
         // sampleType: null,
         showJSON: false
       };
     },
     computed: {
+      ...mapGetters([
+        'getCategoryFilter',
+        'getFilteredFonts',
+        'getFontCategories',
+        'getGoogleFonts'
+      ]),
       customSample: {
         get() {
           return this.$store.state.customSample
@@ -113,17 +120,20 @@
           this.$store.dispatch('updateCustomSample', value)
         }
       },
-      categories() {
-        return new Set(this.googleFonts.map(font => font.category))
-      },
-      filteredFonts() {
-        return this.googleFonts.filter(font => font.category == this.filters.category)
-      },
+      // categories() {
+      //   return new Set(this.getGoogleFonts.map(font => font.category))
+      // },
+      // filteredFonts() {
+      //   return this.getGoogleFonts.filter(font => font.category == this.filters.category)
+      // },
       fontCount() {
-        return this.filteredFonts.length
+        return this.getFilteredFonts.length
       }
     },
     methods: {
+      ...mapActions([
+        'updateCategoryFilter'
+      ]),
       customFocus() {
         this.fontSample = 'CustomSample'
         console.log('custom focus')
@@ -151,13 +161,13 @@
             break;
         }
       },
-      fetchGoogleFonts() {
-        fetch(
-          'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
-        )
-        .then(response => response.json())
-        .then(response => this.googleFonts = response.items)
-      },
+      // fetchGoogleFonts() {
+      //   fetch(
+      //     'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
+      //   )
+      //   .then(response => response.json())
+      //   .then(response => this.googleFonts = response.items)
+      // },
       fontInfo(font) {
         let label = font.variants.length > 1 ? 'weights' : 'weight'
         // if it doesn't have italics
@@ -200,7 +210,9 @@
       this.$store.dispatch('fetchGoogleFonts')
     },
     mounted() {
-      this.fetchGoogleFonts()
+      // this.fetchGoogleFonts()
+      // console.log(this.getGoogleFonts)
+      // this.$store.dispatch('fetchGoogleFonts')
       
       // load fonts when visible
       // var callback = function(entries, observer) { 
@@ -220,8 +232,8 @@
       
     },
     watch: {
-      filteredFonts: function() {
-        let fonts = this.filteredFonts.map(font => font.family)
+      getFilteredFonts: function() {
+        let fonts = this.getFilteredFonts.map(font => font.family)
         this.loadedFonts = fonts
         this.loadFonts()
       }
