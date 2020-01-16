@@ -34,37 +34,42 @@
       </div>
     </header>
     <main>
-      <div
+      <FontContainer
         v-for="(font, index) in getFilteredFonts"
         :key="index"
-        class="font"
+        :class="font.family.toLowerCase().split(' ').join('')"
       >
-        <div class="left">
-          <div class="font__name">
-            <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
-            <span>{{ font.family }}</span>
+      <template v-slot:font>
+        <div class="font">
+          <div class="left">
+            <div class="font__name">
+              <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
+              <span>{{ font.family }}</span>
+            </div>
+            <div class="font__info">
+              <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
+              <span>{{ fontInfo(font) }}</span>
+            </div>
           </div>
-          <div class="font__info">
-            <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
-            <span>{{ fontInfo(font) }}</span>
+          <div
+            class="font__sample"
+            :style="{ fontFamily: font.family }"
+          >
+            <!-- {{ customSample || sample(font) }} -->
+            <component :is="fontSample" />
           </div>
+          <small v-if="showJSON">
+            <pre>{{ font }}</pre>
+          </small>
         </div>
-        <div
-          class="font__sample"
-          :style="{ fontFamily: font.family }"
-        >
-          <!-- {{ customSample || sample(font) }} -->
-          <component :is="fontSample" />
-        </div>
-        <small v-if="showJSON">
-          <pre>{{ font }}</pre>
-        </small>
-      </div>
+      </template>
+      </FontContainer>
     </main>
   </div>
 </template>
 
 <script>
+  import FontContainer from '@/components/FontContainer'
   import AlphabetSample from '@/components/samples/AlphabetSample'
   import CustomSample from '@/components/samples/CustomSample'
   import FontNameSample from '@/components/samples/FontNameSample'
@@ -78,6 +83,7 @@
   export default {
     name: 'App',
     components: {
+      FontContainer,
       AlphabetSample,
       CustomSample,
       FontNameSample,
@@ -161,25 +167,26 @@
     created() {
     },
     mounted() {
-      console.log(this.getFontCategories)
+      // console.log(this.getFontCategories)
       this.$store.dispatch('fetchGoogleFonts')
       
-      // load fonts when visible
+      //load fonts when visible
       // var callback = function(entries, observer) { 
       //   entries.forEach(entry => {
-      //     console.log(entry)
-      //   })
+      //   console.log(entry)
+      // })
       // }
-      // var options = {
+      // const options = {
       //   root: null,
       //   rootMargin: '0px',
-      //   threshold: 1.0
+      //   threshold: 0.5
       // }
-      // var observer = new IntersectionObserver(callback, options)
-      
-      // var target = document.querySelector('.font')
-      // observer.observe(target)
-      
+      // let observer = new IntersectionObserver(callback, options)
+
+      // const targets = document.querySelectorAll('.font')
+      // targets.forEach(target => {
+      //   observer.observe(target)
+      // })
     },
     watch: {
       getFilteredFonts: function() {
