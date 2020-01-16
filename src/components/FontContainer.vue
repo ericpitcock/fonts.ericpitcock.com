@@ -105,12 +105,6 @@
     watch: {
       getCategoryFilter: function() {
         this.observer.observe(this.$el)
-        console.log(this.getCategoryFilter)
-        
-        // console.log('filter changed')
-      },
-      getFontSample: function() {
-        console.log(this.getFontSample)
       }
     },
     mounted() {

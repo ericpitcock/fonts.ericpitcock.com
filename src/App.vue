@@ -31,6 +31,7 @@
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
         <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
+        <button @click="$store.dispatch('updateCategoryFilter', 'monospace')">Monospace DEBUG</button>
       </div>
     </header>
     <main>
@@ -97,14 +98,7 @@
     },
     mounted() {
       this.$store.dispatch('fetchGoogleFonts')
-    },
-    // watch: {
-    //   getFilteredFonts: function() {
-    //     let fonts = this.getFilteredFonts.map(font => font.family)
-    //     this.loadedFonts = fonts
-    //     this.loadFonts()
-    //   }
-    // }
+    }
   }
 </script>
 
