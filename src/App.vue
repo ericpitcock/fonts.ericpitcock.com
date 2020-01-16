@@ -6,7 +6,7 @@
           v-for="(category, index) in getFontCategories"
           :key="index"
           @click="$store.dispatch('updateCategoryFilter', category)"
-          :class="['category-filters__filter-button', { 'active': getCategoryFilter == category }]"
+          :class="['category-filters__filter-button', { 'category-filters__filter-button--active': getCategoryFilter == category }]"
         >
           <span v-if="category == 'sans-serif'">TEXT</span>
           <span v-if="category == 'display'">HEADLINE</span>
@@ -159,9 +159,11 @@
       }
     },
     created() {
-      this.$store.dispatch('fetchGoogleFonts')
-    },
+      },
     mounted() {
+      console.log(this.getFontCategories);
+      this.$store.dispatch('fetchGoogleFonts')
+      
       // load fonts when visible
       // var callback = function(entries, observer) { 
       //   entries.forEach(entry => {
@@ -223,12 +225,11 @@
     &__filter-button {
       text-transform: capitalize;
     }
-      cursor: pointer;
-      &.active {
-        color: red;
-      }
-      & + span { margin-left: 20px; }
+    cursor: pointer;
+    &--active {
+      color: red;
     }
+    & + span { margin-left: 20px; }
   }
   .sample-control {
     display: flex;
