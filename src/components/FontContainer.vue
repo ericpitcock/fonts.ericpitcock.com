@@ -20,41 +20,40 @@
       }
     },
     mounted() {
-      const fontObject = this.font
-      const callback = function(entries, observer) { 
-        entries.forEach(entry => {
-          // console.log(entry)
-          if (entry.isIntersecting) {
-            // this.intersected = true;
-            console.log(fontObject.family)
-            
-            // this.observer.disconnect()
-          }
-        })
-      }
-      const options = {
+      //NEW
+      this.observer = new IntersectionObserver(entries => {
+        const container = entries[0]
+        if (container.isIntersecting) {
+          console.log(this.font.family)
+          this.observer.disconnect()
+        }
+      },{
         root: null,
         rootMargin: '0px',
         threshold: 0.5
-      }
-      this.observer = new IntersectionObserver(callback, options)
+      })
       this.observer.observe(this.$refs.fontContainer)
-      // const targets = document.querySelectorAll('.font')
-      // targets.forEach(target => {
-      //   observer.observe(target)
-      // })
-
-      // this.observer = new IntersectionObserver(entries => {
-      //   const image = entries[0];
-      //   if (image.isIntersecting) {
-      //     this.intersected = true;
-      //     console.log('intersected')
-          
-      //     this.observer.disconnect()
-      //   }
-      // })
-
-      // this.observer.observe(this.$el)
+      
+      // OLD
+      // const fontObject = this.font
+      // const callback = function(entries, observer) { 
+      //   entries.forEach(entry => {
+      //     // console.log(entry)
+      //     if (entry.isIntersecting) {
+      //       // this.intersected = true;
+      //       console.log(fontObject.family)
+            
+      //       // this.observer.disconnect()
+      //     }
+      //   })
+      // }
+      // const options = {
+      //   root: null,
+      //   rootMargin: '0px',
+      //   threshold: 0.5
+      // }
+      // this.observer = new IntersectionObserver(callback, options)
+      // this.observer.observe(this.$refs.fontContainer)
     },
     destroyed() {
       this.observer.disconnect()
