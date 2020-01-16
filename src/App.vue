@@ -35,7 +35,7 @@
     </header>
     <main>
       <FontContainer
-        v-for="(font, index) in getFilteredFonts"
+        v-for="(font, index) in getWhitelistedFonts"
         :key="index"
         :class="font.family.toLowerCase().split(' ').join('')"
         :font="font"
@@ -72,7 +72,8 @@
         'getFilteredFonts',
         'getFontCategories',
         'getFontSample',
-        'getGoogleFonts'
+        'getGoogleFonts',
+        'getWhitelistedFonts'
       ]),
       customSample: {
         get() {
@@ -134,7 +135,6 @@
     created() {
     },
     mounted() {
-      // console.log(this.getFontCategories)
       this.$store.dispatch('fetchGoogleFonts')
       
       //load fonts when visible

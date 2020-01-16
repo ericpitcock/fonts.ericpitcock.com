@@ -118,6 +118,9 @@
       })
       this.observer.observe(this.$refs.fontContainer)
     },
+    updated() {
+      // console.log('updated')
+    },
     destroyed() {
       this.observer.disconnect()
     }

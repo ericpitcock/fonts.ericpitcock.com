@@ -6,59 +6,57 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     customSample: 'Enter your words',
-    blacklisted: {
-      sansSerif: [
-        "Advent Pro",
-        "Alegreya Sans SC",
-        "Amaranth",
-        "Arsenal",
-        "Arya",
-        "Asul",
-        "BenchNine",
-        "Changa",
-        "Chathura",
-        "Chau Philomene One",
-        "Dosis",
-        "Economica",
-        "El Messiri",
-        "Exo",
-        "Exo 2",
-        "Geo",
-        "Hind",
-        "Hind Guntur",
-        "Hind Madurai",
-        "Hind Siliguri",
-        "Hind Vadodara",
-        "Jura",
-        "Kanit",
-        "Khand",
-        "Marvel",
-        "Maven Pro",
-        "Mitr",
-        "Montserrat Subrayada",
-        "Orbitron",
-        "Philosopher",
-        "Play",
-        "Proza Libre",
-        "Quantico",
-        "Rajdhani",
-        "Ropa Sans",
-        "Ruda",
-        "Sansita",
-        "Sarpanch",
-        "Syncopate",
-        "Teko",
-        "Titillium Web",
-        "Yanone Kaffeesatz"
-      ],
-      serif: [
-        "Almendra",
-        "Aref Ruqaa",
-        "BioRhyme Expanded",
-        "Cormorant Unicase",
-        "Inknut Antiqua"
-      ]
-    },
+    blacklisted: [
+      // sans-serif
+      'Advent Pro',
+      'Alegreya Sans SC',
+      'Amaranth',
+      'Arsenal',
+      'Arya',
+      'Asul',
+      'BenchNine',
+      'Changa',
+      'Chathura',
+      'Chau Philomene One',
+      'Dosis',
+      'Economica',
+      'El Messiri',
+      'Exo',
+      'Exo 2',
+      'Geo',
+      'Hind',
+      'Hind Guntur',
+      'Hind Madurai',
+      'Hind Siliguri',
+      'Hind Vadodara',
+      'Jura',
+      'Kanit',
+      'Khand',
+      'Marvel',
+      'Maven Pro',
+      'Mitr',
+      'Montserrat Subrayada',
+      'Orbitron',
+      'Philosopher',
+      'Play',
+      'Proza Libre',
+      'Quantico',
+      'Rajdhani',
+      'Ropa Sans',
+      'Ruda',
+      'Sansita',
+      'Sarpanch',
+      'Syncopate',
+      'Teko',
+      'Titillium Web',
+      'Yanone Kaffeesatz',
+      // serif
+      'Almendra',
+      'Aref Ruqaa',
+      'BioRhyme Expanded',
+      'Cormorant Unicase',
+      'Inknut Antiqua'
+    ],
     categoryFilter: 'sans-serif',
     fontSample: 'FontNameSample',
     googleFonts: [],
@@ -85,6 +83,15 @@ export default new Vuex.Store({
     },
     getFilteredFonts(state, getters) {
       return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
+    },
+    getWhitelistedFonts(state, getters) {
+      let whitelisted = []
+      getters.getFilteredFonts.forEach(font => {
+        if (!state.blacklisted.includes(font.family)) {
+          whitelisted.push(font)
+        }
+      })
+      return whitelisted
     },
     showJSON(state) {
       return state.showJSON
