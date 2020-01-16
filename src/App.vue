@@ -24,8 +24,8 @@
         <div
           v-for="(sampleType, index) in ['FontNameSample', 'AlphabetSample', 'ParagraphSample', 'TableSample']"
           :key="index"
-          :class="['sample-control__button', { 'sample-control__button--active': fontSample == sampleType }]"
-          @click="fontSample = sampleType"
+          :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType }]"
+          @click="$store.dispatch('updateFontSample', sampleType)"
         >
           {{ sampleType }}
         </div>
@@ -79,7 +79,7 @@
     },
     data() {
       return {
-        fontSample: 'FontNameSample',
+        // fontSample: 'FontNameSample',
         criteria: [
           { Field: 'category', Values: ['monospace'] },
           // { Field: 'variants', Values: ['700'] }
@@ -93,6 +93,7 @@
         'getCategoryFilter',
         'getFilteredFonts',
         'getFontCategories',
+        'getFontSample',
         'getGoogleFonts'
       ]),
       customSample: {
@@ -110,10 +111,12 @@
     },
     methods: {
       ...mapActions([
-        'updateCategoryFilter'
+        'updateCategoryFilter',
+        'updateFontSample'
       ]),
       customFocus() {
-        this.fontSample = 'CustomSample'
+        // this.fontSample = 'CustomSample'
+        this.$store.dispatch('updateFontSample', 'CustomSample')
       },
       // fontInfo(font) {
       //   let label = font.variants.length > 1 ? 'weights' : 'weight'

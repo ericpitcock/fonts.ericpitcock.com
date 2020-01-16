@@ -13,7 +13,7 @@
         class="font__sample"
         :style="{ fontFamily: font.family }"
       >
-        <component :is="fontSample" />
+        <component :is="getFontSample" />
       </div>
       <!-- <small v-if="showJSON">
         <pre>{{ font }}</pre>
@@ -28,6 +28,7 @@
   import FontNameSample from '@/components/samples/FontNameSample'
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'FontContainer',
@@ -41,14 +42,18 @@
     },
     data() {
       return {
-        fontSample: 'FontNameSample',
+        // fontSample: 'FontNameSample',
         observer: null
       }
     },
     computed: {
-      srcImage() {
-        return this.intersected ? this.src : '';
-      }
+      ...mapGetters([
+        // 'getCategoryFilter',
+        // 'getFilteredFonts',
+        // 'getFontCategories',
+        'getFontSample'
+        // 'getGoogleFonts'
+      ])
     },
     methods: {
       fontInfo(font) {

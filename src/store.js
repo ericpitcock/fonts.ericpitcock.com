@@ -60,6 +60,7 @@ export default new Vuex.Store({
       ]
     },
     categoryFilter: 'sans-serif',
+    fontSample: 'FontNameSample',
     googleFonts: []
   },
   getters: {
@@ -71,6 +72,9 @@ export default new Vuex.Store({
     },
     getFontCategories(state, getters) {
       return [...new Set(getters.getGoogleFonts.map(font => font.category))]
+    },
+    getFontSample(state) {
+      return state.fontSample
     },
     getGoogleFonts(state) {
       return state.googleFonts
@@ -91,6 +95,9 @@ export default new Vuex.Store({
     },
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
+    },
+    setFontSample(state, value) {
+      state.fontSample = value
     }
   },
   actions: {
@@ -99,6 +106,9 @@ export default new Vuex.Store({
     },
     updateCustomSample({ commit }, value) {
       commit('updateCustomSample', value)
+    },
+    updateFontSample({ commit }, value) {
+      commit('setFontSample', value)
     },
     fetchGoogleFonts({ commit }) {
       fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
