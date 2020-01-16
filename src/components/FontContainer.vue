@@ -11,7 +11,7 @@
     data() {
       return {
         observer: null,
-        intersected: false
+        // intersected: false
       }
     },
     computed: {
@@ -20,12 +20,13 @@
       }
     },
     mounted() {
-      var callback = function(entries, observer) { 
+      const fontObject = this.font
+      const callback = function(entries, observer) { 
         entries.forEach(entry => {
           // console.log(entry)
           if (entry.isIntersecting) {
             // this.intersected = true;
-            console.log('intersected')
+            console.log(fontObject.family)
             
             // this.observer.disconnect()
           }
@@ -36,8 +37,8 @@
         rootMargin: '0px',
         threshold: 0.5
       }
-      let observer = new IntersectionObserver(callback, options)
-      observer.observe(this.$refs.fontContainer)
+      this.observer = new IntersectionObserver(callback, options)
+      this.observer.observe(this.$refs.fontContainer)
       // const targets = document.querySelectorAll('.font')
       // targets.forEach(target => {
       //   observer.observe(target)

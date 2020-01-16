@@ -38,6 +38,7 @@
         v-for="(font, index) in getFilteredFonts"
         :key="index"
         :class="font.family.toLowerCase().split(' ').join('')"
+        :font="font"
       >
       <template v-slot:font>
         <div class="font">
