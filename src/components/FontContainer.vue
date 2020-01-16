@@ -21,9 +21,9 @@
       >
         <component :is="getFontSample" />
       </div>
-      <!-- <small v-if="showJSON">
+      <small v-if="showJSON">
         <pre>{{ font }}</pre>
-      </small> -->
+      </small>
     </div>
   </div>
 </template>
@@ -60,7 +60,8 @@
         // 'getCategoryFilter',
         // 'getFilteredFonts',
         // 'getFontCategories',
-        'getFontSample'
+        'getFontSample',
+        'showJSON'
         // 'getGoogleFonts'
       ])
     },

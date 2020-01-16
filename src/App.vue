@@ -30,7 +30,7 @@
           {{ sampleType }}
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
-        <button @click="showJSON = !showJSON">Show JSON</button>
+        <button @click="$store.dispatch('toggleJSON')">Show JSON</button>
       </div>
     </header>
     <main>
