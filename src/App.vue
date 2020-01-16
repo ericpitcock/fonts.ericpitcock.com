@@ -127,31 +127,31 @@
       //     return `${font.variants.length / 2} ${label} w/ italics`
       //   }
       // },
-      loadFonts() {
-        WebFont.load({
-          google: {
-            families: this.loadedFonts
-          },
-          loading: function() {
-            this.fontsLoaded = false
-          },
-          active: function() {
-            this.fontsLoaded = true
-          },
-          inactive: function() {
-            this.fontsLoaded = false
-          },
-          fontloading: function(familyName, fvd) {
-            this.fontsLoaded = false
-          },
-          fontactive: function(familyName, fvd) {
-            this.fontsLoaded = true
-          },
-          fontinactive: function(familyName, fvd) {
-            this.fontsLoaded = false
-          }
-        });
-      }
+      // loadFonts() {
+      //   WebFont.load({
+      //     google: {
+      //       families: this.loadedFonts
+      //     },
+      //     loading: function() {
+      //       this.fontsLoaded = false
+      //     },
+      //     active: function() {
+      //       this.fontsLoaded = true
+      //     },
+      //     inactive: function() {
+      //       this.fontsLoaded = false
+      //     },
+      //     fontloading: function(familyName, fvd) {
+      //       this.fontsLoaded = false
+      //     },
+      //     fontactive: function(familyName, fvd) {
+      //       this.fontsLoaded = true
+      //     },
+      //     fontinactive: function(familyName, fvd) {
+      //       this.fontsLoaded = false
+      //     }
+      //   });
+      // }
     },
     created() {
     },
@@ -177,13 +177,13 @@
       //   observer.observe(target)
       // })
     },
-    watch: {
-      getFilteredFonts: function() {
-        let fonts = this.getFilteredFonts.map(font => font.family)
-        this.loadedFonts = fonts
-        this.loadFonts()
-      }
-    }
+    // watch: {
+    //   getFilteredFonts: function() {
+    //     let fonts = this.getFilteredFonts.map(font => font.family)
+    //     this.loadedFonts = fonts
+    //     this.loadFonts()
+    //   }
+    // }
   }
 </script>
 

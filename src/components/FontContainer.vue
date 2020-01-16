@@ -29,6 +29,7 @@
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
   import { mapGetters } from 'vuex'
+  import WebFont from 'webfontloader'
 
   export default {
     name: 'FontContainer',
@@ -64,6 +65,31 @@
         } else {
           return `${font.variants.length / 2} ${label} w/ italics`
         }
+      },
+      loadFont(font) {
+        WebFont.load({
+          google: {
+            families: [font]
+          },
+          loading: function() {
+            this.fontsLoaded = false
+          },
+          active: function() {
+            this.fontsLoaded = true
+          },
+          inactive: function() {
+            this.fontsLoaded = false
+          },
+          fontloading: function(familyName, fvd) {
+            this.fontsLoaded = false
+          },
+          fontactive: function(familyName, fvd) {
+            this.fontsLoaded = true
+          },
+          fontinactive: function(familyName, fvd) {
+            this.fontsLoaded = false
+          }
+        });
       }
     },
     mounted() {
@@ -72,6 +98,7 @@
         const container = entries[0]
         if (container.isIntersecting) {
           console.log(this.font.family)
+          this.loadFont(this.font.family)
           this.observer.disconnect()
         }
       },{
