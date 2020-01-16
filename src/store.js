@@ -80,11 +80,11 @@ export default new Vuex.Store({
     getGoogleFonts(state) {
       return state.googleFonts
     },
-    getLatinFonts(state) {
-
+    getLatinFonts(state, getters) {
+      return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
     },
     getFilteredFonts(state, getters) {
-      return getters.getGoogleFonts.filter(font => font.category == getters.getCategoryFilter)
+      return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     },
     showJSON(state) {
       return state.showJSON
