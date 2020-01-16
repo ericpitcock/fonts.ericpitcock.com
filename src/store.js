@@ -101,11 +101,9 @@ export default new Vuex.Store({
       commit('updateCustomSample', value)
     },
     fetchGoogleFonts({ commit }) {
-      fetch(
-        'https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c'
-      )
-      .then(response => response.json())
-      .then(response => commit('setGoogleFonts', response.items))
+      fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+        .then(response => response.json())
+        .then(response => commit('setGoogleFonts', response.items))
     }
   }
 });

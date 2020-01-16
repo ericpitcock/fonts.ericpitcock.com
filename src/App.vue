@@ -159,9 +159,9 @@
       }
     },
     created() {
-      },
+    },
     mounted() {
-      console.log(this.getFontCategories);
+      console.log(this.getFontCategories)
       this.$store.dispatch('fetchGoogleFonts')
       
       // load fonts when visible
@@ -224,12 +224,12 @@
   .category-filters {
     &__filter-button {
       text-transform: capitalize;
+      cursor: pointer;
+      & + span { margin-left: 20px; }
+      &--active {
+        color: red;
+      }
     }
-    cursor: pointer;
-    &--active {
-      color: red;
-    }
-    & + span { margin-left: 20px; }
   }
   .sample-control {
     display: flex;
