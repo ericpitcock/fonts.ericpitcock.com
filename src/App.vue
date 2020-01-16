@@ -117,7 +117,8 @@
     color: black;
   }
   #app {
-    flex: 0 0 1200px;
+    // flex: 0 0 1200px;
+    width: 100%;
     height: 100vh;
     // display: flex;
     // flex-direction: column
@@ -129,6 +130,9 @@
   header {
     grid-row: 1;
     grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 30px;
     background: white;
     border-bottom: 1px solid #d3d3d3;

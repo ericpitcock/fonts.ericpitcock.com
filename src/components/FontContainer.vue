@@ -1,6 +1,6 @@
 <template>
   <div class="font-container">
-    <div v-if=loading class="loading">
+    <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
     <div v-if=error class="error">
@@ -80,7 +80,7 @@
         }
       },
       loadFont(font) {
-        // let fontStack = `${font.family}:${font.variants.join(', ')}`
+        // https://www.npmjs.com/package/webfontloader
         let fontStack = ''
         if (font.variants.length > 1) {
           fontStack = `${font.family}:${font.variants.join(',')}`
@@ -93,6 +93,7 @@
             //families: ['Open Sans:300,400,700']
             families: [fontStack]
           },
+          classes: false,
           loading: () => {
           },
           active: () => {
@@ -144,6 +145,8 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
     overflow: hidden;
     .loading, .error {
       position: absolute;
@@ -156,6 +159,9 @@
       justify-content: center;
       align-items: center;
       background: #fff;
+    }
+    .loading img {
+      height: 100%;
     }
     .error {
       color: red;
