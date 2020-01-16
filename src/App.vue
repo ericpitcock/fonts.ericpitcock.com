@@ -41,14 +41,12 @@
         :font="font"
       >
       <template v-slot:font>
-        <div class="font">
+        <!-- <div class="font">
           <div class="left">
             <div class="font__name">
-              <!-- <span v-if="sampleType != null">{{ font.family }}</span> -->
               <span>{{ font.family }}</span>
             </div>
             <div class="font__info">
-              <!-- <span v-for="variant in font.variants" :key="key()">{{ variant }}</span> -->
               <span>{{ fontInfo(font) }}</span>
             </div>
           </div>
@@ -56,13 +54,12 @@
             class="font__sample"
             :style="{ fontFamily: font.family }"
           >
-            <!-- {{ customSample || sample(font) }} -->
             <component :is="fontSample" />
           </div>
           <small v-if="showJSON">
             <pre>{{ font }}</pre>
           </small>
-        </div>
+        </div> -->
       </template>
       </FontContainer>
     </main>
@@ -71,12 +68,6 @@
 
 <script>
   import FontContainer from '@/components/FontContainer'
-  import AlphabetSample from '@/components/samples/AlphabetSample'
-  import CustomSample from '@/components/samples/CustomSample'
-  import FontNameSample from '@/components/samples/FontNameSample'
-  // import LayoutSample from '@/components/samples/LayoutSample'
-  import ParagraphSample from '@/components/samples/ParagraphSample'
-  import TableSample from '@/components/samples/TableSample'
   import WebFont from 'webfontloader'
   import { mapActions, mapGetters } from 'vuex'
   // import flexFilter from './filter.js'
@@ -84,13 +75,7 @@
   export default {
     name: 'App',
     components: {
-      FontContainer,
-      AlphabetSample,
-      CustomSample,
-      FontNameSample,
-      // LayoutSample,
-      ParagraphSample,
-      TableSample
+      FontContainer
     },
     data() {
       return {
@@ -130,15 +115,15 @@
       customFocus() {
         this.fontSample = 'CustomSample'
       },
-      fontInfo(font) {
-        let label = font.variants.length > 1 ? 'weights' : 'weight'
-        // if it doesn't have italics
-        if (!font.variants.includes('italic')) {
-          return `${font.variants.length} ${label}`
-        } else {
-          return `${font.variants.length / 2} ${label} w/ italics`
-        }
-      },
+      // fontInfo(font) {
+      //   let label = font.variants.length > 1 ? 'weights' : 'weight'
+      //   // if it doesn't have italics
+      //   if (!font.variants.includes('italic')) {
+      //     return `${font.variants.length} ${label}`
+      //   } else {
+      //     return `${font.variants.length / 2} ${label} w/ italics`
+      //   }
+      // },
       loadFonts() {
         WebFont.load({
           google: {
@@ -294,36 +279,6 @@
     padding: 30px;
     overflow: scroll;
     background: #fff;
-  }
-  .font {
-    display: flex;
-    padding: 60px 20px;
-    border-top: 1px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
-    &:hover {
-      cursor: pointer;
-    }
-    & + & {
-      margin-top: -1px;
-    }
-    .left {
-      flex: 0 0 200px;
-    }
-    &__name {
-      flex: 0 0 30px;
-      display: flex;
-      align-items: center;
-      color: blue;
-    }
-    &__sample {
-      flex: 1 1 auto;
-    }
-    &__info {
-      flex: 0 0 30px;
-      display: flex;
-      align-items: center;
-      color: gray;
-    }
   }
   small {
     font-size: 10px;
