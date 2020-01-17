@@ -23,12 +23,12 @@
       </div>
       <div class="sample-control">
         <div
-          v-for="(sampleType, index) in ['SentenceSample', 'AlphabetSample', 'ParagraphSample', 'TableSample']"
+          v-for="(sampleType, index) in samples"
           :key="index"
-          :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType }]"
-          @click="$store.dispatch('updateFontSample', sampleType)"
+          :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType.component }]"
+          @click="$store.dispatch('updateFontSample', sampleType.component)"
         >
-          {{ sampleType }}
+          {{ sampleType.name }}
         </div>
         <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
         <div class="font-size-slider">
@@ -60,12 +60,19 @@
     },
     data() {
       return {
-        // fontSample: 'FontNameSample',
-        criteria: [
-          { Field: 'category', Values: ['monospace'] },
-          // { Field: 'variants', Values: ['700'] }
-        ],
-        loadedFonts: [],
+        samples: [{
+            name: 'Sentence',
+            component: 'SentenceSample'
+          },{
+            name: 'Alphabet',
+            component: 'AlphabetSample'
+          },{
+            name: 'Paragraph',
+            component: 'ParagraphSample'
+          },{
+            name: 'Table',
+            component: 'TableSample'
+        }],
         showJSON: false
       };
     },
@@ -78,6 +85,7 @@
         'getFontSample',
         'getGlobalFontSize',
         'getGoogleFonts',
+        'getRecommendedFonts',
         'getWhitelistedFonts'
       ]),
       customSample: {
@@ -107,6 +115,9 @@
       ]),
       customFocus() {
         this.$store.dispatch('updateFontSample', 'CustomSample')
+      },
+      toggleRecommended() {
+
       }
     },
     mounted() {

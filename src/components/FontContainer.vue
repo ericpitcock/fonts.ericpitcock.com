@@ -194,6 +194,7 @@
     }
     &__sample {
       flex: 1 1 auto;
+      align-self: center;
       margin-left: 30px;
       .json {
         padding-top: 30px;

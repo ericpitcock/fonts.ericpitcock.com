@@ -142,7 +142,7 @@ export default new Vuex.Store({
       return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     },
     getRecommendedFonts(state, getters) {
-      return getters.getLatinFonts.filter(font => font.variants.length > 1)
+      return getters.getLatinFonts.filter(font => font.recommended)
     },
     getWhitelistedFonts(state, getters) {
       let whitelisted = []
