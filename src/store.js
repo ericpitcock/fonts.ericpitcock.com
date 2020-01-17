@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     customSample: '',
+    currentSpecimen: {},
     blacklisted: [
       // sans-serif
       'Aclonica',
@@ -150,6 +151,9 @@ export default new Vuex.Store({
     getCategoryFilter(state) {
       return state.categoryFilter
     },
+    getCurrentSpecimen(state) {
+      return state.currentSpecimen
+    },
     getCustomSample(state) {
       return state.customSample
     },
@@ -193,6 +197,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateCurrentSpecimen(state, value) {
+      state.currentSpecimen = value
+    },
     updateCustomSample(state, value) {
       state.customSample = value
     },
@@ -230,6 +237,9 @@ export default new Vuex.Store({
   actions: {
     updateCategoryFilter({ commit }, value) {
       commit('setCategoryFilter', value)
+    },
+    updateCurrentSpecimen({ commit }, value) {
+      commit('updateCurrentSpecimen', value)
     },
     updateCustomSample({ commit }, value) {
       commit('updateCustomSample', value)

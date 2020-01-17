@@ -1,6 +1,8 @@
 <template>
-  <div class="font-container">
-    <router-link :to="{ name: 'font', params: { font: font.family } }">
+  <div
+    class="font-container"
+    @click="toFontSpecimen(font)"
+  >
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
@@ -29,7 +31,6 @@
         </div>
       </div>
     </div>
-    </router-link>
   </div>
 </template>
 
@@ -121,6 +122,11 @@
             // console.log(`fontinactive: ${familyName}`)
           }
         });
+      },
+      toFontSpecimen(font) {
+        // populate store and route
+        this.$store.dispatch('updateCurrentSpecimen', font)
+        this.$router.push({ path: `/${font.family.toLowerCase().replace(' ', '-')}` })
       }
     },
     watch: {

@@ -1,9 +1,9 @@
 <template>
   <div
     class="specimen"
-    :style="{ fontFamily: thisfont.family }"
+    :style="{ fontFamily: font.family }"
   >
-    {{ thisfont }}
+    {{ font }}
   </div>
 </template>
 
@@ -12,15 +12,10 @@
 
   export default {
     name: 'Specimen',
-    props: ['font'],
     computed: {
-      ...mapGetters([
-        'getGoogleFonts'
-      ]),
-      thisfont() {
-        let thisfont = this.getGoogleFonts.filter(font => font.family == this.font)
-        return thisfont[0]
-      }
+      ...mapGetters({
+        font: 'getCurrentSpecimen'
+    })
     }
   }
 </script>
