@@ -14,7 +14,7 @@
           {{ category }}
         </span>
         <span>
-          <input type="checkbox" id="recommended" name="recommended" checked>
+          <input type="checkbox" id="recommended" name="recommended" @change="$store.dispatch('toggleRecommendedOnly')" :checked="getRecommendedOnly">
           <label for="recommended">Recommended only</label>
         </span>
         <span class="font-count">
@@ -39,7 +39,7 @@
     </header>
     <main>
       <FontContainer
-        v-for="(font, index) in getFilteredFonts"
+        v-for="(font, index) in activeFonts"
         :key="index"
         :class="font.family.toLowerCase().split(' ').join('')"
         :font="font"
@@ -60,6 +60,7 @@
     },
     data() {
       return {
+        // recommendedOnly: true,
         samples: [{
             name: 'Sentence',
             component: 'SentenceSample'
@@ -86,8 +87,12 @@
         'getGlobalFontSize',
         'getGoogleFonts',
         'getRecommendedFonts',
+        'getRecommendedOnly',
         'getWhitelistedFonts'
       ]),
+      activeFonts() {
+        return (this.getRecommendedOnly) ? this.getRecommendedFonts : this.getFilteredFonts
+      },
       customSample: {
         get() {
           return this.getCustomSample
@@ -115,13 +120,15 @@
       ]),
       customFocus() {
         this.$store.dispatch('updateFontSample', 'CustomSample')
-      },
-      toggleRecommended() {
-
       }
     },
     mounted() {
       this.$store.dispatch('fetchGoogleFonts')
+    },
+    watch: {
+      getRecommendedOnly: function() {
+
+      }
     }
   }
 </script>

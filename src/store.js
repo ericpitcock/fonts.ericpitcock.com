@@ -143,6 +143,7 @@ export default new Vuex.Store({
       'Trocchi',
       'Zilla Slab'
     ],
+    recommendedOnly: true,
     showJSON: false
   },
   getters: {
@@ -172,7 +173,11 @@ export default new Vuex.Store({
       return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     },
     getRecommendedFonts(state, getters) {
-      return getters.getLatinFonts.filter(font => font.recommended)
+      let recommended = getters.getLatinFonts.filter(font => font.recommended)
+      return recommended.filter(font => font.category == getters.getCategoryFilter)
+    },
+    getRecommendedOnly(state) {
+      return state.recommendedOnly
     },
     getWhitelistedFonts(state, getters) {
       let whitelisted = []
@@ -217,6 +222,9 @@ export default new Vuex.Store({
     },
     toggleJSON(state) {
       state.showJSON = !state.showJSON
+    },
+    toggleRecommendedOnly(state) {
+      state.recommendedOnly = !state.recommendedOnly
     }
   },
   actions: {
@@ -240,6 +248,9 @@ export default new Vuex.Store({
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')
+    },
+    toggleRecommendedOnly({ commit }) {
+      commit('toggleRecommendedOnly')
     }
   }
 });

@@ -65,6 +65,7 @@
         // 'getFontCategories',
         'getFontSample',
         'getGlobalFontSize',
+        'getRecommendedOnly',
         'showJSON'
         // 'getGoogleFonts'
       ])
@@ -122,6 +123,9 @@
     },
     watch: {
       getCategoryFilter: function() {
+        this.observer.observe(this.$el)
+      },
+      getRecommendedOnly: function() {
         this.observer.observe(this.$el)
       }
     },
