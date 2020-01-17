@@ -1,5 +1,6 @@
 <template>
   <div class="font-container">
+    <router-link :to="`/${font.family.toLowerCase().split(' ').join('-')}`">
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
@@ -28,6 +29,7 @@
         </div>
       </div>
     </div>
+    </router-link>
   </div>
 </template>
 
@@ -174,6 +176,10 @@
     .error {
       color: red;
     }
+  }
+  .font-container a {
+    color: black;
+    text-decoration: none;
   }
   .font {
     display: flex;
