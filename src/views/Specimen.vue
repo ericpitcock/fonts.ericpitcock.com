@@ -3,15 +3,19 @@
     class="specimen"
     :style="{ fontFamily: font.family }"
   >
-    {{ font }}
+    <TableSample />
   </div>
 </template>
 
 <script>
+  import TableSample from '@/components/samples/TableSample'
   import { mapGetters } from 'vuex'
 
   export default {
     name: 'Specimen',
+    components: {
+      TableSample
+    },
     computed: {
       ...mapGetters({
         font: 'getCurrentSpecimen'

@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="font.family.toLowerCase().split(' ').join('-')"
     class="font-container"
     @click="toFontSpecimen(font)"
   >
@@ -126,7 +127,7 @@
       toFontSpecimen(font) {
         // populate store and route
         this.$store.dispatch('updateCurrentSpecimen', font)
-        this.$router.push({ path: `/${font.family.toLowerCase().replace(' ', '-')}` })
+        this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
       }
     },
     watch: {

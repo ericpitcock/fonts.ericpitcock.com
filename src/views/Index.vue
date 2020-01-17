@@ -64,19 +64,24 @@
     },
     data() {
       return {
-        samples: [{
+        samples: [
+          {
             name: 'Sentence',
             component: 'SentenceSample'
-          },{
+          },
+          {
             name: 'Alphabet',
             component: 'AlphabetSample'
-          },{
+          },
+          {
             name: 'Paragraph',
             component: 'ParagraphSample'
-          },{
-            name: 'Table',
-            component: 'TableSample'
-        }],
+          },
+          // {
+          //   name: 'Table',
+          //   component: 'TableSample'
+          // }
+        ],
         showJSON: false
       };
     },

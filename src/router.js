@@ -17,7 +17,6 @@ export default new Router({
     {
       path: '/:font',
       name: 'font',
-      props: true,
       component: Specimen
     }
   ]
