@@ -39,7 +39,7 @@
     </header>
     <main>
       <FontContainer
-        v-for="(font, index) in getWhitelistedFonts"
+        v-for="(font, index) in getFilteredFonts"
         :key="index"
         :class="font.family.toLowerCase().split(' ').join('')"
         :font="font"

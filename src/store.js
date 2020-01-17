@@ -67,8 +67,51 @@ export default new Vuex.Store({
     ],
     categoryFilter: 'sans-serif',
     fontSample: 'FontNameSample',
-    globalFontSize: 20,
+    globalFontSize: 36,
     googleFonts: [],
+    recommendedFonts: [
+      'Archivo',
+      'Archivo Narrow',
+      'Asap',
+      'Asap Condensed',
+      'Bai Jamjuree',
+      'Barlow',
+      'Barlow Condensed',
+      'Barlow Semi Condensed',
+      'Be Vietnam',
+      'Chivo',
+      'DM Sans',
+      'Exo 2',
+      'Fira Sans',
+      'Fira Sans Condensed',
+      'Fira Sans Extra Condensed',
+      'Gudea',
+      'IBM Plex Sans',
+      'IBM Plex Sans Condensed',
+      'Karla',
+      'Lato',
+      'Lekton',
+      'Libre Franklin',
+      'M PLUS 1p',
+      'M PLUS Rounded 1c',
+      'Mada',
+      'News Cycle',
+      'Nunito',
+      'Nunito Sans',
+      'Open Sans',
+      'Open Sans Condensed',
+      'Oswald',
+      'Pragati Narrow',
+      'Public Sans',
+      'Quattrocento Sans',
+      'Quicksand',
+      'Roboto',
+      'Roboto Condensed',
+      'Sarabun',
+      'Source Sans Pro',
+      'Work Sans',
+      'Yantramanav'
+    ],
     showJSON: false
   },
   getters: {
@@ -93,8 +136,12 @@ export default new Vuex.Store({
     getLatinFonts(state, getters) {
       return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
     },
+    // main entrance in App.vue
     getFilteredFonts(state, getters) {
-      return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
+      return getters.getRecommendedFonts.filter(font => font.category == getters.getCategoryFilter)
+    },
+    getRecommendedFonts(state, getters) {
+      return getters.getLatinFonts.filter(font => font.variants.length > 1)
     },
     getWhitelistedFonts(state, getters) {
       let whitelisted = []
@@ -112,6 +159,18 @@ export default new Vuex.Store({
   mutations: {
     updateCustomSample(state, value) {
       state.customSample = value
+    },
+    processGoogleFonts(state, fonts) {
+      let processedFonts = fonts
+      processedFonts.forEach(font => {
+        if (state.recommendedFonts.includes(font.family)) {
+          font.recommended = true
+        } else {
+          font.recommended = false
+        }
+      })
+      state.googleFonts = processedFonts
+      console.log(processedFonts)
     },
     setCategoryFilter(state, value) {
       state.categoryFilter = value
@@ -145,7 +204,8 @@ export default new Vuex.Store({
     fetchGoogleFonts({ commit }) {
       fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
         .then(response => response.json())
-        .then(response => commit('setGoogleFonts', response.items))
+        // .then(response => commit('setGoogleFonts', response.items))
+        .then(response => commit('processGoogleFonts', response.items))
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')

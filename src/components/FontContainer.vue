@@ -14,6 +14,9 @@
         <div class="font__info">
           <span>{{ fontInfo(font) }}</span>
         </div>
+        <div class="font__recommended">
+          <span v-if="font.recommended">Recommended!</span>
+        </div>
       </div>
       <div
         class="font__sample"
