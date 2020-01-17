@@ -28,12 +28,21 @@
       <div
         v-for="(sampleType, index) in samples"
         :key="index"
-        :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType.component }]"
+        :class="[
+          'sample-control__button',
+          { 'sample-control__button--active': getFontSample == sampleType.component }
+        ]"
         @click="$store.dispatch('updateFontSample', sampleType.component)"
       >
         {{ sampleType.name }}
       </div>
-      <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
+      <input
+        class="custom-sample-input"
+        v-model="customSample"
+        @focus="customFocus()"
+        type="text"
+        placeholder="Enter your own words"
+      >
       <div class="font-size-slider">
         <input name="font-size" type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
         <label for="font-size">{{ fontSize }}px</label>
@@ -61,11 +70,7 @@
           {
             name: 'Paragraph',
             component: 'ParagraphSample'
-          },
-          // {
-          //   name: 'Table',
-          //   component: 'TableSample'
-          // }
+          }
         ]
       }
     },
@@ -92,7 +97,7 @@
         set(value) {
           this.$store.dispatch('updateGlobalFontSize', value)
         }
-      },
+      }
     },
     methods: {
       customFocus() {

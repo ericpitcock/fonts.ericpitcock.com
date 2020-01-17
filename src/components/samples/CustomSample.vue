@@ -17,6 +17,5 @@
 
 <style>
   .custom-sample {
-    /* font-size: 40px; */
   }
 </style>
