@@ -14,11 +14,16 @@
           {{ category }}
         </span>
         <span>
-          <input type="checkbox" id="recommended" name="recommended" @change="$store.dispatch('toggleRecommendedOnly')" :checked="getRecommendedOnly">
+          <input
+            type="checkbox"
+            name="recommended"
+            @change="$store.dispatch('toggleRecommendedOnly')"
+            :checked="getRecommendedOnly"
+          >
           <label for="recommended">Recommended only</label>
         </span>
         <span class="font-count">
-          {{ fontCount }} fonts
+          {{ activeFonts.length }} fonts
         </span>
       </div>
       <div class="sample-control">
@@ -41,7 +46,6 @@
       <FontContainer
         v-for="(font, index) in activeFonts"
         :key="index"
-        :class="font.family.toLowerCase().split(' ').join('')"
         :font="font"
       />
     </main>
@@ -60,7 +64,6 @@
     },
     data() {
       return {
-        // recommendedOnly: true,
         samples: [{
             name: 'Sentence',
             component: 'SentenceSample'
