@@ -148,6 +148,9 @@ export default new Vuex.Store({
     showJSON: false
   },
   getters: {
+    getActiveFonts(state, getters) {
+      return (getters.getRecommendedOnly) ? getters.getRecommendedFonts : getters.getFilteredFonts
+    },
     getCategoryFilter(state) {
       return state.categoryFilter
     },

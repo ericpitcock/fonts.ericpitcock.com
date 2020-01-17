@@ -1,54 +1,10 @@
 <template>
-  <div class="app">
-    <button class="json-button" @click="$store.dispatch('toggleJSON')">Show JSON</button>
-    <header>
-      <div class="category-filters">
-        <span
-          v-for="(category, index) in getFontCategories"
-          :key="index"
-          @click="$store.dispatch('updateCategoryFilter', category)"
-          :class="['category-filters__filter-button', { 'category-filters__filter-button--active': getCategoryFilter == category }]"
-        >
-          <span v-if="category == 'sans-serif'">TEXT</span>
-          <span v-if="category == 'display'">HEADLINE</span>
-          {{ category }}
-        </span>
-        <span>
-          <input
-            type="checkbox"
-            name="recommended"
-            @change="$store.dispatch('toggleRecommendedOnly')"
-            :checked="getRecommendedOnly"
-          >
-          <label for="recommended">Recommended only</label>
-        </span>
-        <span class="font-count">
-          {{ activeFonts.length }} fonts
-        </span>
-      </div>
-      <div class="sample-control">
-        <div
-          v-for="(sampleType, index) in samples"
-          :key="index"
-          :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType.component }]"
-          @click="$store.dispatch('updateFontSample', sampleType.component)"
-        >
-          {{ sampleType.name }}
-        </div>
-        <input class="custom-sample-input" v-model="customSample" @focus="customFocus()" type="text" placeholder="Enter your own words">
-        <div class="font-size-slider">
-          <input name="font-size" type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
-          <label for="font-size">{{ fontSize }}px</label>
-        </div>
-      </div>
-    </header>
-    <main>
-      <FontContainer
-        v-for="(font, index) in activeFonts"
-        :key="index"
-        :font="font"
-      />
-    </main>
+  <div>
+    <FontContainer
+      v-for="(font, index) in getActiveFonts"
+      :key="index"
+      :font="font"
+    />
   </div>
 </template>
 
@@ -64,29 +20,12 @@
     },
     data() {
       return {
-        samples: [
-          {
-            name: 'Sentence',
-            component: 'SentenceSample'
-          },
-          {
-            name: 'Alphabet',
-            component: 'AlphabetSample'
-          },
-          {
-            name: 'Paragraph',
-            component: 'ParagraphSample'
-          },
-          // {
-          //   name: 'Table',
-          //   component: 'TableSample'
-          // }
-        ],
-        showJSON: false
-      };
+
+      }
     },
     computed: {
       ...mapGetters([
+        'getActiveFonts',
         'getCategoryFilter',
         'getCustomSample',
         'getFilteredFonts',
@@ -98,25 +37,25 @@
         'getRecommendedOnly',
         'getWhitelistedFonts'
       ]),
-      activeFonts() {
-        return (this.getRecommendedOnly) ? this.getRecommendedFonts : this.getFilteredFonts
-      },
-      customSample: {
-        get() {
-          return this.getCustomSample
-        },
-        set(value) {
-          this.$store.dispatch('updateCustomSample', value)
-        }
-      },
-      fontSize: {
-        get() {
-          return this.getGlobalFontSize
-        },
-        set(value) {
-          this.$store.dispatch('updateGlobalFontSize', value)
-        }
-      },
+      // activeFonts() {
+      //   return (this.getRecommendedOnly) ? this.getRecommendedFonts : this.getFilteredFonts
+      // },
+      // customSample: {
+      //   get() {
+      //     return this.getCustomSample
+      //   },
+      //   set(value) {
+      //     this.$store.dispatch('updateCustomSample', value)
+      //   }
+      // },
+      // fontSize: {
+      //   get() {
+      //     return this.getGlobalFontSize
+      //   },
+      //   set(value) {
+      //     this.$store.dispatch('updateGlobalFontSize', value)
+      //   }
+      // },
       fontCount() {
         return this.getWhitelistedFonts.length
       }
@@ -126,9 +65,9 @@
         'updateCategoryFilter',
         'updateFontSample'
       ]),
-      customFocus() {
-        this.$store.dispatch('updateFontSample', 'CustomSample')
-      }
+      // customFocus() {
+      //   this.$store.dispatch('updateFontSample', 'CustomSample')
+      // }
     },
     mounted() {
       this.$store.dispatch('fetchGoogleFonts')
@@ -164,100 +103,19 @@
     grid-template-columns: 1fr;
     grid-column-gap: 0;
   }
-  .json-button {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-  }
-  header {
-    grid-row: 1;
-    grid-column: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    background: white;
-    border-bottom: 1px solid #d3d3d3;
-    flex: 0 0 auto;
-    > * + * {
-      margin-top: 20px;
-    }
-  }
-  .category-filters {
-    &__filter-button {
-      text-transform: capitalize;
-      cursor: pointer;
-      & + span { margin-left: 20px; }
-      &--active {
-        color: red;
-      }
-    }
-  }
-  .sample-control {
-    display: flex;
-    margin-left: -6px;
-    &__button {
-      display: flex;
-      align-items: center;
-      height: 29px;
-      padding: 2px 10px 0 10px;
-      border: 1px solid #e6e6e6;
-      font-size: 11px;
-      &:hover:not(.sample-control__button--active) {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
-      }
-      &--active {
-        background: yellow;
-      }
-      & + & {
-        border-left: none;
-      }
-      &:first-child {
-        padding-left: 15px;
-        border-radius: 15px 0 0 15px;
-      }
-    }
-    .custom-sample-input {
-      width: 300px;
-      padding: 2px 0 0 15px;
-      border: 1px solid #e6e6e6;
-      border-left: none;
-      border-radius: 0 15px 15px 0;
-      font-size: 11px;
-      &:hover {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
-      }
-      &::placeholder {
-        font-size: 11px;
-        color: black;
-      }
-      &:focus {
-        background: yellow;
-        outline: none;
-      }
-    }
-    .font-size-slider {
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-      label {
-        margin-left: 10px;
-      }
-    }
-  }
-  .font-count {
-    font-size: 12px;
-    color: gray;
-  }
-  main {
-    grid-row: 2;
-    grid-column: 1;
-    padding: 0 30px 30px 30px;
-    overflow: scroll;
-    background: #fff;
-  }
+  // .json-button {
+  //   position: absolute;
+  //   top: 10px;
+  //   left: 10px;
+  // }
+  
+  // main {
+  //   grid-row: 2;
+  //   grid-column: 1;
+  //   padding: 0 30px 30px 30px;
+  //   overflow: scroll;
+  //   background: #fff;
+  // }
   small {
     font-size: 10px;
   }
