@@ -14,8 +14,8 @@
         <div class="font__info">
           <span>{{ fontInfo(font) }}</span>
         </div>
-        <div class="font__recommended">
-          <span v-if="font.recommended">Recommended!</span>
+        <div v-if="font.recommended" class="font__recommended">
+          Recommended
         </div>
       </div>
       <div
@@ -204,6 +204,17 @@
       display: flex;
       align-items: center;
       color: gray;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    &__recommended {
+      display: inline-block;
+      padding: 4px 5px 1px 5px;
+      border: 1px solid lighten(red, 40%);
+      border-radius: 3px;
+      font-size: 11px;
+      color: rebeccapurple;
+      margin-top: 20px;
     }
   }
 </style>

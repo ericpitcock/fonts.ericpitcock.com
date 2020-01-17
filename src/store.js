@@ -70,6 +70,7 @@ export default new Vuex.Store({
     globalFontSize: 36,
     googleFonts: [],
     recommendedFonts: [
+      // sans-serif
       'Archivo',
       'Archivo Narrow',
       'Asap',
@@ -138,7 +139,7 @@ export default new Vuex.Store({
     },
     // main entrance in App.vue
     getFilteredFonts(state, getters) {
-      return getters.getRecommendedFonts.filter(font => font.category == getters.getCategoryFilter)
+      return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     },
     getRecommendedFonts(state, getters) {
       return getters.getLatinFonts.filter(font => font.variants.length > 1)
@@ -161,6 +162,7 @@ export default new Vuex.Store({
       state.customSample = value
     },
     processGoogleFonts(state, fonts) {
+      // add recommended tag
       let processedFonts = fonts
       processedFonts.forEach(font => {
         if (state.recommendedFonts.includes(font.family)) {
@@ -170,7 +172,6 @@ export default new Vuex.Store({
         }
       })
       state.googleFonts = processedFonts
-      console.log(processedFonts)
     },
     setCategoryFilter(state, value) {
       state.categoryFilter = value
