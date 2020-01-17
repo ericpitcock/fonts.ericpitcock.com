@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <header>
-      <slot name="header"></slot>
-    </header>
+    <slot name="header"></slot>
     <main>
       <slot name="main"></slot>
     </main>
@@ -10,14 +8,19 @@
 </template>
 
 <script>
-export default {
-
-}
+  export default {
+    name: 'Layout'
+  }
 </script>
 
 <style>
   .container {
-    
+    display: grid;
+    grid-template-rows: 130px 1fr;
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+    width: 100vw;
+    height: 100vh;
   }
   header {
 
