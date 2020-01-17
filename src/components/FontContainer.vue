@@ -1,6 +1,6 @@
 <template>
   <div class="font-container">
-    <router-link :to="`/${font.family.toLowerCase().split(' ').join('-')}`">
+    <router-link :to="{ name: 'font', params: { font: font.family } }">
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
