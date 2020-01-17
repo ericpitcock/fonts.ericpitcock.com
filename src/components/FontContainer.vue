@@ -34,7 +34,7 @@
 <script>
   import AlphabetSample from '@/components/samples/AlphabetSample'
   import CustomSample from '@/components/samples/CustomSample'
-  import FontNameSample from '@/components/samples/FontNameSample'
+  import SentenceSample from '@/components/samples/SentenceSample'
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
   import { mapGetters } from 'vuex'
@@ -46,7 +46,7 @@
     components: {
       AlphabetSample,
       CustomSample,
-      FontNameSample,
+      SentenceSample,
       ParagraphSample,
       TableSample
     },
@@ -214,6 +214,7 @@
       border-radius: 3px;
       font-size: 11px;
       color: rebeccapurple;
+      background: lighten(yellow, 40%);
       margin-top: 20px;
     }
   }

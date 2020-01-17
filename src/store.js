@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    customSample: 'Enter your words',
+    customSample: '',
     blacklisted: [
       // sans-serif
       'Aclonica',
@@ -66,7 +66,7 @@ export default new Vuex.Store({
       'Inknut Antiqua'
     ],
     categoryFilter: 'sans-serif',
-    fontSample: 'FontNameSample',
+    fontSample: 'SentenceSample',
     globalFontSize: 36,
     googleFonts: [],
     recommendedFonts: [

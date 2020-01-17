@@ -23,7 +23,7 @@
       </div>
       <div class="sample-control">
         <div
-          v-for="(sampleType, index) in ['FontNameSample', 'AlphabetSample', 'ParagraphSample', 'TableSample']"
+          v-for="(sampleType, index) in ['SentenceSample', 'AlphabetSample', 'ParagraphSample', 'TableSample']"
           :key="index"
           :class="['sample-control__button', { 'sample-control__button--active': getFontSample == sampleType }]"
           @click="$store.dispatch('updateFontSample', sampleType)"
@@ -199,6 +199,10 @@
       border-left: none;
       border-radius: 0 15px 15px 0;
       font-size: 11px;
+      &:hover {
+        background: lighten(yellow, 40%);
+        cursor: pointer;
+      }
       &::placeholder {
         font-size: 11px;
         color: black;
