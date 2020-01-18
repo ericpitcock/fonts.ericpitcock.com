@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="content index">
     <FontContainer
       v-for="(font, index) in getActiveFonts"
       :key="index"

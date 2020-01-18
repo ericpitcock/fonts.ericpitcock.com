@@ -109,6 +109,11 @@
 
 <style lang="scss">
   header {
+    // option for sticky header
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    // end option
     grid-row: 1;
     grid-column: 1;
     display: flex;

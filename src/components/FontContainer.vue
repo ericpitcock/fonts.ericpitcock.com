@@ -11,7 +11,8 @@
       <p>There was an error loading this font</p>
     </div>
     <div class="font">
-      <div class="left">
+      <FontInfo :font="font" />
+      <!-- <div class="left">
         <div class="font__name">
           <span>{{ font.family }}</span>
         </div>
@@ -21,7 +22,7 @@
         <div v-if="font.recommended" class="font__recommended">
           Recommended
         </div>
-      </div>
+      </div> -->
       <div
         class="font__sample"
         :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
@@ -41,6 +42,7 @@
   import SentenceSample from '@/components/samples/SentenceSample'
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
+  import FontInfo from '@/components/FontInfo'
   import { mapGetters } from 'vuex'
   import WebFont from 'webfontloader'
 
@@ -50,6 +52,7 @@
     components: {
       AlphabetSample,
       CustomSample,
+      FontInfo,
       SentenceSample,
       ParagraphSample,
       TableSample
@@ -75,19 +78,19 @@
       ])
     },
     methods: {
-      fontInfo(font) {
-        let label = font.variants.length > 1 ? 'weights' : 'weight'
-        // if it doesn't have italics
-        if (!font.variants.includes('italic')) {
-          return `${font.variants.length} ${label}`
-        } else {
-          let italicCount = 0
-          font.variants.forEach(variant => {
-            if (variant.includes('italic')) { italicCount++ }
-          })
-          return `${font.variants.length - italicCount} ${label} w/ italics`
-        }
-      },
+      // fontInfo(font) {
+      //   let label = font.variants.length > 1 ? 'weights' : 'weight'
+      //   // if it doesn't have italics
+      //   if (!font.variants.includes('italic')) {
+      //     return `${font.variants.length} ${label}`
+      //   } else {
+      //     let italicCount = 0
+      //     font.variants.forEach(variant => {
+      //       if (variant.includes('italic')) { italicCount++ }
+      //     })
+      //     return `${font.variants.length - italicCount} ${label} w/ italics`
+      //   }
+      // },
       loadFont(font) {
         // https://www.npmjs.com/package/webfontloader
         let fontStack = ''
@@ -162,9 +165,12 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    overflow: hidden;
+    // max-width: 1200px;
+    // margin: 0 auto;
+    // overflow: hidden;
+    &:hover {
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
     .loading, .error {
       position: absolute;
       top: 1px;
@@ -191,8 +197,11 @@
   .font {
     display: flex;
     padding: 60px 20px;
-    .font-container:not(:first-child) & {
+    .font-container & {
       border-top: 1px solid #e6e6e6;
+    }
+    .font-container:last-child & {
+      border-bottom: 1px solid #e6e6e6;
     }
     &:hover {
       cursor: pointer;
@@ -200,15 +209,15 @@
     & + & {
       margin-top: -1px;
     }
-    .left {
-      flex: 0 0 200px;
-    }
-    &__name {
-      flex: 0 0 30px;
-      display: flex;
-      align-items: center;
-      color: blue;
-    }
+    // .left {
+    //   flex: 0 0 200px;
+    // }
+    // &__name {
+    //   flex: 0 0 30px;
+    //   display: flex;
+    //   align-items: center;
+    //   color: blue;
+    // }
     &__sample {
       flex: 1 1 auto;
       align-self: center;
@@ -217,23 +226,23 @@
         padding-top: 30px;
       }
     }
-    &__info {
-      flex: 0 0 30px;
-      display: flex;
-      align-items: center;
-      color: gray;
-      font-size: 12px;
-      margin-top: 10px;
-    }
-    &__recommended {
-      display: inline-block;
-      padding: 4px 5px 1px 5px;
-      border: 1px solid lighten(red, 40%);
-      border-radius: 3px;
-      font-size: 11px;
-      color: rebeccapurple;
-      background: lighten(yellow, 40%);
-      margin-top: 20px;
-    }
+    // &__info {
+    //   flex: 0 0 30px;
+    //   display: flex;
+    //   align-items: center;
+    //   color: gray;
+    //   font-size: 12px;
+    //   margin-top: 10px;
+    // }
+    // &__recommended {
+    //   display: inline-block;
+    //   padding: 4px 5px 1px 5px;
+    //   border: 1px solid lighten(red, 40%);
+    //   border-radius: 3px;
+    //   font-size: 11px;
+    //   color: rebeccapurple;
+    //   background: lighten(yellow, 40%);
+    //   margin-top: 20px;
+    // }
   }
 </style>
