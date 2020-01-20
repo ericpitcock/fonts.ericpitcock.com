@@ -1,6 +1,6 @@
 <template>
   <div class="content index">
-    <Compare v-if="getCompare" />
+    <Compare v-if="getCompare.length >= 1" />
     <FontContainer
       v-for="(font, index) in getActiveFonts"
       :key="index"

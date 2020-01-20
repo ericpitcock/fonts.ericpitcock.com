@@ -27,6 +27,10 @@
 
 <style>
   .compare {
+    position: sticky;
+    top: 130px;
+    z-index: 1;
+    background: #fff;
     margin-bottom: 100px;
   }
 </style>

@@ -119,7 +119,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 30px;
+    justify-content: center;
+    // padding: 30px;
     background: white;
     border-bottom: 1px solid #d3d3d3;
     flex: 0 0 auto;
