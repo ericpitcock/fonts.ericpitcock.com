@@ -1,8 +1,8 @@
 <template>
+    <!-- @click="toFontSpecimen(font)" -->
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
     class="font-container"
-    @click="toFontSpecimen(font)"
   >
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
@@ -12,17 +12,6 @@
     </div>
     <div class="font">
       <FontInfo :font="font" />
-      <!-- <div class="left">
-        <div class="font__name">
-          <span>{{ font.family }}</span>
-        </div>
-        <div class="font__info">
-          <span>{{ fontInfo(font) }}</span>
-        </div>
-        <div v-if="font.recommended" class="font__recommended">
-          Recommended
-        </div>
-      </div> -->
       <div
         class="font__sample"
         :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
@@ -32,6 +21,7 @@
           <small><pre>{{ font }}</pre></small>
         </div>
       </div>
+      <div @click="$store.dispatch('updateCompare', font)">Compare</div>
     </div>
   </div>
 </template>

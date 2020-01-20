@@ -1,8 +1,7 @@
 <template>
-  <div class="content index">
-    <Compare v-if="getCompare" />
+  <div class="compare">
     <FontContainer
-      v-for="(font, index) in getActiveFonts"
+      v-for="(font, index) in getCompare"
       :key="index"
       :font="font"
     />
@@ -10,30 +9,24 @@
 </template>
 
 <script>
-  import Compare from '@/components/Compare'
   import FontContainer from '@/components/FontContainer'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    name: 'Index',
+    name: 'Compare',
     components: {
-      Compare,
       FontContainer
-    },
-    data() {
-      return {
-
-      }
     },
     computed: {
       ...mapGetters([
-        'getActiveFonts',
         'getCompare'
       ])
     }
   }
 </script>
 
-<style lang="scss">
-
+<style>
+  .compare {
+    margin-bottom: 100px;
+  }
 </style>

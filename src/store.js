@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    compare: [],
     customSample: '',
     currentSpecimen: {},
     blacklisted: [
@@ -154,6 +155,9 @@ export default new Vuex.Store({
     getCategoryFilter(state) {
       return state.categoryFilter
     },
+    getCompare(state) {
+      return state.compare
+    },
     getCurrentSpecimen(state) {
       return state.currentSpecimen
     },
@@ -200,6 +204,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateCompare(state, value) {
+      state.compare.push(value)
+    },
     updateCurrentSpecimen(state, value) {
       state.currentSpecimen = value
     },
@@ -240,6 +247,9 @@ export default new Vuex.Store({
   actions: {
     updateCategoryFilter({ commit }, value) {
       commit('setCategoryFilter', value)
+    },
+    updateCompare({ commit }, value) {
+      commit('updateCompare', value)
     },
     updateCurrentSpecimen({ commit }, value) {
       commit('updateCurrentSpecimen', value)
