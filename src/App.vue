@@ -3,7 +3,8 @@
     <button class="json-button" @click="$store.dispatch('toggleJSON')">Show JSON</button>
     <Layout>
       <template v-slot:header>
-        <Header />
+        <Header v-if="$route.name == 'index'" />
+        <HeaderFont v-if="$route.name == 'font'" />
       </template>
       <template v-slot:main>
         <router-view></router-view>
@@ -14,12 +15,14 @@
 
 <script>
   import Header from '@/components/Header'
+  import HeaderFont from '@/components/HeaderFont'
   import Layout from '@/layouts/Layout'
 
   export default {
     name: 'App',
     components: {
       Header,
+      HeaderFont,
       Layout
     },
     mounted() {
