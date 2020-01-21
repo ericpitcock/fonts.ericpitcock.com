@@ -21,7 +21,7 @@
           <small><pre>{{ font }}</pre></small>
         </div>
       </div>
-      <div @click="$store.dispatch('updateCompare', font)">Compare</div>
+      <div @click="compare(font)">{{ compareLabel(font) }}</div>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@
     data() {
       return {
         // fontSample: 'FontNameSample',
+        inCompare: false,
         loading: true,
         error: false,
         observer: null
@@ -58,6 +59,7 @@
     computed: {
       ...mapGetters([
         'getCategoryFilter',
+        'getCompare',
         // 'getFilteredFonts',
         // 'getFontCategories',
         'getFontSample',
@@ -81,6 +83,21 @@
       //     return `${font.variants.length - italicCount} ${label} w/ italics`
       //   }
       // },
+      compare(font) {
+        this.$store.dispatch('updateCompare', font)
+        
+        // if (this.getCompare.some(item => item.family == font.family)) {
+        //   this.$store.dispatch('updateCompare', font, true)
+        // } else {
+        //   this.$store.dispatch('updateCompare', font, false)
+        // }
+        
+        console.log(this.getCompare)
+      },
+      compareLabel(font) {
+        // return (this.inCompare) ? 'Remove' : 'Compare'
+        return (this.getCompare.some(item => item.family == font.family)) ? 'Remove' : 'Compare'
+      },
       loadFont(font) {
         // https://www.npmjs.com/package/webfontloader
         let fontStack = ''

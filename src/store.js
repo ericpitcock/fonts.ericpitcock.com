@@ -204,8 +204,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    updateCompare(state, value) {
-      state.compare.push(value)
+    updateCompare(state, font, inCompare) {
+      if (state.compare.some(item => item.family == font.family)) {
+        state.compare = state.compare.filter(item => item.family != font.family)
+      } else {
+        state.compare.push(font)
+      }
     },
     updateCurrentSpecimen(state, value) {
       state.currentSpecimen = value
@@ -248,8 +252,8 @@ export default new Vuex.Store({
     updateCategoryFilter({ commit }, value) {
       commit('setCategoryFilter', value)
     },
-    updateCompare({ commit }, value) {
-      commit('updateCompare', value)
+    updateCompare({ commit }, font) {
+      commit('updateCompare', font)
     },
     updateCurrentSpecimen({ commit }, value) {
       commit('updateCurrentSpecimen', value)
