@@ -44,7 +44,7 @@
     flex-direction: column;
     align-items: center;
     & > .container .content {
-      padding-bottom: 100px;
+      padding: 30px 0 100px 0;
     }
   }
 </style>

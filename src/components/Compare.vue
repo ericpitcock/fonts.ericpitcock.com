@@ -58,6 +58,7 @@
     background: #fafafa;
     padding-bottom: 30px;
     border-bottom: 1px solid #e6e6e6;
+    // margin-bottom: 30px;
     .controls {
       width: 100%;
       height: 30px;
@@ -79,8 +80,11 @@
   .font-container {
     background: #fff;
     /deep/ .font {
-      border-right-color: #e6e6e6;
-      border-left-color: #e6e6e6;
+      border-color: #e6e6e6;
+      &__sample {
+        padding: 40px 30px;
+      }
+      // border-left-color: #e6e6e6;
     }
   }
 </style>

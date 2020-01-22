@@ -39,8 +39,8 @@
       justify-content: center;
       .content {
         flex: 0 1 1200px;
-        padding-right: 30px;
-        padding-left: 30px;
+        // padding-right: 30px;
+        // padding-left: 30px;
       }
     }
   }

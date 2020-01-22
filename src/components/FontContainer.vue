@@ -182,13 +182,14 @@
   .font {
     display: flex;
     align-items: center;
-    // padding: 60px 20px;
+    padding: 0 30px;
     .font-container & {
       border: 1px solid transparent;
       // border-left: 1px solid transparent;
     }
     &:hover {
-      border-color: #e6e6e6;
+      cursor: pointer;
+      border-color: #e6e6e6; 
     }
     .font-container:not(:first-child) & {
       // border-top: 1px solid #e6e6e6;
@@ -206,8 +207,8 @@
       // margin-left: 30px;
       // background: lightgray;
       &:hover {
-        color: red;
-        cursor: pointer;
+        // color: red;
+        // cursor: pointer;
       }
       .json {
         padding-top: 30px;
