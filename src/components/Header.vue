@@ -145,7 +145,7 @@
       display: flex;
       align-items: center;
       height: 29px;
-      padding: 2px 10px 0 10px;
+      padding: 3px 10px 0 10px;
       border: 1px solid #e6e6e6;
       font-size: 11px;
       &:hover:not(.sample-control__button--active) {
@@ -165,7 +165,7 @@
     }
     .custom-sample-input {
       width: 300px;
-      padding: 2px 0 0 15px;
+      padding: 3px 0 0 15px;
       border: 1px solid #e6e6e6;
       border-left: none;
       border-radius: 0 15px 15px 0;

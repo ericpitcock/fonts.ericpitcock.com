@@ -1,12 +1,14 @@
 <template>
-  <div class="content specimen">
-    <!-- <div class="left"> -->
-    <FontInfo :font="font" />
-    <!-- </div> -->
-    <div class="right" :style='{ fontFamily: font.family }'>
-      <h1>{{ quote.message }}</h1>
-      <div>{{ quote.author }}</div>
-      <TableSample />
+  <div class="specimen">
+    <div class="container">
+      <div class="content">
+        <FontInfo :font="font" />
+        <div class="right" :style='{ fontFamily: font.family }'>
+          <h1>{{ quote.message }}</h1>
+          <div>{{ quote.author }}</div>
+          <TableSample />
+        </div>
+      </div>
     </div>
   </div>
 </template>

@@ -18,7 +18,7 @@
       >
         <component :is="getFontSample" />
         <div class="json" v-if="showJSON">
-          <small><pre>{{ font }}</pre></small>
+          <pre>{{ font }}</pre>
         </div>
       </div>
       <div class="font__compare-button" @click="compare(font)">{{ compareLabel(font) }}</div>
@@ -184,14 +184,17 @@
     align-items: center;
     // padding: 60px 20px;
     .font-container & {
-      border-right: 1px solid transparent;
-      border-left: 1px solid transparent;
+      border: 1px solid transparent;
+      // border-left: 1px solid transparent;
+    }
+    &:hover {
+      border-color: #e6e6e6;
     }
     .font-container:not(:first-child) & {
-      border-top: 1px solid #e6e6e6;
+      // border-top: 1px solid #e6e6e6;
     }
     .font-container:last-child & {
-      border-bottom: 1px solid #e6e6e6;
+      // border-bottom: 1px solid #e6e6e6;
     }
     & + & {
       margin-top: -1px;
@@ -199,7 +202,7 @@
     &__sample {
       flex: 1 1 auto;
       align-self: stretch;
-      padding: 60px 0 60px 30px;
+      padding: 60px 30px;
       // margin-left: 30px;
       // background: lightgray;
       &:hover {
@@ -208,16 +211,22 @@
       }
       .json {
         padding-top: 30px;
+        font-size: 12px;
       }
     }
     &__compare-button {
-      // background: lightpink;
       display: flex;
       align-items: center;
-      align-self: stretch;
-      padding-right: 30px;
+      display: flex;
+      align-items: center;
+      // height: 29px;
+      // padding: 3px 10px 0 10px;
+      // border: 1px solid red;
+      font-size: 11px;
+      border-radius: 15px;
+      color: red;
       &:hover {
-        color: red;
+        color: black;
         cursor: pointer;
       }
     }

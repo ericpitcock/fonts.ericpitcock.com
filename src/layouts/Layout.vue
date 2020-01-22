@@ -29,8 +29,8 @@
   main {
     grid-row: 2;
     grid-column: 1;
-    display: flex;
-    justify-content: center;
+    // display: flex;
+    // justify-content: center;
     // overflow: scroll;
     background: #fff;
     .container {

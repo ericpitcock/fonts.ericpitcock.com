@@ -1,6 +1,6 @@
 <template>
   <div class="alphabet-sample">
-    <p>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz<br />‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*</p>
+    <p>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />abcdefghijklmnopqrstuvwxyz<br />‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*</p>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 
 <style>
   .alphabet-sample {
-    /* font-size: 30px;
-    line-height: 36px; */
+    word-break: break-all;
+    letter-spacing: 2px;
   }
 </style>
