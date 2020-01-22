@@ -204,6 +204,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    clearCompare(state) {
+      state.compare = []
+    },
     updateCompare(state, font, inCompare) {
       if (state.compare.some(item => item.family == font.family)) {
         state.compare = state.compare.filter(item => item.family != font.family)
@@ -249,6 +252,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    clearCompare({ commit }) {
+      commit('clearCompare')
+    },
     updateCategoryFilter({ commit }, value) {
       commit('setCategoryFilter', value)
     },

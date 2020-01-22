@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
+  <div class="grid">
     <slot name="header"></slot>
     <main>
+      <slot name="top"></slot>
       <slot name="main"></slot>
     </main>
   </div>
@@ -14,7 +15,7 @@
 </script>
 
 <style lang="scss">
-  .container {
+  .grid {
     display: grid;
     grid-template-rows: 110px 1fr;
     grid-template-columns: 1fr;
@@ -32,10 +33,15 @@
     justify-content: center;
     // overflow: scroll;
     background: #fff;
-    .content {
-      flex: 0 1 1200px;
-      height: 100%;
-      padding: 30px 30px 100px 30px;
+    .container {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      .content {
+        flex: 0 1 1200px;
+        padding-right: 30px;
+        padding-left: 30px;
+      }
     }
   }
 </style>

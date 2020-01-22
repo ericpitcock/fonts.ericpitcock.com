@@ -2,11 +2,11 @@
   <div id="app">
     <button class="json-button" @click="$store.dispatch('toggleJSON')">Show JSON</button>
     <Layout>
-      <template v-slot:header>
+      <template #header>
         <Header v-if="$route.name == 'index'" />
         <HeaderFont v-if="$route.name == 'font'" />
       </template>
-      <template v-slot:main>
+      <template #main>
         <router-view></router-view>
       </template>
     </Layout>

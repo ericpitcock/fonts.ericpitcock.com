@@ -1,5 +1,4 @@
 <template>
-    <!-- @click="toFontSpecimen(font)" -->
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
     class="font-container"
@@ -15,13 +14,14 @@
       <div
         class="font__sample"
         :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
+        @click="toFontSpecimen(font)"
       >
         <component :is="getFontSample" />
         <div class="json" v-if="showJSON">
           <small><pre>{{ font }}</pre></small>
         </div>
       </div>
-      <div @click="compare(font)">{{ compareLabel(font) }}</div>
+      <div class="font__compare-button" @click="compare(font)">{{ compareLabel(font) }}</div>
     </div>
   </div>
 </template>
@@ -70,32 +70,10 @@
       ])
     },
     methods: {
-      // fontInfo(font) {
-      //   let label = font.variants.length > 1 ? 'weights' : 'weight'
-      //   // if it doesn't have italics
-      //   if (!font.variants.includes('italic')) {
-      //     return `${font.variants.length} ${label}`
-      //   } else {
-      //     let italicCount = 0
-      //     font.variants.forEach(variant => {
-      //       if (variant.includes('italic')) { italicCount++ }
-      //     })
-      //     return `${font.variants.length - italicCount} ${label} w/ italics`
-      //   }
-      // },
       compare(font) {
         this.$store.dispatch('updateCompare', font)
-        
-        // if (this.getCompare.some(item => item.family == font.family)) {
-        //   this.$store.dispatch('updateCompare', font, true)
-        // } else {
-        //   this.$store.dispatch('updateCompare', font, false)
-        // }
-        
-        console.log(this.getCompare)
       },
       compareLabel(font) {
-        // return (this.inCompare) ? 'Remove' : 'Compare'
         return (this.getCompare.some(item => item.family == font.family)) ? 'Remove' : 'Compare'
       },
       loadFont(font) {
@@ -144,6 +122,9 @@
       getCategoryFilter: function() {
         this.observer.observe(this.$el)
       },
+      getCompare: function() {
+
+      },
       getRecommendedOnly: function() {
         this.observer.observe(this.$el)
       }
@@ -172,12 +153,9 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
-    // max-width: 1200px;
-    // margin: 0 auto;
-    // overflow: hidden;
-    &:hover {
-      box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    }
+    // &:hover {
+    //   box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    // }
     .loading, .error {
       position: absolute;
       top: 1px;
@@ -203,53 +181,45 @@
   }
   .font {
     display: flex;
-    padding: 60px 20px;
+    align-items: center;
+    // padding: 60px 20px;
     .font-container & {
+      border-right: 1px solid transparent;
+      border-left: 1px solid transparent;
+    }
+    .font-container:not(:first-child) & {
       border-top: 1px solid #e6e6e6;
     }
     .font-container:last-child & {
       border-bottom: 1px solid #e6e6e6;
     }
-    &:hover {
-      cursor: pointer;
-    }
     & + & {
       margin-top: -1px;
     }
-    // .left {
-    //   flex: 0 0 200px;
-    // }
-    // &__name {
-    //   flex: 0 0 30px;
-    //   display: flex;
-    //   align-items: center;
-    //   color: blue;
-    // }
     &__sample {
       flex: 1 1 auto;
-      align-self: center;
-      margin-left: 30px;
+      align-self: stretch;
+      padding: 60px 0 60px 30px;
+      // margin-left: 30px;
+      // background: lightgray;
+      &:hover {
+        color: red;
+        cursor: pointer;
+      }
       .json {
         padding-top: 30px;
       }
     }
-    // &__info {
-    //   flex: 0 0 30px;
-    //   display: flex;
-    //   align-items: center;
-    //   color: gray;
-    //   font-size: 12px;
-    //   margin-top: 10px;
-    // }
-    // &__recommended {
-    //   display: inline-block;
-    //   padding: 4px 5px 1px 5px;
-    //   border: 1px solid lighten(red, 40%);
-    //   border-radius: 3px;
-    //   font-size: 11px;
-    //   color: rebeccapurple;
-    //   background: lighten(yellow, 40%);
-    //   margin-top: 20px;
-    // }
+    &__compare-button {
+      // background: lightpink;
+      display: flex;
+      align-items: center;
+      align-self: stretch;
+      padding-right: 30px;
+      &:hover {
+        color: red;
+        cursor: pointer;
+      }
+    }
   }
 </style>

@@ -1,11 +1,15 @@
 <template>
-  <div class="content index">
+  <div class="index">
     <Compare v-if="getCompare.length >= 1" />
-    <FontContainer
-      v-for="(font, index) in getActiveFonts"
-      :key="index"
-      :font="font"
-    />
+    <div class="container">
+      <div class="content">
+        <FontContainer
+          v-for="(font, index) in getActiveFonts"
+          :key="index"
+          :font="font"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,5 +39,12 @@
 </script>
 
 <style lang="scss">
-
+  .index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & > .container .content {
+      padding-bottom: 100px;
+    }
+  }
 </style>
