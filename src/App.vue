@@ -25,9 +25,9 @@
       HeaderFont,
       Layout
     },
-    mounted() {
-      this.$store.dispatch('fetchGoogleFonts')
-    }
+    // mounted() {
+    //   this.$store.dispatch('fetchGoogleFonts')
+    // }
   }
 </script>
 

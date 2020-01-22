@@ -8,65 +8,6 @@ export default new Vuex.Store({
     compare: [],
     customSample: '',
     currentSpecimen: {},
-    blacklisted: [
-      // sans-serif
-      'Aclonica',
-      'Acme',
-      'Advent Pro',
-      'Alegreya Sans SC',
-      'Amaranth',
-      'Arsenal',
-      'Arya',
-      'Asul',
-      'BenchNine',
-      'Black And White Picture',
-      'Changa',
-      'Chathura',
-      'Chau Philomene One',
-      'Denk One',
-      'Dhurjati',
-      'Dosis',
-      'Do Hyeon',
-      'Dorsa',
-      'Economica',
-      'El Messiri',
-      'Englebert',
-      'Exo',
-      'Exo 2',
-      'Geo',
-      'Hind',
-      'Hind Guntur',
-      'Hind Madurai',
-      'Hind Siliguri',
-      'Hind Vadodara',
-      'Jura',
-      'Kanit',
-      'Khand',
-      'Marvel',
-      'Maven Pro',
-      'Mitr',
-      'Montserrat Subrayada',
-      'Orbitron',
-      'Philosopher',
-      'Play',
-      'Proza Libre',
-      'Quantico',
-      'Rajdhani',
-      'Ropa Sans',
-      'Ruda',
-      'Sansita',
-      'Sarpanch',
-      'Syncopate',
-      'Teko',
-      'Titillium Web',
-      'Yanone Kaffeesatz',
-      // serif
-      'Almendra',
-      'Aref Ruqaa',
-      'BioRhyme Expanded',
-      'Cormorant Unicase',
-      'Inknut Antiqua'
-    ],
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
     globalFontSize: 36,
@@ -164,6 +105,11 @@ export default new Vuex.Store({
     getCustomSample(state) {
       return state.customSample
     },
+    getFontFromSlug: (state, getters) => (slug) => {
+      let family = slug.replace('-', ' ').toUpperCase()
+      console.log(`Slug: ${family}`)
+      return getters.getFilteredFonts.filter(font => font.family.toUpperCase() != family)
+    },
     getFontCategories(state, getters) {
       return [...new Set(getters.getGoogleFonts.map(font => font.category))]
     },
@@ -179,7 +125,7 @@ export default new Vuex.Store({
     getLatinFonts(state, getters) {
       return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
     },
-    // main entrance in App.vue
+    // main entrance in App.vue, includes recommended tag
     getFilteredFonts(state, getters) {
       return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     },
@@ -190,15 +136,15 @@ export default new Vuex.Store({
     getRecommendedOnly(state) {
       return state.recommendedOnly
     },
-    getWhitelistedFonts(state, getters) {
-      let whitelisted = []
-      getters.getFilteredFonts.forEach(font => {
-        if (!state.blacklisted.includes(font.family)) {
-          whitelisted.push(font)
-        }
-      })
-      return whitelisted
-    },
+    // getWhitelistedFonts(state, getters) {
+    //   let whitelisted = []
+    //   getters.getFilteredFonts.forEach(font => {
+    //     if (!state.blacklisted.includes(font.family)) {
+    //       whitelisted.push(font)
+    //     }
+    //   })
+    //   return whitelisted
+    // },
     showJSON(state) {
       return state.showJSON
     }
@@ -206,19 +152,6 @@ export default new Vuex.Store({
   mutations: {
     clearCompare(state) {
       state.compare = []
-    },
-    updateCompare(state, font, inCompare) {
-      if (state.compare.some(item => item.family == font.family)) {
-        state.compare = state.compare.filter(item => item.family != font.family)
-      } else {
-        state.compare.push(font)
-      }
-    },
-    updateCurrentSpecimen(state, value) {
-      state.currentSpecimen = value
-    },
-    updateCustomSample(state, value) {
-      state.customSample = value
     },
     processGoogleFonts(state, fonts) {
       // add recommended tag
@@ -235,20 +168,33 @@ export default new Vuex.Store({
     setCategoryFilter(state, value) {
       state.categoryFilter = value
     },
+    setCurrentSpecimen(state, value) {
+      state.currentSpecimen = value
+    },
+    setCustomSample(state, value) {
+      state.customSample = value
+    },
+    setFontSample(state, value) {
+      state.fontSample = value
+    },
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
-    setFontSample(state, value) {
-      state.fontSample = value
-    },
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
     toggleRecommendedOnly(state) {
       state.recommendedOnly = !state.recommendedOnly
+    },
+    updateCompare(state, font, inCompare) {
+      if (state.compare.some(item => item.family == font.family)) {
+        state.compare = state.compare.filter(item => item.family != font.family)
+      } else {
+        state.compare.push(font)
+      }
     }
   },
   actions: {
@@ -262,10 +208,10 @@ export default new Vuex.Store({
       commit('updateCompare', font)
     },
     updateCurrentSpecimen({ commit }, value) {
-      commit('updateCurrentSpecimen', value)
+      commit('setCurrentSpecimen', value)
     },
     updateCustomSample({ commit }, value) {
-      commit('updateCustomSample', value)
+      commit('setCustomSample', value)
     },
     updateFontSample({ commit }, value) {
       commit('setFontSample', value)
@@ -276,7 +222,6 @@ export default new Vuex.Store({
     fetchGoogleFonts({ commit }) {
       fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
         .then(response => response.json())
-        // .then(response => commit('setGoogleFonts', response.items))
         .then(response => commit('processGoogleFonts', response.items))
     },
     toggleJSON({ commit }) {
@@ -286,4 +231,4 @@ export default new Vuex.Store({
       commit('toggleRecommendedOnly')
     }
   }
-});
+})
