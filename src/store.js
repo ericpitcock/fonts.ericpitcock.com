@@ -219,7 +219,13 @@ export default new Vuex.Store({
     updateGlobalFontSize({ commit }, value) {
       commit('setGlobalFontSize', value)
     },
-    fetchGoogleFonts({ commit }) {
+    fetchGoogleFonts({ commit, state }) {
+      if (state.googleFonts.length > 0) {
+        console.log('Returning: already have Google Fonts')
+        return
+      } else {
+        console.log('Fetched Google Fonts')
+      }
       fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
         .then(response => response.json())
         .then(response => commit('processGoogleFonts', response.items))
