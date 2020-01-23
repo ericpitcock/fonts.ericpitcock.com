@@ -100,7 +100,7 @@ export default new Vuex.Store({
       return state.compare
     },
     getCurrentSpecimen(state, getters) {
-      return getters.getActiveFonts.filter(font => font.family.toUpperCase() != state.currentSpecimen.toUpperCase())
+      return getters.getActiveFonts.filter(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
     getCustomSample(state) {
       return state.customSample
