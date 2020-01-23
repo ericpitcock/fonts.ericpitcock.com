@@ -19,12 +19,24 @@ const router = new Router({
       path: '/:font',
       name: 'font',
       component: Specimen,
-      // beforeEnter: (to, from, next) => {
-      //   let font = store.getters.getFontFromSlug(to.path.replace('/', ''))
-      //   // console.log(font)
-      //   store.dispatch('updateCurrentSpecimen', font)
-      //   next()
-      // }
+      beforeEnter: (to, from, next) => {
+        // console.log('Specimen loading')
+        // let family = to.path.replace('-', ' ').toUpperCase()
+        // let family = to.path.replace('/', ' ').replace('-', ' ').toUpperCase()
+        // console.log(`Slug: ${family}`)
+        // console.log(store.getters.getFilteredFonts)
+        // next()
+        // let font = store.getters.getFontFromSlug(to.path.replace('/', ''))
+        // console.log(font)
+        // store.dispatch('updateCurrentSpecimen', font)
+        
+        // to.path = /archivo-narrow
+        const font = to.path.replace('/', '').replace('-', ' ')
+        // font = archivo narrow
+
+        store.dispatch('updateCurrentSpecimen', font)
+        next()
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {

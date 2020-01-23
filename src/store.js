@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     compare: [],
     customSample: '',
-    currentSpecimen: {},
+    currentSpecimen: '',
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
     globalFontSize: 36,
@@ -99,8 +99,8 @@ export default new Vuex.Store({
     getCompare(state) {
       return state.compare
     },
-    getCurrentSpecimen(state) {
-      return state.currentSpecimen
+    getCurrentSpecimen(state, getters) {
+      return getters.getActiveFonts.filter(font => font.family.toUpperCase() != state.currentSpecimen.toUpperCase())
     },
     getCustomSample(state) {
       return state.customSample
@@ -168,8 +168,8 @@ export default new Vuex.Store({
     setCategoryFilter(state, value) {
       state.categoryFilter = value
     },
-    setCurrentSpecimen(state, value) {
-      state.currentSpecimen = value
+    setCurrentSpecimen(state, fontFamily) {
+      state.currentSpecimen = fontFamily
     },
     setCustomSample(state, value) {
       state.customSample = value
@@ -207,8 +207,11 @@ export default new Vuex.Store({
     updateCompare({ commit }, font) {
       commit('updateCompare', font)
     },
-    updateCurrentSpecimen({ commit }, value) {
-      commit('setCurrentSpecimen', value)
+    updateCurrentSpecimen({ commit, getters }, fontFamily) {
+      // const fontObject = getters.getGoogleFonts.filter(font => font.family.toUpperCase() == fontFamily.toUpperCase())
+      // console.log(getters.getGoogleFonts)
+      // console.log(`fontObject: ${fontObject}`)
+      commit('setCurrentSpecimen', fontFamily)
     },
     updateCustomSample({ commit }, value) {
       commit('setCustomSample', value)
@@ -225,10 +228,10 @@ export default new Vuex.Store({
         return
       } else {
         console.log('Fetched Google Fonts')
+        fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+          .then(response => response.json())
+          .then(response => commit('processGoogleFonts', response.items))
       }
-      fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-        .then(response => response.json())
-        .then(response => commit('processGoogleFonts', response.items))
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')

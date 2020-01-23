@@ -114,7 +114,7 @@
       },
       toFontSpecimen(font) {
         // populate store and route
-        this.$store.dispatch('updateCurrentSpecimen', font)
+        this.$store.dispatch('updateCurrentSpecimen', font.family)
         this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
       }
     },
