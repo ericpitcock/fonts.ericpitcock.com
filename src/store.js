@@ -154,6 +154,7 @@ export default new Vuex.Store({
       state.compare = []
     },
     processGoogleFonts(state, fonts) {
+      console.log(fonts)
       // add recommended tag
       let processedFonts = fonts
       processedFonts.forEach(font => {
@@ -222,7 +223,7 @@ export default new Vuex.Store({
     updateGlobalFontSize({ commit }, value) {
       commit('setGlobalFontSize', value)
     },
-    fetchGoogleFonts({ commit, state }) {
+    async fetchGoogleFonts({ commit, state }) {
       if (state.googleFonts.length > 0) {
         console.log('Returning: already have Google Fonts')
         return
