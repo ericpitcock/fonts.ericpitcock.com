@@ -21,7 +21,7 @@
         <label for="recommended">Recommended only</label>
       </span>
       <span class="font-count">
-        {{ getActiveFonts.length }} fonts
+        {{ getFontCount }} fonts
       </span>
     </div>
     <div class="sample-control">
@@ -79,6 +79,7 @@
         'getActiveFonts',
         'getCategoryFilter',
         'getFontCategories',
+        'getFontCount',
         'getFontSample',
         'getRecommendedOnly'
       ]),

@@ -3,11 +3,13 @@
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
+        <template v-for="(font, index) in getFonts">
         <FontContainer
-          v-for="(font, index) in getActiveFonts"
           :key="index"
           :font="font"
+          v-if="visibility(font)"
         />
+        </template>
       </div>
     </div>
   </div>
@@ -27,11 +29,27 @@
     computed: {
       ...mapGetters([
         'getActiveFonts',
-        'getCompare'
-      ])
+        'getCategoryFilter',
+        'getCompare',
+        'getGoogleFonts',
+        'getRecommendedOnly',
+        'getRecommendedFonts',
+        'getFonts'
+      ]),
+      // activeFonts() {
+      //   return this.$store.getters.getFontsByCategory(this.getCategoryFilter)
+      // }
+    },
+    methods: {
+      visibility(font) {
+        if (this.getRecommendedOnly) {
+          return this.getRecommendedFonts.includes(font.family)
+        } else {
+          return true
+        }
+      }
     },
     mounted() {
-      this.$store.dispatch('fetchGoogleFonts')
     }
   }
 </script>

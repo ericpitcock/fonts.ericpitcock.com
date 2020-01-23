@@ -6,17 +6,27 @@
     <div class="font-info__styles">
       <span>{{ fontInfo(font) }}</span>
     </div>
-    <div v-if="font.recommended" class="font-info__recommended-flag">
+    <div v-if="isRecommended(font)" class="font-info__recommended-flag">
       Recommended
     </div>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'FontInfo',
     props: ['font'],
+    computed: {
+      ...mapGetters([
+        'getRecommendedFonts'
+      ])
+    },
     methods: {
+      isRecommended(font) {
+        return this.getRecommendedFonts.includes(font.family)
+      },
       fontInfo(font) {
         let label = font.variants.length > 1 ? 'weights' : 'weight'
         // if it doesn't have italics

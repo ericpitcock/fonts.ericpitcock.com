@@ -90,11 +90,35 @@ export default new Vuex.Store({
     showJSON: false
   },
   getters: {
-    getActiveFonts(state, getters) {
-      return (getters.getRecommendedOnly) ? getters.getRecommendedFonts : getters.getFilteredFonts
+    // font arrays
+    // getFilteredFonts(state, getters) {
+    //   return (category, fonts) => {
+    //     return getters.getLatinFonts.filter(font => font.category == category)
+    //   }
+    // },
+    // getFilteredFonts(state, getters) {
+    //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
+    // },
+    getLatinFonts(state, getters) {
+      return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
+    },
+    getRecommendedFonts(state) {
+      return  state.recommendedFonts
     },
     getCategoryFilter(state) {
       return state.categoryFilter
+    },
+    getFonts(state, getters) {
+      let fonts = []
+      if (getters.recommendedOnly) {
+        // return recommended fonts
+        fonts = getters.getLatinFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
+      } else {
+        // return all fonts
+        fonts = getters.getLatinFonts
+      }
+      // now filter them based on category
+      return fonts.filter(font => font.category == getters.getCategoryFilter)
     },
     getCompare(state) {
       return state.compare
@@ -105,33 +129,45 @@ export default new Vuex.Store({
     getCustomSample(state) {
       return state.customSample
     },
+    // getFontFromSlug: (state, getters) => (slug) => {
+    //   let family = slug.replace('-', ' ').toUpperCase()
+    //   console.log(`Slug: ${family}`)
+    //   return getters.getFilteredFonts.filter(font => font.family.toUpperCase() != family)
+    // },
+    // getFontFromSlug(state, getters) {
+    //   return (slug) => {
+    //     let family = slug.replace('-', ' ').toUpperCase()
+    //     console.log(`Slug: ${family}`)
+    //     return getters.getFilteredFonts.find(font => font.family.toUpperCase() != family)
+    //   }
+    // },
     getFontFromSlug: (state, getters) => (slug) => {
       let family = slug.replace('-', ' ').toUpperCase()
       console.log(`Slug: ${family}`)
-      return getters.getFilteredFonts.filter(font => font.family.toUpperCase() != family)
+      return state.googleFonts.find(font => font.family == slug)
     },
     getFontCategories(state, getters) {
       return [...new Set(getters.getGoogleFonts.map(font => font.category))]
     },
+    getFontCount(state, getters) {
+      return getters.getFontsByCategory(getters.getCategoryFilter).length
+    },
     getFontSample(state) {
       return state.fontSample
+    },
+    // getFontsByCategory(state) {
+    //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
+    // },
+    getFontsByCategory(state, getters) {
+      return (category) => {
+        return getters.getLatinFonts.filter(font => font.category == category)
+      }
     },
     getGlobalFontSize(state) {
       return state.globalFontSize
     },
     getGoogleFonts(state) {
       return state.googleFonts
-    },
-    getLatinFonts(state, getters) {
-      return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
-    },
-    // main entrance in App.vue, includes recommended tag
-    getFilteredFonts(state, getters) {
-      return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
-    },
-    getRecommendedFonts(state, getters) {
-      let recommended = getters.getLatinFonts.filter(font => font.recommended)
-      return recommended.filter(font => font.category == getters.getCategoryFilter)
     },
     getRecommendedOnly(state) {
       return state.recommendedOnly
@@ -153,16 +189,32 @@ export default new Vuex.Store({
     clearCompare(state) {
       state.compare = []
     },
-    processGoogleFonts(state, fonts) {
-      let items = Promise.resolve(fonts)
-      items.then(response => response.json().then(response => {
-        let processedFonts = response.items
-        processedFonts.forEach(font => {
-          font.recommended = (state.recommendedFonts.includes(font.family))
-        })
-        state.googleFonts = processedFonts
-      }))
+    // setGoogleFonts(state, fonts) {
+    //   state.googleFonts = fonts
+    // },
+    setGoogleFonts(state, fonts) {
+      // let items = Promise.resolve(fonts)
+      // items.then(response => response.json().then(response => {
+      //   let processedFonts = response.items
+      //   processedFonts.forEach(font => {
+      //     font.recommended = (state.recommendedFonts.includes(font.family))
+      //   })
+        // console.log(fonts)
+        state.googleFonts = fonts
+        // Vue.set(state, 'googleFonts', processedFonts)
+      // }))
     },
+    // processGoogleFonts(state, fonts) {
+    //   let items = Promise.resolve(fonts)
+    //   items.then(response => response.json().then(response => {
+    //     let processedFonts = response.items
+    //     processedFonts.forEach(font => {
+    //       font.recommended = (state.recommendedFonts.includes(font.family))
+    //     })
+    //     // state.googleFonts = processedFonts
+    //     Vue.set(state, 'googleFonts', processedFonts)
+    //   }))
+    // },
     setCategoryFilter(state, value) {
       state.categoryFilter = value
     },
@@ -175,9 +227,9 @@ export default new Vuex.Store({
     setFontSample(state, value) {
       state.fontSample = value
     },
-    setGoogleFonts(state, fonts) {
-      state.googleFonts = fonts
-    },
+    // setGoogleFonts(state, fonts) {
+    //   state.googleFonts = fonts
+    // },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
@@ -220,9 +272,25 @@ export default new Vuex.Store({
     updateGlobalFontSize({ commit }, value) {
       commit('setGlobalFontSize', value)
     },
-    async fetchGoogleFonts({ commit, state }) {
-      let response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-      commit('processGoogleFonts', response)
+    async fetchGoogleFonts({ commit }) {
+      const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+        .then(response => response.json()).then(data => commit('setGoogleFonts', data.items));
+    },
+    // fetchGoogleFonts({ commit }) {
+    //   return new Promise((resolve, reject) => {
+    //     // Do something here... lets say, a http call using vue-resource
+    //     fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c').then(response => {
+    //       // http success, call the mutator and change something in state
+    //       commit('processGoogleFonts', response)
+    //       resolve(response)  // Let the calling function know that http is done. You may send some data back
+    //     }, error => {
+    //       // http failed, let the calling function know that action did not work out
+    //       reject(error)
+    //     })
+    //   })
+    // },
+    setGoogleFonts({ commit }, fonts) {
+      commit('setGoogleFonts', fonts)
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')
