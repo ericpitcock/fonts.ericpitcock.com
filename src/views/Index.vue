@@ -16,7 +16,7 @@
 <script>
   import Compare from '@/components/Compare'
   import FontContainer from '@/components/FontContainer'
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
@@ -24,16 +24,14 @@
       Compare,
       FontContainer
     },
-    data() {
-      return {
-
-      }
-    },
     computed: {
       ...mapGetters([
         'getActiveFonts',
         'getCompare'
       ])
+    },
+    mounted() {
+      this.$store.dispatch('fetchGoogleFonts')
     }
   }
 </script>

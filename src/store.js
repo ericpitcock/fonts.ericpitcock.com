@@ -100,7 +100,7 @@ export default new Vuex.Store({
       return state.compare
     },
     getCurrentSpecimen(state, getters) {
-      return getters.getActiveFonts.filter(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
+      return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
     getCustomSample(state) {
       return state.customSample
@@ -154,17 +154,14 @@ export default new Vuex.Store({
       state.compare = []
     },
     processGoogleFonts(state, fonts) {
-      console.log(fonts)
-      // add recommended tag
-      let processedFonts = fonts
-      processedFonts.forEach(font => {
-        if (state.recommendedFonts.includes(font.family)) {
-          font.recommended = true
-        } else {
-          font.recommended = false
-        }
-      })
-      state.googleFonts = processedFonts
+      let items = Promise.resolve(fonts)
+      items.then(response => response.json().then(response => {
+        let processedFonts = response.items
+        processedFonts.forEach(font => {
+          font.recommended = (state.recommendedFonts.includes(font.family))
+        })
+        state.googleFonts = processedFonts
+      }))
     },
     setCategoryFilter(state, value) {
       state.categoryFilter = value
@@ -224,15 +221,8 @@ export default new Vuex.Store({
       commit('setGlobalFontSize', value)
     },
     async fetchGoogleFonts({ commit, state }) {
-      if (state.googleFonts.length > 0) {
-        console.log('Returning: already have Google Fonts')
-        return
-      } else {
-        console.log('Fetched Google Fonts')
-        fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-          .then(response => response.json())
-          .then(response => commit('processGoogleFonts', response.items))
-      }
+      let response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+      commit('processGoogleFonts', response)
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')

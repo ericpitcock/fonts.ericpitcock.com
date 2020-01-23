@@ -48,9 +48,9 @@ const router = new Router({
   }
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchGoogleFonts')
-  next()
-})
+// router.beforeEach((to, from, next) => {
+//   store.dispatch('fetchGoogleFonts')
+//   next()
+// })
 
 export default router

@@ -2,13 +2,13 @@
   <div class="specimen">
     <div class="container">
       <div class="content">
-        <pre>{{ font }}</pre>
-        <!-- <FontInfo :font="font" />
+        <!-- <pre>{{ font }}</pre> -->
+        <FontInfo :font="font" />
         <div class="right" :style='{ fontFamily: font.family }'>
           <h1>{{ quote.message }}</h1>
           <div>{{ quote.author }}</div>
           <TableSample />
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +53,8 @@
     },
     mounted() {
       // this.fetchQuotes()
-      // console.log(this.quote)
+      this.$store.dispatch('fetchGoogleFonts')
+      console.log(this.font)
     }
   }
 </script>
@@ -63,7 +64,6 @@
     display: flex;
     .right {
       flex: 1 1 auto;
-      // align-self: center;
       margin-left: 30px;
     }
   }
