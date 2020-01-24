@@ -15,6 +15,7 @@
         <input
           type="checkbox"
           name="recommended"
+          id="recommended"
           @change="$store.dispatch('toggleRecommendedOnly')"
           :checked="getRecommendedOnly"
         >

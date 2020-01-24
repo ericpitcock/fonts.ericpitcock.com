@@ -3,11 +3,13 @@
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
+        <template v-for="(font, index) in getActiveFonts">
         <FontContainer
-          v-for="(font, index) in getActiveFonts"
+          v-if="inCompare(font)"
           :key="index"
           :font="font"
         />
+        </template>
       </div>
     </div>
   </div>
@@ -32,11 +34,22 @@
     computed: {
       ...mapGetters([
         'getActiveFonts',
-        'getCompare'
+        'getCompare',
+        'getCompareFontList'
       ])
+    },
+    methods: {
+      inCompare(font) {
+        return (!this.getCompareFontList.includes(font.family))
+      }
     },
     mounted() {
       // console.log(this.$store.getters.getGoogleFonts)
+    },
+    watch: {
+      getCompare: function() {
+        console.log(this.getCompare)
+      }
     }
   }
 </script>

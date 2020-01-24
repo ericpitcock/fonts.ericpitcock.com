@@ -118,6 +118,9 @@ export default new Vuex.Store({
     getCompare(state) {
       return state.compare
     },
+    getCompareFontList(state, getters) {
+      return [...new Set(getters.getCompare.map(font => font.family))]
+    },
     getCurrentSpecimen(state, getters) {
       return state.currentSpecimen
     },
