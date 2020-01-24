@@ -3,6 +3,7 @@
     <div class="container">
       <div class="content">
         <div class="category-filters">
+          <Title />
           <div
             v-for="(category, index) in getFontCategories"
             :key="index"
@@ -57,10 +58,14 @@
 </template>
 
 <script>
+  import Title from '@/components/Title'
   import { mapGetters } from 'vuex'
 
   export default {
     name: 'Header',
+    components: {
+      Title
+    },
     data() {
       return {
         samples: [
@@ -188,6 +193,7 @@
     flex: 1 0 auto;
     display: flex;
     align-items: center;
+    justify-content: center;
     // background: lighten(green, 40%);
     padding: 4px 0;
     // margin-left: -3px;
