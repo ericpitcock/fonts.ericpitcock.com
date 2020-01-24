@@ -18,6 +18,7 @@
   import FontInfo from '@/components/FontInfo'
   import TableSample from '@/components/samples/TableSample'
   import { mapGetters } from 'vuex'
+  import WebFont from 'webfontloader'
 
   export default {
     name: 'Specimen',
@@ -32,17 +33,42 @@
     },
     computed: {
       ...mapGetters([
-        'getActiveFonts',
+        'getGoogleFonts',
         'getCurrentSpecimen'
       ]),
       font() {
-        return this.getActiveFonts.find(font => font.family.toUpperCase() == this.getCurrentSpecimen.toUpperCase())
+        return this.getGoogleFonts.find(font => font.family.toUpperCase() == this.getCurrentSpecimen.toUpperCase())
       }
     },
     methods: {
-      // font() {
-      //   return this.getActiveFonts.find(font => font.family == this.getCurrentSpecimen)
-      // }
+      loadFont(font) {
+        WebFont.load({
+          google: {
+            //families: ['Open Sans:300,400,700']
+            families: [font]
+          },
+          classes: false,
+          loading: () => {
+          },
+          active: () => {
+          },
+          inactive: () => {
+          },
+          fontloading: (familyName, fvd) => {
+            this.loading = true
+            // console.log(`fontloading: ${familyName}`)
+          },
+          fontactive: (familyName, fvd) => {
+            this.loading = false
+            // console.log(`fontactive: ${familyName}`)
+          },
+          fontinactive: (familyName, fvd) => {
+            this.loading = false
+            this.error = true
+            // console.log(`fontinactive: ${familyName}`)
+          }
+        })
+      }
       // fetchQuotes() {
       //   fetch('https://150000-quotes.p.rapidapi.com/random', {
       //     'method': 'GET',
@@ -59,11 +85,7 @@
       // }
     },
     mounted() {
-      // this.fetchQuotes()
-      // console.log(this.quote)
-      // await this.$store.dispatch('fetchGoogleFonts')
-      // console.log(this.font)
-      console.log(this.$store.getters.getCurrentSpecimen)
+      this.loadFont(this.font.family)
     }
   }
 </script>

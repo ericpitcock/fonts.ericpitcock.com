@@ -78,17 +78,19 @@
       },
       loadFont(font) {
         // https://www.npmjs.com/package/webfontloader
-        let fontStack = ''
-        if (font.variants.length > 1) {
-          fontStack = `${font.family}:${font.variants.join(',')}`
-        } else {
-          fontStack = font.family
-        }
+        // FONTSTACK FOR ALL WEIGHTS
+        // let fontStack = ''
+        // if (font.variants.length > 1) {
+        //   fontStack = `${font.family}:${font.variants.join(',')}`
+        // } else {
+        //   fontStack = font.family
+        // }
         // console.log([fontStack])
         WebFont.load({
           google: {
             //families: ['Open Sans:300,400,700']
-            families: [fontStack]
+            // families: [fontStack]
+            families: [font.family]
           },
           classes: false,
           loading: () => {
@@ -110,7 +112,7 @@
             this.error = true
             // console.log(`fontinactive: ${familyName}`)
           }
-        });
+        })
       },
       toFontSpecimen(font) {
         // populate store and route

@@ -13,11 +13,7 @@ const router = new Router({
     {
       path: '/',
       name: 'index',
-      component: Index,
-      // async beforeEnter(to, from, next) {
-      //   await store.dispatch('fetchGoogleFonts')
-      //   next()
-      // }
+      component: Index
     },
     {
       path: '/:font',

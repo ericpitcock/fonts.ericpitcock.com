@@ -84,7 +84,26 @@ export default new Vuex.Store({
       'Source Serif Pro',
       'Spectral',
       'Trocchi',
-      'Zilla Slab'
+      'Zilla Slab',
+      // display
+      'Bungee Hairline',
+      'Calistoga',
+      'Cherry Swash',
+      'Codystar',
+      'Comfortaa',
+      'Corben',
+      'Kavoon',
+      'Libre Barcode 128',
+      'Libre Barcode 128 Text',
+      'Libre Barcode 39',
+      'Libre Barcode 39 Extended',
+      'Libre Barcode 39 Extended Text',
+      'Libre Barcode 39 Text',
+      'New Rocker',
+      'Oldenburg',
+      'Oregano',
+      'Press Start 2P',
+      'Zilla Slab Highlight'
     ],
     recommendedOnly: true,
     showJSON: false
@@ -136,15 +155,6 @@ export default new Vuex.Store({
     getRecommendedOnly(state) {
       return state.recommendedOnly
     },
-    // getWhitelistedFonts(state, getters) {
-    //   let whitelisted = []
-    //   getters.getFilteredFonts.forEach(font => {
-    //     if (!state.blacklisted.includes(font.family)) {
-    //       whitelisted.push(font)
-    //     }
-    //   })
-    //   return whitelisted
-    // },
     showJSON(state) {
       return state.showJSON
     }
@@ -209,9 +219,6 @@ export default new Vuex.Store({
       commit('updateCompare', font)
     },
     updateCurrentSpecimen({ commit }, fontFamily) {
-      // const fontObject = getters.getGoogleFonts.filter(font => font.family.toUpperCase() == fontFamily.toUpperCase())
-      // console.log(getters.getGoogleFonts)
-      // console.log(`fontObject: ${fontObject}`)
       commit('setCurrentSpecimen', fontFamily)
     },
     updateCustomSample({ commit }, value) {
@@ -224,31 +231,10 @@ export default new Vuex.Store({
       commit('setGlobalFontSize', value)
     },
     async fetchGoogleFonts({ commit }) {
-      // if (state.googleFonts.length > 0) {
-      //   console.log('Returning: already have Google Fonts')
-      //   return
-      // } else {
-      //   console.log('Fetched Google Fonts')
-        const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-          .then(response => response.json())
-          .then(async response => await commit('processGoogleFonts', response.items))
-      // }
+      const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+        .then(response => response.json())
+        .then(async response => await commit('processGoogleFonts', response.items))
     },
-    async getMe({ getters, commit }) {
-      const res = await API.GET(`/user/${getters.myId}`)
-      return await commit('setMe', res.data)
-    },
-    // async fetchGoogleFonts({ commit, state }) {
-    //   if (state.googleFonts.length > 0) {
-    //     console.log('Returning: already have Google Fonts')
-    //     return
-    //   } else {
-    //     console.log('Fetched Google Fonts')
-    //     await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-    //       .then(response => response.json())
-    //       .then(response => commit('processGoogleFonts', response.items))
-    //   }
-    // },
     toggleJSON({ commit }) {
       commit('toggleJSON')
     },

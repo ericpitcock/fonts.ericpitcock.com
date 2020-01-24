@@ -36,7 +36,7 @@
       ])
     },
     mounted() {
-      console.log(this.$store.getters.getGoogleFonts)
+      // console.log(this.$store.getters.getGoogleFonts)
     }
   }
 </script>
