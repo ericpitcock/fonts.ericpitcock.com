@@ -20,7 +20,7 @@ const router = new Router({
       name: 'font',
       component: Specimen,
       async beforeEnter(to, from, next) {
-        await store.dispatch('updateCurrentSpecimen', to.path.replace('/', '').replace('-', ' '))
+        await store.dispatch('updateCurrentSpecimen', to.path.replace('/', '').split('-').join(' '))
         next()
       }
     }

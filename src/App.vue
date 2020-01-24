@@ -53,4 +53,19 @@
     left: 10px;
     z-index: 2;
   }
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 29px;
+    padding: 3px 15px 0 15px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    font-size: 11px;
+    color: black;
+    &:hover {
+      background: lighten(yellow, 40%);
+      cursor: pointer;
+    }
+  }
 </style>

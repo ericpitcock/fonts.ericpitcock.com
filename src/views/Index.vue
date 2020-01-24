@@ -52,7 +52,7 @@
     flex-direction: column;
     align-items: center;
     & > .container .content {
-      padding: 30px 0 100px 0;
+      padding: 0 0 100px 0;
     }
   }
 </style>

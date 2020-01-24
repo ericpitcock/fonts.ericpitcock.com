@@ -21,7 +21,7 @@
           <pre>{{ font }}</pre>
         </div>
       </div>
-      <div class="font__compare-button" @click="compare(font)">{{ compareLabel(font) }}</div>
+      <div class="font__compare-button button" @click="compare(font)">{{ compareLabel(font) }}</div>
     </div>
   </div>
 </template>
@@ -116,7 +116,7 @@
       },
       toFontSpecimen(font) {
         // populate store and route
-        this.$store.dispatch('updateCurrentSpecimen', font.family)
+        // this.$store.dispatch('updateCurrentSpecimen', font.family)
         this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
       }
     },
@@ -165,7 +165,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fff;
+      background: white;
     }
     .loading img {
       height: 100%;
@@ -181,13 +181,15 @@
   .font {
     display: flex;
     align-items: center;
-    padding: 0 30px;
+    padding: 30px;
     .font-container & {
       border: 1px solid transparent;
+      border-bottom: 1px solid #e6e6e6;
+      // border-bottom-color: #e6e6e6;
     }
     &:hover {
       cursor: pointer;
-      border-color: #e6e6e6; 
+      // border-color: #e6e6e6; 
     }
     .font-container:not(:first-child) & {
     }
@@ -198,8 +200,9 @@
     }
     &__sample {
       flex: 1 1 auto;
-      align-self: stretch;
-      padding: 60px 30px;
+      align-self: center;
+      // padding: 0 30px;
+      // background: red;
       &:hover {
 
       }
@@ -209,17 +212,7 @@
       }
     }
     &__compare-button {
-      display: flex;
-      align-items: center;
-      display: flex;
-      align-items: center;
-      font-size: 11px;
-      border-radius: 15px;
-      color: red;
-      &:hover {
-        color: black;
-        cursor: pointer;
-      }
+      
     }
   }
 </style>

@@ -75,14 +75,14 @@
     }
   }
   .font-container {
-    background: #fff;
+    background: white;
     & + & {
       margin-top: 4px;
     }
     /deep/ .font {
-      border-color: #e6e6e6;
+      border: 1px solid #e6e6e6;
       &__sample {
-        padding: 40px 30px;
+        // padding: 40px 30px;
       }
     }
   }

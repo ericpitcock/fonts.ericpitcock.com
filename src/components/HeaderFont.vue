@@ -1,7 +1,7 @@
 <template>
   <header>
     <div>Font header</div>
-    <router-link to="/">Back to index</router-link>
+    <div @click="goBack()">Back to index</div>
   </header>
 </template>
 
@@ -56,6 +56,9 @@
     methods: {
       customFocus() {
         this.$store.dispatch('updateFontSample', 'CustomSample')
+      },
+      goBack() {
+        this.$router.go(-1)
       }
     }
   }
