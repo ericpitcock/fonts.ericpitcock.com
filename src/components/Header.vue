@@ -80,6 +80,7 @@
         'getCategoryFilter',
         'getFontCategories',
         'getFontSample',
+        'getGlobalFontSize',
         'getRecommendedOnly'
       ]),
       customSample: {
