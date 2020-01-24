@@ -36,7 +36,7 @@
         'getCurrentSpecimen'
       ]),
       font() {
-        return this.getActiveFonts.find(font => font.family == this.getCurrentSpecimen)
+        return this.getActiveFonts.find(font => font.family.toUpperCase() == this.getCurrentSpecimen.toUpperCase())
       }
     },
     methods: {
@@ -62,8 +62,8 @@
       // this.fetchQuotes()
       // console.log(this.quote)
       // await this.$store.dispatch('fetchGoogleFonts')
-      console.log(this.font)
-      console.log(this.$store.getters.getGoogleFonts)
+      // console.log(this.font)
+      console.log(this.$store.getters.getCurrentSpecimen)
     }
   }
 </script>

@@ -23,10 +23,10 @@ const router = new Router({
       path: '/:font',
       name: 'font',
       component: Specimen,
-      // async beforeEnter(to, from, next) {
-      //   await store.dispatch('updateCurrentSpecimen', to.path.replace('/', '').replace('-', ' '))
-      //   next()
-      // }
+      async beforeEnter(to, from, next) {
+        await store.dispatch('updateCurrentSpecimen', to.path.replace('/', '').replace('-', ' '))
+        next()
+      }
     }
   ],
   scrollBehavior (to, from, savedPosition) {
