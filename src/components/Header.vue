@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <div :class="['header', { 'no-border': getCompareFontList.length >= 1 }]">
     <div class="category-filters">
       <span
         v-for="(category, index) in getFontCategories"
@@ -49,7 +49,7 @@
         <label for="font-size">{{ fontSize }}px</label>
       </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -79,6 +79,7 @@
       ...mapGetters([
         'getActiveFonts',
         'getCategoryFilter',
+        'getCompareFontList',
         'getFontCategories',
         'getFontSample',
         'getGlobalFontSize',
@@ -109,8 +110,8 @@
   }
 </script>
 
-<style lang="scss">
-  header {
+<style lang="scss" scoped>
+  .header {
     // option for sticky header
     position: sticky;
     top: 0;
@@ -123,11 +124,14 @@
     align-items: center;
     justify-content: center;
     // padding: 30px;
-    background: white;
+    background: #fafafa;
     border-bottom: 1px solid #d3d3d3;
     flex: 0 0 auto;
     > * + * {
       margin-top: 20px;
+    }
+    &.no-border {
+      border-bottom-color: #fafafa;
     }
   }
   .category-filters {

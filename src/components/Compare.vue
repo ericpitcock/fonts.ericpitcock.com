@@ -79,6 +79,9 @@
   }
   .font-container {
     background: #fff;
+    & + & {
+      margin-top: 4px;
+    }
     /deep/ .font {
       border-color: #e6e6e6;
       &__sample {
