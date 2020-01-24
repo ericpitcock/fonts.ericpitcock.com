@@ -2,13 +2,13 @@
   <div class="specimen">
     <div class="container">
       <div class="content">
-        <pre>{{ font }}</pre>
-        <!-- <FontInfo :font="font" />
+        <!-- <pre>{{ font }}</pre> -->
+        <FontInfo :font="font" />
         <div class="right" :style='{ fontFamily: font.family }'>
           <h1>{{ quote.message }}</h1>
           <div>{{ quote.author }}</div>
           <TableSample />
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -31,11 +31,18 @@
       }
     },
     computed: {
-      ...mapGetters({
-        font: 'getCurrentSpecimen'
-      })
+      ...mapGetters([
+        'getActiveFonts',
+        'getCurrentSpecimen'
+      ]),
+      font() {
+        return this.getActiveFonts.find(font => font.family == this.getCurrentSpecimen)
+      }
     },
     methods: {
+      // font() {
+      //   return this.getActiveFonts.find(font => font.family == this.getCurrentSpecimen)
+      // }
       // fetchQuotes() {
       //   fetch('https://150000-quotes.p.rapidapi.com/random', {
       //     'method': 'GET',
@@ -54,6 +61,9 @@
     mounted() {
       // this.fetchQuotes()
       // console.log(this.quote)
+      // await this.$store.dispatch('fetchGoogleFonts')
+      console.log(this.font)
+      console.log(this.$store.getters.getGoogleFonts)
     }
   }
 </script>

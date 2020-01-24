@@ -34,6 +34,9 @@
         'getActiveFonts',
         'getCompare'
       ])
+    },
+    mounted() {
+      console.log(this.$store.getters.getGoogleFonts)
     }
   }
 </script>

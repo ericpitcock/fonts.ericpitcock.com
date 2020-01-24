@@ -100,7 +100,7 @@ export default new Vuex.Store({
       return state.compare
     },
     getCurrentSpecimen(state, getters) {
-      return getters.getActiveFonts.filter(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
+      return state.currentSpecimen
     },
     getCustomSample(state) {
       return state.customSample
@@ -154,7 +154,7 @@ export default new Vuex.Store({
       state.compare = []
     },
     processGoogleFonts(state, fonts) {
-      console.log(fonts)
+      // console.log(fonts)
       // add recommended tag
       let processedFonts = fonts
       processedFonts.forEach(font => {
@@ -208,7 +208,7 @@ export default new Vuex.Store({
     updateCompare({ commit }, font) {
       commit('updateCompare', font)
     },
-    updateCurrentSpecimen({ commit, getters }, fontFamily) {
+    updateCurrentSpecimen({ commit }, fontFamily) {
       // const fontObject = getters.getGoogleFonts.filter(font => font.family.toUpperCase() == fontFamily.toUpperCase())
       // console.log(getters.getGoogleFonts)
       // console.log(`fontObject: ${fontObject}`)
@@ -223,17 +223,32 @@ export default new Vuex.Store({
     updateGlobalFontSize({ commit }, value) {
       commit('setGlobalFontSize', value)
     },
-    async fetchGoogleFonts({ commit, state }) {
-      if (state.googleFonts.length > 0) {
-        console.log('Returning: already have Google Fonts')
-        return
-      } else {
-        console.log('Fetched Google Fonts')
-        fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+    async fetchGoogleFonts({ commit }) {
+      // if (state.googleFonts.length > 0) {
+      //   console.log('Returning: already have Google Fonts')
+      //   return
+      // } else {
+      //   console.log('Fetched Google Fonts')
+        const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
           .then(response => response.json())
-          .then(response => commit('processGoogleFonts', response.items))
-      }
+          .then(async response => await commit('processGoogleFonts', response.items))
+      // }
     },
+    async getMe({ getters, commit }) {
+      const res = await API.GET(`/user/${getters.myId}`)
+      return await commit('setMe', res.data)
+    },
+    // async fetchGoogleFonts({ commit, state }) {
+    //   if (state.googleFonts.length > 0) {
+    //     console.log('Returning: already have Google Fonts')
+    //     return
+    //   } else {
+    //     console.log('Fetched Google Fonts')
+    //     await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
+    //       .then(response => response.json())
+    //       .then(response => commit('processGoogleFonts', response.items))
+    //   }
+    // },
     toggleJSON({ commit }) {
       commit('toggleJSON')
     },
