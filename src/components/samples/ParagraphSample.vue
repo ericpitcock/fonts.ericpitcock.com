@@ -25,7 +25,5 @@
 
 <style>
   .paragraph-sample {
-    /* font-size: 18px;
-    line-height: 24px; */
   }
 </style>

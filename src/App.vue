@@ -24,10 +24,7 @@
       Header,
       HeaderFont,
       Layout
-    },
-    // mounted() {
-    //   this.$store.dispatch('fetchGoogleFonts')
-    // }
+    }
   }
 </script>
 
@@ -46,14 +43,6 @@
     font-size: 14px;
     color: black;
   }
-  // .app {
-  //   width: 100%;
-  //   height: 100vh;
-  //   display: grid;
-  //   grid-template-rows: 130px 1fr;
-  //   grid-template-columns: 1fr;
-  //   grid-column-gap: 0;
-  // }
   #app {
     width: 100%;
     height: 100%;

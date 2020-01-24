@@ -3,10 +3,8 @@
     <div class="container">
       <div class="content">
         <div class="controls">
-          <!-- <template v-if="getCompare.length >= 2"> -->
           <div class="controls__label">{{ compareLabel }}</div>
           <div class="controls__clear" @click="clearCompare()">Clear</div>
-          <!-- </template> -->
         </div>
         <FontContainer
           v-for="(font, index) in getCompare"
@@ -58,7 +56,6 @@
     background: #fafafa;
     padding-bottom: 30px;
     border-bottom: 1px solid #e6e6e6;
-    // margin-bottom: 30px;
     .controls {
       width: 100%;
       height: 30px;
@@ -87,7 +84,6 @@
       &__sample {
         padding: 40px 30px;
       }
-      // border-left-color: #e6e6e6;
     }
   }
 </style>

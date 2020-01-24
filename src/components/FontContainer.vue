@@ -155,9 +155,6 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
-    // &:hover {
-    //   box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    // }
     .loading, .error {
       position: absolute;
       top: 1px;
@@ -187,17 +184,14 @@
     padding: 0 30px;
     .font-container & {
       border: 1px solid transparent;
-      // border-left: 1px solid transparent;
     }
     &:hover {
       cursor: pointer;
       border-color: #e6e6e6; 
     }
     .font-container:not(:first-child) & {
-      // border-top: 1px solid #e6e6e6;
     }
     .font-container:last-child & {
-      // border-bottom: 1px solid #e6e6e6;
     }
     & + & {
       margin-top: -1px;
@@ -206,11 +200,8 @@
       flex: 1 1 auto;
       align-self: stretch;
       padding: 60px 30px;
-      // margin-left: 30px;
-      // background: lightgray;
       &:hover {
-        // color: red;
-        // cursor: pointer;
+
       }
       .json {
         padding-top: 30px;
@@ -222,9 +213,6 @@
       align-items: center;
       display: flex;
       align-items: center;
-      // height: 29px;
-      // padding: 3px 10px 0 10px;
-      // border: 1px solid red;
       font-size: 11px;
       border-radius: 15px;
       color: red;

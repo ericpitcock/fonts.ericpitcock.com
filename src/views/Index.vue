@@ -42,14 +42,6 @@
       inCompare(font) {
         return (!this.getCompareFontList.includes(font.family))
       }
-    },
-    mounted() {
-      // console.log(this.$store.getters.getGoogleFonts)
-    },
-    watch: {
-      getCompare: function() {
-        console.log(this.getCompare)
-      }
     }
   }
 </script>

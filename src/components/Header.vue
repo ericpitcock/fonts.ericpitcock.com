@@ -123,7 +123,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    // padding: 30px;
     background: #fafafa;
     border-bottom: 1px solid #d3d3d3;
     flex: 0 0 auto;
