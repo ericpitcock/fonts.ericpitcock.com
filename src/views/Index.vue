@@ -4,7 +4,7 @@
     <div class="container">
       <div class="content">
         <template v-for="(font, index) in getActiveFonts">
-        <FontContainer
+        <Font
           v-if="inCompare(font)"
           :key="index"
           :font="font"
@@ -17,14 +17,14 @@
 
 <script>
   import Compare from '@/components/Compare'
-  import FontContainer from '@/components/FontContainer'
+  import Font from '@/components/Font'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
     components: {
       Compare,
-      FontContainer
+      Font
     },
     data() {
       return {

@@ -6,7 +6,7 @@
           <div class="controls__label">{{ compareLabel }}</div>
           <div class="controls__clear" @click="clearCompare()">Clear</div>
         </div>
-        <FontContainer
+        <Font
           v-for="(font, index) in getCompare"
           :key="index"
           :font="font"
@@ -17,13 +17,13 @@
 </template>
 
 <script>
-  import FontContainer from '@/components/FontContainer'
+  import Font from '@/components/Font'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Compare',
     components: {
-      FontContainer
+      Font
     },
     computed: {
       ...mapGetters([
@@ -74,16 +74,11 @@
       }
     }
   }
-  .font-container {
+  .font {
     background: white;
+    border: 1px solid #e6e6e6;
     & + & {
       margin-top: 4px;
-    }
-    /deep/ .font {
-      border: 1px solid #e6e6e6;
-      &__sample {
-        // padding: 40px 30px;
-      }
     }
   }
 </style>

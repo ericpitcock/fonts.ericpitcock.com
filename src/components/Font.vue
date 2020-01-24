@@ -1,28 +1,32 @@
 <template>
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
-    class="font-container"
+    class="font"
   >
-    <div v-if="loading" class="loading">
-      <img src="/img/loading.gif" alt="loading">
-    </div>
-    <div v-if=error class="error">
-      <p>There was an error loading this font</p>
-    </div>
-    <div class="font">
+    <div
+      class="font__content"
+      @click="toFontSpecimen(font)"
+    >
       <FontInfo :font="font" />
+      <div v-if="loading" class="font__content--loading">
+        <img src="/img/loading.gif" alt="loading">
+      </div>
+      <div v-if=error class="font__content--error">
+        <p>There was an error loading this font</p>
+      <div class="button">Retry</div>
+      </div>
       <div
-        class="font__sample"
+        v-if="!loading"
+        class="font__content--sample"
         :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
-        @click="toFontSpecimen(font)"
       >
         <component :is="getFontSample" />
         <div class="json" v-if="showJSON">
           <pre>{{ font }}</pre>
         </div>
       </div>
-      <div class="font__compare-button button" @click="compare(font)">{{ compareLabel(font) }}</div>
     </div>
+    <div class="button" @click="compare(font)">{{ compareLabel(font) }}</div>
   </div>
 </template>
 
@@ -37,7 +41,7 @@
   import WebFont from 'webfontloader'
 
   export default {
-    name: 'FontContainer',
+    name: 'Font',
     props: ['font'],
     components: {
       AlphabetSample,
@@ -153,9 +157,31 @@
 </script>
 
 <style lang="scss" scoped>
-  .font-container {
+  .font {
     position: relative;
-    .loading, .error {
+    display: flex;
+    align-items: center;
+    // padding: 30px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid #e6e6e6;
+    & + & {
+      margin-top: -1px;
+    }
+  }
+  .font__content {
+    flex: 1 1 auto;
+    display: flex;
+    padding: 30px;
+    cursor: pointer;
+    &--sample {
+      flex: 1 1 auto;
+      align-self: center;
+      .json {
+        padding-top: 30px;
+        font-size: 12px;
+      }
+    }
+    &--loading, &--error {
       position: absolute;
       top: 1px;
       right: 0;
@@ -167,52 +193,11 @@
       align-items: center;
       background: white;
     }
-    .loading img {
+    &--loading img {
       height: 100%;
     }
-    .error {
+    &--error {
       color: red;
-    }
-  }
-  .font-container a {
-    color: black;
-    text-decoration: none;
-  }
-  .font {
-    display: flex;
-    align-items: center;
-    padding: 30px;
-    .font-container & {
-      border: 1px solid transparent;
-      border-bottom: 1px solid #e6e6e6;
-      // border-bottom-color: #e6e6e6;
-    }
-    &:hover {
-      cursor: pointer;
-      // border-color: #e6e6e6; 
-    }
-    .font-container:not(:first-child) & {
-    }
-    .font-container:last-child & {
-    }
-    & + & {
-      margin-top: -1px;
-    }
-    &__sample {
-      flex: 1 1 auto;
-      align-self: center;
-      // padding: 0 30px;
-      // background: red;
-      &:hover {
-
-      }
-      .json {
-        padding-top: 30px;
-        font-size: 12px;
-      }
-    }
-    &__compare-button {
-      
     }
   }
 </style>
