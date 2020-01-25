@@ -91,7 +91,7 @@
         // console.log([fontStack])
         // FONTSTACK FOR FIRST WEIGHT
         let fontStack = `${font.family}:${font.variants[0]}`
-        console.log([fontStack])
+        // console.log([fontStack])
         WebFont.load({
           google: {
             //families: ['Open Sans:300,400,700']

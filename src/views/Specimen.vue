@@ -5,8 +5,17 @@
         <!-- <pre>{{ font }}</pre> -->
         <FontInfo :font="font" />
         <div class="right" :style='{ fontFamily: font.family }'>
-          <h1>{{ quote.message }}</h1>
-          <div>{{ quote.author }}</div>
+          <!-- <h1>{{ quote.message }}</h1>
+          <div>{{ quote.author }}</div> -->
+          <h1
+            v-for="(variant, index) in fontVariants()"
+            :key="index"
+            :style="{ fontWeight: variant.weight, fontStyle: variant.style }"
+          >
+            This is a variant
+          </h1>
+          <!-- <pre>{{ font }}</pre> -->
+          <!-- <pre>{{ fontVariants() }}</pre> -->
           <TableSample />
         </div>
       </div>
@@ -42,10 +51,11 @@
     },
     methods: {
       loadFont(font) {
+        let fontStack = `${font.family}:${font.variants.join(',')}`
         WebFont.load({
           google: {
             //families: ['Open Sans:300,400,700']
-            families: [font]
+            families: [fontStack]
           },
           classes: false,
           loading: () => {
@@ -68,6 +78,39 @@
             // console.log(`fontinactive: ${familyName}`)
           }
         })
+      },
+      fontVariants() {
+        // "variants": [
+        //   "200",
+        //   "200italic",
+        //   "300",
+        //   "300italic",
+        //   "regular",
+        //   "italic",
+        //   "500",
+        //   "500italic",
+        //   "600",
+        //   "600italic",
+        //   "700",
+        //   "700italic"
+        // ]
+        // let variants = font.variants
+        let variantsArray = []
+        this.font.variants.forEach(variant => {
+          if (variant.includes('italic')) {
+            // remove weight
+            variantsArray.push({
+              weight: variant.substring(0, 3),
+              style: 'italic'
+            })
+          } else {
+            variantsArray.push({
+              weight: variant,
+              style: 'normal'
+            })
+          }
+        })
+        return variantsArray
       }
       // fetchQuotes() {
       //   fetch('https://150000-quotes.p.rapidapi.com/random', {
@@ -85,7 +128,9 @@
       // }
     },
     mounted() {
-      this.loadFont(this.font.family)
+      this.loadFont(this.font)
+      // console.log(this.font)
+      console.log(this.fontVariants())
     }
   }
 </script>
