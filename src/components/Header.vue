@@ -7,7 +7,7 @@
           <div
             v-for="(category, index) in getFontCategories"
             :key="index"
-            @click="$store.dispatch('updateCategoryFilter', category)"
+            @click="updateCategory(category)"
             :class="['category-filters__filter-button', { 'category-filters__filter-button--active': getCategoryFilter == category }]"
           >
             <div v-if="category == 'sans-serif'" class="category-filters__group-label">TEXT</div>
@@ -114,6 +114,10 @@
     methods: {
       customFocus() {
         this.$store.dispatch('updateFontSample', 'CustomSample')
+      },
+      async updateCategory(category) {
+        this.$store.state.globalLoading = true
+        await this.$store.dispatch('updateCategoryFilter', category)
       }
     }
   }

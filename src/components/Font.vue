@@ -11,13 +11,13 @@
       <div v-if="loading" class="font__content--loading">
         <img src="/img/loading.gif" alt="loading">
       </div>
-      <div v-if=error class="font__content--error">
+      <div v-if="error" class="font__content--error">
         <p>There was an error loading this font</p>
         <div class="button">Retry</div>
       </div>
       <transition name="fade">
         <div
-          v-if="!loading"
+          v-if="!getGlobalLoading && !loading && !error"
           class="font__content--sample"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
         >
@@ -67,6 +67,7 @@
         'getCompare',
         'getFontSample',
         'getGlobalFontSize',
+        'getGlobalLoading',
         'getRecommendedOnly',
         'showJSON'
       ])
@@ -110,6 +111,7 @@
           },
           fontactive: (familyName, fvd) => {
             this.loading = false
+            this.$store.state.globalLoading = false
             // console.log(`fontactive: ${familyName}`)
           },
           fontinactive: (familyName, fvd) => {

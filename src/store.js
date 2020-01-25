@@ -11,6 +11,7 @@ export default new Vuex.Store({
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
     globalFontSize: 36,
+    globalLoading: false,
     googleFonts: [],
     recommendedFonts: [
       // sans-serif
@@ -140,6 +141,9 @@ export default new Vuex.Store({
     },
     getGlobalFontSize(state) {
       return state.globalFontSize
+    },
+    getGlobalLoading(state) {
+      return state.globalLoading
     },
     getGoogleFonts(state) {
       return state.googleFonts
