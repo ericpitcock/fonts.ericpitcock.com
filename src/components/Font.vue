@@ -111,7 +111,7 @@
           },
           fontactive: (familyName, fvd) => {
             this.loading = false
-            this.$store.state.globalLoading = false
+            this.$store.dispatch('updateGlobalLoading', false)
             // console.log(`fontactive: ${familyName}`)
           },
           fontinactive: (familyName, fvd) => {

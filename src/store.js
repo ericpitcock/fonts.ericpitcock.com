@@ -201,6 +201,9 @@ export default new Vuex.Store({
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
+    setGlobalLoading(state, value) {
+      state.globalLoading = value
+    },
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
@@ -236,6 +239,9 @@ export default new Vuex.Store({
     },
     updateGlobalFontSize({ commit }, value) {
       commit('setGlobalFontSize', value)
+    },
+    updateGlobalLoading({ commit }, value) {
+      commit('setGlobalLoading', value)
     },
     async fetchGoogleFonts({ commit }) {
       const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
