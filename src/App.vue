@@ -17,6 +17,7 @@
   import Header from '@/components/Header'
   import HeaderFont from '@/components/HeaderFont'
   import Layout from '@/layouts/Layout'
+  // import { mapGetters } from 'vuex'
 
   export default {
     name: 'App',
@@ -24,7 +25,15 @@
       Header,
       HeaderFont,
       Layout
-    }
+    },
+    // computed: {
+    //   ...mapGetters([
+    //     'getGoogleFonts'
+    //   ])
+    // },
+    // mounted() {
+    //   console.log(this.getGoogleFonts)
+    // }
   }
 </script>
 
@@ -67,5 +76,19 @@
       background: lighten(yellow, 40%);
       cursor: pointer;
     }
+  }
+  // transition
+  .fade-enter{
+    opacity: 0;
+  }
+  .fade-enter-active{
+    transition: opacity 1s;
+  }
+  .fade-leave{
+    opacity: 0;
+  }
+  .fade-leave-active{
+    transition: opacity 0s;
+    opacity: 0;
   }
 </style>

@@ -13,18 +13,20 @@
       </div>
       <div v-if=error class="font__content--error">
         <p>There was an error loading this font</p>
-      <div class="button">Retry</div>
+        <div class="button">Retry</div>
       </div>
-      <div
-        v-if="!loading"
-        class="font__content--sample"
-        :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
-      >
-        <component :is="getFontSample" />
-        <div class="json" v-if="showJSON">
-          <pre>{{ font }}</pre>
+      <transition name="fade">
+        <div
+          v-if="!loading"
+          class="font__content--sample"
+          :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
+        >
+          <component :is="getFontSample" />
+          <div class="json" v-if="showJSON">
+            <pre>{{ font }}</pre>
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
     <div class="button" @click="compare(font)">{{ compareLabel(font) }}</div>
   </div>
@@ -53,7 +55,6 @@
     },
     data() {
       return {
-        // fontSample: 'FontNameSample',
         inCompare: false,
         loading: true,
         error: false,
@@ -64,13 +65,10 @@
       ...mapGetters([
         'getCategoryFilter',
         'getCompare',
-        // 'getFilteredFonts',
-        // 'getFontCategories',
         'getFontSample',
         'getGlobalFontSize',
         'getRecommendedOnly',
         'showJSON'
-        // 'getGoogleFonts'
       ])
     },
     methods: {
@@ -90,11 +88,14 @@
         //   fontStack = font.family
         // }
         // console.log([fontStack])
+        // FONTSTACK FOR FIRST WEIGHT
+        let fontStack = `${font.family}:${font.variants[0]}`
+        console.log([fontStack])
         WebFont.load({
           google: {
             //families: ['Open Sans:300,400,700']
             // families: [fontStack]
-            families: [font.family]
+            families: [fontStack]
           },
           classes: false,
           loading: () => {
@@ -197,7 +198,12 @@
       height: 100%;
     }
     &--error {
+      display: flex;
+      flex-direction: column;
       color: red;
+      .button {
+        margin-top: 20px;
+      }
     }
   }
 </style>
