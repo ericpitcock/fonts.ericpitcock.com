@@ -12,7 +12,7 @@
             :key="index"
             :style="{ fontWeight: variant.weight, fontStyle: variant.style }"
           >
-            This is a variant
+            This is {{ getWeightNameMap[variant.weight] }} <span v-if="variant.style == 'italic'">{{ variant.style }}</span>
           </h1>
           <!-- <pre>{{ font }}</pre> -->
           <!-- <pre>{{ fontVariants() }}</pre> -->
@@ -43,7 +43,8 @@
     computed: {
       ...mapGetters([
         'getGoogleFonts',
-        'getCurrentSpecimen'
+        'getCurrentSpecimen',
+        'getWeightNameMap'
       ]),
       font() {
         return this.getGoogleFonts.find(font => font.family.toUpperCase() == this.getCurrentSpecimen.toUpperCase())
@@ -97,6 +98,12 @@
         // let variants = font.variants
         let variantsArray = []
         this.font.variants.forEach(variant => {
+          if (variant === 'regular' || variant === 'italic') {
+            variantsArray.push({
+              weight: '400',
+              style: (variant == 'italic') ? 'italic' : 'normal'
+            })
+          }
           if (variant.includes('italic')) {
             // remove weight
             variantsArray.push({

@@ -107,7 +107,19 @@ export default new Vuex.Store({
       'Zilla Slab Highlight'
     ],
     recommendedOnly: true,
-    showJSON: false
+    showJSON: false,
+    weightNameMap: {
+      '100': 'Thin (Hairline)',
+      '200': 'Extra Light (Ultra Light)',
+      '300': 'Light',
+      '400': 'Normal (Regular)',
+      '500': 'Medium',
+      '600': 'Semi Bold (Demi Bold)',
+      '700': 'Bold',
+      '800': 'Extra Bold (Ultra Bold)',
+      '900': 'Black (Heavy)',
+      '950': 'Extra Black (Ultra Black)'
+    }
   },
   getters: {
     getActiveFonts(state, getters) {
@@ -161,6 +173,9 @@ export default new Vuex.Store({
     },
     getRecommendedOnly(state) {
       return state.recommendedOnly
+    },
+    getWeightNameMap(state) {
+      return state.weightNameMap
     },
     showJSON(state) {
       return state.showJSON
