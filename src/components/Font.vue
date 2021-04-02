@@ -28,7 +28,7 @@
         </div>
       </transition>
     </div>
-    <div class="button" @click="compare(font)">{{ compareLabel(font) }}</div>
+    <div class="font__compare-button button" @click="compare(font)">{{ compareLabel(font) }}</div>
   </div>
 </template>
 
@@ -166,7 +166,7 @@
     align-items: center;
     // padding: 30px;
     border: 1px solid transparent;
-    border-bottom: 1px solid #e6e6e6;
+    // border-bottom: 1px solid #e6e6e6;
     & + & {
       margin-top: -1px;
     }
@@ -207,5 +207,8 @@
         margin-top: 20px;
       }
     }
+  }
+  .font__compare-button {
+    margin-right: 30px;
   }
 </style>

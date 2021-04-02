@@ -79,6 +79,7 @@ export default new Vuex.Store({
       'Esteban',
       'Fjord One',
       'Gelasio',
+      'Hepta Slab',
       'IBM Plex Serif',
       'Petrona',
       'Solway',

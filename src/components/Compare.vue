@@ -48,7 +48,7 @@
 <style lang="scss" scoped>
   .compare {
     position: sticky;
-    top: 110px;
+    top: 120px;
     z-index: 1;
     display: flex;
     justify-content: center;
