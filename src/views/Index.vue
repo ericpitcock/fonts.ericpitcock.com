@@ -3,15 +3,18 @@
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
-        <template v-if="getFonts.length == 0">
-          <div class="no-results">No results found</div>
+        <template v-if="activeFonts.length == 0">
+          <div class="no-results">No results found, try <span
+              @click="toggleRecommendedOnly"
+            >
+              turning off recommendedations</span>
+          </div>
         </template>
 
-        <template v-for="(font, index) in getFonts">
+        <template v-for="(font, index) in  activeFonts ">
           <FontContainer
             :key="index"
             :font="font"
-            v-if="visibility(font)"
           />
         </template>
       </div>
@@ -22,7 +25,7 @@
 <script>
   import Compare from '@/components/Compare'
   import FontContainer from '@/components/FontContainer'
-  import { mapGetters } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
@@ -33,9 +36,10 @@
     computed: {
       ...mapGetters([
         // 'getActiveFonts',
-        // 'getCategoryFilter',
+        'getCategoryFilter',
         'getCompare',
         // 'getGoogleFonts',
+        'getFontsByCategory',
         'getRecommendedOnly',
         'getRecommendedFonts',
         'getFonts'
@@ -43,18 +47,19 @@
       // hasActiveFonts() {
       //   return this.getFonts.length > 0
       // },
-      // activeFonts() {
-      //   return this.$store.getters.getFontsByCategory(this.getCategoryFilter)
-      // }
+      activeFonts() {
+        const fontsByCategory = this.getFontsByCategory(this.getCategoryFilter)
+        if (this.getRecommendedOnly) {
+          return fontsByCategory.filter(font => this.getRecommendedFonts.includes(font.family))
+        } else {
+          return fontsByCategory
+        }
+      },
     },
     methods: {
-      visibility(font) {
-        if (this.getRecommendedOnly) {
-          return this.getRecommendedFonts.includes(font.family)
-        } else {
-          return true
-        }
-      }
+      ...mapActions([
+        'toggleRecommendedOnly'
+      ])
     },
     mounted() {
       console.log(this.getFonts.length)

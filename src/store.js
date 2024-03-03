@@ -103,7 +103,7 @@ export default new Vuex.Store({
       return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
     },
     getRecommendedFonts(state) {
-      return  state.recommendedFonts
+      return state.recommendedFonts
     },
     getCategoryFilter(state) {
       return state.categoryFilter
@@ -189,20 +189,8 @@ export default new Vuex.Store({
     clearCompare(state) {
       state.compare = []
     },
-    // setGoogleFonts(state, fonts) {
-    //   state.googleFonts = fonts
-    // },
     setGoogleFonts(state, fonts) {
-      // let items = Promise.resolve(fonts)
-      // items.then(response => response.json().then(response => {
-      //   let processedFonts = response.items
-      //   processedFonts.forEach(font => {
-      //     font.recommended = (state.recommendedFonts.includes(font.family))
-      //   })
-        // console.log(fonts)
-        state.googleFonts = fonts
-        // Vue.set(state, 'googleFonts', processedFonts)
-      // }))
+      state.googleFonts = fonts
     },
     // processGoogleFonts(state, fonts) {
     //   let items = Promise.resolve(fonts)
@@ -227,9 +215,6 @@ export default new Vuex.Store({
     setFontSample(state, value) {
       state.fontSample = value
     },
-    // setGoogleFonts(state, fonts) {
-    //   state.googleFonts = fonts
-    // },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
@@ -274,22 +259,18 @@ export default new Vuex.Store({
     },
     async fetchGoogleFonts({ commit }) {
       try {
-        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.VUE_APP_GOOGLE_FONTS_API_KEY}`);
+        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.VUE_APP_GOOGLE_FONTS_API_KEY}`)
         
         if (!response.ok) {
-          throw new Error(`Failed to fetch Google Fonts. Status: ${response.status}`);
+          throw new Error(`Failed to fetch Google Fonts. Status: ${response.status}`)
         }
 
-        const data = await response.json();
-        commit('setGoogleFonts', data.items);
-        return data.items;
+        const data = await response.json()
+        commit('setGoogleFonts', data.items)
       } catch (error) {
-        console.error('Error fetching Google Fonts:', error);
-        throw error;
+        console.error('Error fetching Google Fonts:', error)
+        throw error
       }
-    },
-    setGoogleFonts({ commit }, fonts) {
-      commit('setGoogleFonts', fonts)
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')
