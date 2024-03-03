@@ -3,7 +3,7 @@
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
-        <template v-if="activeFonts.length == 0">
+        <template v-if="getActiveFonts.length == 0">
           <div class="no-results">No results found, try <span
               @click="toggleRecommendedOnly"
             >
@@ -11,7 +11,7 @@
           </div>
         </template>
 
-        <template v-for="(font, index) in  activeFonts ">
+        <template v-for="(font, index) in getActiveFonts">
           <FontContainer
             :key="index"
             :font="font"
@@ -35,8 +35,8 @@
     },
     computed: {
       ...mapGetters([
-        // 'getActiveFonts',
-        'getCategoryFilter',
+        'getActiveFonts',
+        // 'getCategoryFilter',
         'getCompare',
         // 'getGoogleFonts',
         'getFontsByCategory',
@@ -47,14 +47,14 @@
       // hasActiveFonts() {
       //   return this.getFonts.length > 0
       // },
-      activeFonts() {
-        const fontsByCategory = this.getFontsByCategory(this.getCategoryFilter)
-        if (this.getRecommendedOnly) {
-          return fontsByCategory.filter(font => this.getRecommendedFonts.includes(font.family))
-        } else {
-          return fontsByCategory
-        }
-      },
+      // activeFonts() {
+      //   const fontsByCategory = this.getFontsByCategory(this.getCategoryFilter)
+      //   if (this.getRecommendedOnly) {
+      //     return fontsByCategory.filter(font => this.getRecommendedFonts.includes(font.family))
+      //   } else {
+      //     return fontsByCategory
+      //   }
+      // },
     },
     methods: {
       ...mapActions([

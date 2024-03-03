@@ -23,9 +23,9 @@
     width: 100vw;
     // height: 100vh;
   }
-  header {
 
-  }
+  header {}
+
   main {
     grid-row: 2;
     grid-column: 1;
@@ -33,12 +33,14 @@
     // justify-content: center;
     // overflow: scroll;
     background: #fff;
+
     .container {
       width: 100vw;
       display: flex;
       justify-content: center;
+
       .content {
-        flex: 0 1 1200px;
+        flex: 1;
         // padding-right: 30px;
         // padding-left: 30px;
       }

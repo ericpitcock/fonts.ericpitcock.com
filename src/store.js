@@ -99,6 +99,14 @@ export default new Vuex.Store({
     // getFilteredFonts(state, getters) {
     //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     // },
+    getActiveFonts(state, getters) {
+      const fontsByCategory = getters.getFontsByCategory(getters.getCategoryFilter)
+      if (getters.getRecommendedOnly) {
+        return fontsByCategory.filter(font => getters.getRecommendedFonts.includes(font.family))
+      } else {
+        return fontsByCategory
+      }
+    },
     getLatinFonts(state, getters) {
       return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
     },
@@ -150,7 +158,7 @@ export default new Vuex.Store({
       return [...new Set(getters.getGoogleFonts.map(font => font.category))]
     },
     getFontCount(state, getters) {
-      return getters.getFontsByCategory(getters.getCategoryFilter).length
+      return getters.getActiveFonts.length
     },
     getFontSample(state) {
       return state.fontSample
