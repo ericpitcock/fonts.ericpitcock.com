@@ -3,12 +3,16 @@
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
+        <template v-if="getFonts.length == 0">
+          <div class="no-results">No results found</div>
+        </template>
+
         <template v-for="(font, index) in getFonts">
-        <FontContainer
-          :key="index"
-          :font="font"
-          v-if="visibility(font)"
-        />
+          <FontContainer
+            :key="index"
+            :font="font"
+            v-if="visibility(font)"
+          />
         </template>
       </div>
     </div>
@@ -28,14 +32,17 @@
     },
     computed: {
       ...mapGetters([
-        'getActiveFonts',
-        'getCategoryFilter',
+        // 'getActiveFonts',
+        // 'getCategoryFilter',
         'getCompare',
-        'getGoogleFonts',
+        // 'getGoogleFonts',
         'getRecommendedOnly',
         'getRecommendedFonts',
         'getFonts'
       ]),
+      // hasActiveFonts() {
+      //   return this.getFonts.length > 0
+      // },
       // activeFonts() {
       //   return this.$store.getters.getFontsByCategory(this.getCategoryFilter)
       // }
@@ -50,6 +57,7 @@
       }
     },
     mounted() {
+      console.log(this.getFonts.length)
     }
   }
 </script>
@@ -59,6 +67,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     & > .container .content {
       padding: 30px 0 100px 0;
     }

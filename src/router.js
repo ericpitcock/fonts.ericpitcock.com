@@ -49,22 +49,9 @@ const router = new Router({
   }
 })
 
-router.beforeEach((to, from, next) => {
-  store.dispatch('fetchGoogleFonts')
-  // next(vm => Object.assign(vm.$data, data));
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch('fetchGoogleFonts')
   next()
 })
-
-// router.beforeEach((to, from, next) => {
-//   // store.dispatch('fetchGoogleFonts')
-//   // next()
-//   async () => {
-//     await store.dispatch('fetchGoogleFonts').then(response => {
-//       next()
-//     }, error => {
-//       console.error('Error')
-//     })
-//   }
-// })
 
 export default router

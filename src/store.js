@@ -273,22 +273,21 @@ export default new Vuex.Store({
       commit('setGlobalFontSize', value)
     },
     async fetchGoogleFonts({ commit }) {
-      const response = await fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c')
-        .then(response => response.json()).then(data => commit('setGoogleFonts', data.items));
+      try {
+        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.VUE_APP_GOOGLE_FONTS_API_KEY}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch Google Fonts. Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        commit('setGoogleFonts', data.items);
+        return data.items;
+      } catch (error) {
+        console.error('Error fetching Google Fonts:', error);
+        throw error;
+      }
     },
-    // fetchGoogleFonts({ commit }) {
-    //   return new Promise((resolve, reject) => {
-    //     // Do something here... lets say, a http call using vue-resource
-    //     fetch('https://www.googleapis.com/webfonts/v1/webfonts?key=AIzaSyC4LPtjlhXImnuIBnGbYCgwRLYoXDZ2i8c').then(response => {
-    //       // http success, call the mutator and change something in state
-    //       commit('processGoogleFonts', response)
-    //       resolve(response)  // Let the calling function know that http is done. You may send some data back
-    //     }, error => {
-    //       // http failed, let the calling function know that action did not work out
-    //       reject(error)
-    //     })
-    //   })
-    // },
     setGoogleFonts({ commit }, fonts) {
       commit('setGoogleFonts', fonts)
     },

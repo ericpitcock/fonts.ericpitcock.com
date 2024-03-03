@@ -5,7 +5,10 @@
         <div class="controls">
           <!-- <template v-if="getCompare.length >= 2"> -->
           <div class="controls__label">{{ compareLabel }}</div>
-          <div class="controls__clear" @click="clearCompare()">Clear</div>
+          <div
+            class="controls__clear"
+            @click="clearCompare()"
+          >Clear</div>
           <!-- </template> -->
         </div>
         <FontContainer
@@ -31,7 +34,7 @@
       ...mapGetters([
         'getCompare'
       ]),
-      compareLabel: function() {
+      compareLabel: function () {
         if (this.getCompare.length == 1) {
           return 'Add more fonts to compare'
         } else {
@@ -47,7 +50,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
   .compare {
     position: sticky;
     top: 110px;
@@ -58,6 +64,7 @@
     background: #fafafa;
     padding-bottom: 30px;
     border-bottom: 1px solid #e6e6e6;
+
     // margin-bottom: 30px;
     .controls {
       width: 100%;
@@ -68,23 +75,27 @@
       align-items: flex-end;
       font-size: 12px;
       color: gray;
+
       &__label {
         margin-left: auto;
       }
+
       &__clear {
         margin-left: auto;
         cursor: pointer;
       }
     }
   }
+
   .font-container {
     background: #fff;
-    /deep/ .font {
+
+    :deep(.font) {
       border-color: #e6e6e6;
-      &__sample {
-        padding: 40px 30px;
-      }
-      // border-left-color: #e6e6e6;
+    }
+
+    .font__sample {
+      padding: 40px 30px;
     }
   }
 </style>
