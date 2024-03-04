@@ -5,8 +5,10 @@
         v-for="(category, index) in getFontCategories"
         :key="index"
         @click="$store.dispatch('updateCategoryFilter', category)"
-        :class="['category-filters__filter-button', { 'category-filters__filter-button--active': getCategoryFilter == category }]"
-      >
+        :class="[
+          'category-filters__filter-button',
+          { 'category-filters__filter-button--active': getCategoryFilter == category }
+        ]">
         <span v-if="category == 'sans-serif'">TEXT</span>
         <span v-if="category == 'display'">HEADLINE</span>
         {{ category }}
@@ -16,8 +18,7 @@
           type="checkbox"
           name="recommended"
           @change="$store.dispatch('toggleRecommendedOnly')"
-          :checked="getRecommendedOnly"
-        >
+          :checked="getRecommendedOnly">
         <label for="recommended">Recommended only</label>
       </span>
       <span class="font-count">
@@ -32,8 +33,7 @@
           'sample-control__button',
           { 'sample-control__button--active': getFontSample == sampleType.component }
         ]"
-        @click="$store.dispatch('updateFontSample', sampleType.component)"
-      >
+        @click="$store.dispatch('updateFontSample', sampleType.component)">
         {{ sampleType.name }}
       </div>
       <input
@@ -41,10 +41,10 @@
         v-model="customSample"
         @focus="customFocus()"
         type="text"
-        placeholder="Enter your own words"
-      >
+        placeholder="Enter your own words">
       <div class="font-size-slider">
-        <input name="font-size" type="range" min="12" max="60" v-model="fontSize" step="1" v-once>
+        <input name="font-size" type="range" min="12" max="60"
+          v-model="fontSize" step="1" v-once>
         <label for="font-size">{{ fontSize }}px</label>
       </div>
     </div>
@@ -108,7 +108,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   header {
     // option for sticky header
     position: sticky;
@@ -119,29 +119,37 @@
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: center;
     // padding: 30px;
     background: white;
     border-bottom: 1px solid #d3d3d3;
     flex: 0 0 auto;
+
     > * + * {
       margin-top: 20px;
     }
   }
+
   .category-filters {
     &__filter-button {
       text-transform: capitalize;
       cursor: pointer;
-      & + span { margin-left: 20px; }
+
+      & + span {
+        margin-left: 20px;
+      }
+
       &--active {
         color: red;
       }
     }
   }
+
   .sample-control {
     display: flex;
     margin-left: -6px;
+
     &__button {
       display: flex;
       align-items: center;
@@ -149,21 +157,26 @@
       padding: 3px 10px 0 10px;
       border: 1px solid #e6e6e6;
       font-size: 11px;
+
       &:hover:not(.sample-control__button--active) {
         background: lighten(yellow, 40%);
         cursor: pointer;
       }
+
       &--active {
         background: yellow;
       }
+
       & + & {
         border-left: none;
       }
+
       &:first-child {
         padding-left: 15px;
         border-radius: 15px 0 0 15px;
       }
     }
+
     .custom-sample-input {
       width: 300px;
       padding: 3px 0 0 15px;
@@ -171,28 +184,34 @@
       border-left: none;
       border-radius: 0 15px 15px 0;
       font-size: 11px;
+
       &:hover {
         background: lighten(yellow, 40%);
         cursor: pointer;
       }
+
       &::placeholder {
         font-size: 11px;
         color: black;
       }
+
       &:focus {
         background: yellow;
         outline: none;
       }
     }
+
     .font-size-slider {
       display: flex;
       align-items: center;
       margin-left: 20px;
+
       label {
         margin-left: 10px;
       }
     }
   }
+
   .font-count {
     font-size: 12px;
     color: gray;

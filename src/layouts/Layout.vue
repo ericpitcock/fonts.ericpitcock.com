@@ -24,8 +24,6 @@
     // height: 100vh;
   }
 
-  header {}
-
   main {
     grid-row: 2;
     grid-column: 1;

@@ -5,18 +5,15 @@
       <div class="content">
         <template v-if="getActiveFonts.length == 0">
           <div class="no-results">No results found, try <span
-              @click="toggleRecommendedOnly"
-            >
+              @click="toggleRecommendedOnly">
               turning off recommendedations</span>
           </div>
         </template>
-
-        <template v-for="(font, index) in getActiveFonts">
-          <FontContainer
-            :key="index"
-            :font="font"
-          />
-        </template>
+        <FontContainer
+          v-for="(font, index) in getActiveFonts"
+          :key="index"
+          :font="font"
+          v-if="!fontIsInCompare(font.family)" />
       </div>
     </div>
   </div>
@@ -36,30 +33,20 @@
     computed: {
       ...mapGetters([
         'getActiveFonts',
-        // 'getCategoryFilter',
         'getCompare',
-        // 'getGoogleFonts',
         'getFontsByCategory',
         'getRecommendedOnly',
         'getRecommendedFonts',
         'getFonts'
       ]),
-      // hasActiveFonts() {
-      //   return this.getFonts.length > 0
-      // },
-      // activeFonts() {
-      //   const fontsByCategory = this.getFontsByCategory(this.getCategoryFilter)
-      //   if (this.getRecommendedOnly) {
-      //     return fontsByCategory.filter(font => this.getRecommendedFonts.includes(font.family))
-      //   } else {
-      //     return fontsByCategory
-      //   }
-      // },
     },
     methods: {
       ...mapActions([
         'toggleRecommendedOnly'
-      ])
+      ]),
+      fontIsInCompare(fontFamily) {
+        return this.getCompare.some(font => font.family === fontFamily)
+      }
     },
     mounted() {
       console.log(this.getFonts.length)

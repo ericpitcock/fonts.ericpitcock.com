@@ -1,8 +1,7 @@
 <template>
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
-    class="font-container"
-  >
+    class="font-container">
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
@@ -14,14 +13,14 @@
       <div
         class="font__sample"
         :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
-        @click="toFontSpecimen(font)"
-      >
+        @click="toFontSpecimen(font)">
         <component :is="getFontSample" />
         <div class="json" v-if="showJSON">
           <pre>{{ font }}</pre>
         </div>
       </div>
-      <div class="font__compare-button" @click="compare(font)">{{ compareLabel(font) }}</div>
+      <div class="font__compare-button" @click="compare(font)">{{
+      compareLabel(font) }}</div>
     </div>
   </div>
 </template>
@@ -110,7 +109,7 @@
             this.error = true
             // console.log(`fontinactive: ${familyName}`)
           }
-        });
+        })
       },
       toFontSpecimen(font) {
         // populate store and route
@@ -137,7 +136,7 @@
           this.loadFont(this.font)
           this.observer.disconnect()
         }
-      },{
+      }, {
         root: null,
         rootMargin: '0px',
         threshold: 0.25
@@ -153,10 +152,12 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
+
     // &:hover {
     //   box-shadow: 0 0 20px rgba(0,0,0,0.05);
     // }
-    .loading, .error {
+    .loading,
+    .error {
       position: absolute;
       top: 1px;
       right: 0;
@@ -168,53 +169,67 @@
       align-items: center;
       background: #fff;
     }
+
     .loading img {
       height: 100%;
     }
+
     .error {
       color: red;
     }
   }
+
   .font-container a {
     color: black;
     text-decoration: none;
   }
+
   .font {
     display: flex;
     align-items: center;
     padding: 0 30px;
+
     .font-container & {
       border: 1px solid transparent;
       // border-left: 1px solid transparent;
     }
+
     &:hover {
       cursor: pointer;
-      border-color: #e6e6e6; 
+      background: #f9f9f9;
+      border-color: #e6e6e6;
     }
+
     .font-container:not(:first-child) & {
       // border-top: 1px solid #e6e6e6;
     }
+
     .font-container:last-child & {
       // border-bottom: 1px solid #e6e6e6;
     }
+
     & + & {
       margin-top: -1px;
     }
+
     &__sample {
       flex: 1 1 auto;
       align-self: stretch;
       padding: 60px 30px;
+
       // margin-left: 30px;
       // background: lightgray;
       &:hover {
         // color: red;
         // cursor: pointer;
       }
+
       .json {
         padding-top: 30px;
         font-size: 12px;
       }
     }
+
     &__compare-button {
       display: flex;
       align-items: center;
@@ -226,6 +241,7 @@
       font-size: 11px;
       border-radius: 15px;
       color: red;
+
       &:hover {
         color: black;
         cursor: pointer;

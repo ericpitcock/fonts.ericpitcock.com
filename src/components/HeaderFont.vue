@@ -61,7 +61,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   header {
     // option for sticky header
     position: sticky;
