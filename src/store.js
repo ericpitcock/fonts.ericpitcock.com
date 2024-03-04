@@ -84,7 +84,22 @@ export default new Vuex.Store({
       'Source Serif Pro',
       'Spectral',
       'Trocchi',
-      'Zilla Slab'
+      'Zilla Slab',
+      // handwriting
+      'Meow Script',
+      'Ms Madi',
+      'Sacramento',
+      // monospace
+      'Anonymous Pro',
+      'DM Mono',
+      'Fira Code',
+      'Fire Mono',
+      'Fragment Mono',
+      'IBM Plex Mono',
+      'Inconsolata',
+      'Roboto Mono',
+      // display
+      'Calistoga',
     ],
     recommendedOnly: true,
     showJSON: false

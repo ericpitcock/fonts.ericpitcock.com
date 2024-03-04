@@ -5,14 +5,15 @@
     <div v-if="loading" class="loading">
       <img src="/img/loading.gif" alt="loading">
     </div>
-    <div v-if=error class="error">
-      <p>There was an error loading this font</p>
-    </div>
     <div class="font">
       <div
         class="font__sample"
         @click="toFontSpecimen(font)">
+        <div v-if="error" class="error">
+          <p>There was an error loading this font</p>
+        </div>
         <component
+          v-else
           :is="getFontSample"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
         <FontInfo :font="font" />
@@ -158,8 +159,7 @@
     // &:hover {
     //   box-shadow: 0 0 20px rgba(0,0,0,0.05);
     // }
-    .loading,
-    .error {
+    .loading {
       position: absolute;
       top: 1px;
       right: 0;
@@ -177,6 +177,8 @@
     }
 
     .error {
+      display: flex;
+      align-items: center;
       color: red;
     }
   }

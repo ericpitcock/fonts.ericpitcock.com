@@ -1,7 +1,7 @@
 <template>
   <div class="sample-control">
     <span class="font-count">
-      {{ getFontCount }} fonts
+      {{ fontCount }}
     </span>
     <div
       v-for="(sampleType, index) in samples"
@@ -68,6 +68,9 @@
         set(value) {
           this.$store.dispatch('updateCustomSample', value)
         }
+      },
+      fontCount() {
+        return `${this.getFontCount} ${this.getFontCount === 1 ? 'font' : 'fonts'}`
       },
       fontSize: {
         get() {
