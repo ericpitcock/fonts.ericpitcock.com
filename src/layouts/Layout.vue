@@ -17,26 +17,26 @@
 <style lang="scss">
   .grid {
     display: grid;
-    grid-template-rows: 110px 1fr;
-    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-columns: 200px 1fr;
     grid-column-gap: 0;
     width: 100vw;
     // height: 100vh;
   }
 
   main {
-    grid-row: 2;
-    grid-column: 1;
+    grid-row: 1;
+    grid-column: 2;
+
     // display: flex;
     // justify-content: center;
     // overflow: scroll;
-    background: #fff;
-
+    // background: #fff;
     .container {
-      width: 100vw;
+      // width: 100vw;
       display: flex;
-      justify-content: center;
 
+      // justify-content: center;
       .content {
         flex: 1;
         // padding-right: 30px;

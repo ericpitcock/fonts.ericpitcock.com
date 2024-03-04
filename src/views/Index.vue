@@ -1,5 +1,6 @@
 <template>
   <div class="index">
+    <SampleControl />
     <Compare v-if="getCompare.length >= 1" />
     <div class="container">
       <div class="content">
@@ -22,13 +23,15 @@
 <script>
   import Compare from '@/components/Compare'
   import FontContainer from '@/components/FontContainer'
+  import SampleControl from '@/components/SampleControl'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
     components: {
       Compare,
-      FontContainer
+      FontContainer,
+      SampleControl,
     },
     computed: {
       ...mapGetters([
@@ -58,10 +61,10 @@
   .index {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
+    // align-items: center;
     & > .container .content {
-      padding: 30px 0 100px 0;
+      padding-bottom: 200px;
     }
   }
 </style>

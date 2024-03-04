@@ -1,13 +1,14 @@
 <template>
   <div class="font-info">
+    <div v-if="isRecommended(font)" class="font-info__recommended-flag">
+      <!-- star symbol -->
+      <span>&#9733;</span>
+    </div>
     <div class="font-info__name">
       <span>{{ font.family }}</span>
     </div>
     <div class="font-info__styles">
       <span>{{ fontInfo(font) }}</span>
-    </div>
-    <div v-if="isRecommended(font)" class="font-info__recommended-flag">
-      Recommended
     </div>
   </div>
 </template>
@@ -44,32 +45,40 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .font-info {
-    flex: 0 0 200px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e5e5;
+
+    // flex: 0 0 200px;
     &__name {
-      flex: 0 0 30px;
+      // flex: 0 0 30px;
       display: flex;
       align-items: center;
-      color: blue;
+      // color: blue;
     }
+
     &__styles {
-      flex: 0 0 30px;
+      // flex: 0 0 30px;
       display: flex;
       align-items: center;
-      color: gray;
+      // color: gray;
       font-size: 12px;
-      margin-top: 10px;
+      // margin-top: 10px;
     }
+
     &__recommended-flag {
       display: inline-block;
-      padding: 4px 5px 1px 5px;
-      border: 1px solid lighten(red, 40%);
-      border-radius: 3px;
-      font-size: 11px;
-      color: rebeccapurple;
-      background: lighten(yellow, 40%);
-      margin-top: 20px;
+      // padding: 4px 5px 1px 5px;
+      // border: 1px solid lighten(red, 40%);
+      // border-radius: 3px;
+      font-size: 16px;
+      color: hsl(39, 100%, 50%);
+      // background: lighten(yellow, 40%);
+      // margin-top: 20px;
     }
   }
 </style>

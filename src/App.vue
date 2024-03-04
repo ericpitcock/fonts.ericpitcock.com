@@ -43,6 +43,7 @@
   body {
     display: flex;
     justify-content: center;
+    background: #f5f5f5;
   }
 
   body,

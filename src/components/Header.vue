@@ -9,23 +9,21 @@
           'category-filters__filter-button',
           { 'category-filters__filter-button--active': getCategoryFilter == category }
         ]">
-        <span v-if="category == 'sans-serif'">TEXT</span>
-        <span v-if="category == 'display'">HEADLINE</span>
+        <!-- <span v-if="category == 'sans-serif'">TEXT</span>
+        <span v-if="category == 'display'">HEADLINE</span> -->
         {{ category }}
       </span>
       <span>
         <input
           type="checkbox"
           name="recommended"
+          id="recommended"
           @change="$store.dispatch('toggleRecommendedOnly')"
           :checked="getRecommendedOnly">
-        <label for="recommended">Recommended only</label>
-      </span>
-      <span class="font-count">
-        {{ getFontCount }} fonts
+        <label for="recommended"> Recommended &#9733;</label>
       </span>
     </div>
-    <div class="sample-control">
+    <!-- <div class="sample-control">
       <div
         v-for="(sampleType, index) in samples"
         :key="index"
@@ -47,7 +45,7 @@
           v-model="fontSize" step="1" v-once>
         <label for="font-size">{{ fontSize }}px</label>
       </div>
-    </div>
+    </div> -->
   </header>
 </template>
 
@@ -58,20 +56,20 @@
     name: 'Header',
     data() {
       return {
-        samples: [
-          {
-            name: 'Sentence',
-            component: 'SentenceSample'
-          },
-          {
-            name: 'Alphabet',
-            component: 'AlphabetSample'
-          },
-          {
-            name: 'Paragraph',
-            component: 'ParagraphSample'
-          }
-        ]
+        // samples: [
+        //   {
+        //     name: 'Sentence',
+        //     component: 'SentenceSample'
+        //   },
+        //   {
+        //     name: 'Alphabet',
+        //     component: 'AlphabetSample'
+        //   },
+        //   {
+        //     name: 'Paragraph',
+        //     component: 'ParagraphSample'
+        //   }
+        // ]
       }
     },
     computed: {
@@ -79,139 +77,130 @@
         'getActiveFonts',
         'getCategoryFilter',
         'getFontCategories',
-        'getFontCount',
+        // 'getFontCount',
         'getFontSample',
         'getRecommendedOnly'
       ]),
-      customSample: {
-        get() {
-          return this.getCustomSample
-        },
-        set(value) {
-          this.$store.dispatch('updateCustomSample', value)
-        }
-      },
-      fontSize: {
-        get() {
-          return this.getGlobalFontSize
-        },
-        set(value) {
-          this.$store.dispatch('updateGlobalFontSize', value)
-        }
-      }
+      // customSample: {
+      //   get() {
+      //     return this.getCustomSample
+      //   },
+      //   set(value) {
+      //     this.$store.dispatch('updateCustomSample', value)
+      //   }
+      // },
+      // fontSize: {
+      //   get() {
+      //     return this.getGlobalFontSize
+      //   },
+      //   set(value) {
+      //     this.$store.dispatch('updateGlobalFontSize', value)
+      //   }
+      // }
     },
-    methods: {
-      customFocus() {
-        this.$store.dispatch('updateFontSample', 'CustomSample')
-      }
-    }
+    // methods: {
+    //   customFocus() {
+    //     this.$store.dispatch('updateFontSample', 'CustomSample')
+    //   }
+    // }
   }
 </script>
 
 <style lang="scss" scoped>
   header {
-    // option for sticky header
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    // end option
+    position: fixed;
+    width: 200px;
+    height: 100%;
     grid-row: 1;
     grid-column: 1;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    justify-content: center;
-    // padding: 30px;
-    background: white;
-    border-bottom: 1px solid #d3d3d3;
-    flex: 0 0 auto;
+    // justify-content: center;
+    padding: 30px;
+    // background: white;
+    // border-bottom: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    user-select: none;
 
+    // flex: 0 0 auto;
     > * + * {
       margin-top: 20px;
     }
   }
 
   .category-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
     &__filter-button {
       text-transform: capitalize;
       cursor: pointer;
 
-      & + span {
-        margin-left: 20px;
-      }
-
+      // & + span {
+      //   margin-left: 20px;
+      // }
       &--active {
         color: red;
       }
     }
   }
 
-  .sample-control {
-    display: flex;
-    margin-left: -6px;
-
-    &__button {
-      display: flex;
-      align-items: center;
-      height: 29px;
-      padding: 3px 10px 0 10px;
-      border: 1px solid #e6e6e6;
-      font-size: 11px;
-
-      &:hover:not(.sample-control__button--active) {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
-      }
-
-      &--active {
-        background: yellow;
-      }
-
-      & + & {
-        border-left: none;
-      }
-
-      &:first-child {
-        padding-left: 15px;
-        border-radius: 15px 0 0 15px;
-      }
-    }
-
-    .custom-sample-input {
-      width: 300px;
-      padding: 3px 0 0 15px;
-      border: 1px solid #e6e6e6;
-      border-left: none;
-      border-radius: 0 15px 15px 0;
-      font-size: 11px;
-
-      &:hover {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
-      }
-
-      &::placeholder {
-        font-size: 11px;
-        color: black;
-      }
-
-      &:focus {
-        background: yellow;
-        outline: none;
-      }
-    }
-
-    .font-size-slider {
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-
-      label {
-        margin-left: 10px;
-      }
-    }
-  }
-
+  // .sample-control {
+  //   display: flex;
+  //   margin-left: -6px;
+  //   &__button {
+  //     display: flex;
+  //     align-items: center;
+  //     height: 29px;
+  //     padding: 3px 10px 0 10px;
+  //     border: 1px solid #e6e6e6;
+  //     font-size: 11px;
+  //     &:hover:not(.sample-control__button--active) {
+  //       background: lighten(yellow, 40%);
+  //       cursor: pointer;
+  //     }
+  //     &--active {
+  //       background: yellow;
+  //     }
+  //     & + & {
+  //       border-left: none;
+  //     }
+  //     &:first-child {
+  //       padding-left: 15px;
+  //       border-radius: 15px 0 0 15px;
+  //     }
+  //   }
+  //   .custom-sample-input {
+  //     width: 300px;
+  //     padding: 3px 0 0 15px;
+  //     border: 1px solid #e6e6e6;
+  //     border-left: none;
+  //     border-radius: 0 15px 15px 0;
+  //     font-size: 11px;
+  //     &:hover {
+  //       background: lighten(yellow, 40%);
+  //       cursor: pointer;
+  //     }
+  //     &::placeholder {
+  //       font-size: 11px;
+  //       color: black;
+  //     }
+  //     &:focus {
+  //       background: yellow;
+  //       outline: none;
+  //     }
+  //   }
+  //   .font-size-slider {
+  //     display: flex;
+  //     align-items: center;
+  //     margin-left: 20px;
+  //     label {
+  //       margin-left: 10px;
+  //     }
+  //   }
+  // }
   .font-count {
     font-size: 12px;
     color: gray;

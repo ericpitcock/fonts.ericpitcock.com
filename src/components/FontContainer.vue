@@ -9,18 +9,20 @@
       <p>There was an error loading this font</p>
     </div>
     <div class="font">
-      <FontInfo :font="font" />
       <div
         class="font__sample"
-        :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
         @click="toFontSpecimen(font)">
-        <component :is="getFontSample" />
+        <component
+          :is="getFontSample"
+          :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
+        <FontInfo :font="font" />
         <div class="json" v-if="showJSON">
           <pre>{{ font }}</pre>
         </div>
       </div>
-      <div class="font__compare-button" @click="compare(font)">{{
-      compareLabel(font) }}</div>
+      <!-- <div class="font__compare-button" @click="compare(font)">
+        {{ compareLabel(font) }}
+      </div> -->
     </div>
   </div>
 </template>
@@ -167,7 +169,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fff;
+      // background: #fff;
     }
 
     .loading img {
@@ -186,18 +188,21 @@
 
   .font {
     display: flex;
+    // flex-direction: row-reverse;
     align-items: center;
     padding: 0 30px;
 
     .font-container & {
-      border: 1px solid transparent;
+      // border-left: 10px solid transparent;
+      // border-top: 1px solid transparent;
+      // border-bottom: 1px solid transparent;
       // border-left: 1px solid transparent;
     }
 
     &:hover {
       cursor: pointer;
-      background: #f9f9f9;
-      border-color: #e6e6e6;
+      // background: white;
+      // border-color: #e6e6e6;
     }
 
     .font-container:not(:first-child) & {
@@ -208,20 +213,23 @@
       // border-bottom: 1px solid #e6e6e6;
     }
 
-    & + & {
-      margin-top: -1px;
-    }
-
+    // & + & {
+    //   margin-top: -1px;
+    // }
     &__sample {
       flex: 1 1 auto;
       align-self: stretch;
-      padding: 60px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 50px;
+      color: hsl(0, 0%, 20%);
 
       // margin-left: 30px;
       // background: lightgray;
       &:hover {
-        // color: red;
-        // cursor: pointer;
+        // color: lighten(red, 10%);
+        cursor: pointer;
       }
 
       .json {
