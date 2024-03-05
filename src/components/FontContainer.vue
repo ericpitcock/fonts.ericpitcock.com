@@ -10,9 +10,8 @@
         <div v-if="error" class="error">
           <p>There was an error loading this font</p>
         </div>
-        <component
+        <SentenceSample
           v-if="!loading && !error"
-          :is="getFontSample"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
       </div>
       <FontInfo :font="font" />
@@ -110,11 +109,13 @@
           }
         })
       },
-      // toFontSpecimen(font) {
-      //   // populate store and route
-      //   this.$store.dispatch('updateCurrentSpecimen', font.family)
-      //   this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-      // }
+      toFontSpecimen(font) {
+        // temp disabled
+        // use @sentence-click="toFontSpecimen(font)" in SentenceSample
+        // populate store and route
+        // this.$store.dispatch('updateCurrentSpecimen', font.family)
+        // this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
+      },
     },
     watch: {
       getCategoryFilter: function() {
@@ -198,7 +199,7 @@
       color: hsl(0, 0%, 20%);
 
       &:hover {
-        cursor: pointer;
+        // cursor: pointer;
       }
 
       .json {

@@ -124,6 +124,7 @@
     }
 
     &__font-size {
+      flex: 0 1 100px;
       display: flex;
       align-items: center;
 

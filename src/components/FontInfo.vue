@@ -10,9 +10,6 @@
     <div class="font-info__styles">
       <span>{{ fontInfo(font) }}</span>
     </div>
-    <div class="font-info__details-link">
-      <span @click="toFontSpecimen(font)">Font Details</span>
-    </div>
   </div>
 </template>
 
@@ -44,11 +41,11 @@
           return `${font.variants.length - italicCount} ${label} w/ italics`
         }
       },
-      toFontSpecimen(font) {
-        // populate store and route
-        this.$store.dispatch('updateCurrentSpecimen', font.family)
-        this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-      }
+      // toFontSpecimen(font) {
+      //   // populate store and route
+      //   this.$store.dispatch('updateCurrentSpecimen', font.family)
+      //   this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
+      // }
     }
   }
 </script>
@@ -75,16 +72,6 @@
       align-items: center;
       // color: gray;
       font-size: 12px;
-      // margin-top: 10px;
-    }
-
-    &__details-link {
-      // flex: 0 0 30px;
-      display: flex;
-      align-items: center;
-      // color: gray;
-      font-size: 12px;
-      cursor: pointer;
       // margin-top: 10px;
     }
 
