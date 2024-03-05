@@ -90,6 +90,9 @@
         if (sampleType === 'ParagraphSample') {
           this.$store.dispatch('updateGlobalFontSize', 18)
         }
+        if (sampleType === 'AlphabetSample') {
+          this.$store.dispatch('updateGlobalFontSize', 36)
+        }
         this.$store.dispatch('updateFontSample', sampleType)
       }
     }

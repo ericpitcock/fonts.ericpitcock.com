@@ -42,8 +42,8 @@
     data() {
       return {
         fonts: [
-          { fontFamily: 'Barrio', fontSize: 30 },
           { fontFamily: 'Bungee Shade', fontSize: 30 },
+          { fontFamily: 'Barrio', fontSize: 30 },
           { fontFamily: 'Ms Madi', fontSize: 40 },
           { fontFamily: 'Bowlby One', fontSize: 30 },
           { fontFamily: 'Gaegu', fontSize: 40 },
@@ -81,7 +81,7 @@
         setInterval(() => {
           this.currentFontIndex = (this.currentFontIndex + 1) % this.fonts.length
           // this.currentFont = this.fonts[this.currentFontIndex]
-        }, 2000)
+        }, 4000)
       },
     },
     mounted() {

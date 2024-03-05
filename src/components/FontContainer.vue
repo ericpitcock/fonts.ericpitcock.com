@@ -11,6 +11,7 @@
           <p>There was an error loading this font</p>
         </div>
         <component
+          v-if="!loading && !error"
           :is="getFontSample"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
       </div>
@@ -158,7 +159,7 @@
       top: 1px;
       right: 0;
       bottom: 0;
-      left: -30px;
+      left: 0;
       display: flex;
       align-items: center;
     }
