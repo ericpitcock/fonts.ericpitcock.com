@@ -34,14 +34,15 @@
         'getCategoryFilter',
         'getFontCategories',
         'getFontSample',
-        'getRecommendedOnly'
+        'getRecommendedOnly',
+        'getSentenceSample',
       ]),
       customSample: {
         get() {
-          return this.getCustomSample
+          return this.getSentenceSample
         },
         set(value) {
-          this.$store.dispatch('updateCustomSample', value)
+          this.$store.dispatch('updateSentenceSample', value)
         }
       },
       fontSize: {
@@ -53,11 +54,11 @@
         }
       }
     },
-    methods: {
-      customFocus() {
-        this.$store.dispatch('updateFontSample', 'CustomSample')
-      }
-    }
+    // methods: {
+    //   customFocus() {
+    //     this.$store.dispatch('updateFontSample', 'CustomSample')
+    //   }
+    // }
   }
 </script>
 

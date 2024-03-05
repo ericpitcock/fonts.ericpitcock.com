@@ -1,22 +1,53 @@
 <template>
-  <div class="sentence-sample">The quick brown fox jumps over the lazy dog</div>
+  <div
+    class="sentence-sample"
+    ref="sentenceSample"
+    contenteditable="true"
+    @input="handleInput($event.target)"
+    @mouseup="highlightText($event.target)"
+    @blur="handleBlur">
+    {{ getSentenceSample }}
+  </div>
 </template>
 
 <script>
-  var Chance = require('chance')
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'SentenceSample',
+    computed: {
+      ...mapGetters(['getSentenceSample'])
+    },
     methods: {
-      getSentence() {
-        return chance.sentence({ words: 7 })
-      }
+      ...mapActions(['updateSentenceSample']),
+      handleBlur() {
+        // if the sentenceSample is empty, add the default text
+        if (this.$refs.sentenceSample.innerText === '') {
+          // update ref="sentenceSample" with default text
+          this.$refs.sentenceSample.innerText = this.$store.state.sentenceSampleDefault
+          this.updateSentenceSample(this.$store.state.sentenceSampleDefault)
+        }
+      },
+      handleInput(text) {
+        this.updateSentenceSample(text.innerText)
+      },
+      clearText() {
+        this.$refs.sentenceSample.innerText = ''
+      },
+      highlightText(target) {
+        target.focus()
+        const range = document.createRange()
+        range.selectNodeContents(target)
+        const sel = window.getSelection()
+        sel.removeAllRanges()
+        sel.addRange(range)
+      },
     }
   }
 </script>
 
 <style>
   .sentence-sample {
-    /* font-size: 40px; */
+    /* Add your styles here */
   }
 </style>

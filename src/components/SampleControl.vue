@@ -1,25 +1,28 @@
 <template>
   <div class="sample-control">
-    <span class="font-count">
+    <span class="sample-control__font-count">
       {{ fontCount }}
     </span>
-    <div
-      v-for="(sampleType, index) in samples"
-      :key="index"
-      :class="[
-        'sample-control__button',
-        { 'sample-control__button--active': getFontSample == sampleType.component }
+    <!-- <div class="sample-control__sample-type"> -->
+    <!-- <div
+        v-for="(sampleType, index) in samples"
+        :key="index"
+        :class="[
+        'sample-type__button',
+        { 'sample-type__button--active': getFontSample == sampleType.component }
       ]"
-      @click="updateSampleType(sampleType.component)">
-      {{ sampleType.name }}
+        @click="updateSampleType(sampleType.component)">
+        {{ sampleType.name }}
+      </div> -->
+    <div class="sample-control__input">
+      <input
+        class="custom-sample-input"
+        v-model="sentenceSample"
+        type="text"
+        placeholder="Enter your own words">
     </div>
-    <input
-      class="custom-sample-input"
-      v-model="customSample"
-      @focus="customFocus()"
-      type="text"
-      placeholder="Enter your own words">
-    <div class="font-size-slider">
+    <!-- </div> -->
+    <div class="sample-control__font-size">
       <input name="font-size" type="range" min="12" max="60"
         v-model="fontSize" step="1">
       <label for="font-size">{{ fontSize }}px</label>
@@ -32,41 +35,42 @@
 
   export default {
     name: 'SampleControl',
-    data() {
-      return {
-        samples: [
-          {
-            name: 'Sentence',
-            component: 'SentenceSample'
-          },
-          {
-            name: 'Paragraph',
-            component: 'ParagraphSample'
-          },
-          {
-            name: 'Character Set',
-            component: 'AlphabetSample'
-          },
-        ]
-      }
-    },
+    // data() {
+    //   return {
+    //     samples: [
+    //       {
+    //         name: 'Sentence',
+    //         component: 'SentenceSample'
+    //       },
+    //       {
+    //         name: 'Paragraph',
+    //         component: 'ParagraphSample'
+    //       },
+    //       {
+    //         name: 'Character Set',
+    //         component: 'AlphabetSample'
+    //       },
+    //     ]
+    //   }
+    // },
     computed: {
       ...mapGetters([
         'getActiveFonts',
         'getCategoryFilter',
-        'getCustomSample',
+        // 'getCustomSample',
         'getGlobalFontSize',
         'getFontCategories',
         'getFontCount',
         'getFontSample',
-        'getRecommendedOnly'
+        'getRecommendedOnly',
+        'getSentenceSample',
       ]),
-      customSample: {
+      sentenceSample: {
         get() {
-          return this.getCustomSample
+          return this.getSentenceSample
         },
         set(value) {
-          this.$store.dispatch('updateCustomSample', value)
+          this.$store.dispatch('updateSentenceSample', value)
         }
       },
       fontCount() {
@@ -82,19 +86,19 @@
       }
     },
     methods: {
-      customFocus() {
-        this.$store.dispatch('updateFontSample', 'CustomSample')
-      },
-      updateSampleType(sampleType) {
-        // if sampletype is "ParagraphSample" reset the global font size
-        if (sampleType === 'ParagraphSample') {
-          this.$store.dispatch('updateGlobalFontSize', 18)
-        }
-        if (sampleType === 'AlphabetSample') {
-          this.$store.dispatch('updateGlobalFontSize', 36)
-        }
-        this.$store.dispatch('updateFontSample', sampleType)
-      }
+      // customFocus() {
+      //   this.$store.dispatch('updateFontSample', 'CustomSample')
+      // },
+      // updateSampleType(sampleType) {
+      //   // if sampletype is "ParagraphSample" reset the global font size
+      //   if (sampleType === 'ParagraphSample') {
+      //     this.$store.dispatch('updateGlobalFontSize', 18)
+      //   }
+      //   if (sampleType === 'AlphabetSample') {
+      //     this.$store.dispatch('updateGlobalFontSize', 36)
+      //   }
+      //   this.$store.dispatch('updateFontSample', sampleType)
+      // }
     }
   }
 </script>
@@ -105,50 +109,69 @@
     top: 0;
     display: flex;
     align-items: center;
-    padding: 10px 30px;
+    gap: 20px;
+    padding: 30px 30px 30px 60px;
     background: #fff;
     border-bottom: 1px solid #d3d3d3;
     z-index: 1;
 
-    &__button {
+    &__font-count {
+      flex: 0 1 100px;
+    }
+
+    &__input {
+      flex: 1 1 auto;
+    }
+
+    &__font-size {
       display: flex;
       align-items: center;
-      height: 29px;
-      padding: 3px 10px 0 10px;
-      border: 1px solid #e6e6e6;
-      font-size: 11px;
 
-      &:hover:not(.sample-control__button--active) {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
-      }
-
-      &--active {
-        background: yellow;
-      }
-
-      & + & {
-        border-left: none;
-      }
-
-      &:first-child {
-        padding-left: 15px;
-        border-radius: 15px 0 0 15px;
+      // margin-left: 20px;
+      label {
+        margin-left: 10px;
       }
     }
 
+    // &__sample-type {
+    //   display: flex;
+    //   align-items: center;
+    //   // margin-left: 20px;
+    // }
+    // .sample-type__button {
+    //   display: flex;
+    //   align-items: center;
+    //   height: 29px;
+    //   padding: 3px 10px 0 10px;
+    //   border: 1px solid #e6e6e6;
+    //   font-size: 11px;
+    //   &:hover:not(.sample-control__button--active) {
+    //     background: lighten(yellow, 40%);
+    //     cursor: pointer;
+    //   }
+    //   &--active {
+    //     background: yellow;
+    //   }
+    //   & + & {
+    //     border-left: none;
+    //   }
+    //   &:first-child {
+    //     padding-left: 15px;
+    //     border-radius: 15px 0 0 15px;
+    //   }
+    // }
     .custom-sample-input {
-      width: 300px;
-      height: 29px;
-      padding: 3px 0 0 15px;
-      border: 1px solid #e6e6e6;
-      border-left: none;
-      border-radius: 0 15px 15px 0;
-      font-size: 11px;
+      width: 100%;
+      // height: 29px;
+      padding: 12px 0 10px 15px;
+      border: 1px solid #d3d3d3;
+      // border-left: none;
+      border-radius: 6px;
 
+      // font-size: 11px;
       &:hover {
-        background: lighten(yellow, 40%);
-        cursor: pointer;
+        // background: lighten(yellow, 40%);
+        // cursor: pointer;
       }
 
       &::placeholder {
@@ -162,16 +185,14 @@
       }
     }
 
-    .font-size-slider {
-      display: flex;
-      align-items: center;
-      margin-left: 20px;
-
-      label {
-        margin-left: 10px;
-      }
-    }
-
+    // .font-size-slider {
+    //   display: flex;
+    //   align-items: center;
+    //   // margin-left: 20px;
+    //   label {
+    //     margin-left: 10px;
+    //   }
+    // }
     input[type="range"] {
       -webkit-appearance: none;
       /* Remove default styling on WebKit browsers */

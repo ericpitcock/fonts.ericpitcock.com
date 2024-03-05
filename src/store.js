@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     compare: [],
-    customSample: '',
+    // customSample: '',
     currentSpecimen: '',
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
@@ -102,6 +102,8 @@ export default new Vuex.Store({
       'Calistoga',
     ],
     recommendedOnly: true,
+    sentenceSample: 'The quick brown fox jumps over the lazy dog.',
+    sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false
   },
   getters: {
@@ -149,9 +151,9 @@ export default new Vuex.Store({
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
-    getCustomSample(state) {
-      return state.customSample
-    },
+    // getCustomSample(state) {
+    //   return state.customSample
+    // },
     // getFontFromSlug: (state, getters) => (slug) => {
     //   let family = slug.replace('-', ' ').toUpperCase()
     //   console.log(`Slug: ${family}`)
@@ -195,6 +197,9 @@ export default new Vuex.Store({
     getRecommendedOnly(state) {
       return state.recommendedOnly
     },
+    getSentenceSample(state) {
+      return state.sentenceSample
+    },
     // getWhitelistedFonts(state, getters) {
     //   let whitelisted = []
     //   getters.getFilteredFonts.forEach(font => {
@@ -232,14 +237,17 @@ export default new Vuex.Store({
     setCurrentSpecimen(state, fontFamily) {
       state.currentSpecimen = fontFamily
     },
-    setCustomSample(state, value) {
-      state.customSample = value
-    },
+    // setCustomSample(state, value) {
+    //   state.customSample = value
+    // },
     setFontSample(state, value) {
       state.fontSample = value
     },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
+    },
+    setSentenceSample(state, value) {
+      state.sentenceSample = value
     },
     toggleJSON(state) {
       state.showJSON = !state.showJSON
@@ -271,9 +279,9 @@ export default new Vuex.Store({
       // console.log(`fontObject: ${fontObject}`)
       commit('setCurrentSpecimen', fontFamily)
     },
-    updateCustomSample({ commit }, value) {
-      commit('setCustomSample', value)
-    },
+    // updateCustomSample({ commit }, value) {
+    //   commit('setCustomSample', value)
+    // },
     updateFontSample({ commit }, value) {
       commit('setFontSample', value)
     },
@@ -294,6 +302,9 @@ export default new Vuex.Store({
         console.error('Error fetching Google Fonts:', error)
         throw error
       }
+    },
+    updateSentenceSample({ commit }, value) {
+      commit('setSentenceSample', value)
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')

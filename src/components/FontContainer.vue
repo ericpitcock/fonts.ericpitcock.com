@@ -3,7 +3,7 @@
     :id="font.family.toLowerCase().split(' ').join('-')"
     class="font-container">
     <div class="font">
-      <div class="font__sample" @click="toFontSpecimen(font)">
+      <div class="font__sample">
         <div v-if="loading" class="loading">
           <img src="/img/loading.svg" alt="loading">
         </div>
@@ -28,7 +28,6 @@
 
 <script>
   import AlphabetSample from '@/components/samples/AlphabetSample'
-  import CustomSample from '@/components/samples/CustomSample'
   import SentenceSample from '@/components/samples/SentenceSample'
   import ParagraphSample from '@/components/samples/ParagraphSample'
   import TableSample from '@/components/samples/TableSample'
@@ -41,7 +40,6 @@
     props: ['font'],
     components: {
       AlphabetSample,
-      CustomSample,
       FontInfo,
       SentenceSample,
       ParagraphSample,
@@ -112,11 +110,11 @@
           }
         })
       },
-      toFontSpecimen(font) {
-        // populate store and route
-        this.$store.dispatch('updateCurrentSpecimen', font.family)
-        this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-      }
+      // toFontSpecimen(font) {
+      //   // populate store and route
+      //   this.$store.dispatch('updateCurrentSpecimen', font.family)
+      //   this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
+      // }
     },
     watch: {
       getCategoryFilter: function() {
