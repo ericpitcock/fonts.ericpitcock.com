@@ -50,9 +50,9 @@
     display: flex;
     align-items: baseline;
     gap: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #e5e5e5;
 
+    // padding-top: 10px;
+    // border-top: 1px solid #e5e5e5;
     // flex: 0 0 200px;
     &__name {
       // flex: 0 0 30px;

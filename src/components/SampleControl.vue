@@ -36,17 +36,17 @@
       return {
         samples: [
           {
-            name: 'Character Set',
-            component: 'AlphabetSample'
-          },
-          {
             name: 'Sentence',
             component: 'SentenceSample'
           },
           {
             name: 'Paragraph',
             component: 'ParagraphSample'
-          }
+          },
+          {
+            name: 'Character Set',
+            component: 'AlphabetSample'
+          },
         ]
       }
     },
@@ -167,6 +167,44 @@
       label {
         margin-left: 10px;
       }
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      /* Remove default styling on WebKit browsers */
+      // width: 100%;
+      // margin: 10px 0;
+    }
+
+    input[type="range"]:focus {
+      outline: none;
+      /* Remove the default focus style on some browsers */
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 5px;
+      cursor: pointer;
+      background: #ddd;
+      /* Track background color */
+      border-radius: 2px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      /* Remove the default thumb appearance on WebKit browsers */
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      background: black;
+      /* Thumb color */
+      border-radius: 50%;
+      margin-top: -5px;
+    }
+
+    input[type="range"]:focus::-webkit-slider-runnable-track {
+      // background: #ccc;
+      /* Track background color on focus */
     }
   }
 </style>

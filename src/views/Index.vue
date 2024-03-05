@@ -51,9 +51,6 @@
         return this.getCompare.some(font => font.family === fontFamily)
       }
     },
-    mounted() {
-      console.log(this.getFonts.length)
-    }
   }
 </script>
 
@@ -64,7 +61,7 @@
 
     // align-items: center;
     & > .container .content {
-      padding-bottom: 200px;
+      padding: 40px 0 200px 0;
     }
   }
 </style>

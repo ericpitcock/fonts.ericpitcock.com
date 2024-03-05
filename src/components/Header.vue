@@ -1,108 +1,93 @@
 <template>
   <header>
+    <div class="title">
+      <h1 :style="{
+        fontFamily: fonts[currentFontIndex].fontFamily,
+        fontSize: `${fonts[currentFontIndex].fontSize}px`
+      }">
+        Fonts
+      </h1>
+    </div>
     <div class="category-filters">
       <span
         v-for="(category, index) in getFontCategories"
         :key="index"
         @click="$store.dispatch('updateCategoryFilter', category)"
         :class="[
-          'category-filters__filter-button',
-          { 'category-filters__filter-button--active': getCategoryFilter == category }
-        ]">
-        <!-- <span v-if="category == 'sans-serif'">TEXT</span>
-        <span v-if="category == 'display'">HEADLINE</span> -->
+        'category-filters__filter-button',
+        { 'category-filters__filter-button--active': getCategoryFilter == category }
+      ]">
         {{ category }}
       </span>
-      <span>
-        <input
-          type="checkbox"
-          name="recommended"
-          id="recommended"
-          @change="$store.dispatch('toggleRecommendedOnly')"
-          :checked="getRecommendedOnly">
-        <label for="recommended"> Recommended &#9733;</label>
-      </span>
+
     </div>
-    <!-- <div class="sample-control">
-      <div
-        v-for="(sampleType, index) in samples"
-        :key="index"
-        :class="[
-          'sample-control__button',
-          { 'sample-control__button--active': getFontSample == sampleType.component }
-        ]"
-        @click="$store.dispatch('updateFontSample', sampleType.component)">
-        {{ sampleType.name }}
-      </div>
+    <div class="options">
       <input
-        class="custom-sample-input"
-        v-model="customSample"
-        @focus="customFocus()"
-        type="text"
-        placeholder="Enter your own words">
-      <div class="font-size-slider">
-        <input name="font-size" type="range" min="12" max="60"
-          v-model="fontSize" step="1" v-once>
-        <label for="font-size">{{ fontSize }}px</label>
-      </div>
-    </div> -->
+        type="checkbox"
+        name="recommended"
+        id="recommended"
+        @change="$store.dispatch('toggleRecommendedOnly')"
+        :checked="getRecommendedOnly">
+      <label for="recommended"> Recommended &#9733;</label>
+    </div>
   </header>
 </template>
 
 <script>
+  import WebFont from 'webfontloader'
   import { mapGetters } from 'vuex'
 
   export default {
     name: 'Header',
     data() {
       return {
-        // samples: [
-        //   {
-        //     name: 'Sentence',
-        //     component: 'SentenceSample'
-        //   },
-        //   {
-        //     name: 'Alphabet',
-        //     component: 'AlphabetSample'
-        //   },
-        //   {
-        //     name: 'Paragraph',
-        //     component: 'ParagraphSample'
-        //   }
-        // ]
+        fonts: [
+          { fontFamily: 'Barrio', fontSize: 30 },
+          { fontFamily: 'Bungee Shade', fontSize: 30 },
+          { fontFamily: 'Ms Madi', fontSize: 40 },
+          { fontFamily: 'Bowlby One', fontSize: 30 },
+          { fontFamily: 'Gaegu', fontSize: 40 },
+          { fontFamily: 'Caesar Dressing', fontSize: 30 },
+          { fontFamily: 'Faster One', fontSize: 30 },
+        ],
+        currentFontIndex: 0,
       }
     },
     computed: {
       ...mapGetters([
-        'getActiveFonts',
         'getCategoryFilter',
         'getFontCategories',
-        // 'getFontCount',
-        'getFontSample',
-        'getRecommendedOnly'
+        'getRecommendedOnly',
       ]),
-      // customSample: {
-      //   get() {
-      //     return this.getCustomSample
-      //   },
-      //   set(value) {
-      //     this.$store.dispatch('updateCustomSample', value)
-      //   }
-      // },
-      // fontSize: {
-      //   get() {
-      //     return this.getGlobalFontSize
-      //   },
-      //   set(value) {
-      //     this.$store.dispatch('updateGlobalFontSize', value)
-      //   }
-      // }
     },
-    // methods: {
-    //   customFocus() {
-    //     this.$store.dispatch('updateFontSample', 'CustomSample')
-    //   }
-    // }
+    methods: {
+      loadFonts() {
+        WebFont.load({
+          google: {
+            families: this.fonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
+          },
+          active: () => {
+            // Fonts are loaded, you can apply the first font
+            // You can also add any additional logic here
+            console.log('Fonts are loaded')
+          },
+          fontactive: (familyName) => {
+            // Apply the next font when each font is loaded
+            // this.currentFont = familyName
+          },
+        })
+      },
+      setupFontInterval() {
+        setInterval(() => {
+          this.currentFontIndex = (this.currentFontIndex + 1) % this.fonts.length
+          // this.currentFont = this.fonts[this.currentFontIndex]
+        }, 2000)
+      },
+    },
+    mounted() {
+      this.loadFonts()
+      this.setupFontInterval()
+    },
   }
 </script>
 
@@ -115,18 +100,21 @@
     grid-column: 1;
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    // justify-content: center;
+    gap: 30px;
     padding: 30px;
-    // background: white;
-    // border-bottom: 1px solid #d3d3d3;
+    background: white;
     border-right: 1px solid #d3d3d3;
     user-select: none;
+  }
 
-    // flex: 0 0 auto;
-    > * + * {
-      margin-top: 20px;
-    }
+  .title {
+    flex: 0 0 50px;
+    display: flex;
+    align-items: center;
+  }
+
+  h1 {
+    line-height: 1;
   }
 
   .category-filters {
@@ -138,69 +126,12 @@
       text-transform: capitalize;
       cursor: pointer;
 
-      // & + span {
-      //   margin-left: 20px;
-      // }
       &--active {
         color: red;
       }
     }
   }
 
-  // .sample-control {
-  //   display: flex;
-  //   margin-left: -6px;
-  //   &__button {
-  //     display: flex;
-  //     align-items: center;
-  //     height: 29px;
-  //     padding: 3px 10px 0 10px;
-  //     border: 1px solid #e6e6e6;
-  //     font-size: 11px;
-  //     &:hover:not(.sample-control__button--active) {
-  //       background: lighten(yellow, 40%);
-  //       cursor: pointer;
-  //     }
-  //     &--active {
-  //       background: yellow;
-  //     }
-  //     & + & {
-  //       border-left: none;
-  //     }
-  //     &:first-child {
-  //       padding-left: 15px;
-  //       border-radius: 15px 0 0 15px;
-  //     }
-  //   }
-  //   .custom-sample-input {
-  //     width: 300px;
-  //     padding: 3px 0 0 15px;
-  //     border: 1px solid #e6e6e6;
-  //     border-left: none;
-  //     border-radius: 0 15px 15px 0;
-  //     font-size: 11px;
-  //     &:hover {
-  //       background: lighten(yellow, 40%);
-  //       cursor: pointer;
-  //     }
-  //     &::placeholder {
-  //       font-size: 11px;
-  //       color: black;
-  //     }
-  //     &:focus {
-  //       background: yellow;
-  //       outline: none;
-  //     }
-  //   }
-  //   .font-size-slider {
-  //     display: flex;
-  //     align-items: center;
-  //     margin-left: 20px;
-  //     label {
-  //       margin-left: 10px;
-  //     }
-  //   }
-  // }
   .font-count {
     font-size: 12px;
     color: gray;

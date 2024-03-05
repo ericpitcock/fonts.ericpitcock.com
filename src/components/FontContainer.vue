@@ -2,24 +2,21 @@
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
     class="font-container">
-    <div v-if="loading" class="loading">
-      <img src="/img/loading.gif" alt="loading">
-    </div>
     <div class="font">
-      <div
-        class="font__sample"
-        @click="toFontSpecimen(font)">
+      <div class="font__sample" @click="toFontSpecimen(font)">
+        <div v-if="loading" class="loading">
+          <img src="/img/loading.svg" alt="loading">
+        </div>
         <div v-if="error" class="error">
           <p>There was an error loading this font</p>
         </div>
         <component
-          v-else
           :is="getFontSample"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
-        <FontInfo :font="font" />
-        <div class="json" v-if="showJSON">
-          <pre>{{ font }}</pre>
-        </div>
+      </div>
+      <FontInfo :font="font" />
+      <div class="json" v-if="showJSON">
+        <pre>{{ font }}</pre>
       </div>
       <!-- <div class="font__compare-button" @click="compare(font)">
         {{ compareLabel(font) }}
@@ -156,24 +153,18 @@
   .font-container {
     position: relative;
 
-    // &:hover {
-    //   box-shadow: 0 0 20px rgba(0,0,0,0.05);
-    // }
     .loading {
       position: absolute;
       top: 1px;
       right: 0;
       bottom: 0;
-      left: 200px;
-      padding-right: 200px;
+      left: -30px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      // background: #fff;
     }
 
     .loading img {
-      height: 100%;
+      height: 20px;
     }
 
     .error {
@@ -190,47 +181,24 @@
 
   .font {
     display: flex;
-    // flex-direction: row-reverse;
-    align-items: center;
-    padding: 0 30px;
-
-    .font-container & {
-      // border-left: 10px solid transparent;
-      // border-top: 1px solid transparent;
-      // border-bottom: 1px solid transparent;
-      // border-left: 1px solid transparent;
-    }
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 60px;
 
     &:hover {
-      cursor: pointer;
-      // background: white;
-      // border-color: #e6e6e6;
+      // cursor: pointer;
     }
 
-    .font-container:not(:first-child) & {
-      // border-top: 1px solid #e6e6e6;
-    }
-
-    .font-container:last-child & {
-      // border-bottom: 1px solid #e6e6e6;
-    }
-
-    // & + & {
-    //   margin-top: -1px;
-    // }
     &__sample {
+      position: relative;
       flex: 1 1 auto;
       align-self: stretch;
       display: flex;
       flex-direction: column;
       gap: 20px;
-      padding: 50px;
       color: hsl(0, 0%, 20%);
 
-      // margin-left: 30px;
-      // background: lightgray;
       &:hover {
-        // color: lighten(red, 10%);
         cursor: pointer;
       }
 
@@ -245,16 +213,13 @@
       align-items: center;
       display: flex;
       align-items: center;
-      // height: 29px;
-      // padding: 3px 10px 0 10px;
-      // border: 1px solid red;
       font-size: 11px;
       border-radius: 15px;
       color: red;
 
       &:hover {
         color: black;
-        cursor: pointer;
+        // cursor: pointer;
       }
     }
   }
