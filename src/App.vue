@@ -43,7 +43,7 @@
   body {
     display: flex;
     justify-content: center;
-    background: #f5f5f5;
+    background: hsl(0, 0%, 98%);
   }
 
   body,
