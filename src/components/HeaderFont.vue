@@ -34,7 +34,7 @@
         'getCategoryFilter',
         'getFontCategories',
         'getFontSample',
-        'getRecommendedOnly',
+        // 'getRecommendedOnly',
         'getSentenceSample',
       ]),
       customSample: {

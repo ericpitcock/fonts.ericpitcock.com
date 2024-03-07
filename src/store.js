@@ -5,6 +5,18 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    filters: {
+      category: 'sans-serif',
+      italics: false,
+      multipleWeights: false,
+      recommended: true,
+    },
+    filtersDefault: {
+      category: 'sans-serif',
+      italics: false,
+      multipleWeights: false,
+      recommended: true,
+    },
     compare: [],
     // customSample: '',
     currentSpecimen: '',
@@ -99,7 +111,13 @@ export default new Vuex.Store({
       'Inconsolata',
       'Roboto Mono',
       // display
+      'Agbalumo',
+      'Bokor',
       'Calistoga',
+      'Caprasimo',
+      'Miniver',
+      'Orelega One',
+      'Zen Tokyo Zoo',
     ],
     recommendedOnly: true,
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
@@ -116,13 +134,35 @@ export default new Vuex.Store({
     // getFilteredFonts(state, getters) {
     //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
     // },
+    // getActiveFonts(state, getters) {
+    //   const fontsByCategory = getters.getFontsByCategory(getters.getCategoryFilter)
+    //   if (getters.getRecommendedOnly) {
+    //     return fontsByCategory.filter(font => getters.getRecommendedFonts.includes(font.family))
+    //   } else {
+    //     return fontsByCategory
+    //   }
+    // },
     getActiveFonts(state, getters) {
-      const fontsByCategory = getters.getFontsByCategory(getters.getCategoryFilter)
-      if (getters.getRecommendedOnly) {
-        return fontsByCategory.filter(font => getters.getRecommendedFonts.includes(font.family))
-      } else {
-        return fontsByCategory
+      let activeFonts = getters.getFontsByCategory(getters.getCategoryFilter)
+
+      // Apply recommended fonts filter
+      if (state.filters.recommended) {
+        activeFonts = activeFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
       }
+
+      // if fitlers.italics, filter out the non-italic variants
+      if (state.filters.italics) {
+        activeFonts = activeFonts.filter(font => font.variants.includes('italic'))
+      }
+
+      // if multipleWeights, filter out the fonts with only one weight
+      if (state.filters.multipleWeights) {
+        activeFonts = activeFonts.filter(font => font.variants.length > 1)
+        // if there are 2 variants and one of them is italic, filter it out
+        activeFonts = activeFonts.filter(font => !(font.variants.length == 2 && font.variants.includes('italic')))
+      }
+
+      return activeFonts
     },
     getLatinFonts(state, getters) {
       return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
@@ -133,18 +173,21 @@ export default new Vuex.Store({
     getCategoryFilter(state) {
       return state.categoryFilter
     },
-    getFonts(state, getters) {
-      let fonts = []
-      if (getters.recommendedOnly) {
-        // return recommended fonts
-        fonts = getters.getLatinFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
-      } else {
-        // return all fonts
-        fonts = getters.getLatinFonts
-      }
-      // now filter them based on category
-      return fonts.filter(font => font.category == getters.getCategoryFilter)
+    getFilters(state) {
+      return state.filters
     },
+    // getFonts(state, getters) {
+    //   let fonts = []
+    //   if (getters.recommendedOnly) {
+    //     // return recommended fonts
+    //     fonts = getters.getLatinFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
+    //   } else {
+    //     // return all fonts
+    //     fonts = getters.getLatinFonts
+    //   }
+    //   // now filter them based on category
+    //   return fonts.filter(font => font.category == getters.getCategoryFilter)
+    // },
     getCompare(state) {
       return state.compare
     },
@@ -194,8 +237,11 @@ export default new Vuex.Store({
     getGoogleFonts(state) {
       return state.googleFonts
     },
-    getRecommendedOnly(state) {
-      return state.recommendedOnly
+    // getRecommendedOnly(state) {
+    //   return state.recommendedOnly
+    // },
+    getItalicsOnly(state) {
+      return state.filters.italics
     },
     getSentenceSample(state) {
       return state.sentenceSample
@@ -240,6 +286,21 @@ export default new Vuex.Store({
     // setCustomSample(state, value) {
     //   state.customSample = value
     // },
+    setFilters(state, value = {}) {
+      // if value is empty, reset to default
+      if (Object.keys(value).length === 0) {
+        // change all but category to false
+        for (let key in state.filters) {
+          if (key != 'category') {
+            state.filters[key] = false
+          }
+        }
+        return
+      }
+      for (let key in value) {
+        state.filters[key] = value[key]
+      }
+    },
     setFontSample(state, value) {
       state.fontSample = value
     },
@@ -252,9 +313,15 @@ export default new Vuex.Store({
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
-    toggleRecommendedOnly(state) {
-      state.recommendedOnly = !state.recommendedOnly
-    },
+    // toggleRecommendedOnly(state) {
+    //   state.recommendedOnly = !state.recommendedOnly
+    // },
+    // toggleItalicsOnly(state) {
+    //   state.filters.italics = !state.filters.italics
+    // },
+    // toggleMultipleWeightsOnly(state) {
+    //   state.filters.multipleWeights = !state.filters.multipleWeights
+    // },
     updateCompare(state, font, inCompare) {
       if (state.compare.some(item => item.family == font.family)) {
         state.compare = state.compare.filter(item => item.family != font.family)
@@ -282,6 +349,10 @@ export default new Vuex.Store({
     // updateCustomSample({ commit }, value) {
     //   commit('setCustomSample', value)
     // },
+    updateFilters({ commit }, value) {
+      console.log('Updating filters:', value)
+      commit('setFilters', value)
+    },
     updateFontSample({ commit }, value) {
       commit('setFontSample', value)
     },
@@ -309,8 +380,14 @@ export default new Vuex.Store({
     toggleJSON({ commit }) {
       commit('toggleJSON')
     },
-    toggleRecommendedOnly({ commit }) {
-      commit('toggleRecommendedOnly')
-    }
+    // toggleRecommendedOnly({ commit }) {
+    //   commit('toggleRecommendedOnly')
+    // },
+    // toggleItalicsOnly({ commit }) {
+    //   commit('toggleItalicsOnly')
+    // },
+    // toggleMultipleWeightsOnly({ commit }) {
+    //   commit('toggleMultipleWeightsOnly')
+    // }
   }
 })

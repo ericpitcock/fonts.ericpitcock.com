@@ -29,23 +29,26 @@
         return this.getRecommendedFonts.includes(font.family)
       },
       fontInfo(font) {
-        let label = font.variants.length > 1 ? 'weights' : 'weight'
-        // if it doesn't have italics
-        if (!font.variants.includes('italic')) {
-          return `${font.variants.length} ${label}`
+        // determine the number of weights and italics
+        let weights = 0
+        let italics = 0
+        font.variants.forEach(variant => {
+          if (variant.includes('italic')) {
+            italics++
+          } else {
+            weights++
+          }
+        })
+
+        let weightLabel = weights === 1 ? 'weight' : 'weights'
+        let italicLabel = italics === 1 ? 'italic' : 'italics'
+
+        if (italics === 0) {
+          return `${weights} ${weightLabel}`
         } else {
-          let italicCount = 0
-          font.variants.forEach(variant => {
-            if (variant.includes('italic')) { italicCount++ }
-          })
-          return `${font.variants.length - italicCount} ${label} w/ italics`
+          return `${weights} ${weightLabel} w/ ${italicLabel}`
         }
       },
-      // toFontSpecimen(font) {
-      //   // populate store and route
-      //   this.$store.dispatch('updateCurrentSpecimen', font.family)
-      //   this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-      // }
     }
   }
 </script>

@@ -7,8 +7,8 @@
         <div class="right" :style='{ fontFamily: fontt.family }'>
           <h1>{{ quote.message }}</h1>
           <div>{{ quote.author }}</div>
-          <TableSample />
         </div> -->
+        <TableSample />
       </div>
     </div>
   </div>
@@ -66,11 +66,13 @@
 <style lang="scss">
   .specimen {
     display: flex;
+
     .right {
       flex: 1 1 auto;
       margin-left: 30px;
     }
   }
+
   h1 {
     font-size: 40px;
   }

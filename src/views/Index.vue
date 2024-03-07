@@ -5,9 +5,10 @@
     <div class="container">
       <div class="content">
         <template v-if="getActiveFonts.length == 0">
-          <div class="no-results">No results found, try <span
-              @click="toggleRecommendedOnly">
-              turning off recommendedations</span>
+          <div class="no-results">No fonts found. Try
+            <span @click="$store.dispatch('updateFilters')">
+              removing all filters.
+            </span>
           </div>
         </template>
         <FontContainer
@@ -24,7 +25,7 @@
   import Compare from '@/components/Compare'
   import FontContainer from '@/components/FontContainer'
   import SampleControl from '@/components/SampleControl'
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
@@ -38,17 +39,22 @@
         'getActiveFonts',
         'getCompare',
         'getFontsByCategory',
-        'getRecommendedOnly',
-        'getRecommendedFonts',
-        'getFonts'
+        // 'getRecommendedOnly',
+        // 'getRecommendedFonts',
+        // 'getFonts'
       ]),
     },
     methods: {
-      ...mapActions([
-        'toggleRecommendedOnly'
-      ]),
+      // ...mapActions([
+      //   'toggleRecommendedOnly'
+      // ]),
       fontIsInCompare(fontFamily) {
         return this.getCompare.some(font => font.family === fontFamily)
+      }
+    },
+    watch: {
+      getActiveFonts() {
+        window.scrollTo(0, 0)
       }
     },
   }
@@ -62,6 +68,17 @@
     // align-items: center;
     & > .container .content {
       padding: 40px 0 200px 0;
+    }
+
+    .no-results {
+      padding: 30px 60px;
+      // text-align: center;
+      font-size: 1.5em;
+
+      span {
+        color: #007bff;
+        cursor: pointer;
+      }
     }
   }
 </style>

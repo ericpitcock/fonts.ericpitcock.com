@@ -23,7 +23,7 @@
     </div>
     <!-- </div> -->
     <div class="sample-control__font-size">
-      <input name="font-size" type="range" min="12" max="60"
+      <input name="font-size" type="range" min="12" max="120"
         v-model="fontSize" step="1">
       <label for="font-size">{{ fontSize }}px</label>
     </div>
@@ -62,7 +62,7 @@
         'getFontCategories',
         'getFontCount',
         'getFontSample',
-        'getRecommendedOnly',
+        // 'getRecommendedOnly',
         'getSentenceSample',
       ]),
       sentenceSample: {
@@ -165,6 +165,7 @@
       width: 100%;
       // height: 29px;
       padding: 12px 0 10px 15px;
+      background: #f9f9f9;
       border: 1px solid #d3d3d3;
       // border-left: none;
       border-radius: 6px;

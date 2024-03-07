@@ -12,7 +12,8 @@
         </div>
         <SentenceSample
           v-if="!loading && !error"
-          :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }" />
+          :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
+          @sentence-click="toFontSpecimen(font)" />
       </div>
       <FontInfo :font="font" />
       <div class="json" v-if="showJSON">
@@ -59,9 +60,10 @@
         'getCompare',
         // 'getFilteredFonts',
         // 'getFontCategories',
+        'getFilters',
         'getFontSample',
         'getGlobalFontSize',
-        'getRecommendedOnly',
+        // 'getRecommendedOnly',
         'showJSON'
         // 'getGoogleFonts'
       ])
@@ -113,8 +115,8 @@
         // temp disabled
         // use @sentence-click="toFontSpecimen(font)" in SentenceSample
         // populate store and route
-        // this.$store.dispatch('updateCurrentSpecimen', font.family)
-        // this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
+        this.$store.dispatch('updateCurrentSpecimen', font.family)
+        this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
       },
     },
     watch: {
@@ -124,7 +126,7 @@
       getCompare: function() {
 
       },
-      getRecommendedOnly: function() {
+      getFilters: function() {
         this.observer.observe(this.$el)
       }
     },

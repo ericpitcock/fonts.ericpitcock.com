@@ -26,9 +26,27 @@
         type="checkbox"
         name="recommended"
         id="recommended"
-        @change="$store.dispatch('toggleRecommendedOnly')"
-        :checked="getRecommendedOnly">
+        @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
+        :checked="$store.state.filters.recommended">
       <label for="recommended"> Recommended &#9733;</label>
+    </div>
+    <div class="options">
+      <input
+        type="checkbox"
+        name="italics"
+        id="italics"
+        @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
+        :checked="$store.state.filters.italics">
+      <label for="italics"> Italics</label>
+    </div>
+    <div class="options">
+      <input
+        type="checkbox"
+        name="italics"
+        id="multiple-weights"
+        @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
+        :checked="$store.state.filters.multipleWeights">
+      <label for="multiple-weights"> 2+ Weights</label>
     </div>
   </header>
 </template>
@@ -57,7 +75,7 @@
       ...mapGetters([
         'getCategoryFilter',
         'getFontCategories',
-        'getRecommendedOnly',
+        // 'getRecommendedOnly',
       ]),
     },
     methods: {
@@ -69,7 +87,7 @@
           active: () => {
             // Fonts are loaded, you can apply the first font
             // You can also add any additional logic here
-            console.log('Fonts are loaded')
+            // console.log('Fonts are loaded')
           },
           fontactive: (familyName) => {
             // Apply the next font when each font is loaded
