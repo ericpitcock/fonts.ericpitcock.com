@@ -38,8 +38,8 @@
 </template>
 
 <script>
-  import SentenceSample from '@/components/samples/SentenceSample'
-  import FontInfo from '@/components/FontInfo'
+  import SentenceSample from '@/components/samples/SentenceSample.vue'
+  import FontInfo from '@/components/FontInfo.vue'
   import { mapGetters } from 'vuex'
   import WebFont from 'webfontloader'
 
@@ -153,10 +153,7 @@
   }
 </script>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
   .font-container {
     position: relative;
 

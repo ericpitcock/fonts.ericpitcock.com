@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import FontInfo from '@/components/FontInfo'
-  import TableSample from '@/components/samples/TableSample'
+  import FontInfo from '@/components/FontInfo.vue'
+  import TableSample from '@/components/samples/TableSample.vue'
   import { mapGetters } from 'vuex'
 
   export default {

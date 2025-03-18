@@ -18,9 +18,9 @@
 </template>
 
 <script>
-  import Header from '@/components/Header'
-  import HeaderFont from '@/components/HeaderFont'
-  import Layout from '@/layouts/Layout'
+  import Header from '@/components/Header.vue'
+  import HeaderFont from '@/components/HeaderFont.vue'
+  import Layout from '@/layouts/Layout.vue'
 
   export default {
     name: 'App',
@@ -33,8 +33,6 @@
 </script>
 
 <style lang="scss">
-  @import '../node_modules/minireset.css/minireset.min.css';
-
   @font-face {
     font-family: 'CallingCode-Regular';
     src: url('./assets/fonts/390A5D_0_0.woff2') format('woff2');

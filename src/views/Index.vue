@@ -15,17 +15,18 @@
           v-for="(font, index) in getActiveFonts"
           :key="index"
           :font="font"
-          v-if="!fontIsInCompare(font.family)" />
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import Compare from '@/components/Compare'
-  import FontContainer from '@/components/FontContainer'
-  import SampleControl from '@/components/SampleControl'
   import { mapGetters } from 'vuex'
+
+  import Compare from '@/components/Compare.vue'
+  import FontContainer from '@/components/FontContainer.vue'
+  import SampleControl from '@/components/SampleControl.vue'
 
   export default {
     name: 'Index',
@@ -48,6 +49,10 @@
       // ...mapActions([
       //   'toggleRecommendedOnly'
       // ]),
+      // return all fonts from getActiveFonts that are not in getCompare
+      getActiveFontsNotInCompare() {
+        return this.getActiveFonts.filter(font => !this.fontIsInCompare(font.family))
+      },
       fontIsInCompare(fontFamily) {
         return this.getCompare.some(font => font.family === fontFamily)
       }

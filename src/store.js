@@ -1,9 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { createStore } from 'vuex'
 
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default createStore({
   state: {
     filters: {
       category: 'sans-serif',
@@ -275,8 +272,8 @@ export default new Vuex.Store({
     },
     async fetchGoogleFonts({ commit }) {
       try {
-        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${process.env.VUE_APP_GOOGLE_FONTS_API_KEY}`)
-        
+        const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)
+
         if (!response.ok) {
           throw new Error(`Failed to fetch Google Fonts. Status: ${response.status}`)
         }

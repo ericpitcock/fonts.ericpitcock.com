@@ -1,52 +1,44 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from './store'
+import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/store'
+
 import Index from './views/Index.vue'
 import Specimen from './views/Specimen.vue'
 
-Vue.use(Router)
+const routes = [
+  {
+    path: '/',
+    name: 'index',
+    component: Index
+  },
+  {
+    path: '/:font',
+    name: 'font',
+    props: true,
+    component: Specimen,
+    // beforeEnter: (to, from, next) => {
+    //   // console.log('Specimen loading')
+    //   // let family = to.path.replace('-', ' ').toUpperCase()
+    //   // let family = to.path.replace('/', ' ').replace('-', ' ').toUpperCase()
+    //   // console.log(`Slug: ${family}`)
+    //   // console.log(store.getters.getFilteredFonts)
+    //   // next()
+    //   // let font = store.getters.getFontFromSlug(to.path.replace('/', ''))
+    //   // console.log(font)
+    //   // store.dispatch('updateCurrentSpecimen', font)
 
-const router = new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'index',
-      component: Index
-    },
-    {
-      path: '/:font',
-      name: 'font',
-      props: true,
-      component: Specimen,
-      // beforeEnter: (to, from, next) => {
-      //   // console.log('Specimen loading')
-      //   // let family = to.path.replace('-', ' ').toUpperCase()
-      //   // let family = to.path.replace('/', ' ').replace('-', ' ').toUpperCase()
-      //   // console.log(`Slug: ${family}`)
-      //   // console.log(store.getters.getFilteredFonts)
-      //   // next()
-      //   // let font = store.getters.getFontFromSlug(to.path.replace('/', ''))
-      //   // console.log(font)
-      //   // store.dispatch('updateCurrentSpecimen', font)
-        
-      //   // to.path = /archivo-narrow
-      //   const font = to.path.replace('/', '').replace('-', ' ')
-      //   // font = archivo narrow
+    //   // to.path = /archivo-narrow
+    //   const font = to.path.replace('/', '').replace('-', ' ')
+    //   // font = archivo narrow
 
-      //   store.dispatch('updateCurrentSpecimen', font)
-      //   next()
-      // }
-    }
-  ],
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      return { x: 0, y: 0 }
-    }
+    //   store.dispatch('updateCurrentSpecimen', font)
+    //   next()
+    // }
   }
+]
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
 })
 
 router.beforeEach(async (to, from, next) => {

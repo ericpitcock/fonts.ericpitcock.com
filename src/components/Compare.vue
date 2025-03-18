@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import FontContainer from '@/components/FontContainer'
+  import FontContainer from '@/components/FontContainer.vue'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
@@ -34,7 +34,7 @@
       ...mapGetters([
         'getCompare'
       ]),
-      compareLabel: function () {
+      compareLabel: function() {
         if (this.getCompare.length == 1) {
           return 'Add more fonts to compare'
         } else {
@@ -50,10 +50,7 @@
   }
 </script>
 
-<style
-  lang="scss"
-  scoped
->
+<style lang="scss" scoped>
   .compare {
     position: sticky;
     top: 110px;
