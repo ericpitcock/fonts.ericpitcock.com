@@ -21,32 +21,34 @@
       </span>
 
     </div>
-    <div class="options">
-      <input
-        type="checkbox"
-        name="recommended"
-        id="recommended"
-        @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
-        :checked="$store.state.filters.recommended">
-      <label for="recommended"> Recommended &#9733;</label>
-    </div>
-    <div class="options">
-      <input
-        type="checkbox"
-        name="italics"
-        id="italics"
-        @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
-        :checked="$store.state.filters.italics">
-      <label for="italics"> Italics</label>
-    </div>
-    <div class="options">
-      <input
-        type="checkbox"
-        name="italics"
-        id="multiple-weights"
-        @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
-        :checked="$store.state.filters.multipleWeights">
-      <label for="multiple-weights"> 2+ Weights</label>
+    <div class="optional-filters">
+      <div class="option">
+        <input
+          type="checkbox"
+          name="recommended"
+          id="recommended"
+          @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
+          :checked="$store.state.filters.recommended">
+        <label for="recommended"> Recommended &#9733;</label>
+      </div>
+      <div class="option">
+        <input
+          type="checkbox"
+          name="italics"
+          id="italics"
+          @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
+          :checked="$store.state.filters.italics">
+        <label for="italics"> Italics</label>
+      </div>
+      <div class="option">
+        <input
+          type="checkbox"
+          name="italics"
+          id="multiple-weights"
+          @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
+          :checked="$store.state.filters.multipleWeights">
+        <label for="multiple-weights"> 2+ Weights</label>
+      </div>
     </div>
   </header>
 </template>
@@ -153,5 +155,23 @@
   .font-count {
     font-size: 12px;
     color: gray;
+  }
+
+  .optional-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .option {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      cursor: pointer;
+
+      input,
+      label {
+        cursor: pointer;
+      }
+    }
   }
 </style>

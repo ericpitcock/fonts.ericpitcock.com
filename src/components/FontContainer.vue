@@ -1,36 +1,44 @@
 <template>
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
-    class="font-container">
+    class="font-container"
+  >
     <div class="font">
       <div class="font__sample">
-        <div v-if="loading" class="loading">
-          <img src="/img/loading.svg" alt="loading">
+        <div
+          v-if="loading"
+          class="loading"
+        >
+          <img
+            src="/img/loading.svg"
+            alt="loading"
+          >
         </div>
-        <div v-if="error" class="error">
+        <div
+          v-if="error"
+          class="error"
+        >
           <p>There was an error loading this font</p>
         </div>
         <SentenceSample
           v-if="!loading && !error"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
-          @sentence-click="toFontSpecimen(font)" />
+          @sentence-click="toFontSpecimen(font)"
+        />
       </div>
       <FontInfo :font="font" />
-      <div class="json" v-if="showJSON">
+      <div
+        class="json"
+        v-if="showJSON"
+      >
         <pre>{{ font }}</pre>
       </div>
-      <!-- <div class="font__compare-button" @click="compare(font)">
-        {{ compareLabel(font) }}
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-  import AlphabetSample from '@/components/samples/AlphabetSample'
   import SentenceSample from '@/components/samples/SentenceSample'
-  import ParagraphSample from '@/components/samples/ParagraphSample'
-  import TableSample from '@/components/samples/TableSample'
   import FontInfo from '@/components/FontInfo'
   import { mapGetters } from 'vuex'
   import WebFont from 'webfontloader'
@@ -39,15 +47,11 @@
     name: 'FontContainer',
     props: ['font'],
     components: {
-      AlphabetSample,
       FontInfo,
       SentenceSample,
-      ParagraphSample,
-      TableSample
     },
     data() {
       return {
-        // fontSample: 'FontNameSample',
         inCompare: false,
         loading: true,
         error: false,
@@ -58,14 +62,10 @@
       ...mapGetters([
         'getCategoryFilter',
         'getCompare',
-        // 'getFilteredFonts',
-        // 'getFontCategories',
         'getFilters',
         'getFontSample',
         'getGlobalFontSize',
-        // 'getRecommendedOnly',
         'showJSON'
-        // 'getGoogleFonts'
       ])
     },
     methods: {
@@ -121,13 +121,15 @@
     },
     watch: {
       getCategoryFilter: function() {
+        console.log('getCategoryFilter changed')
         this.observer.observe(this.$el)
       },
-      getCompare: function() {
-
-      },
-      getFilters: function() {
-        this.observer.observe(this.$el)
+      getFilters: {
+        handler: function() {
+          console.log('getFilters changed')
+          this.observer.observe(this.$el)
+        },
+        deep: true
       }
     },
     mounted() {
@@ -151,7 +153,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style
+  lang="scss"
+  scoped
+>
   .font-container {
     position: relative;
 

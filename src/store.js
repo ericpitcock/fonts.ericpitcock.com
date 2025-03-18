@@ -18,7 +18,6 @@ export default new Vuex.Store({
       recommended: true,
     },
     compare: [],
-    // customSample: '',
     currentSpecimen: '',
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
@@ -125,23 +124,6 @@ export default new Vuex.Store({
     showJSON: false
   },
   getters: {
-    // font arrays
-    // getFilteredFonts(state, getters) {
-    //   return (category, fonts) => {
-    //     return getters.getLatinFonts.filter(font => font.category == category)
-    //   }
-    // },
-    // getFilteredFonts(state, getters) {
-    //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
-    // },
-    // getActiveFonts(state, getters) {
-    //   const fontsByCategory = getters.getFontsByCategory(getters.getCategoryFilter)
-    //   if (getters.getRecommendedOnly) {
-    //     return fontsByCategory.filter(font => getters.getRecommendedFonts.includes(font.family))
-    //   } else {
-    //     return fontsByCategory
-    //   }
-    // },
     getActiveFonts(state, getters) {
       let activeFonts = getters.getFontsByCategory(getters.getCategoryFilter)
 
@@ -176,39 +158,12 @@ export default new Vuex.Store({
     getFilters(state) {
       return state.filters
     },
-    // getFonts(state, getters) {
-    //   let fonts = []
-    //   if (getters.recommendedOnly) {
-    //     // return recommended fonts
-    //     fonts = getters.getLatinFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
-    //   } else {
-    //     // return all fonts
-    //     fonts = getters.getLatinFonts
-    //   }
-    //   // now filter them based on category
-    //   return fonts.filter(font => font.category == getters.getCategoryFilter)
-    // },
     getCompare(state) {
       return state.compare
     },
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
-    // getCustomSample(state) {
-    //   return state.customSample
-    // },
-    // getFontFromSlug: (state, getters) => (slug) => {
-    //   let family = slug.replace('-', ' ').toUpperCase()
-    //   console.log(`Slug: ${family}`)
-    //   return getters.getFilteredFonts.filter(font => font.family.toUpperCase() != family)
-    // },
-    // getFontFromSlug(state, getters) {
-    //   return (slug) => {
-    //     let family = slug.replace('-', ' ').toUpperCase()
-    //     console.log(`Slug: ${family}`)
-    //     return getters.getFilteredFonts.find(font => font.family.toUpperCase() != family)
-    //   }
-    // },
     getFontFromSlug: (state, getters) => (slug) => {
       let family = slug.replace('-', ' ').toUpperCase()
       console.log(`Slug: ${family}`)
@@ -223,9 +178,6 @@ export default new Vuex.Store({
     getFontSample(state) {
       return state.fontSample
     },
-    // getFontsByCategory(state) {
-    //   return getters.getLatinFonts.filter(font => font.category == getters.getCategoryFilter)
-    // },
     getFontsByCategory(state, getters) {
       return (category) => {
         return getters.getLatinFonts.filter(font => font.category == category)
@@ -237,24 +189,12 @@ export default new Vuex.Store({
     getGoogleFonts(state) {
       return state.googleFonts
     },
-    // getRecommendedOnly(state) {
-    //   return state.recommendedOnly
-    // },
     getItalicsOnly(state) {
       return state.filters.italics
     },
     getSentenceSample(state) {
       return state.sentenceSample
     },
-    // getWhitelistedFonts(state, getters) {
-    //   let whitelisted = []
-    //   getters.getFilteredFonts.forEach(font => {
-    //     if (!state.blacklisted.includes(font.family)) {
-    //       whitelisted.push(font)
-    //     }
-    //   })
-    //   return whitelisted
-    // },
     showJSON(state) {
       return state.showJSON
     }
@@ -266,26 +206,12 @@ export default new Vuex.Store({
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     },
-    // processGoogleFonts(state, fonts) {
-    //   let items = Promise.resolve(fonts)
-    //   items.then(response => response.json().then(response => {
-    //     let processedFonts = response.items
-    //     processedFonts.forEach(font => {
-    //       font.recommended = (state.recommendedFonts.includes(font.family))
-    //     })
-    //     // state.googleFonts = processedFonts
-    //     Vue.set(state, 'googleFonts', processedFonts)
-    //   }))
-    // },
     setCategoryFilter(state, value) {
       state.categoryFilter = value
     },
     setCurrentSpecimen(state, fontFamily) {
       state.currentSpecimen = fontFamily
     },
-    // setCustomSample(state, value) {
-    //   state.customSample = value
-    // },
     setFilters(state, value = {}) {
       // if value is empty, reset to default
       if (Object.keys(value).length === 0) {
@@ -313,15 +239,6 @@ export default new Vuex.Store({
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
-    // toggleRecommendedOnly(state) {
-    //   state.recommendedOnly = !state.recommendedOnly
-    // },
-    // toggleItalicsOnly(state) {
-    //   state.filters.italics = !state.filters.italics
-    // },
-    // toggleMultipleWeightsOnly(state) {
-    //   state.filters.multipleWeights = !state.filters.multipleWeights
-    // },
     updateCompare(state, font, inCompare) {
       if (state.compare.some(item => item.family == font.family)) {
         state.compare = state.compare.filter(item => item.family != font.family)
@@ -346,11 +263,8 @@ export default new Vuex.Store({
       // console.log(`fontObject: ${fontObject}`)
       commit('setCurrentSpecimen', fontFamily)
     },
-    // updateCustomSample({ commit }, value) {
-    //   commit('setCustomSample', value)
-    // },
     updateFilters({ commit }, value) {
-      console.log('Updating filters:', value)
+      // console.log('Updating filters:', value)
       commit('setFilters', value)
     },
     updateFontSample({ commit }, value) {
@@ -380,14 +294,5 @@ export default new Vuex.Store({
     toggleJSON({ commit }) {
       commit('toggleJSON')
     },
-    // toggleRecommendedOnly({ commit }) {
-    //   commit('toggleRecommendedOnly')
-    // },
-    // toggleItalicsOnly({ commit }) {
-    //   commit('toggleItalicsOnly')
-    // },
-    // toggleMultipleWeightsOnly({ commit }) {
-    //   commit('toggleMultipleWeightsOnly')
-    // }
   }
 })
