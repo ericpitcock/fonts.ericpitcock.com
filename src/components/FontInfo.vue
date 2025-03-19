@@ -4,8 +4,7 @@
       v-if="isRecommended(font)"
       class="font-info__recommended-flag"
     >
-      <!-- star symbol -->
-      <span>&#9733;</span>
+      <span>Recommended</span>
     </div>
     <div class="font-info__name">
       <span>{{ font.family }}</span>
@@ -78,15 +77,15 @@
       // margin-top: 10px;
     }
 
-    &__recommended-flag {
-      display: inline-block;
-      // padding: 4px 5px 1px 5px;
-      // border: 1px solid lighten(red, 40%);
-      // border-radius: 3px;
-      font-size: 16px;
-      color: hsl(39, 100%, 50%);
-      // background: lighten(yellow, 40%);
-      // margin-top: 20px;
-    }
+    // &__recommended-flag {
+    //   display: inline-block;
+    //   // padding: 4px 5px 1px 5px;
+    //   // border: 1px solid lighten(red, 40%);
+    //   // border-radius: 3px;
+    //   font-size: 16px;
+    //   color: hsl(39, 100%, 50%);
+    //   // background: lighten(yellow, 40%);
+    //   // margin-top: 20px;
+    // }
   }
 </style>

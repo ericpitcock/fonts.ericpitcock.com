@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <slot name="header" />
+    <slot name="sidebar" />
     <main>
       <slot name="top" />
       <slot name="main" />

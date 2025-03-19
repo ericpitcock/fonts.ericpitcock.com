@@ -1,25 +1,25 @@
 <template>
   <div class="optional-filters">
-    <EpCheckbox
+    <ep-checkbox
       id="recommended"
       v-model="recommendedFilter"
-      name="recommended"
       label="Recommended"
-      @update:model-value="updateRecommended"
+      name="recommended"
+      value="recommended"
     />
-    <EpCheckbox
+    <ep-checkbox
       id="italics"
       v-model="italicsFilter"
-      name="italics"
       label="Italics"
-      @update:model-value="updateItalics"
+      name="italics"
+      value="italics"
     />
-    <EpCheckbox
+    <ep-checkbox
       id="multiple-weights"
       v-model="multipleWeightsFilter"
-      name="multiple-weights"
       label="2+ Weights"
-      @update:model-value="updateMultipleWeights"
+      name="multiple-weights"
+      value="multipleWeights"
     />
   </div>
 </template>
@@ -30,23 +30,20 @@
 
   const store = useStore()
 
-  // Computed properties for each filter
-  const recommendedFilter = computed(() => store.state.filters.recommended)
-  const italicsFilter = computed(() => store.state.filters.italics)
-  const multipleWeightsFilter = computed(() => store.state.filters.multipleWeights)
+  const recommendedFilter = computed({
+    get: () => store.state.filters.recommended,
+    set: (value) => store.dispatch('updateFilters', { recommended: value })
+  })
 
-  // Methods to handle updates
-  const updateRecommended = (value) => {
-    store.dispatch('updateFilters', { recommended: value })
-  }
+  const italicsFilter = computed({
+    get: () => store.state.filters.italics,
+    set: (value) => store.dispatch('updateFilters', { italics: value })
+  })
 
-  const updateItalics = (value) => {
-    store.dispatch('updateFilters', { italics: value })
-  }
-
-  const updateMultipleWeights = (value) => {
-    store.dispatch('updateFilters', { multipleWeights: value })
-  }
+  const multipleWeightsFilter = computed({
+    get: () => store.state.filters.multipleWeights,
+    set: (value) => store.dispatch('updateFilters', { multipleWeights: value })
+  })
 </script>
 
 <style lang="scss" scoped>

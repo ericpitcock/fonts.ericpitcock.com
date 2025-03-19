@@ -5,9 +5,9 @@
       @click="$store.dispatch('toggleJSON')"
     >Toggle JSON</button> -->
     <fonts-layout>
-      <template #header>
+      <template #sidebar>
         <fonts-navigation v-if="$route.name == 'index'" />
-        <HeaderFont v-if="$route.name == 'font'" />
+        <fonts-specimen-details v-if="$route.name == 'font'" />
       </template>
       <template #main>
         <router-view />
@@ -18,7 +18,7 @@
 
 <script setup>
   import FontsNavigation from '@/components/FontsNavigation.vue'
-  import HeaderFont from '@/components/HeaderFont.vue'
+  import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 </script>
 
