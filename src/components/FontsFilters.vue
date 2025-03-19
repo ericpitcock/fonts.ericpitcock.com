@@ -1,40 +1,52 @@
 <template>
   <div class="optional-filters">
-    <div class="option">
-      <input
-        id="recommended"
-        type="checkbox"
-        name="recommended"
-        :checked="$store.state.filters.recommended"
-        @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
-      >
-      <label for="recommended"> Recommended &#9733;</label>
-    </div>
-    <div class="option">
-      <input
-        id="italics"
-        type="checkbox"
-        name="italics"
-        :checked="$store.state.filters.italics"
-        @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
-      >
-      <label for="italics"> Italics</label>
-    </div>
-    <div class="option">
-      <input
-        id="multiple-weights"
-        type="checkbox"
-        name="italics"
-        :checked="$store.state.filters.multipleWeights"
-        @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
-      >
-      <label for="multiple-weights"> 2+ Weights</label>
-    </div>
+    <EpCheckbox
+      id="recommended"
+      v-model="recommendedFilter"
+      name="recommended"
+      label="Recommended"
+      @update:model-value="updateRecommended"
+    />
+    <EpCheckbox
+      id="italics"
+      v-model="italicsFilter"
+      name="italics"
+      label="Italics"
+      @update:model-value="updateItalics"
+    />
+    <EpCheckbox
+      id="multiple-weights"
+      v-model="multipleWeightsFilter"
+      name="multiple-weights"
+      label="2+ Weights"
+      @update:model-value="updateMultipleWeights"
+    />
   </div>
 </template>
 
 <script setup>
-  // No need for additional imports as we're using direct store access
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
+
+  const store = useStore()
+
+  // Computed properties for each filter
+  const recommendedFilter = computed(() => store.state.filters.recommended)
+  const italicsFilter = computed(() => store.state.filters.italics)
+  const multipleWeightsFilter = computed(() => store.state.filters.multipleWeights)
+
+  // Methods to handle updates
+  const updateRecommended = (value) => {
+    store.dispatch('updateFilters', { recommended: value })
+  }
+
+  const updateItalics = (value) => {
+    store.dispatch('updateFilters', { italics: value })
+  }
+
+  const updateMultipleWeights = (value) => {
+    store.dispatch('updateFilters', { multipleWeights: value })
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -42,17 +54,5 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-
-    .option {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      cursor: pointer;
-
-      input,
-      label {
-        cursor: pointer;
-      }
-    }
   }
 </style>
