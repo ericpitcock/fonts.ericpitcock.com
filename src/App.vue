@@ -1,19 +1,17 @@
 <template>
-  <div id="app">
-    <!-- <button
+  <!-- <button
       class="json-button"
       @click="$store.dispatch('toggleJSON')"
     >Toggle JSON</button> -->
-    <fonts-layout>
-      <template #sidebar>
-        <fonts-navigation v-if="$route.name == 'index'" />
-        <fonts-specimen-details v-if="$route.name == 'font'" />
-      </template>
-      <template #main>
-        <router-view />
-      </template>
-    </fonts-layout>
-  </div>
+  <fonts-layout>
+    <template #sidebar>
+      <fonts-navigation v-if="$route.name == 'index'" />
+      <fonts-specimen-details v-if="$route.name == 'font'" />
+    </template>
+    <template #main>
+      <router-view />
+    </template>
+  </fonts-layout>
 </template>
 
 <script setup>
@@ -42,8 +40,8 @@
   }
 
   #app {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: var(--interface-foreground);
   }
 

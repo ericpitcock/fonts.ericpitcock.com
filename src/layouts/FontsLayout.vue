@@ -1,10 +1,9 @@
 <template>
   <div class="grid">
     <slot name="sidebar" />
-    <main>
-      <slot name="top" />
-      <slot name="main" />
-    </main>
+    <!-- <main> -->
+    <slot name="main" />
+    <!-- </main> -->
   </div>
 </template>
 
@@ -14,13 +13,13 @@
     grid-template-rows: 1fr;
     grid-template-columns: 200px 1fr;
     grid-column-gap: 0;
-    width: 100vw;
-    // height: 100vh;
+    width: 100%;
+    height: 100%;
   }
 
   main {
-    grid-row: 1;
-    grid-column: 2;
+    grid-row: 1/2;
+    grid-column: 2/3;
 
     // display: flex;
     // justify-content: center;

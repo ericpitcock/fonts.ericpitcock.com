@@ -1,22 +1,22 @@
 <template>
   <div class="index">
-    <SampleControl />
-    <Compare v-if="getCompare.length >= 1" />
-    <div class="container">
-      <div class="content">
-        <template v-if="getActiveFonts.length == 0">
-          <div class="no-results">No fonts found. Try
-            <span @click="$store.dispatch('updateFilters')">
-              removing all filters.
-            </span>
-          </div>
-        </template>
-        <FontContainer
-          v-for="(font, index) in getActiveFonts"
-          :key="index"
-          :font="font"
-        />
-      </div>
+    <div class="index__header">
+      <SampleControl />
+      <Compare v-if="getCompare.length >= 1" />
+    </div>
+    <div class="index__content">
+      <template v-if="getActiveFonts.length == 0">
+        <div class="no-results">No fonts found. Try
+          <span @click="$store.dispatch('updateFilters')">
+            removing all filters.
+          </span>
+        </div>
+      </template>
+      <FontContainer
+        v-for="(font, index) in getActiveFonts"
+        :key="index"
+        :font="font"
+      />
     </div>
   </div>
 </template>
@@ -59,10 +59,23 @@
   })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .index {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: 10rem 1fr;
+    grid-template-columns: 1fr;
+    overflow: hidden;
+
+    &__header {
+      grid-row: 1/2;
+      grid-column: 1/2;
+    }
+
+    &__content {
+      grid-row: 2/3;
+      grid-column: 1/2;
+      overflow: auto;
+    }
 
     // align-items: center;
     & > .container .content {

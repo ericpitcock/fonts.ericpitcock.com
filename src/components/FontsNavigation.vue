@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <nav>
     <div class="title">
       <h1 :style="titleStyle">
         Fonts
@@ -56,7 +56,7 @@
       :current-theme="theme"
       @toggle-theme="toggleTheme"
     />
-  </header>
+  </nav>
 </template>
 
 <script setup>
@@ -113,12 +113,12 @@
 </script>
 
 <style lang="scss" scoped>
-  header {
-    position: fixed;
-    width: 200px;
-    height: 100%;
+  nav {
+    // position: fixed;
+    // width: 200px;
+    // height: 100%;
     grid-row: 1;
-    grid-column: 1;
+    grid-column: 1/2;
     display: flex;
     flex-direction: column;
     gap: 30px;
