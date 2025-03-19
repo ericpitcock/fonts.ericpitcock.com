@@ -21,48 +21,42 @@
   </div>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex'
+<script setup>
+  import { computed, watch } from 'vue'
+  import { useStore } from 'vuex'
 
   import Compare from '@/components/Compare.vue'
   import FontContainer from '@/components/FontContainer.vue'
   import SampleControl from '@/components/SampleControl.vue'
 
-  export default {
-    name: 'Index',
-    components: {
-      Compare,
-      FontContainer,
-      SampleControl,
-    },
-    computed: {
-      ...mapGetters([
-        'getActiveFonts',
-        'getCompare',
-        'getFontsByCategory',
-        // 'getRecommendedOnly',
-        // 'getRecommendedFonts',
-        // 'getFonts'
-      ]),
-    },
-    methods: {
-      // ...mapActions([
-      //   'toggleRecommendedOnly'
-      // ]),
-      // return all fonts from getActiveFonts that are not in getCompare
-      getActiveFontsNotInCompare() {
-        return this.getActiveFonts.filter(font => !this.fontIsInCompare(font.family))
-      },
-      fontIsInCompare(fontFamily) {
-        return this.getCompare.some(font => font.family === fontFamily)
-      }
-    },
-    watch: {
-      getActiveFonts() {
-        window.scrollTo(0, 0)
-      }
-    },
+  // Store access
+  const store = useStore()
+
+  // Getters
+  const getActiveFonts = computed(() => store.getters.getActiveFonts)
+  const getCompare = computed(() => store.getters.getCompare)
+  const getFontsByCategory = computed(() => store.getters.getFontsByCategory)
+  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
+  // const getRecommendedFonts = computed(() => store.getters.getRecommendedFonts)
+  // const getFonts = computed(() => store.getters.getFonts)
+
+  // Methods
+  // const toggleRecommendedOnly = () => {
+  //   store.dispatch('toggleRecommendedOnly')
+  // }
+
+  const getActiveFontsNotInCompare = () => {
+    return getActiveFonts.value.filter(font => !fontIsInCompare(font.family))
   }
+
+  const fontIsInCompare = (fontFamily) => {
+    return getCompare.value.some(font => font.family === fontFamily)
+  }
+
+  // Watchers
+  watch(getActiveFonts, () => {
+    window.scrollTo(0, 0)
+  })
 </script>
 
 <style lang="scss">

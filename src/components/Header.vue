@@ -12,103 +12,110 @@
       <span
         v-for="(category, index) in getFontCategories"
         :key="index"
-        @click="$store.dispatch('updateCategoryFilter', category)"
         :class="[
-        'category-filters__filter-button',
-        { 'category-filters__filter-button--active': getCategoryFilter == category }
-      ]">
+          'category-filters__filter-button',
+          { 'category-filters__filter-button--active': getCategoryFilter == category }
+        ]"
+        @click="$store.dispatch('updateCategoryFilter', category)"
+      >
         {{ category }}
       </span>
-
     </div>
     <div class="optional-filters">
       <div class="option">
         <input
+          id="recommended"
           type="checkbox"
           name="recommended"
-          id="recommended"
+          :checked="$store.state.filters.recommended"
           @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
-          :checked="$store.state.filters.recommended">
+        >
         <label for="recommended"> Recommended &#9733;</label>
       </div>
       <div class="option">
         <input
+          id="italics"
           type="checkbox"
           name="italics"
-          id="italics"
+          :checked="$store.state.filters.italics"
           @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
-          :checked="$store.state.filters.italics">
+        >
         <label for="italics"> Italics</label>
       </div>
       <div class="option">
         <input
+          id="multiple-weights"
           type="checkbox"
           name="italics"
-          id="multiple-weights"
+          :checked="$store.state.filters.multipleWeights"
           @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
-          :checked="$store.state.filters.multipleWeights">
+        >
         <label for="multiple-weights"> 2+ Weights</label>
       </div>
     </div>
+    <ep-theme-toggle
+      class="app-header-button ep-button-var--ghost"
+      :current-theme="theme"
+      @toggle-theme="toggleTheme"
+    />
   </header>
 </template>
 
-<script>
+<script setup>
+  import { computed, onMounted, ref } from 'vue'
+  import { useStore } from 'vuex'
   import WebFont from 'webfontloader'
-  import { mapGetters } from 'vuex'
 
-  export default {
-    name: 'Header',
-    data() {
-      return {
-        fonts: [
-          { fontFamily: 'Bungee Shade', fontSize: 30 },
-          { fontFamily: 'Barrio', fontSize: 30 },
-          { fontFamily: 'Ms Madi', fontSize: 40 },
-          { fontFamily: 'Bowlby One', fontSize: 30 },
-          { fontFamily: 'Gaegu', fontSize: 40 },
-          { fontFamily: 'Caesar Dressing', fontSize: 30 },
-          { fontFamily: 'Faster One', fontSize: 30 },
-        ],
-        currentFontIndex: 0,
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'getCategoryFilter',
-        'getFontCategories',
-        // 'getRecommendedOnly',
-      ]),
-    },
-    methods: {
-      loadFonts() {
-        WebFont.load({
-          google: {
-            families: this.fonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
-          },
-          active: () => {
-            // Fonts are loaded, you can apply the first font
-            // You can also add any additional logic here
-            // console.log('Fonts are loaded')
-          },
-          fontactive: (familyName) => {
-            // Apply the next font when each font is loaded
-            // this.currentFont = familyName
-          },
-        })
+  const store = useStore()
+
+  const fonts = [
+    { fontFamily: 'Bungee Shade', fontSize: 30 },
+    { fontFamily: 'Barrio', fontSize: 30 },
+    { fontFamily: 'Ms Madi', fontSize: 40 },
+    { fontFamily: 'Bowlby One', fontSize: 30 },
+    { fontFamily: 'Gaegu', fontSize: 40 },
+    { fontFamily: 'Caesar Dressing', fontSize: 30 },
+    { fontFamily: 'Faster One', fontSize: 30 },
+  ]
+  const currentFontIndex = ref(0)
+
+
+  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  const getFontCategories = computed(() => store.getters.getFontCategories)
+  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
+  const toggleTheme = () => store.dispatch('toggleTheme')
+  const theme = computed(() => store.state.theme)
+
+
+  const loadFonts = () => {
+    WebFont.load({
+      google: {
+        families: fonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
       },
-      setupFontInterval() {
-        setInterval(() => {
-          this.currentFontIndex = (this.currentFontIndex + 1) % this.fonts.length
-          // this.currentFont = this.fonts[this.currentFontIndex]
-        }, 4000)
+      active: () => {
+        // Fonts are loaded, you can apply the first font
+        // You can also add any additional logic here
+        // console.log('Fonts are loaded')
       },
-    },
-    mounted() {
-      this.loadFonts()
-      this.setupFontInterval()
-    },
+      fontactive: (familyName) => {
+        // Apply the next font when each font is loaded
+        // currentFont = familyName
+      },
+    })
   }
+
+  const setupFontInterval = () => {
+    setInterval(() => {
+      currentFontIndex.value = (currentFontIndex.value + 1) % fonts.length
+      // currentFont = fonts[currentFontIndex.value]
+    }, 4000)
+  }
+
+  // Lifecycle hooks
+  onMounted(() => {
+    loadFonts()
+    setupFontInterval()
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -122,7 +129,7 @@
     flex-direction: column;
     gap: 30px;
     padding: 30px;
-    background: white;
+    background: var(--interface-surface);
     border-right: 1px solid #d3d3d3;
     user-select: none;
   }

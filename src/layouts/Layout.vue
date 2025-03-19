@@ -1,18 +1,12 @@
 <template>
   <div class="grid">
-    <slot name="header"></slot>
+    <slot name="header" />
     <main>
-      <slot name="top"></slot>
-      <slot name="main"></slot>
+      <slot name="top" />
+      <slot name="main" />
     </main>
   </div>
 </template>
-
-<script>
-  export default {
-    name: 'Layout'
-  }
-</script>
 
 <style lang="scss">
   .grid {

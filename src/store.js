@@ -118,7 +118,8 @@ export default createStore({
     recommendedOnly: true,
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
-    showJSON: false
+    showJSON: false,
+    theme: 'light',
   },
   getters: {
     getActiveFonts(state, getters) {
@@ -233,6 +234,9 @@ export default createStore({
     setSentenceSample(state, value) {
       state.sentenceSample = value
     },
+    setTheme: (state, data) => {
+      state.theme = data
+    },
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
@@ -290,6 +294,11 @@ export default createStore({
     },
     toggleJSON({ commit }) {
       commit('toggleJSON')
+    },
+    toggleTheme: ({ state, commit }) => {
+      let newTheme = state.theme == 'dark' ? 'light' : 'dark'
+      document.documentElement.setAttribute('data-color-theme', newTheme)
+      commit('setTheme', newTheme)
     },
   }
 })

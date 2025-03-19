@@ -10,19 +10,6 @@
     within the language it inhabits.</div>
 </template>
 
-<script>
-  var Chance = require('chance')
-
-  export default {
-    name: 'ParagraphSample',
-    methods: {
-      // getParagraph() {
-      //   return chance.paragraph({ sentences: 3 })
-      // }
-    }
-  }
-</script>
-
 <style>
   .paragraph-sample {
     max-width: 600px;

@@ -21,32 +21,26 @@
   </div>
 </template>
 
-<script>
-  import FontContainer from '@/components/FontContainer.vue'
-  import { mapActions, mapGetters } from 'vuex'
+<script setup>
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'Compare',
-    components: {
-      FontContainer
-    },
-    computed: {
-      ...mapGetters([
-        'getCompare'
-      ]),
-      compareLabel: function() {
-        if (this.getCompare.length == 1) {
-          return 'Add more fonts to compare'
-        } else {
-          return `Comparing ${this.getCompare.length} fonts`
-        }
-      }
-    },
-    methods: {
-      clearCompare() {
-        this.$store.dispatch('clearCompare')
-      }
+  import FontContainer from '@/components/FontContainer.vue'
+
+  const store = useStore()
+
+  const getCompare = computed(() => store.getters.getCompare)
+
+  const compareLabel = computed(() => {
+    if (getCompare.value.length == 1) {
+      return 'Add more fonts to compare'
+    } else {
+      return `Comparing ${getCompare.value.length} fonts`
     }
+  })
+
+  const clearCompare = () => {
+    store.dispatch('clearCompare')
   }
 </script>
 

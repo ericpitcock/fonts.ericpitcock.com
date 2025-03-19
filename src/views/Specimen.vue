@@ -14,53 +14,49 @@
   </div>
 </template>
 
-<script>
+<script setup>
+  import { computed, onMounted, ref } from 'vue'
+  import { useStore } from 'vuex'
+
   import FontInfo from '@/components/FontInfo.vue'
   import TableSample from '@/components/samples/TableSample.vue'
-  import { mapGetters } from 'vuex'
 
-  export default {
-    name: 'Specimen',
-    props: ['font'],
-    components: {
-      FontInfo,
-      TableSample
-    },
-    data() {
-      return {
-        quote: {}
-      }
-    },
-    computed: {
-      // ...mapGetters({
-      //   font: 'getCurrentSpecimen'
-      // }),
-      fontt() {
-        return this.$store.getters.getFontFromSlug(this.font)
-      }
-    },
-    methods: {
-      // fetchQuotes() {
-      //   fetch('https://150000-quotes.p.rapidapi.com/random', {
-      //     'method': 'GET',
-      //     'headers': {
-      //       'x-rapidapi-host': '150000-quotes.p.rapidapi.com',
-      //       'x-rapidapi-key': '601750e6efmshb80847227ae1df3p14769bjsnf01cb50c17da'
-      //     }
-      //   })
-      //   .then(response => {
-      //     response.json().then(data => {
-      //       this.quote = data
-      //     });
-      //   })
-      // }
-    },
-    mounted() {
-      // this.fetchQuotes()
-      console.log(this.fontt)
-      // console.log(this.$store.getters.getGoogleFonts)
-    }
-  }
+  // Define props
+  const props = defineProps(['font'])
+
+  // Store access
+  const store = useStore()
+
+  // Data properties
+  const quote = ref({})
+
+  // Computed properties
+  const fontt = computed(() => {
+    return store.getters.getFontFromSlug(props.font)
+  })
+
+  // Methods
+  // const fetchQuotes = () => {
+  //   fetch('https://150000-quotes.p.rapidapi.com/random', {
+  //     'method': 'GET',
+  //     'headers': {
+  //       'x-rapidapi-host': '150000-quotes.p.rapidapi.com',
+  //       'x-rapidapi-key': '601750e6efmshb80847227ae1df3p14769bjsnf01cb50c17da'
+  //     }
+  //   })
+  //   .then(response => {
+  //     response.json().then(data => {
+  //       quote.value = data
+  //     });
+  //   })
+  // }
+
+  // Lifecycle hooks
+  onMounted(() => {
+    // fetchQuotes()
+    console.log(fontt.value)
+    // console.log(store.getters.getGoogleFonts)
+  })
 </script>
 
 <style lang="scss">

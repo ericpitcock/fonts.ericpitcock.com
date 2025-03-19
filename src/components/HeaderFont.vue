@@ -5,61 +5,60 @@
   </header>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex'
+<script setup>
+  import { computed, ref } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'Header',
-    data() {
-      return {
-        samples: [
-          {
-            name: 'Sentence',
-            component: 'SentenceSample'
-          },
-          {
-            name: 'Alphabet',
-            component: 'AlphabetSample'
-          },
-          {
-            name: 'Paragraph',
-            component: 'ParagraphSample'
-          }
-        ]
-      }
+  const store = useStore()
+
+  const samples = ref([
+    {
+      name: 'Sentence',
+      component: 'SentenceSample'
     },
-    computed: {
-      ...mapGetters([
-        'getActiveFonts',
-        'getCategoryFilter',
-        'getFontCategories',
-        'getFontSample',
-        // 'getRecommendedOnly',
-        'getSentenceSample',
-      ]),
-      customSample: {
-        get() {
-          return this.getSentenceSample
-        },
-        set(value) {
-          this.$store.dispatch('updateSentenceSample', value)
-        }
-      },
-      fontSize: {
-        get() {
-          return this.getGlobalFontSize
-        },
-        set(value) {
-          this.$store.dispatch('updateGlobalFontSize', value)
-        }
-      }
+    {
+      name: 'Alphabet',
+      component: 'AlphabetSample'
     },
-    // methods: {
-    //   customFocus() {
-    //     this.$store.dispatch('updateFontSample', 'CustomSample')
-    //   }
-    // }
-  }
+    {
+      name: 'Paragraph',
+      component: 'ParagraphSample'
+    }
+  ])
+
+  const getActiveFonts = computed(() => store.getters.getActiveFonts)
+  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  const getFontCategories = computed(() => store.getters.getFontCategories)
+  const getFontSample = computed(() => store.getters.getFontSample)
+  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
+  const getSentenceSample = computed(() => store.getters.getSentenceSample)
+
+  const customSample = computed({
+    get() {
+      return store.getters.getSentenceSample
+    },
+    set(value) {
+      store.dispatch('updateSentenceSample', value)
+    }
+  })
+
+  // Note: getGlobalFontSize is not in the mapGetters but is used in fontSize computed property
+  // Added it assuming it should be there
+  const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
+
+  const fontSize = computed({
+    get() {
+      return store.getters.getGlobalFontSize
+    },
+    set(value) {
+      store.dispatch('updateGlobalFontSize', value)
+    }
+  })
+
+  // Commented methods
+  // const customFocus = () => {
+  //   store.dispatch('updateFontSample', 'CustomSample')
+  // }
 </script>
 
 <style lang="scss" scoped>

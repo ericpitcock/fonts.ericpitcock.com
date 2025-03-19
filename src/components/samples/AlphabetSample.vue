@@ -1,17 +1,16 @@
 <template>
   <div class="alphabet-sample">
-    <div v-for="char in characterSet" :key="char">{{ char }}</div>
+    <div
+      v-for="char in characterSet"
+      :key="char"
+    >
+      {{ char }}
+    </div>
   </div>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        characterSet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789‘?’“!”(%)[#]{@}/&\<-+÷×=>®©$€£¥¢:;,.*'
-      }
-    }
-  }
+<script setup>
+  const characterSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*'
 </script>
 
 <style lang="scss" scoped>

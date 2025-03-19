@@ -43,6 +43,13 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   await store.dispatch('fetchGoogleFonts')
+
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    if (store.state.theme === 'dark') {
+      store.commit('toggleTheme')
+    }
+  }
+
   next()
 })
 

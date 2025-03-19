@@ -5,55 +5,61 @@
     </span>
     <div class="sample-control__input">
       <input
-        class="custom-sample-input"
         v-model="sentenceSample"
+        class="custom-sample-input"
         type="text"
-        placeholder="Enter your own words">
+        placeholder="Enter your own words"
+      >
     </div>
     <div class="sample-control__font-size">
-      <input name="font-size" type="range" min="12" max="120"
-        v-model="fontSize" step="1">
+      <input
+        v-model="fontSize"
+        name="font-size"
+        type="range"
+        min="12"
+        max="120"
+        step="1"
+      >
       <label for="font-size">{{ fontSize }}px</label>
     </div>
   </div>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex'
+<script setup>
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'SampleControl',
-    computed: {
-      ...mapGetters([
-        'getActiveFonts',
-        'getCategoryFilter',
-        'getGlobalFontSize',
-        'getFontCategories',
-        'getFontCount',
-        'getFontSample',
-        'getSentenceSample',
-      ]),
-      sentenceSample: {
-        get() {
-          return this.getSentenceSample
-        },
-        set(value) {
-          this.$store.dispatch('updateSentenceSample', value)
-        }
-      },
-      fontCount() {
-        return `${this.getFontCount} ${this.getFontCount === 1 ? 'font' : 'fonts'}`
-      },
-      fontSize: {
-        get() {
-          return this.getGlobalFontSize
-        },
-        set(value) {
-          this.$store.dispatch('updateGlobalFontSize', value)
-        }
-      }
+  const store = useStore()
+
+  // const getActiveFonts = computed(() => store.getters.getActiveFonts)
+  // const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  // const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
+  // const getFontCategories = computed(() => store.getters.getFontCategories)
+  const getFontCount = computed(() => store.getters.getFontCount)
+  // const getFontSample = computed(() => store.getters.getFontSample)
+  // const getSentenceSample = computed(() => store.getters.getSentenceSample)
+
+  const sentenceSample = computed({
+    get() {
+      return store.getters.getSentenceSample
     },
-  }
+    set(value) {
+      store.dispatch('updateSentenceSample', value)
+    }
+  })
+
+  const fontCount = computed(() =>
+    `${getFontCount.value} ${getFontCount.value === 1 ? 'font' : 'fonts'}`
+  )
+
+  const fontSize = computed({
+    get() {
+      return store.getters.getGlobalFontSize
+    },
+    set(value) {
+      store.dispatch('updateGlobalFontSize', value)
+    }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -64,7 +70,7 @@
     align-items: center;
     gap: 20px;
     padding: 30px 30px 30px 60px;
-    background: #fff;
+    background: var(--interface-surface);
     border-bottom: 1px solid #d3d3d3;
     z-index: 1;
 

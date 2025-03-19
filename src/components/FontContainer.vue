@@ -1,6 +1,7 @@
 <template>
   <div
     :id="font.family.toLowerCase().split(' ').join('-')"
+    ref="el"
     class="font-container"
   >
     <div class="font">
@@ -37,120 +38,121 @@
   </div>
 </template>
 
-<script>
+<script setup>
+  import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRouter } from 'vue-router'
   import SentenceSample from '@/components/samples/SentenceSample.vue'
   import FontInfo from '@/components/FontInfo.vue'
-  import { mapGetters } from 'vuex'
   import WebFont from 'webfontloader'
 
-  export default {
-    name: 'FontContainer',
-    props: ['font'],
-    components: {
-      FontInfo,
-      SentenceSample,
-    },
-    data() {
-      return {
-        inCompare: false,
-        loading: true,
-        error: false,
-        observer: null
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'getCategoryFilter',
-        'getCompare',
-        'getFilters',
-        'getFontSample',
-        'getGlobalFontSize',
-        'showJSON'
-      ])
-    },
-    methods: {
-      compare(font) {
-        this.$store.dispatch('updateCompare', font)
-      },
-      compareLabel(font) {
-        return (this.getCompare.some(item => item.family == font.family)) ? 'Remove' : 'Compare'
-      },
-      loadFont(font) {
-        // https://www.npmjs.com/package/webfontloader
-        let fontStack = ''
-        if (font.variants.length > 1) {
-          fontStack = `${font.family}:${font.variants.join(',')}`
-        } else {
-          fontStack = font.family
-        }
-        // console.log([fontStack])
-        WebFont.load({
-          google: {
-            //families: ['Open Sans:300,400,700']
-            families: [fontStack]
-          },
-          classes: false,
-          loading: () => {
-          },
-          active: () => {
-          },
-          inactive: () => {
-          },
-          fontloading: (familyName, fvd) => {
-            this.loading = true
-            // console.log(`fontloading: ${familyName}`)
-          },
-          fontactive: (familyName, fvd) => {
-            this.loading = false
-            // console.log(`fontactive: ${familyName}`)
-          },
-          fontinactive: (familyName, fvd) => {
-            this.loading = false
-            this.error = true
-            // console.log(`fontinactive: ${familyName}`)
-          }
-        })
-      },
-      toFontSpecimen(font) {
-        // temp disabled
-        // use @sentence-click="toFontSpecimen(font)" in SentenceSample
-        // populate store and route
-        this.$store.dispatch('updateCurrentSpecimen', font.family)
-        this.$router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-      },
-    },
-    watch: {
-      getCategoryFilter: function() {
-        console.log('getCategoryFilter changed')
-        this.observer.observe(this.$el)
-      },
-      getFilters: {
-        handler: function() {
-          console.log('getFilters changed')
-          this.observer.observe(this.$el)
-        },
-        deep: true
-      }
-    },
-    mounted() {
-      // https://alligator.io/vuejs/lazy-image/
-      this.observer = new IntersectionObserver(entries => {
-        const container = entries[0]
-        if (container.isIntersecting) {
-          this.loadFont(this.font)
-          this.observer.disconnect()
-        }
-      }, {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.25
-      })
-      this.observer.observe(this.$el)
-    },
-    destroyed() {
-      this.observer.disconnect()
-    }
+  const props = defineProps(['font'])
+
+  const router = useRouter()
+
+  const store = useStore()
+
+  const inCompare = ref(false)
+  const loading = ref(true)
+  const error = ref(false)
+  const observer = ref(null)
+
+  const el = ref(null)
+
+  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  const getCompare = computed(() => store.getters.getCompare)
+  const getFilters = computed(() => store.getters.getFilters)
+  const getFontSample = computed(() => store.getters.getFontSample)
+  const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
+  const showJSON = computed(() => store.getters.showJSON)
+
+  const compare = (font) => {
+    store.dispatch('updateCompare', font)
   }
+
+  const compareLabel = (font) => {
+    return (getCompare.value.some(item => item.family == font.family)) ? 'Remove' : 'Compare'
+  }
+
+  const loadFont = (font) => {
+    // https://www.npmjs.com/package/webfontloader
+    let fontStack = ''
+    if (font.variants.length > 1) {
+      fontStack = `${font.family}:${font.variants.join(',')}`
+    } else {
+      fontStack = font.family
+    }
+    // console.log([fontStack])
+    WebFont.load({
+      google: {
+        //families: ['Open Sans:300,400,700']
+        families: [fontStack]
+      },
+      classes: false,
+      loading: () => {
+      },
+      active: () => {
+      },
+      inactive: () => {
+      },
+      fontloading: (familyName, fvd) => {
+        loading.value = true
+        // console.log(`fontloading: ${familyName}`)
+      },
+      fontactive: (familyName, fvd) => {
+        loading.value = false
+        // console.log(`fontactive: ${familyName}`)
+      },
+      fontinactive: (familyName, fvd) => {
+        loading.value = false
+        error.value = true
+        // console.log(`fontinactive: ${familyName}`)
+      }
+    })
+  }
+
+  const toFontSpecimen = (font) => {
+    // temp disabled
+    // use @sentence-click="toFontSpecimen(font)" in SentenceSample
+    // populate store and route
+    store.dispatch('updateCurrentSpecimen', font.family)
+    router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
+  }
+
+  // Watchers
+  watch(getCategoryFilter, () => {
+    console.log('getCategoryFilter changed')
+    observer.value.observe(el.value)
+  })
+
+  watch(getFilters, () => {
+    console.log('getFilters changed')
+    observer.value.observe(el.value)
+  }, { deep: true })
+
+  // Lifecycle hooks
+  onMounted(() => {
+    // https://alligator.io/vuejs/lazy-image/
+    observer.value = new IntersectionObserver(entries => {
+      const container = entries[0]
+      if (container.isIntersecting) {
+        loadFont(props.font)
+        observer.value.disconnect()
+      }
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.25
+    })
+    observer.value.observe(el.value)
+  })
+
+  onBeforeUnmount(() => {
+    observer.value.disconnect()
+  })
+
+  // // Expose template ref - you need to add ref="el" to your root element in the template
+  // defineExpose({ el })
 </script>
 
 <style lang="scss" scoped>

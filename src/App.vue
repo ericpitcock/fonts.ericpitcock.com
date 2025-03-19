@@ -11,25 +11,16 @@
       </template>
 
       <template #main>
-        <router-view></router-view>
+        <router-view />
       </template>
     </Layout>
   </div>
 </template>
 
-<script>
+<script setup>
   import Header from '@/components/Header.vue'
   import HeaderFont from '@/components/HeaderFont.vue'
   import Layout from '@/layouts/Layout.vue'
-
-  export default {
-    name: 'App',
-    components: {
-      Header,
-      HeaderFont,
-      Layout
-    }
-  }
 </script>
 
 <style lang="scss">
@@ -41,7 +32,7 @@
   body {
     display: flex;
     justify-content: center;
-    background: hsl(0, 0%, 98%);
+    background: var(--interface-bg);
   }
 
   body,
@@ -49,13 +40,12 @@
   select,
   textarea {
     font-family: 'CallingCode-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    font-size: 14px;
-    color: black;
   }
 
   #app {
     width: 100%;
     height: 100%;
+    background: var(--interface-surface);
   }
 
   .json-button {

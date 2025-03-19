@@ -2,20 +2,17 @@
   <div class="custom-sample">{{ getCustomSample }}</div>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex'
+<script setup>
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'CustomSample',
-    computed: {
-      ...mapGetters([
-        'getCustomSample'
-      ])
-    }
-  }
+  // Store access
+  const store = useStore()
+
+  // Getters
+  const getCustomSample = computed(() => store.getters.getCustomSample)
 </script>
 
 <style>
-  .custom-sample {
-  }
+  .custom-sample {}
 </style>

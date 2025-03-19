@@ -1,6 +1,9 @@
 <template>
   <div class="font-info">
-    <div v-if="isRecommended(font)" class="font-info__recommended-flag">
+    <div
+      v-if="isRecommended(font)"
+      class="font-info__recommended-flag"
+    >
       <!-- star symbol -->
       <span>&#9733;</span>
     </div>
@@ -13,42 +16,39 @@
   </div>
 </template>
 
-<script>
-  import { mapGetters } from 'vuex'
+<script setup>
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'FontInfo',
-    props: ['font'],
-    computed: {
-      ...mapGetters([
-        'getRecommendedFonts'
-      ])
-    },
-    methods: {
-      isRecommended(font) {
-        return this.getRecommendedFonts.includes(font.family)
-      },
-      fontInfo(font) {
-        // determine the number of weights and italics
-        let weights = 0
-        let italics = 0
-        font.variants.forEach(variant => {
-          if (variant.includes('italic')) {
-            italics++
-          } else {
-            weights++
-          }
-        })
+  defineProps(['font'])
 
-        let weightLabel = weights === 1 ? 'weight' : 'weights'
-        let italicLabel = italics === 1 ? 'italic' : 'italics'
+  const store = useStore()
 
-        if (italics === 0) {
-          return `${weights} ${weightLabel}`
-        } else {
-          return `${weights} ${weightLabel} w/ ${italicLabel}`
-        }
-      },
+  const getRecommendedFonts = computed(() => store.getters.getRecommendedFonts)
+
+  const isRecommended = (font) => {
+    return getRecommendedFonts.value.includes(font.family)
+  }
+
+  const fontInfo = (font) => {
+    // determine the number of weights and italics
+    let weights = 0
+    let italics = 0
+    font.variants.forEach(variant => {
+      if (variant.includes('italic')) {
+        italics++
+      } else {
+        weights++
+      }
+    })
+
+    let weightLabel = weights === 1 ? 'weight' : 'weights'
+    let italicLabel = italics === 1 ? 'italic' : 'italics'
+
+    if (italics === 0) {
+      return `${weights} ${weightLabel}`
+    } else {
+      return `${weights} ${weightLabel} w/ ${italicLabel}`
     }
   }
 </script>
