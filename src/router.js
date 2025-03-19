@@ -1,20 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import store from '@/store'
 
-import Index from './views/Index.vue'
-import Specimen from './views/Specimen.vue'
+import FontsIndex from './views/FontsIndex.vue'
+import FontsSpecimen from './views/FontsSpecimen.vue'
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: Index
+    component: FontsIndex
   },
   {
     path: '/:font',
     name: 'font',
     props: true,
-    component: Specimen,
+    component: FontsSpecimen,
     // beforeEnter: (to, from, next) => {
     //   // console.log('Specimen loading')
     //   // let family = to.path.replace('-', ' ').toUpperCase()

@@ -54,7 +54,7 @@
     width: 100vw;
     background: #fafafa;
     padding-bottom: 30px;
-    border-bottom: 1px solid #e6e6e6;
+    border-bottom: 1px solid var(--border-color);
 
     // margin-bottom: 30px;
     .controls {
@@ -82,7 +82,7 @@
     background: #fff;
 
     :deep(.font) {
-      border-color: #e6e6e6;
+      border-color: var(--border-color);
     }
 
     .font__sample {

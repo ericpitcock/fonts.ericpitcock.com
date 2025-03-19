@@ -181,7 +181,7 @@
   }
 
   .font-container a {
-    color: black;
+    // color: black;
     text-decoration: none;
   }
 
@@ -202,8 +202,8 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      color: hsl(0, 0%, 20%);
 
+      // color: hsl(0, 0%, 20%);
       &:hover {
         // cursor: pointer;
       }

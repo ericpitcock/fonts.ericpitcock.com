@@ -1,10 +1,7 @@
 <template>
   <header>
     <div class="title">
-      <h1 :style="{
-        fontFamily: fonts[currentFontIndex].fontFamily,
-        fontSize: `${fonts[currentFontIndex].fontSize}px`
-      }">
+      <h1 :style="titleStyle">
         Fonts
       </h1>
     </div>
@@ -21,7 +18,8 @@
         {{ category }}
       </span>
     </div>
-    <div class="optional-filters">
+    <fonts-filters />
+    <!-- <div class="optional-filters">
       <div class="option">
         <input
           id="recommended"
@@ -52,7 +50,7 @@
         >
         <label for="multiple-weights"> 2+ Weights</label>
       </div>
-    </div>
+    </div> -->
     <ep-theme-toggle
       class="app-header-button ep-button-var--ghost"
       :current-theme="theme"
@@ -66,9 +64,19 @@
   import { useStore } from 'vuex'
   import WebFont from 'webfontloader'
 
+  import FontsFilters from '@/components/FontsFilters.vue'
+
   const store = useStore()
 
-  const fonts = [
+  const currentFontIndex = ref(0)
+
+  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  const getFontCategories = computed(() => store.getters.getFontCategories)
+  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
+  const toggleTheme = () => store.dispatch('toggleTheme')
+  const theme = computed(() => store.state.theme)
+
+  const titleFonts = [
     { fontFamily: 'Bungee Shade', fontSize: 30 },
     { fontFamily: 'Barrio', fontSize: 30 },
     { fontFamily: 'Ms Madi', fontSize: 40 },
@@ -77,41 +85,27 @@
     { fontFamily: 'Caesar Dressing', fontSize: 30 },
     { fontFamily: 'Faster One', fontSize: 30 },
   ]
-  const currentFontIndex = ref(0)
-
-
-  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
-  const getFontCategories = computed(() => store.getters.getFontCategories)
-  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
-
 
   const loadFonts = () => {
     WebFont.load({
       google: {
-        families: fonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
-      },
-      active: () => {
-        // Fonts are loaded, you can apply the first font
-        // You can also add any additional logic here
-        // console.log('Fonts are loaded')
-      },
-      fontactive: (familyName) => {
-        // Apply the next font when each font is loaded
-        // currentFont = familyName
+        families: titleFonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
       },
     })
   }
 
+  const titleStyle = computed(() => ({
+    fontFamily: titleFonts[currentFontIndex.value].fontFamily,
+    fontSize: `${titleFonts[currentFontIndex.value].fontSize}px`
+  }))
+
   const setupFontInterval = () => {
     setInterval(() => {
-      currentFontIndex.value = (currentFontIndex.value + 1) % fonts.length
+      currentFontIndex.value = (currentFontIndex.value + 1) % titleFonts.length
       // currentFont = fonts[currentFontIndex.value]
     }, 4000)
   }
 
-  // Lifecycle hooks
   onMounted(() => {
     loadFonts()
     setupFontInterval()
@@ -130,7 +124,7 @@
     gap: 30px;
     padding: 30px;
     background: var(--interface-surface);
-    border-right: 1px solid #d3d3d3;
+    border-right: 1px solid var(--border-color);
     user-select: none;
   }
 
@@ -142,6 +136,7 @@
 
   h1 {
     line-height: 1;
+    color: var(--text-color--loud);
   }
 
   .category-filters {
@@ -164,21 +159,19 @@
     color: gray;
   }
 
-  .optional-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    .option {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      cursor: pointer;
-
-      input,
-      label {
-        cursor: pointer;
-      }
-    }
-  }
+  // .optional-filters {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 10px;
+  //   .option {
+  //     display: flex;
+  //     align-items: baseline;
+  //     gap: 10px;
+  //     cursor: pointer;
+  //     input,
+  //     label {
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
 </style>

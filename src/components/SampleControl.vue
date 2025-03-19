@@ -1,15 +1,18 @@
 <template>
   <div class="sample-control">
-    <span class="sample-control__font-count">
-      {{ fontCount }}
-    </span>
+    <ep-item-count
+      :count="getFontCount"
+      singular="font"
+      plural="fonts"
+    />
     <div class="sample-control__input">
-      <input
+      <ep-input
         v-model="sentenceSample"
+        size="large"
         class="custom-sample-input"
         type="text"
         placeholder="Enter your own words"
-      >
+      />
     </div>
     <div class="sample-control__font-size">
       <input
@@ -48,10 +51,6 @@
     }
   })
 
-  const fontCount = computed(() =>
-    `${getFontCount.value} ${getFontCount.value === 1 ? 'font' : 'fonts'}`
-  )
-
   const fontSize = computed({
     get() {
       return store.getters.getGlobalFontSize
@@ -71,7 +70,7 @@
     gap: 20px;
     padding: 30px 30px 30px 60px;
     background: var(--interface-surface);
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid var(--border-color);
     z-index: 1;
 
     &__font-count {

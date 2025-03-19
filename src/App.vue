@@ -4,23 +4,22 @@
       class="json-button"
       @click="$store.dispatch('toggleJSON')"
     >Toggle JSON</button> -->
-    <Layout>
+    <fonts-layout>
       <template #header>
-        <Header v-if="$route.name == 'index'" />
+        <fonts-navigation v-if="$route.name == 'index'" />
         <HeaderFont v-if="$route.name == 'font'" />
       </template>
-
       <template #main>
         <router-view />
       </template>
-    </Layout>
+    </fonts-layout>
   </div>
 </template>
 
 <script setup>
-  import Header from '@/components/Header.vue'
+  import FontsNavigation from '@/components/FontsNavigation.vue'
   import HeaderFont from '@/components/HeaderFont.vue'
-  import Layout from '@/layouts/Layout.vue'
+  import FontsLayout from '@/layouts/FontsLayout.vue'
 </script>
 
 <style lang="scss">
@@ -45,7 +44,7 @@
   #app {
     width: 100%;
     height: 100%;
-    background: var(--interface-surface);
+    background: var(--interface-foreground);
   }
 
   .json-button {

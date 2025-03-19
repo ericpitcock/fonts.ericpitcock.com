@@ -75,7 +75,7 @@
     align-items: center;
     padding: 30px;
     background: white;
-    border-bottom: 1px solid #d3d3d3;
+    border-bottom: 1px solid var(--border-color);
     flex: 0 0 auto;
   }
 </style>
