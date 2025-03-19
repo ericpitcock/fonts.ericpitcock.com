@@ -6,6 +6,7 @@
       </h1>
     </div>
     <div class="category-filters">
+      <h3>Categories</h3>
       <span
         v-for="(category, index) in getFontCategories"
         :key="index"
@@ -51,11 +52,11 @@
         <label for="multiple-weights"> 2+ Weights</label>
       </div>
     </div> -->
-    <ep-theme-toggle
+    <!-- <ep-theme-toggle
       class="app-header-button ep-button-var--ghost"
       :current-theme="theme"
       @toggle-theme="toggleTheme"
-    />
+    /> -->
   </nav>
 </template>
 
@@ -73,8 +74,8 @@
   const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
   const getFontCategories = computed(() => store.getters.getFontCategories)
   // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
+  // const toggleTheme = () => store.dispatch('toggleTheme')
+  // const theme = computed(() => store.state.theme)
 
   const titleFonts = [
     { fontFamily: 'Bungee Shade', fontSize: 30 },

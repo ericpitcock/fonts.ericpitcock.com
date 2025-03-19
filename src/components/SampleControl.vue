@@ -25,6 +25,11 @@
       >
       <label for="font-size">{{ fontSize }}px</label>
     </div>
+    <ep-theme-toggle
+      class="app-header-button ep-button-var--ghost"
+      :current-theme="theme"
+      @toggle-theme="toggleTheme"
+    />
   </div>
 </template>
 
@@ -59,6 +64,9 @@
       store.dispatch('updateGlobalFontSize', value)
     }
   })
+
+  const toggleTheme = () => store.dispatch('toggleTheme')
+  const theme = computed(() => store.state.theme)
 </script>
 
 <style lang="scss" scoped>
@@ -82,7 +90,7 @@
     }
 
     &__font-size {
-      flex: 0 1 100px;
+      flex: 0 1 10rem;
       display: flex;
       align-items: center;
 

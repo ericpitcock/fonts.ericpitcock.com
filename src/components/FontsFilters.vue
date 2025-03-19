@@ -1,5 +1,6 @@
 <template>
   <div class="optional-filters">
+    <h3>Filters</h3>
     <ep-checkbox
       id="recommended"
       v-model="recommendedFilter"
