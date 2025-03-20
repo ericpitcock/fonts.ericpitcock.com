@@ -1,8 +1,9 @@
 <template>
   <ep-button
+    v-if="isDev"
     class="json-button"
     label="Toggle JSON"
-    @click="$store.dispatch('toggleJSON')"
+    @click="$store.commit('toggleJSON')"
   />
   <fonts-layout>
     <template #sidebar>
@@ -19,6 +20,8 @@
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
+
+  const isDev = import.meta.env.DEV
 </script>
 
 <style lang="scss">

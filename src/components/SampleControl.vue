@@ -86,7 +86,7 @@
   }
 
   .sample-control__input {
-    flex: 1 1 20rem;
+    flex: 0 1 60rem;
   }
 
   .sample-control__font-size {
@@ -158,5 +158,9 @@
   input[type="range"]:focus::-webkit-slider-runnable-track {
     // background: #ccc;
     /* Track background color on focus */
+  }
+
+  .app-header-button {
+    margin-left: auto;
   }
 </style>
