@@ -24,7 +24,7 @@
         value="multipleWeights"
       />
     </ep-flex>
-    <div
+    <!-- <div
       v-if="getSubsets.length > 0"
       class="subsets"
     >
@@ -41,7 +41,7 @@
           />
         </ep-flex>
       </ep-flex>
-    </div>
+    </div> -->
   </ep-flex>
 </template>
 
@@ -53,7 +53,7 @@
 
   const recommendedFilter = computed({
     get: () => store.state.filters.recommended,
-    set: (value) => store.dispatch('updateFilters', { recommended: value })
+    set: (value) => store.commit('setFilters', { recommended: value })
   })
 
   const italicsFilter = computed({
@@ -63,12 +63,12 @@
       }
       return store.state.filters.italics
     },
-    set: (value) => store.dispatch('updateFilters', { italics: value })
+    set: (value) => store.commit('setFilters', { italics: value })
   })
 
   const multipleWeightsFilter = computed({
     get: () => store.state.filters.multipleWeights,
-    set: (value) => store.dispatch('updateFilters', { multipleWeights: value })
+    set: (value) => store.commit('setFilters', { multipleWeights: value })
   })
 
   const getActiveFonts = computed(() => store.getters.getActiveFonts)

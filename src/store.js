@@ -204,9 +204,9 @@ export default createStore({
     getItalicsOnly(state) {
       return state.filters.italics
     },
-    getSentenceSample(state) {
-      return state.sentenceSample
-    },
+    // getSentenceSample(state) {
+    //   return state.sentenceSample
+    // },
     showJSON(state) {
       return state.showJSON
     }
@@ -239,9 +239,9 @@ export default createStore({
         state.filters[key] = value[key]
       }
     },
-    setFontSample(state, value) {
-      state.fontSample = value
-    },
+    // setFontSample(state, value) {
+    //   state.fontSample = value
+    // },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
@@ -278,16 +278,24 @@ export default createStore({
       // console.log(`fontObject: ${fontObject}`)
       commit('setCurrentSpecimen', fontFamily)
     },
-    updateFilters({ commit }, value) {
-      // console.log('Updating filters:', value)
-      commit('setFilters', value)
-    },
-    updateFontSample({ commit }, value) {
-      commit('setFontSample', value)
-    },
-    updateGlobalFontSize({ commit }, value) {
-      commit('setGlobalFontSize', value)
-    },
+    // updateFilters({ commit }, value) {
+    //   // console.log('Updating filters:', value)
+    //   commit('setFilters', value)
+    // },
+    // updateFontSample({ commit }, value) {
+    //   commit('setFontSample', value)
+    // },
+    // updateGlobalFontSize({ commit }, value) {
+    //   commit('setGlobalFontSize', value)
+    // },
+
+    // updateSentenceSample({ commit }, value) {
+    //   commit('setSentenceSample', value)
+    // },
+    // toggleJSON({ commit }) {
+    //   commit('toggleJSON')
+    // },
+    // keep
     async fetchGoogleFonts({ commit }) {
       try {
         const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)
@@ -302,12 +310,6 @@ export default createStore({
         console.error('Error fetching Google Fonts:', error)
         throw error
       }
-    },
-    updateSentenceSample({ commit }, value) {
-      commit('setSentenceSample', value)
-    },
-    toggleJSON({ commit }) {
-      commit('toggleJSON')
     },
     toggleTheme: ({ state, commit }) => {
       let newTheme = state.theme == 'dark' ? 'light' : 'dark'

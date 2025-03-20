@@ -11,7 +11,7 @@
       <div class="content-padder">
         <template v-if="getActiveFonts.length == 0">
           <div class="no-results">No fonts found. Try
-            <span @click="$store.dispatch('updateFilters')">
+            <span @click="$store.commit('setFilters')">
               removing all filters.
             </span>
           </div>

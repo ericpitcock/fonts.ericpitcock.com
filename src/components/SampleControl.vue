@@ -40,20 +40,12 @@
 
   const store = useStore()
 
-  // const getActiveFonts = computed(() => store.getters.getActiveFonts)
-  // const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
-  // const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
-  // const getFontCategories = computed(() => store.getters.getFontCategories)
-  // const getFontCount = computed(() => store.getters.getFontCount)
-  // const getFontSample = computed(() => store.getters.getFontSample)
-  // const getSentenceSample = computed(() => store.getters.getSentenceSample)
-
   const sentenceSample = computed({
     get() {
-      return store.getters.getSentenceSample
+      return store.state.sentenceSample
     },
     set(value) {
-      store.dispatch('updateSentenceSample', value)
+      store.commit('setSentenceSample', value)
     }
   })
 
@@ -62,7 +54,7 @@
       return store.getters.getGlobalFontSize
     },
     set(value) {
-      store.dispatch('updateGlobalFontSize', value)
+      store.commit('setGlobalFontSize', value)
     }
   })
 

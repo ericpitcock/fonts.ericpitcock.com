@@ -4,18 +4,18 @@
     class="sentence-sample"
     @click="onClick"
   >
-    {{ getSentenceSample }}
+    {{ sentenceSample }}
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapState } from 'vuex'
 
   export default {
     name: 'SentenceSample',
     emits: ['click'],
     computed: {
-      ...mapGetters(['getSentenceSample'])
+      ...mapState(['sentenceSample'])
     },
     methods: {
       onClick() {
