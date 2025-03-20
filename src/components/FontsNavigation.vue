@@ -34,7 +34,7 @@
 
   const currentFontIndex = ref(0)
 
-  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
+  const getCategoryFilter = computed(() => store.state.categoryFilter)
   const getFontCategories = computed(() => store.getters.getFontCategories)
   // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
   // const toggleTheme = () => store.dispatch('toggleTheme')

@@ -51,7 +51,7 @@
 
   const fontSize = computed({
     get() {
-      return store.getters.getGlobalFontSize
+      return store.state.globalFontSize
     },
     set(value) {
       store.commit('setGlobalFontSize', value)

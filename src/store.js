@@ -135,11 +135,11 @@ export default createStore({
   },
   getters: {
     getActiveFonts(state, getters) {
-      let activeFonts = getters.getFontsByCategory(getters.getCategoryFilter)
+      let activeFonts = getters.getFontsByCategory(state.categoryFilter)
 
       // Apply recommended fonts filter
       if (state.filters.recommended) {
-        activeFonts = activeFonts.filter(font => getters.getRecommendedFonts.includes(font.family))
+        activeFonts = activeFonts.filter(font => state.recommendedFonts.includes(font.family))
       }
 
       // if fitlers.italics, filter out the non-italic variants
@@ -159,15 +159,15 @@ export default createStore({
     getLatinFonts(state) {
       return state.googleFonts.filter(font => font.subsets.includes('latin'))
     },
-    getRecommendedFonts(state) {
-      return state.recommendedFonts
-    },
-    getCategoryFilter(state) {
-      return state.categoryFilter
-    },
-    getFilters(state) {
-      return state.filters
-    },
+    // getRecommendedFonts(state) {
+    //   return state.recommendedFonts
+    // },
+    // getCategoryFilter(state) {
+    //   return state.categoryFilter
+    // },
+    // getFilters(state) {
+    //   return state.filters
+    // },
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
@@ -182,17 +182,17 @@ export default createStore({
     getFontCount(state, getters) {
       return getters.getActiveFonts.length
     },
-    getFontSample(state) {
-      return state.fontSample
-    },
+    // getFontSample(state) {
+    //   return state.fontSample
+    // },
     getFontsByCategory(state, getters) {
       return (category) => {
         return getters.getLatinFonts.filter(font => font.category == category)
       }
     },
-    getGlobalFontSize(state) {
-      return state.globalFontSize
-    },
+    // getGlobalFontSize(state) {
+    //   return state.globalFontSize
+    // },
     // getGoogleFonts(state) {
     //   return state.googleFonts
     // },

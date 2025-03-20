@@ -23,7 +23,7 @@
 
   const store = useStore()
 
-  const getRecommendedFonts = computed(() => store.getters.getRecommendedFonts)
+  const getRecommendedFonts = computed(() => store.state.recommendedFonts)
 
   const isRecommended = (font) => {
     return getRecommendedFonts.value.includes(font.family)

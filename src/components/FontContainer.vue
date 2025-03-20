@@ -24,7 +24,7 @@
         </div>
         <sentence-sample
           v-if="!loading && !error"
-          :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
+          :style="{ fontFamily: font.family, fontSize: `${globalFontSize}px` }"
         />
       </div>
       <font-info :font="font" />
@@ -64,9 +64,9 @@
 
   const el = ref(null)
 
-  const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
-  const getFilters = computed(() => store.getters.getFilters)
-  const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
+  const getCategoryFilter = computed(() => store.state.categoryFilter)
+  const getFilters = computed(() => store.state.filters)
+  const globalFontSize = computed(() => store.state.globalFontSize)
   const showJSON = computed(() => store.state.showJSON)
 
   const loadFont = (font) => {
