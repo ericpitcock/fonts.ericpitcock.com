@@ -40,7 +40,7 @@
   })
 
   const clearCompare = () => {
-    store.dispatch('clearCompare')
+    store.commit('clearCompare')
   }
 </script>
 

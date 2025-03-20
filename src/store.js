@@ -263,39 +263,6 @@ export default createStore({
     }
   },
   actions: {
-    clearCompare({ commit }) {
-      commit('clearCompare')
-    },
-    updateCategoryFilter({ commit }, value) {
-      commit('setCategoryFilter', value)
-    },
-    updateCompare({ commit }, font) {
-      commit('updateCompare', font)
-    },
-    updateCurrentSpecimen({ commit, getters }, fontFamily) {
-      // const fontObject = getters.getGoogleFonts.filter(font => font.family.toUpperCase() == fontFamily.toUpperCase())
-      // console.log(getters.getGoogleFonts)
-      // console.log(`fontObject: ${fontObject}`)
-      commit('setCurrentSpecimen', fontFamily)
-    },
-    // updateFilters({ commit }, value) {
-    //   // console.log('Updating filters:', value)
-    //   commit('setFilters', value)
-    // },
-    // updateFontSample({ commit }, value) {
-    //   commit('setFontSample', value)
-    // },
-    // updateGlobalFontSize({ commit }, value) {
-    //   commit('setGlobalFontSize', value)
-    // },
-
-    // updateSentenceSample({ commit }, value) {
-    //   commit('setSentenceSample', value)
-    // },
-    // toggleJSON({ commit }) {
-    //   commit('toggleJSON')
-    // },
-    // keep
     async fetchGoogleFonts({ commit }) {
       try {
         const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)

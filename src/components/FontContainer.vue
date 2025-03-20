@@ -73,7 +73,7 @@
   const showJSON = computed(() => store.getters.showJSON)
 
   const compare = (font) => {
-    store.dispatch('updateCompare', font)
+    store.commit('updateCompare', font)
   }
 
   const compareLabel = (font) => {
@@ -114,7 +114,7 @@
   }
 
   const toFontSpecimen = (font) => {
-    store.dispatch('updateCurrentSpecimen', font.family)
+    store.commit('setCurrentSpecimen', font.family)
     router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
   }
 

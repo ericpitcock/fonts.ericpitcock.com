@@ -14,7 +14,7 @@
           'category-filters__filter-button',
           { 'category-filters__filter-button--active': getCategoryFilter == category }
         ]"
-        @click="$store.dispatch('updateCategoryFilter', category)"
+        @click="$store.commit('setCategoryFilter', category)"
       >
         {{ category }}
       </span>
