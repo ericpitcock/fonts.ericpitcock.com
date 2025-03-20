@@ -3,6 +3,7 @@
     :id="font.family.toLowerCase().split(' ').join('-')"
     ref="el"
     class="font-container"
+    @click="toFontSpecimen(font)"
   >
     <div class="font">
       <div class="font__sample">
@@ -21,16 +22,15 @@
         >
           <p>There was an error loading this font</p>
         </div>
-        <SentenceSample
+        <sentence-sample
           v-if="!loading && !error"
           :style="{ fontFamily: font.family, fontSize: `${getGlobalFontSize}px` }"
-          @sentence-click="toFontSpecimen(font)"
         />
       </div>
-      <FontInfo :font="font" />
+      <font-info :font="font" />
       <div
-        class="json"
         v-if="showJSON"
+        class="json"
       >
         <pre>{{ font }}</pre>
       </div>
@@ -39,14 +39,20 @@
 </template>
 
 <script setup>
-  import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-  import { useStore } from 'vuex'
+  import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
-  import SentenceSample from '@/components/samples/SentenceSample.vue'
-  import FontInfo from '@/components/FontInfo.vue'
+  import { useStore } from 'vuex'
   import WebFont from 'webfontloader'
 
-  const props = defineProps(['font'])
+  import FontInfo from '@/components/FontInfo.vue'
+  import SentenceSample from '@/components/samples/SentenceSample.vue'
+
+  const props = defineProps({
+    font: {
+      type: Object,
+      required: true
+    }
+  })
 
   const router = useRouter()
 
@@ -82,10 +88,9 @@
     } else {
       fontStack = font.family
     }
-    // console.log([fontStack])
+
     WebFont.load({
       google: {
-        //families: ['Open Sans:300,400,700']
         families: [fontStack]
       },
       classes: false,
@@ -97,29 +102,22 @@
       },
       fontloading: (familyName, fvd) => {
         loading.value = true
-        // console.log(`fontloading: ${familyName}`)
       },
       fontactive: (familyName, fvd) => {
         loading.value = false
-        // console.log(`fontactive: ${familyName}`)
       },
       fontinactive: (familyName, fvd) => {
         loading.value = false
         error.value = true
-        // console.log(`fontinactive: ${familyName}`)
       }
     })
   }
 
   const toFontSpecimen = (font) => {
-    // temp disabled
-    // use @sentence-click="toFontSpecimen(font)" in SentenceSample
-    // populate store and route
     store.dispatch('updateCurrentSpecimen', font.family)
     router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
   }
 
-  // Watchers
   watch(getCategoryFilter, () => {
     console.log('getCategoryFilter changed')
     observer.value.observe(el.value)
@@ -130,9 +128,7 @@
     observer.value.observe(el.value)
   }, { deep: true })
 
-  // Lifecycle hooks
   onMounted(() => {
-    // https://alligator.io/vuejs/lazy-image/
     observer.value = new IntersectionObserver(entries => {
       const container = entries[0]
       if (container.isIntersecting) {
@@ -158,6 +154,16 @@
 <style lang="scss" scoped>
   .font-container {
     position: relative;
+    cursor: pointer;
+    border-bottom: 0.1rem solid var(--border-color);
+
+    &:is(:first-child) {
+      border-top: 0.1rem solid var(--border-color);
+    }
+
+    &:hover {
+      background: var(--interface-overlay);
+    }
 
     .loading {
       position: absolute;
@@ -176,7 +182,7 @@
     .error {
       display: flex;
       align-items: center;
-      color: red;
+      color: var(--primary-color);
     }
   }
 
@@ -221,7 +227,7 @@
       align-items: center;
       font-size: 11px;
       border-radius: 15px;
-      color: red;
+      color: var(--primary-color);
 
       &:hover {
         color: black;

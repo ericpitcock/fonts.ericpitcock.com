@@ -20,43 +20,6 @@
       </span>
     </div>
     <fonts-filters />
-    <!-- <div class="optional-filters">
-      <div class="option">
-        <input
-          id="recommended"
-          type="checkbox"
-          name="recommended"
-          :checked="$store.state.filters.recommended"
-          @change="$store.dispatch('updateFilters', { recommended: !$store.state.filters.recommended })"
-        >
-        <label for="recommended"> Recommended &#9733;</label>
-      </div>
-      <div class="option">
-        <input
-          id="italics"
-          type="checkbox"
-          name="italics"
-          :checked="$store.state.filters.italics"
-          @change="$store.dispatch('updateFilters', { italics: !$store.state.filters.italics })"
-        >
-        <label for="italics"> Italics</label>
-      </div>
-      <div class="option">
-        <input
-          id="multiple-weights"
-          type="checkbox"
-          name="italics"
-          :checked="$store.state.filters.multipleWeights"
-          @change="$store.dispatch('updateFilters', { multipleWeights: !$store.state.filters.multipleWeights })"
-        >
-        <label for="multiple-weights"> 2+ Weights</label>
-      </div>
-    </div> -->
-    <!-- <ep-theme-toggle
-      class="app-header-button ep-button-var--ghost"
-      :current-theme="theme"
-      @toggle-theme="toggleTheme"
-    /> -->
   </nav>
 </template>
 
@@ -127,6 +90,7 @@
     background: var(--interface-surface);
     border-right: 1px solid var(--border-color);
     user-select: none;
+    overflow-y: auto;
   }
 
   .title {
@@ -150,7 +114,7 @@
       cursor: pointer;
 
       &--active {
-        color: red;
+        color: var(--primary-color);
       }
     }
   }

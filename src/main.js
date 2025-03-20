@@ -14,3 +14,5 @@ app.use(store)
 app.mount('#app')
 
 import '@ericpitcock/epicenter-styles/dist/epicenter-design-system.css'
+// import app variables and overrides
+import './assets/app.scss'

@@ -21,16 +21,12 @@
   import FontInfo from '@/components/FontInfo.vue'
   import TableSample from '@/components/samples/TableSample.vue'
 
-  // Define props
   const props = defineProps(['font'])
 
-  // Store access
   const store = useStore()
 
-  // Data properties
   const quote = ref({})
 
-  // Computed properties
   const fontt = computed(() => {
     return store.getters.getFontFromSlug(props.font)
   })
@@ -51,7 +47,6 @@
   //   })
   // }
 
-  // Lifecycle hooks
   onMounted(() => {
     // fetchQuotes()
     console.log(fontt.value)

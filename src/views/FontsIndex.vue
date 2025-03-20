@@ -4,38 +4,49 @@
       <SampleControl />
       <Compare v-if="getCompare.length >= 1" />
     </div>
-    <div class="index__content">
-      <template v-if="getActiveFonts.length == 0">
-        <div class="no-results">No fonts found. Try
-          <span @click="$store.dispatch('updateFilters')">
-            removing all filters.
-          </span>
-        </div>
-      </template>
-      <FontContainer
-        v-for="(font, index) in getActiveFonts"
-        :key="index"
-        :font="font"
+    <div
+      ref="content"
+      class="index__content"
+    >
+      <div class="content-padder">
+        <template v-if="getActiveFonts.length == 0">
+          <div class="no-results">No fonts found. Try
+            <span @click="$store.dispatch('updateFilters')">
+              removing all filters.
+            </span>
+          </div>
+        </template>
+        <FontContainer
+          v-for="(font, index) in getActiveFonts"
+          :key="index"
+          :font="font"
+        />
+      </div>
+    </div>
+    <div class="index__status-bar">
+      <ep-item-count
+        :count="getFontCount"
+        singular="font"
+        plural="fonts"
       />
     </div>
   </div>
 </template>
 
 <script setup>
-  import { computed, watch } from 'vue'
+  import { computed, useTemplateRef, watch } from 'vue'
   import { useStore } from 'vuex'
 
   import Compare from '@/components/Compare.vue'
   import FontContainer from '@/components/FontContainer.vue'
   import SampleControl from '@/components/SampleControl.vue'
 
-  // Store access
   const store = useStore()
 
-  // Getters
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
   const getCompare = computed(() => store.getters.getCompare)
   const getFontsByCategory = computed(() => store.getters.getFontsByCategory)
+  const getFontCount = computed(() => store.getters.getFontCount)
   // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
   // const getRecommendedFonts = computed(() => store.getters.getRecommendedFonts)
   // const getFonts = computed(() => store.getters.getFonts)
@@ -53,44 +64,54 @@
     return getCompare.value.some(font => font.family === fontFamily)
   }
 
-  // Watchers
+  const content = useTemplateRef('content')
+
   watch(getActiveFonts, () => {
-    window.scrollTo(0, 0)
+    content.value.scrollTop = 0
   })
 </script>
 
 <style lang="scss" scoped>
   .index {
     display: grid;
-    grid-template-rows: 10rem 1fr;
+    grid-template-rows: 8rem 1fr 4rem;
     grid-template-columns: 1fr;
     overflow: hidden;
+  }
 
-    &__header {
-      grid-row: 1/2;
-      grid-column: 1/2;
-    }
+  .index__header {
+    grid-row: 1/2;
+    grid-column: 1/2;
+  }
 
-    &__content {
-      grid-row: 2/3;
-      grid-column: 1/2;
-      overflow: auto;
-    }
+  .index__content {
+    grid-row: 2/3;
+    grid-column: 1/2;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
 
-    // align-items: center;
-    & > .container .content {
-      padding: 40px 0 200px 0;
-    }
+  .index__status-bar {
+    grid-row: 3/4;
+    grid-column: 1/2;
+    display: flex;
+    align-items: center;
+    background: var(--interface-bg);
+    border-top: 0.1rem solid var(--border-color);
+    padding: 0 6rem;
+  }
 
-    .no-results {
-      padding: 30px 60px;
-      // text-align: center;
-      font-size: 1.5em;
+  .content-padder {
+    padding: 4rem 0 20rem 0;
+  }
 
-      span {
-        color: #007bff;
-        cursor: pointer;
-      }
+  .no-results {
+    padding: 3rem 6rem;
+    font-size: 1.5em;
+
+    span {
+      color: #007bff;
+      cursor: pointer;
     }
   }
 </style>

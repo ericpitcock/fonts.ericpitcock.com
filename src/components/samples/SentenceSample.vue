@@ -1,8 +1,9 @@
 <template>
   <div
-    class="sentence-sample"
     ref="sentenceSample"
-    @click="handleClick">
+    class="sentence-sample"
+    @click="onClick"
+  >
     {{ getSentenceSample }}
   </div>
 </template>
@@ -12,12 +13,13 @@
 
   export default {
     name: 'SentenceSample',
+    emits: ['click'],
     computed: {
       ...mapGetters(['getSentenceSample'])
     },
     methods: {
-      handleClick() {
-        this.$emit('sentence-click')
+      onClick() {
+        this.$emit('click')
       }
     }
     // methods: {
@@ -50,6 +52,6 @@
 
 <style>
   .sentence-sample {
-    /* Add your styles here */
+    color: var(--text-color--loud);
   }
 </style>

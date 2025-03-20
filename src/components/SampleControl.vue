@@ -1,10 +1,10 @@
 <template>
   <div class="sample-control">
-    <ep-item-count
+    <!-- <ep-item-count
       :count="getFontCount"
       singular="font"
       plural="fonts"
-    />
+    /> -->
     <div class="sample-control__input">
       <ep-input
         v-model="sentenceSample"
@@ -17,6 +17,7 @@
     <div class="sample-control__font-size">
       <input
         v-model="fontSize"
+        class="font-size-input"
         name="font-size"
         type="range"
         min="12"
@@ -43,7 +44,7 @@
   // const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
   // const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
   // const getFontCategories = computed(() => store.getters.getFontCategories)
-  const getFontCount = computed(() => store.getters.getFontCount)
+  // const getFontCount = computed(() => store.getters.getFontCount)
   // const getFontSample = computed(() => store.getters.getFontSample)
   // const getSentenceSample = computed(() => store.getters.getSentenceSample)
 
@@ -71,90 +72,91 @@
 
 <style lang="scss" scoped>
   .sample-control {
-    position: sticky;
-    top: 0;
+    height: 100%;
     display: flex;
     align-items: center;
-    gap: 20px;
-    padding: 30px 30px 30px 60px;
+    gap: 2rem;
+    padding: 0 6rem;
     background: var(--interface-surface);
-    border-bottom: 1px solid var(--border-color);
-    z-index: 1;
+    border-bottom: 0.1rem solid var(--border-color);
+  }
 
-    &__font-count {
-      flex: 0 1 100px;
-    }
+  .sample-control__font-count {
+    flex: 0 0 10rem;
+  }
 
-    &__input {
-      flex: 1 1 auto;
-    }
+  .sample-control__input {
+    flex: 1 1 20rem;
+  }
 
-    &__font-size {
-      flex: 0 1 10rem;
-      display: flex;
-      align-items: center;
+  .sample-control__font-size {
+    flex: 0 0 20rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
 
-      label {
-        margin-left: 10px;
-      }
-    }
+  input[type="range"] {
+    appearance: none;
+  }
 
-    .custom-sample-input {
-      width: 100%;
-      padding: 12px 0 10px 15px;
-      background: #f9f9f9;
-      border: 1px solid #d3d3d3;
-      border-radius: 6px;
+  input[type="range"]:focus {
+    outline: none;
+  }
 
-      &:hover {}
+  // range input track styles
+  @mixin track-styles {
+    height: 0.4rem;
+    cursor: pointer;
+    background: var(--border-color);
+    border-radius: 0.2rem;
+  }
 
-      &::placeholder {
-        font-size: 11px;
-        color: black;
-      }
+  input[type="range"]::-webkit-slider-runnable-track {
+    @include track-styles;
+  }
 
-      &:focus {
-        background: yellow;
-        outline: none;
-      }
-    }
+  input[type="range"]::-moz-range-track {
+    @include track-styles;
+  }
 
-    input[type="range"] {
-      appearance: none;
-      /* Remove default styling on WebKit browsers */
-      // width: 100%;
-      // margin: 10px 0;
-    }
+  input[type="range"]::-ms-track {
+    @include track-styles;
+  }
 
-    input[type="range"]:focus {
-      outline: none;
-      /* Remove the default focus style on some browsers */
-    }
+  // range input thumb styles
+  @mixin thumb-styles {
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+    background: var(--primary-color);
+    border: 0.2rem solid var(--interface-surface);
+    border-radius: 50%;
+  }
 
-    input[type="range"]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 5px;
-      cursor: pointer;
-      background: #ddd;
-      /* Track background color */
-      border-radius: 2px;
-    }
+  input[type="range"] {
+    appearance: none;
 
-    input[type="range"]::-webkit-slider-thumb {
+    &::-webkit-slider-thumb {
+      @include thumb-styles;
       -webkit-appearance: none;
-      /* Remove the default thumb appearance on WebKit browsers */
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
-      background: black;
-      /* Thumb color */
-      border-radius: 50%;
-      margin-top: -5px;
+      margin-top: -0.7rem;
     }
 
-    input[type="range"]:focus::-webkit-slider-runnable-track {
-      // background: #ccc;
-      /* Track background color on focus */
+    &::-moz-range-thumb {
+      @include thumb-styles;
+      width: 1.8rem !important;
+      height: 1.8rem !important;
+      box-sizing: border-box;
     }
+
+    &::-ms-thumb {
+      @include thumb-styles;
+    }
+  }
+
+  input[type="range"]:focus::-webkit-slider-runnable-track {
+    // background: #ccc;
+    /* Track background color on focus */
   }
 </style>

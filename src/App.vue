@@ -1,8 +1,9 @@
 <template>
-  <!-- <button
-      class="json-button"
-      @click="$store.dispatch('toggleJSON')"
-    >Toggle JSON</button> -->
+  <ep-button
+    class="json-button"
+    label="Toggle JSON"
+    @click="$store.dispatch('toggleJSON')"
+  />
   <fonts-layout>
     <template #sidebar>
       <fonts-navigation v-if="$route.name == 'index'" />
@@ -47,7 +48,7 @@
 
   .json-button {
     position: fixed;
-    top: 10px;
+    bottom: 10px;
     left: 10px;
     z-index: 2;
   }

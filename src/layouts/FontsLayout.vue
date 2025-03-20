@@ -1,9 +1,7 @@
 <template>
   <div class="grid">
     <slot name="sidebar" />
-    <!-- <main> -->
     <slot name="main" />
-    <!-- </main> -->
   </div>
 </template>
 
@@ -17,24 +15,22 @@
     height: 100%;
   }
 
-  main {
-    grid-row: 1/2;
-    grid-column: 2/3;
-
-    // display: flex;
-    // justify-content: center;
-    // overflow: scroll;
-    // background: #fff;
-    .container {
-      // width: 100vw;
-      display: flex;
-
-      // justify-content: center;
-      .content {
-        flex: 1;
-        // padding-right: 30px;
-        // padding-left: 30px;
-      }
-    }
-  }
+  // main {
+  //   grid-row: 1/2;
+  //   grid-column: 2/3;
+  //   // display: flex;
+  //   // justify-content: center;
+  //   // overflow: scroll;
+  //   // background: #fff;
+  //   .container {
+  //     // width: 100vw;
+  //     display: flex;
+  //     // justify-content: center;
+  //     .content {
+  //       flex: 1;
+  //       // padding-right: 30px;
+  //       // padding-left: 30px;
+  //     }
+  //   }
+  // }
 </style>
