@@ -48,9 +48,7 @@
   // }
 
   onMounted(() => {
-    // fetchQuotes()
     console.log(fontt.value)
-    // console.log(store.getters.getGoogleFonts)
   })
 </script>
 

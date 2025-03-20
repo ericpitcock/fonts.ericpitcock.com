@@ -58,7 +58,6 @@
 
   const store = useStore()
 
-  const inCompare = ref(false)
   const loading = ref(true)
   const error = ref(false)
   const observer = ref(null)
@@ -66,19 +65,9 @@
   const el = ref(null)
 
   const getCategoryFilter = computed(() => store.getters.getCategoryFilter)
-  const getCompare = computed(() => store.getters.getCompare)
   const getFilters = computed(() => store.getters.getFilters)
-  const getFontSample = computed(() => store.getters.getFontSample)
   const getGlobalFontSize = computed(() => store.getters.getGlobalFontSize)
-  const showJSON = computed(() => store.getters.showJSON)
-
-  const compare = (font) => {
-    store.commit('updateCompare', font)
-  }
-
-  const compareLabel = (font) => {
-    return (getCompare.value.some(item => item.family == font.family)) ? 'Remove' : 'Compare'
-  }
+  const showJSON = computed(() => store.state.showJSON)
 
   const loadFont = (font) => {
     // https://www.npmjs.com/package/webfontloader
@@ -119,12 +108,10 @@
   }
 
   watch(getCategoryFilter, () => {
-    console.log('getCategoryFilter changed')
     observer.value.observe(el.value)
   })
 
   watch(getFilters, () => {
-    console.log('getFilters changed')
     observer.value.observe(el.value)
   }, { deep: true })
 
@@ -146,9 +133,6 @@
   onBeforeUnmount(() => {
     observer.value.disconnect()
   })
-
-  // // Expose template ref - you need to add ref="el" to your root element in the template
-  // defineExpose({ el })
 </script>
 
 <style lang="scss" scoped>
@@ -217,21 +201,6 @@
       .json {
         padding-top: 30px;
         font-size: 12px;
-      }
-    }
-
-    &__compare-button {
-      display: flex;
-      align-items: center;
-      display: flex;
-      align-items: center;
-      font-size: 11px;
-      border-radius: 15px;
-      color: var(--primary-color);
-
-      &:hover {
-        color: black;
-        // cursor: pointer;
       }
     }
   }

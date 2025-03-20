@@ -14,7 +14,6 @@ export default createStore({
       multipleWeights: false,
       recommended: false,
     },
-    compare: [],
     currentSpecimen: '',
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
@@ -118,7 +117,6 @@ export default createStore({
       'Orelega One',
       'Zen Tokyo Zoo',
     ],
-    // recommendedOnly: false,
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false,
@@ -158,8 +156,8 @@ export default createStore({
 
       return activeFonts
     },
-    getLatinFonts(state, getters) {
-      return getters.getGoogleFonts.filter(font => font.subsets.includes('latin'))
+    getLatinFonts(state) {
+      return state.googleFonts.filter(font => font.subsets.includes('latin'))
     },
     getRecommendedFonts(state) {
       return state.recommendedFonts
@@ -170,19 +168,16 @@ export default createStore({
     getFilters(state) {
       return state.filters
     },
-    getCompare(state) {
-      return state.compare
-    },
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
-    getFontFromSlug: (state, getters) => (slug) => {
+    getFontFromSlug: (state) => (slug) => {
       let family = slug.replace('-', ' ').toUpperCase()
       console.log(`Slug: ${family}`)
       return state.googleFonts.find(font => font.family == slug)
     },
-    getFontCategories(state, getters) {
-      return [...new Set(getters.getGoogleFonts.map(font => font.category))]
+    getFontCategories(state) {
+      return [...new Set(state.googleFonts.map(font => font.category))]
     },
     getFontCount(state, getters) {
       return getters.getActiveFonts.length
@@ -198,23 +193,14 @@ export default createStore({
     getGlobalFontSize(state) {
       return state.globalFontSize
     },
-    getGoogleFonts(state) {
-      return state.googleFonts
-    },
-    getItalicsOnly(state) {
-      return state.filters.italics
-    },
-    // getSentenceSample(state) {
-    //   return state.sentenceSample
+    // getGoogleFonts(state) {
+    //   return state.googleFonts
     // },
-    showJSON(state) {
-      return state.showJSON
-    }
+    // getItalicsOnly(state) {
+    //   return state.filters.italics
+    // },
   },
   mutations: {
-    clearCompare(state) {
-      state.compare = []
-    },
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     },
@@ -225,9 +211,7 @@ export default createStore({
       state.currentSpecimen = fontFamily
     },
     setFilters(state, value = {}) {
-      // if value is empty, reset to default
       if (Object.keys(value).length === 0) {
-        // change all but category to false
         for (let key in state.filters) {
           if (key != 'category') {
             state.filters[key] = false
@@ -239,9 +223,6 @@ export default createStore({
         state.filters[key] = value[key]
       }
     },
-    // setFontSample(state, value) {
-    //   state.fontSample = value
-    // },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
@@ -254,13 +235,6 @@ export default createStore({
     toggleJSON(state) {
       state.showJSON = !state.showJSON
     },
-    updateCompare(state, font, inCompare) {
-      if (state.compare.some(item => item.family == font.family)) {
-        state.compare = state.compare.filter(item => item.family != font.family)
-      } else {
-        state.compare.push(font)
-      }
-    }
   },
   actions: {
     async fetchGoogleFonts({ commit }) {

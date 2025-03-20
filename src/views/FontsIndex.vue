@@ -2,7 +2,6 @@
   <div class="index">
     <div class="index__header">
       <SampleControl />
-      <Compare v-if="getCompare.length >= 1" />
     </div>
     <div
       ref="content"
@@ -37,32 +36,13 @@
   import { computed, useTemplateRef, watch } from 'vue'
   import { useStore } from 'vuex'
 
-  import Compare from '@/components/Compare.vue'
   import FontContainer from '@/components/FontContainer.vue'
   import SampleControl from '@/components/SampleControl.vue'
 
   const store = useStore()
 
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
-  const getCompare = computed(() => store.getters.getCompare)
-  const getFontsByCategory = computed(() => store.getters.getFontsByCategory)
   const getFontCount = computed(() => store.getters.getFontCount)
-  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
-  // const getRecommendedFonts = computed(() => store.getters.getRecommendedFonts)
-  // const getFonts = computed(() => store.getters.getFonts)
-
-  // Methods
-  // const toggleRecommendedOnly = () => {
-  //   store.dispatch('toggleRecommendedOnly')
-  // }
-
-  const getActiveFontsNotInCompare = () => {
-    return getActiveFonts.value.filter(font => !fontIsInCompare(font.family))
-  }
-
-  const fontIsInCompare = (fontFamily) => {
-    return getCompare.value.some(font => font.family === fontFamily)
-  }
 
   const content = useTemplateRef('content')
 
