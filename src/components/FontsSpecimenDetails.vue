@@ -10,19 +10,12 @@
 
 <style lang="scss" scoped>
   header {
-    // option for sticky header
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    // end option
     grid-row: 1;
-    grid-column: 1;
+    grid-column: 1/2;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 30px;
-    background: white;
-    border-bottom: 1px solid var(--border-color);
-    flex: 0 0 auto;
+    padding: 3rem;
+    background: var(--interface-surface);
+    border-right: 0.1rem solid var(--border-color);
   }
 </style>

@@ -48,15 +48,9 @@
 
   const router = useRouter()
   const toFontSpecimen = (font) => {
-    // store.commit('setCurrentSpecimen', font)
-    // console.log({ ...font })
     router.push({
       path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
     })
-    // router.push({
-    //   name: 'font',
-    //   params: { font: { ...font } }
-    // })
   }
 
   const content = useTemplateRef('content')

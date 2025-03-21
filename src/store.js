@@ -120,7 +120,7 @@ export default createStore({
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false,
-    theme: 'light',
+    theme: 'dark',
     weightMap: {
       '100': 'Thin',
       '200': 'Extra Light',
@@ -159,15 +159,6 @@ export default createStore({
     getLatinFonts(state) {
       return state.googleFonts.filter(font => font.subsets.includes('latin'))
     },
-    // getRecommendedFonts(state) {
-    //   return state.recommendedFonts
-    // },
-    // getCategoryFilter(state) {
-    //   return state.categoryFilter
-    // },
-    // getFilters(state) {
-    //   return state.filters
-    // },
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
@@ -182,23 +173,11 @@ export default createStore({
     getFontCount(state, getters) {
       return getters.getActiveFonts.length
     },
-    // getFontSample(state) {
-    //   return state.fontSample
-    // },
     getFontsByCategory(state, getters) {
       return (category) => {
         return getters.getLatinFonts.filter(font => font.category == category)
       }
     },
-    // getGlobalFontSize(state) {
-    //   return state.globalFontSize
-    // },
-    // getGoogleFonts(state) {
-    //   return state.googleFonts
-    // },
-    // getItalicsOnly(state) {
-    //   return state.filters.italics
-    // },
   },
   mutations: {
     setGoogleFonts(state, fonts) {

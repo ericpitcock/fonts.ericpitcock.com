@@ -39,7 +39,6 @@
 
 <script setup>
   import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-  import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
   import WebFont from 'webfontloader'
 
@@ -53,7 +52,6 @@
     }
   })
 
-  // const router = useRouter()
   const store = useStore()
 
   const loading = ref(true)
@@ -92,15 +90,6 @@
       }
     })
   }
-
-  // const toFontSpecimen = () => {
-  //   // store.commit('setCurrentSpecimen', font.family)
-  //   router.push({
-  //     // path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
-  //     name: 'font',
-  //     params: { props.font }
-  //   })
-  // }
 
   watch(getCategoryFilter, () => {
     observer.value.observe(el.value)

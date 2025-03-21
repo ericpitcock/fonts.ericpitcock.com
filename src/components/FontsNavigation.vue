@@ -78,18 +78,14 @@
 
 <style lang="scss" scoped>
   nav {
-    // position: fixed;
-    // width: 200px;
-    // height: 100%;
     grid-row: 1;
     grid-column: 1/2;
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    padding: 30px;
+    gap: 3rem;
+    padding: 3rem;
     background: var(--interface-surface);
-    border-right: 1px solid var(--border-color);
-    user-select: none;
+    border-right: 0.1rem solid var(--border-color);
     overflow-y: auto;
   }
 
