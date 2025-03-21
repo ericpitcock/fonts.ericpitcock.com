@@ -3,7 +3,6 @@
     :id="font.family.toLowerCase().split(' ').join('-')"
     ref="el"
     class="font-container"
-    @click="toFontSpecimen(font)"
   >
     <div class="font">
       <div class="font__sample">
@@ -54,8 +53,7 @@
     }
   })
 
-  const router = useRouter()
-
+  // const router = useRouter()
   const store = useStore()
 
   const loading = ref(true)
@@ -70,7 +68,6 @@
   const showJSON = computed(() => store.state.showJSON)
 
   const loadFont = (font) => {
-    // https://www.npmjs.com/package/webfontloader
     let fontStack = ''
     if (font.variants.length > 1) {
       fontStack = `${font.family}:${font.variants.join(',')}`
@@ -83,29 +80,27 @@
         families: [fontStack]
       },
       classes: false,
-      loading: () => {
-      },
-      active: () => {
-      },
-      inactive: () => {
-      },
-      fontloading: (familyName, fvd) => {
+      fontloading: () => {
         loading.value = true
       },
-      fontactive: (familyName, fvd) => {
+      fontactive: () => {
         loading.value = false
       },
-      fontinactive: (familyName, fvd) => {
+      fontinactive: () => {
         loading.value = false
         error.value = true
       }
     })
   }
 
-  const toFontSpecimen = (font) => {
-    store.commit('setCurrentSpecimen', font.family)
-    router.push({ path: `/${font.family.toLowerCase().split(' ').join('-')}` })
-  }
+  // const toFontSpecimen = () => {
+  //   // store.commit('setCurrentSpecimen', font.family)
+  //   router.push({
+  //     // path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
+  //     name: 'font',
+  //     params: { props.font }
+  //   })
+  // }
 
   watch(getCategoryFilter, () => {
     observer.value.observe(el.value)
@@ -171,7 +166,6 @@
   }
 
   .font-container a {
-    // color: black;
     text-decoration: none;
   }
 
@@ -181,10 +175,6 @@
     gap: 20px;
     padding: 30px 60px;
 
-    &:hover {
-      // cursor: pointer;
-    }
-
     &__sample {
       position: relative;
       flex: 1 1 auto;
@@ -192,11 +182,6 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-
-      // color: hsl(0, 0%, 20%);
-      &:hover {
-        // cursor: pointer;
-      }
 
       .json {
         padding-top: 30px;

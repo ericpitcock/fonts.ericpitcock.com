@@ -19,6 +19,7 @@
           v-for="(font, index) in getActiveFonts"
           :key="index"
           :font="font"
+          @click="toFontSpecimen(font)"
         />
       </div>
     </div>
@@ -34,6 +35,7 @@
 
 <script setup>
   import { computed, useTemplateRef, watch } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontContainer from '@/components/FontContainer.vue'
@@ -43,6 +45,19 @@
 
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
   const getFontCount = computed(() => store.getters.getFontCount)
+
+  const router = useRouter()
+  const toFontSpecimen = (font) => {
+    // store.commit('setCurrentSpecimen', font)
+    // console.log({ ...font })
+    router.push({
+      path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
+    })
+    // router.push({
+    //   name: 'font',
+    //   params: { font: { ...font } }
+    // })
+  }
 
   const content = useTemplateRef('content')
 

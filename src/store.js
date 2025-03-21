@@ -14,7 +14,7 @@ export default createStore({
       multipleWeights: false,
       recommended: false,
     },
-    currentSpecimen: '',
+    currentSpecimen: {},
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
     globalFontSize: 36,
@@ -171,10 +171,10 @@ export default createStore({
     getCurrentSpecimen(state, getters) {
       return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
     },
-    getFontFromSlug: (state) => (slug) => {
-      let family = slug.replace('-', ' ').toUpperCase()
-      console.log(`Slug: ${family}`)
-      return state.googleFonts.find(font => font.family == slug)
+    getFontBySlug: (state) => (slug) => {
+      return state.googleFonts.find(
+        font => font.family.toLowerCase().replace(/\s+/g, '-') === slug
+      )
     },
     getFontCategories(state) {
       return [...new Set(state.googleFonts.map(font => font.category))]
@@ -238,6 +238,7 @@ export default createStore({
   },
   actions: {
     async fetchGoogleFonts({ commit }) {
+      console.log('fetching google fonts')
       try {
         const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)
 

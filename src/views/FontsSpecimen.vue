@@ -2,7 +2,7 @@
   <div class="specimen">
     <div class="container">
       <div class="content">
-        <pre>font: {{ fontt }}</pre>
+        <pre>font: {{ font.family }}</pre>
         <!-- <FontInfo :font="fontt" />
         <div class="right" :style='{ fontFamily: fontt.family }'>
           <h1>{{ quote.message }}</h1>
@@ -15,41 +15,28 @@
 </template>
 
 <script setup>
-  import { computed, onMounted, ref } from 'vue'
-  import { useStore } from 'vuex'
+  // import { computed } from 'vue'
+  // import { useStore } from 'vuex'
 
-  import FontInfo from '@/components/FontInfo.vue'
+  // import FontInfo from '@/components/FontInfo.vue'
   import TableSample from '@/components/samples/TableSample.vue'
 
-  const props = defineProps(['font'])
-
-  const store = useStore()
-
-  const quote = ref({})
-
-  const fontt = computed(() => {
-    return store.getters.getFontFromSlug(props.font)
+  defineProps({
+    font: {
+      type: Object,
+      required: true
+    }
   })
 
-  // Methods
-  // const fetchQuotes = () => {
-  //   fetch('https://150000-quotes.p.rapidapi.com/random', {
-  //     'method': 'GET',
-  //     'headers': {
-  //       'x-rapidapi-host': '150000-quotes.p.rapidapi.com',
-  //       'x-rapidapi-key': '601750e6efmshb80847227ae1df3p14769bjsnf01cb50c17da'
-  //     }
-  //   })
-  //   .then(response => {
-  //     response.json().then(data => {
-  //       quote.value = data
-  //     });
-  //   })
-  // }
+  // const store = useStore()
 
-  onMounted(() => {
-    console.log(fontt.value)
-  })
+  // const font = computed(() => {
+  //   return store.state.currentSpecimen
+  // })
+
+  // onMounted(() => {
+  //   console.log(fontt.value)
+  // })
 </script>
 
 <style lang="scss">
