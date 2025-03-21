@@ -1,0 +1,51 @@
+<template>
+  <h1 class="headline-sample">
+    {{ headline }}
+  </h1>
+</template>
+
+<script setup>
+  import { faker } from '@faker-js/faker'
+
+  const headlines = [
+    'Breaking news just got louder and harder to ignore',
+    'Silence can echo louder than a thousand voices',
+    'Midnight whispers travel through empty concrete streets',
+    'Dream bigger, work smarter, and trust the process',
+    'Design like you mean it, then refine it again',
+    'When in doubt, add whitespace and breathe again',
+    'A storm is coming, but the grid will hold',
+    'Good fonts make great impressions that actually last',
+    'Welcome to the future of type, built for today',
+    'Every pixel counts when words are the message',
+    'Less noise, more meaning — always choose clarity',
+    'Think bold thoughts and speak with sharp design',
+    'Built to last, made to move with purpose',
+    'Chaos meets clarity in beautifully structured letters',
+    'These letters weren’t just made — they were crafted',
+    'Inspiration begins with a line, but never ends',
+    'Typography is the voice your message deserves to have',
+    'Serifs speak softly, sans-serifs shout with confidence',
+    'The grid brings structure to creative chaos',
+    'Elegance meets utility in every corner and curve',
+    'Not just words — but rhythm, tone, and motion',
+    'Readable at any size, stunning at every weight',
+    'Modern forms shaped by timeless design principles',
+    'Speak softly, but always choose the right font',
+    'A typeface can tell the whole story, beautifully',
+    'Beauty lives in the space between the letters',
+    'Geometry meets emotion in this expressive display face',
+    'Letters can move people when designed with care',
+    'The art of letters is alive and evolving',
+    'Form and function meet where stories begin'
+  ]
+
+  const headline = faker.helpers.arrayElement(headlines)
+</script>
+
+<style>
+  h1.headline-sample {
+    font-size: 5rem;
+    color: var(--text-color--loud);
+  }
+</style>

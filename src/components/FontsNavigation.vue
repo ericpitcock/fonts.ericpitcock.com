@@ -1,25 +1,30 @@
 <template>
-  <nav>
+  <nav class="ep-flex flex-col gap-30">
     <div class="title">
       <h1 :style="titleStyle">
         Fonts
       </h1>
     </div>
-    <div class="category-filters">
-      <h3>Categories</h3>
-      <span
-        v-for="(category, index) in getFontCategories"
-        :key="index"
-        :class="[
-          'category-filters__filter-button',
-          { 'category-filters__filter-button--active': getCategoryFilter == category }
-        ]"
-        @click="$store.commit('setCategoryFilter', category)"
-      >
-        {{ category }}
-      </span>
-    </div>
-    <fonts-filters />
+    <ep-flex class="flex-col gap-40">
+      <ep-flex class="category-filters flex-col gap-10">
+        <h3>Categories</h3>
+        <span
+          v-for="(category, index) in getFontCategories"
+          :key="index"
+          :class="[
+            'category-filters__filter-button',
+            { 'category-filters__filter-button--active': getCategoryFilter == category }
+          ]"
+          @click="$store.commit('setCategoryFilter', category)"
+        >
+          {{ category }}
+        </span>
+      </ep-flex>
+      <ep-flex class="flex-col gap-20">
+        <h3>Filters</h3>
+        <fonts-filters />
+      </ep-flex>
+    </ep-flex>
   </nav>
 </template>
 
@@ -75,9 +80,9 @@
   nav {
     grid-row: 1;
     grid-column: 1/2;
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 3rem;
     padding: 3rem;
     background: var(--interface-bg);
     border-right: 0.1rem solid var(--border-color);
@@ -96,16 +101,16 @@
   }
 
   .category-filters {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 
+    // display: flex;
+    // flex-direction: column;
+    // gap: 10px;
     &__filter-button {
       text-transform: capitalize;
       cursor: pointer;
 
       &--active {
-        color: var(--primary-color);
+        color: var(--text-color--loud);
       }
     }
   }

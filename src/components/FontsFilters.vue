@@ -1,5 +1,5 @@
 <template>
-  <ep-flex class="flex-col gap-30">
+  <ep-flex class="flex-col gap-40">
     <ep-flex class="flex-col gap-10">
       <ep-checkbox
         id="recommended"
@@ -24,7 +24,7 @@
         value="multipleWeights"
       />
     </ep-flex>
-    <!-- <div
+    <div
       v-if="getSubsets.length > 0"
       class="subsets"
     >
@@ -41,7 +41,7 @@
           />
         </ep-flex>
       </ep-flex>
-    </div> -->
+    </div>
   </ep-flex>
 </template>
 

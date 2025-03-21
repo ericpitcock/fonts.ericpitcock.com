@@ -14,7 +14,7 @@
     "@ericpitcock/epicenter-icons": "1.0.4",
     "@ericpitcock/epicenter-styles": "1.0.4",
     "@ericpitcock/epicenter-vue-components": "1.0.4",
-    "chance": "^1.1.4",
+    "@faker-js/faker": "^9.6.0",
     "vue": "^3.4.15",
     "vue-router": "^4.3.0",
     "vuex": "^4.1.0",

@@ -5,10 +5,11 @@
 </template>
 
 <script setup>
+  import { computed } from 'vue'
   import { useStore } from 'vuex'
 
   const store = useStore()
-  const { sentenceSample } = store.state
+  const sentenceSample = computed(() => store.state.sentenceSample)
 </script>
 
 <style>

@@ -8,6 +8,10 @@
         <div class="index__header">
           <SampleControl />
         </div>
+        <div class="index__controls">
+          Sort by: (recommended, alphabetical)
+          Order by: (ascending, descending)
+        </div>
         <div
           ref="content"
           class="index__content"
@@ -72,7 +76,7 @@
 <style lang="scss" scoped>
   .index {
     display: grid;
-    grid-template-rows: 8rem 1fr 4rem;
+    grid-template-rows: 8rem 4rem 1fr 4rem;
     grid-template-columns: 1fr;
     overflow: hidden;
   }
@@ -82,15 +86,25 @@
     grid-column: 1/2;
   }
 
-  .index__content {
+  .index__controls {
     grid-row: 2/3;
+    grid-column: 1/2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6rem;
+    border-bottom: 0.1rem solid var(--border-color);
+  }
+
+  .index__content {
+    grid-row: 3/4;
     grid-column: 1/2;
     overflow: auto;
     overscroll-behavior: contain;
   }
 
   .index__status-bar {
-    grid-row: 3/4;
+    grid-row: 4/5;
     grid-column: 1/2;
     display: flex;
     align-items: center;

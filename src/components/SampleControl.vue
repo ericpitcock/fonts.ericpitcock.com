@@ -15,16 +15,13 @@
       />
     </div>
     <div class="sample-control__font-size">
-      <input
+      <ep-range-input
         v-model="fontSize"
         class="font-size-input"
-        name="font-size"
-        type="range"
-        min="12"
-        max="120"
-        step="1"
-      >
-      <label for="font-size">{{ fontSize }}px</label>
+        :min="12"
+        :max="120"
+        :step="1"
+      />
     </div>
     <ep-theme-toggle
       class="app-header-button ep-button-var--ghost"
@@ -37,6 +34,8 @@
 <script setup>
   import { computed } from 'vue'
   import { useStore } from 'vuex'
+
+  import EpRangeInput from '@/components/EpRangeInput.vue'
 
   const store = useStore()
 
@@ -83,9 +82,6 @@
 
   .sample-control__font-size {
     flex: 0 0 20rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 
   input[type="range"] {
