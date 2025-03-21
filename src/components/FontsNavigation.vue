@@ -26,9 +26,9 @@
 <script setup>
   import { computed, onMounted, ref } from 'vue'
   import { useStore } from 'vuex'
-  import WebFont from 'webfontloader'
 
   import FontsFilters from '@/components/FontsFilters.vue'
+  import { useWebFont } from '@/composables/useWebFont'
 
   const store = useStore()
 
@@ -47,12 +47,11 @@
     { fontFamily: 'Faster One', fontSize: 30 },
   ]
 
-  const loadFonts = () => {
-    WebFont.load({
-      google: {
-        families: titleFonts.map(font => font.fontFamily.replace(/\s+/g, '+')),
-      },
-    })
+  const { loadGoogleFonts, loading, error } = useWebFont()
+
+  const loadTitleFonts = () => {
+    const titleFontFamilies = titleFonts.map(font => font.fontFamily)
+    loadGoogleFonts(titleFontFamilies)
   }
 
   const titleStyle = computed(() => ({
@@ -63,12 +62,11 @@
   const setupFontInterval = () => {
     setInterval(() => {
       currentFontIndex.value = (currentFontIndex.value + 1) % titleFonts.length
-      // currentFont = fonts[currentFontIndex.value]
     }, 4000)
   }
 
   onMounted(() => {
-    loadFonts()
+    loadTitleFonts()
     setupFontInterval()
   })
 </script>

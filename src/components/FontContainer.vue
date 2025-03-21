@@ -40,10 +40,10 @@
 <script setup>
   import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useStore } from 'vuex'
-  import WebFont from 'webfontloader'
 
   import FontInfo from '@/components/FontInfo.vue'
   import SentenceSample from '@/components/samples/SentenceSample.vue'
+  import { useWebFont } from '@/composables/useWebFont'
 
   const props = defineProps({
     font: {
@@ -54,8 +54,8 @@
 
   const store = useStore()
 
-  const loading = ref(true)
-  const error = ref(false)
+  // const loading = ref(true)
+  // const error = ref(false)
   const observer = ref(null)
 
   const el = ref(null)
@@ -65,31 +65,31 @@
   const globalFontSize = computed(() => store.state.globalFontSize)
   const showJSON = computed(() => store.state.showJSON)
 
-  const loadFont = (font) => {
-    let fontStack = ''
-    if (font.variants.length > 1) {
-      fontStack = `${font.family}:${font.variants.join(',')}`
-    } else {
-      fontStack = font.family
-    }
+  // const loadFont = (font) => {
+  //   let fontStack = ''
+  //   if (font.variants.length > 1) {
+  //     fontStack = `${font.family}:${font.variants.join(',')}`
+  //   } else {
+  //     fontStack = font.family
+  //   }
 
-    WebFont.load({
-      google: {
-        families: [fontStack]
-      },
-      classes: false,
-      fontloading: () => {
-        loading.value = true
-      },
-      fontactive: () => {
-        loading.value = false
-      },
-      fontinactive: () => {
-        loading.value = false
-        error.value = true
-      }
-    })
-  }
+  //   WebFont.load({
+  //     google: {
+  //       families: [fontStack]
+  //     },
+  //     classes: false,
+  //     fontloading: () => {
+  //       loading.value = true
+  //     },
+  //     fontactive: () => {
+  //       loading.value = false
+  //     },
+  //     fontinactive: () => {
+  //       loading.value = false
+  //       error.value = true
+  //     }
+  //   })
+  // }
 
   watch(getCategoryFilter, () => {
     observer.value.observe(el.value)
@@ -99,11 +99,13 @@
     observer.value.observe(el.value)
   }, { deep: true })
 
+  const { loadGoogleFonts, loading, error } = useWebFont()
+
   onMounted(() => {
     observer.value = new IntersectionObserver(entries => {
       const container = entries[0]
       if (container.isIntersecting) {
-        loadFont(props.font)
+        loadGoogleFonts([props.font.family])
         observer.value.disconnect()
       }
     }, {
