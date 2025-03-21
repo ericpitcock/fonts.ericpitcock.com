@@ -54,8 +54,6 @@
 
   const store = useStore()
 
-  // const loading = ref(true)
-  // const error = ref(false)
   const observer = ref(null)
 
   const el = ref(null)
@@ -64,32 +62,6 @@
   const getFilters = computed(() => store.state.filters)
   const globalFontSize = computed(() => store.state.globalFontSize)
   const showJSON = computed(() => store.state.showJSON)
-
-  // const loadFont = (font) => {
-  //   let fontStack = ''
-  //   if (font.variants.length > 1) {
-  //     fontStack = `${font.family}:${font.variants.join(',')}`
-  //   } else {
-  //     fontStack = font.family
-  //   }
-
-  //   WebFont.load({
-  //     google: {
-  //       families: [fontStack]
-  //     },
-  //     classes: false,
-  //     fontloading: () => {
-  //       loading.value = true
-  //     },
-  //     fontactive: () => {
-  //       loading.value = false
-  //     },
-  //     fontinactive: () => {
-  //       loading.value = false
-  //       error.value = true
-  //     }
-  //   })
-  // }
 
   watch(getCategoryFilter, () => {
     observer.value.observe(el.value)

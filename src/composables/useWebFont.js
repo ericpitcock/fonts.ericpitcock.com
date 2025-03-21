@@ -6,13 +6,7 @@ export function useWebFont() {
   const error = ref(false)
 
   const loadGoogleFonts = (fonts) => {
-    // let fontStack = ''
-    // if (font.variants.length > 1) {
-    //   fontStack = `${font.family}:${font.variants.join(',')}`
-    // } else {
-    //   fontStack = font.family
-    // }
-
+    console.log('loading:', fonts)
     WebFont.load({
       google: {
         families: fonts
