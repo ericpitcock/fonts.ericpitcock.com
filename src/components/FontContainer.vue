@@ -23,7 +23,7 @@
         </div>
         <sentence-sample
           v-if="!loading && !error"
-          :style="{ fontFamily: font.family, fontSize: `${globalFontSize}px` }"
+          :style="{ fontFamily: `'${font.family}'`, fontSize: `${globalFontSize}px` }"
         />
       </div>
       <font-info :font="font" />
@@ -125,12 +125,16 @@
     cursor: pointer;
     border-bottom: 0.1rem solid var(--border-color);
 
-    &:is(:first-child) {
-      border-top: 0.1rem solid var(--border-color);
+    :root & {
+      --font-hover-bg: var(--interface-surface--accent);
+    }
+
+    html[data-color-theme='light'] & {
+      --font-hover-bg: var(--interface-overlay);
     }
 
     &:hover {
-      background: var(--interface-overlay);
+      background: var(--font-hover-bg);
     }
 
     .loading {

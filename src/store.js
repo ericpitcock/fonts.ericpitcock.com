@@ -1,19 +1,15 @@
 import { createStore } from 'vuex'
 
+const defaultFilters = {
+  category: 'sans-serif',
+  italics: false,
+  multipleWeights: false,
+  recommended: true,
+}
+
 export default createStore({
   state: {
-    filters: {
-      category: 'sans-serif',
-      italics: false,
-      multipleWeights: false,
-      recommended: false,
-    },
-    filtersDefault: {
-      category: 'sans-serif',
-      italics: false,
-      multipleWeights: false,
-      recommended: false,
-    },
+    filters: { ...defaultFilters },
     currentSpecimen: {},
     categoryFilter: 'sans-serif',
     fontSample: 'SentenceSample',
@@ -32,7 +28,6 @@ export default createStore({
       'Be Vietnam',
       'Chivo',
       'DM Sans',
-      'Exo 2',
       'Fira Sans',
       'Fira Sans Condensed',
       'Fira Sans Extra Condensed',
@@ -180,6 +175,9 @@ export default createStore({
     },
   },
   mutations: {
+    resetFilters(state) {
+      state.filters = { ...defaultFilters }
+    },
     setGoogleFonts(state, fonts) {
       state.googleFonts = fonts
     },

@@ -21,6 +21,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 5px;
+    font-size: 3rem;
 
     > div {
       flex: 0 0 100px;
@@ -28,8 +29,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: white;
-      border: 1px solid #e6e6e6;
+      border: 0.1rem solid var(--border-color);
     }
   }
 </style>

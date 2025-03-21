@@ -1,42 +1,28 @@
 <template>
-  <!-- <div>{{ getRandomNumber() }}</div> -->
-  <table>
-    <thead>
-      <tr>
-        <th>Team</th>
-        <th>Wins</th>
-        <th>Losses</th>
-        <th>Appearances</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="team in nhl">
-        <td>{{ team.team }}</td>
-        <td>{{ team.wins }}</td>
-        <td>{{ team.appearances.length - team.wins }}</td>
-        <td><span v-for="(year, index) in team.appearances">{{ year }}<span
-              v-if="index + 1 < team.appearances.length"
-            >, </span></span></td>
-      </tr>
-    </tbody>
-  </table>
+  <ep-table v-bind="tableProps">
+    <!--  -->
+  </ep-table>
 </template>
 
-<script>
+<script setup>
   import nhl from '@/data/stanley-cup-wins'
 
-  export default {
-    name: 'TableSample',
-    data() {
-      return {
-        nhl
+  const tableProps = {
+    columns: [
+      {
+        label: 'Team',
+        key: 'team'
+      },
+      {
+        label: 'Wins',
+        key: 'wins'
+      },
+      {
+        label: 'Appearances',
+        key: 'appearances'
       }
-    },
-    methods: {
-      getRandomNumber() {
-        return Math.random()
-      }
-    }
+    ],
+    data: nhl
   }
 </script>
 

@@ -36,9 +36,6 @@
 
   const getCategoryFilter = computed(() => store.state.categoryFilter)
   const getFontCategories = computed(() => store.getters.getFontCategories)
-  // const getRecommendedOnly = computed(() => store.getters.getRecommendedOnly)
-  // const toggleTheme = () => store.dispatch('toggleTheme')
-  // const theme = computed(() => store.state.theme)
 
   const titleFonts = [
     { fontFamily: 'Bungee Shade', fontSize: 30 },
@@ -84,7 +81,7 @@
     flex-direction: column;
     gap: 3rem;
     padding: 3rem;
-    background: var(--interface-surface);
+    background: var(--interface-bg);
     border-right: 0.1rem solid var(--border-color);
     overflow-y: auto;
   }

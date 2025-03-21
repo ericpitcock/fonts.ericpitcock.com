@@ -69,7 +69,7 @@
     align-items: center;
     gap: 2rem;
     padding: 0 6rem;
-    background: var(--interface-surface);
+    background: var(--interface-bg);
     border-bottom: 0.1rem solid var(--border-color);
   }
 

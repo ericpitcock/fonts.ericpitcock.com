@@ -1,36 +1,43 @@
 <template>
-  <div class="index">
-    <div class="index__header">
-      <SampleControl />
-    </div>
-    <div
-      ref="content"
-      class="index__content"
-    >
-      <div class="content-padder">
-        <template v-if="getActiveFonts.length == 0">
-          <div class="no-results">No fonts found. Try
-            <span @click="$store.commit('setFilters')">
-              removing all filters.
-            </span>
+  <fonts-layout>
+    <template #sidebar>
+      <fonts-navigation />
+    </template>
+    <template #main>
+      <div class="index">
+        <div class="index__header">
+          <SampleControl />
+        </div>
+        <div
+          ref="content"
+          class="index__content"
+        >
+          <div class="content-padder">
+            <template v-if="getActiveFonts.length == 0">
+              <div class="no-results">No fonts found. Try
+                <span @click="$store.commit('resetFilters')">
+                  resetting all filters.
+                </span>
+              </div>
+            </template>
+            <FontContainer
+              v-for="(font, index) in getActiveFonts"
+              :key="index"
+              :font="font"
+              @click="toFontSpecimen(font)"
+            />
           </div>
-        </template>
-        <FontContainer
-          v-for="(font, index) in getActiveFonts"
-          :key="index"
-          :font="font"
-          @click="toFontSpecimen(font)"
-        />
+        </div>
+        <div class="index__status-bar">
+          <ep-item-count
+            :count="getFontCount"
+            singular="font"
+            plural="fonts"
+          />
+        </div>
       </div>
-    </div>
-    <div class="index__status-bar">
-      <ep-item-count
-        :count="getFontCount"
-        singular="font"
-        plural="fonts"
-      />
-    </div>
-  </div>
+    </template>
+  </fonts-layout>
 </template>
 
 <script setup>
@@ -39,7 +46,9 @@
   import { useStore } from 'vuex'
 
   import FontContainer from '@/components/FontContainer.vue'
+  import FontsNavigation from '@/components/FontsNavigation.vue'
   import SampleControl from '@/components/SampleControl.vue'
+  import FontsLayout from '@/layouts/FontsLayout.vue'
 
   const store = useStore()
 
@@ -85,13 +94,13 @@
     grid-column: 1/2;
     display: flex;
     align-items: center;
-    background: var(--interface-bg);
+    // background: var(--interface-bg);
     border-top: 0.1rem solid var(--border-color);
     padding: 0 6rem;
   }
 
   .content-padder {
-    padding: 4rem 0 20rem 0;
+    padding: 0 0 20rem 0;
   }
 
   .no-results {

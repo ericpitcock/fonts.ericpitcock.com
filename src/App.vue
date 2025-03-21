@@ -1,26 +1,14 @@
 <template>
   <ep-button
-    v-if="isDev"
+    v-if="isDev && $route.name === 'index'"
     class="json-button"
     label="Toggle JSON"
     @click="$store.commit('toggleJSON')"
   />
-  <fonts-layout>
-    <template #sidebar>
-      <fonts-navigation v-if="$route.name == 'index'" />
-      <fonts-specimen-details v-if="$route.name == 'font'" />
-    </template>
-    <template #main>
-      <router-view />
-    </template>
-  </fonts-layout>
+  <router-view />
 </template>
 
 <script setup>
-  import FontsNavigation from '@/components/FontsNavigation.vue'
-  import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
-  import FontsLayout from '@/layouts/FontsLayout.vue'
-
   const isDev = import.meta.env.DEV
 </script>
 
@@ -33,7 +21,7 @@
   body {
     display: flex;
     justify-content: center;
-    background: var(--interface-bg);
+    background: var(--interface-surface);
   }
 
   body,
@@ -46,7 +34,6 @@
   #app {
     width: 100vw;
     height: 100vh;
-    background: var(--interface-foreground);
   }
 
   .json-button {

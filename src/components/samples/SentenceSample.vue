@@ -1,53 +1,14 @@
 <template>
-  <div
-    ref="sentenceSample"
-    class="sentence-sample"
-    @click="onClick"
-  >
+  <div class="sentence-sample">
     {{ sentenceSample }}
   </div>
 </template>
 
-<script>
-  import { mapState } from 'vuex'
+<script setup>
+  import { useStore } from 'vuex'
 
-  export default {
-    name: 'SentenceSample',
-    emits: ['click'],
-    computed: {
-      ...mapState(['sentenceSample'])
-    },
-    methods: {
-      onClick() {
-        this.$emit('click')
-      }
-    }
-    // methods: {
-    //   ...mapActions(['updateSentenceSample']),
-    //   handleBlur() {
-    //     // if the sentenceSample is empty, add the default text
-    //     if (this.$refs.sentenceSample.innerText === '') {
-    //       // update ref="sentenceSample" with default text
-    //       this.$refs.sentenceSample.innerText = this.$store.state.sentenceSampleDefault
-    //       this.updateSentenceSample(this.$store.state.sentenceSampleDefault)
-    //     }
-    //   },
-    //   handleInput(text) {
-    //     this.updateSentenceSample(text.innerText)
-    //   },
-    //   clearText() {
-    //     this.$refs.sentenceSample.innerText = ''
-    //   },
-    //   highlightText(target) {
-    //     target.focus()
-    //     const range = document.createRange()
-    //     range.selectNodeContents(target)
-    //     const sel = window.getSelection()
-    //     sel.removeAllRanges()
-    //     sel.addRange(range)
-    //   },
-    // }
-  }
+  const store = useStore()
+  const { sentenceSample } = store.state
 </script>
 
 <style>

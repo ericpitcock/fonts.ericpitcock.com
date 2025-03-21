@@ -1,11 +1,17 @@
 <template>
   <header>
-    <div>Font header</div>
     <router-link to="/">Back to index</router-link>
+    <div>{{ font.family }}</div>
   </header>
 </template>
 
 <script setup>
+  defineProps({
+    font: {
+      type: Object,
+      required: true
+    }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -15,7 +21,7 @@
     display: flex;
     flex-direction: column;
     padding: 3rem;
-    background: var(--interface-surface);
+    // background: var(--interface-surface);
     border-right: 0.1rem solid var(--border-color);
   }
 </style>
