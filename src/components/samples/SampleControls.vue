@@ -1,19 +1,14 @@
 <template>
   <div class="font-controls">
     <label>
-      Font Size:
-      <input
-        type="range"
+      <ep-range-input
+        v-model="localSize"
         :min="minSize"
         :max="maxSize"
         :step="stepSize"
-        v-model.number="localSize"
-        @input="updateControl"
       />
-      {{ localSize }}rem
     </label>
     <label>
-      Font Weight:
       <select
         v-model="localWeight"
         @change="updateControl"
@@ -31,25 +26,33 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
+
+  import EpRangeInput from '@/components/EpRangeInput.vue'
 
   // props allow for default values and dynamic options
   const props = defineProps({
     initialSize: { type: Number, default: 5 },
-    initialWeight: { type: String, default: 'regular' },
+    initialWeight: { type: String, default: '400' },
     availableWeights: {
       type: Array,
-      default: () => ['100', '200', '300', 'regular', '500', '600', '700', '800', '900']
+      default: () => ['100', '200', '300', '400', '500', '600', '700', '800', '900']
     },
-    minSize: { type: Number, default: 1 },
-    maxSize: { type: Number, default: 10 },
-    stepSize: { type: Number, default: 0.1 }
+    minSize: { type: Number, default: 12 },
+    maxSize: { type: Number, default: 64 },
+    stepSize: { type: Number, default: 1 }
   })
 
   // emit update event with the current values
   const emit = defineEmits(['update'])
 
   const localSize = ref(props.initialSize)
+
+  watch(localSize, () => {
+    console.log('localSize', localSize.value)
+    emit('update', { size: localSize.value, weight: localWeight.value })
+  })
+
   const localWeight = ref(props.initialWeight)
 
   const updateControl = () => {
@@ -57,7 +60,7 @@
   }
 
   // Ensure initial values are emitted
-  updateControl()
+  // updateControl()
 </script>
 
 <style scoped>
