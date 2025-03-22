@@ -1,14 +1,16 @@
 <template>
-  <div class="font-controls">
-    <label>
+  <ep-flex class="font-controls flex-col gap-20">
+    <div class="font-controls__font-size">
+      <h3>Font Size</h3>
       <ep-range-input
         v-model="localSize"
         :min="minSize"
         :max="maxSize"
         :step="stepSize"
       />
-    </label>
-    <label>
+    </div>
+    <div class="font-controls__font-weight">
+      <h3>Font Weight</h3>
       <select
         v-model="localWeight"
         @change="updateControl"
@@ -21,8 +23,8 @@
           {{ weight }}
         </option>
       </select>
-    </label>
-  </div>
+    </div>
+  </ep-flex>
 </template>
 
 <script setup>
@@ -65,15 +67,8 @@
 
 <style scoped>
   .font-controls {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 2rem;
-  }
-
-  label {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.2rem;
+    h3 {
+      margin-bottom: 1rem;
+    }
   }
 </style>
