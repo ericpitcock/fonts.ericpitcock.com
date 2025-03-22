@@ -1,3 +1,3 @@
 <template>
-  This is the serif specimen
+  This is the sans serif specimen
 </template>

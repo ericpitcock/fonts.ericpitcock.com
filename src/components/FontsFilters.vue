@@ -24,7 +24,7 @@
         value="multipleWeights"
       />
     </ep-flex>
-    <div
+    <!-- <div
       v-if="getSubsets.length > 0"
       class="subsets"
     >
@@ -41,7 +41,7 @@
           />
         </ep-flex>
       </ep-flex>
-    </div>
+    </div> -->
   </ep-flex>
 </template>
 

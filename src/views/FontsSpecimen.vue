@@ -1,4 +1,3 @@
-<!-- eslint-disable no-unused-vars -->
 <template>
   <fonts-layout>
     <template #sidebar>
@@ -12,12 +11,10 @@
         class="specimen"
         :style="{ fontFamily: font.family }"
       >
-        <headline-sample />
+        <div class="headline-samples">
+          <headline-sample />
+        </div>
         <component :is="componentName" />
-        <!-- 
-        <paragraph-sample />
-        <table-sample /> -->
-        <!-- common samples for all categories -->
         <alphabet-sample />
       </div>
     </template>
@@ -30,8 +27,6 @@
   import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import AlphabetSample from '@/components/samples/AlphabetSample.vue'
   import HeadlineSample from '@/components/samples/HeadlineSample.vue'
-  // import ParagraphSample from '@/components/samples/ParagraphSample.vue'
-  // import TableSample from '@/components/samples/TableSample.vue'
   import { useWebFont } from '@/composables/useWebFont'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
@@ -49,7 +44,6 @@
   })
 
   const componentName = shallowRef(null)
-  // const font = ref(props.font)
 
   switch (props.font.category) {
     case 'sans-serif':
@@ -78,8 +72,12 @@
   const { loadGoogleFonts, loading, error } = useWebFont()
 
   onMounted(() => {
-    loadGoogleFonts([props.font.family])
+    const variants = props.font.variants.join(',')
+    const fontString = `${props.font.family}:${variants}`
+    console.log('fontString', fontString)
+    loadGoogleFonts([fontString])
   })
+
 </script>
 
 <style lang="scss" scoped>
@@ -93,6 +91,5 @@
     gap: 10rem;
     padding: 6rem;
     overflow: auto;
-    // background: var(--interface-surface);
   }
 </style>

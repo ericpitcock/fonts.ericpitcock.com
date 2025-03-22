@@ -14,12 +14,12 @@ export function useWebFont() {
 
     // If all fonts are already loaded, just return
     if (fontsToLoad.length === 0) {
-      // console.log('All fonts already loaded:', fonts)
+      console.log('All fonts already loaded:', fonts)
       loading.value = false
       return
     }
 
-    // console.log('Loading fonts:', fontsToLoad)
+    console.log('Loading fonts:', fontsToLoad)
     loading.value = true
 
     WebFont.load({

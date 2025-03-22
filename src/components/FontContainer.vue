@@ -53,31 +53,25 @@
   })
 
   const store = useStore()
-
-  const observer = ref(null)
-
   const el = ref(null)
+  const observer = ref(null)
 
   const getCategoryFilter = computed(() => store.state.categoryFilter)
   const getFilters = computed(() => store.state.filters)
   const globalFontSize = computed(() => store.state.globalFontSize)
   const showJSON = computed(() => store.state.showJSON)
 
-  watch(getCategoryFilter, () => {
-    observer.value.observe(el.value)
-  })
-
-  watch(getFilters, () => {
-    observer.value.observe(el.value)
-  }, { deep: true })
-
   const { loadGoogleFonts, loading, error } = useWebFont()
 
-  onMounted(() => {
+  // Encapsulated function to (re)create the observer for a given font family.
+  const setupObserver = (fontFamily) => {
+    if (observer.value) {
+      observer.value.disconnect()
+    }
     observer.value = new IntersectionObserver(entries => {
       const container = entries[0]
       if (container.isIntersecting) {
-        loadGoogleFonts([props.font.family])
+        loadGoogleFonts([fontFamily])
         observer.value.disconnect()
       }
     }, {
@@ -85,11 +79,40 @@
       rootMargin: '0px',
       threshold: 0.25
     })
-    observer.value.observe(el.value)
+
+    if (el.value) {
+      observer.value.observe(el.value)
+    }
+  }
+
+  onMounted(() => {
+    setupObserver(props.font.family)
+  })
+
+  // When category or filters change, we re‑observe the element (in case the container scrolls back into view)
+  watch(getCategoryFilter, () => {
+    if (el.value && observer.value) {
+      observer.value.observe(el.value)
+    }
+  })
+  watch(getFilters, () => {
+    if (el.value && observer.value) {
+      observer.value.observe(el.value)
+    }
+  }, { deep: true })
+
+  // When the font prop changes (as can happen when sorting/order reorders items),
+  // reset the observer to load the new font.
+  watch(() => props.font, (newFont, oldFont) => {
+    if (newFont.family !== oldFont.family) {
+      setupObserver(newFont.family)
+    }
   })
 
   onBeforeUnmount(() => {
-    observer.value.disconnect()
+    if (observer.value) {
+      observer.value.disconnect()
+    }
   })
 </script>
 
