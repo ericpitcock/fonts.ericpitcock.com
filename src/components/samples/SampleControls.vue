@@ -44,6 +44,15 @@
     <ep-flex class="flex-col gap-10">
       <h3>Options</h3>
       <ep-checkbox
+        v-if="hasItalics"
+        id="FontStyle"
+        v-model="localFontStyle"
+        label="Italic"
+        name="checkboxes"
+        value="italic"
+        @update:model-value="emitStyles"
+      />
+      <ep-checkbox
         id="TextTransform"
         v-model="localTextTransform"
         label="Uppercase"
@@ -69,6 +78,10 @@
   import EpRangeInput from '@/components/EpRangeInput.vue'
 
   const props = defineProps({
+    font: {
+      type: Object,
+      required: true
+    },
     initialSize: { type: Number, default: 5 },
     initialWeight: { type: String, default: '400' },
     availableWeights: {
@@ -86,11 +99,18 @@
   const localWeight = ref(props.initialWeight)
   const localLetterSpacing = ref(0)
   const localLineHeight = ref(1.2)
+  const localFontStyle = ref(false)
   const localTextTransform = ref(false)
   const localTextWrap = ref(false)
 
+  const hasItalics = computed(() => props.font.variants.some(variant => variant.includes('italic')))
+
+  const availableWeights = computed(() => {
+    return props.font.variants.filter(weight => !weight.includes('italic')).map(variant => variant === 'regular' ? '400' : variant)
+  })
+
   const weightOptions = computed(() =>
-    props.availableWeights.map(weight => ({
+    availableWeights.value.map(weight => ({
       label: weight,
       value: weight
     }))
@@ -99,6 +119,7 @@
   const computedStyles = computed(() => ({
     fontSize: `${localSize.value}px`,
     fontWeight: localWeight.value,
+    fontStyle: localFontStyle.value ? 'italic' : 'normal',
     fontVariationSettings: `'wght' ${localWeight.value}`,
     letterSpacing: `${localLetterSpacing.value}px`,
     lineHeight: localLineHeight.value,
@@ -124,8 +145,10 @@
   })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .font-controls {
+    font-family: 'Calling Code', monospace;
+
     h3 {
       margin-bottom: 1rem;
     }

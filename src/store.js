@@ -247,7 +247,7 @@ export default createStore({
   },
   actions: {
     async fetchGoogleFonts({ commit }) {
-      console.log('fetching google fonts')
+      // console.log('fetching google fonts')
       try {
         const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)
 

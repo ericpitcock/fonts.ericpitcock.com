@@ -2,8 +2,8 @@
   <header>
     <ep-flex class="flex-col gap-30">
       <ep-button
-        to="/"
         label="Back to index"
+        @click="$router.push({ path: `/${font.category}` })"
       />
       <div>{{ font.family }}</div>
       <ep-flex class="flex-col gap-10">
@@ -11,7 +11,6 @@
           :menu-items="specimenMenuItems"
           menu-type="nav"
           :active-item="activeMenuItem"
-          @click="onClick"
         />
       </ep-flex>
     </ep-flex>
@@ -34,23 +33,26 @@
     {
       id: 'specimen',
       label: 'Specimen',
+      to: '?tab=specimen',
     },
     {
       id: 'ui',
       label: 'User Interface',
+      to: '?tab=ui',
     },
     {
       id: 'playground',
       label: 'Playground',
+      to: '?tab=playground',
     }
   ]
 
   const activeMenuItem = ref('specimen')
 
-  const onClick = (item) => {
-    console.log(item)
-    activeMenuItem.value = item.label
-  }
+  // const onClick = (item) => {
+  //   console.log(item)
+  //   activeMenuItem.value = item.label
+  // }
 </script>
 
 <style lang="scss" scoped>

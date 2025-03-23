@@ -12,9 +12,9 @@
       <template #content>
         <div class="sample-controls-container">
           <sample-controls
+            :font="font"
             :initial-size="fontSize"
             :initial-weight="fontWeight"
-            :available-weights="availableWeights"
             @update="updateFontControls"
           />
         </div>
@@ -47,63 +47,31 @@
   const dropdownProps = {
     buttonProps: {
       label: props.element,
-      ariaLabel: 'Actions',
-      // iconLeft: {
-      //   name: 'dots-vertical',
-      //   styles: { '--ep-icon-stroke-width': 3 },
-      // },
-      // iconRight: null,
+      ariaLabel: 'Sample controls',
       class: ['ep-button-var--ghost'],
       size: 'small',
     },
   }
 
-  const availableWeights = computed(() => {
-    return props.font.variants.map(weight => weight === 'regular' ? '400' : weight)
-  })
+  // const availableWeights = computed(() => {
+  //   // return props.font.variants.map(weight => weight === 'regular' ? '400' : weight)
 
-  const fontSize = ref(48) // default value in px
-  const fontWeight = ref('400') // default weight
-  // const letterSpacing = ref(0)
-  // const lineHeight = ref(1.2)
-  // const uppercase = ref(false)
-  // const textWrapBalance = ref(false)
+  //   // fitler out any variants with "italic" in the name
+  //   return props.font.variants.filter(weight => !weight.includes('italic')).map(weight => weight === 'regular' ? '400' : weight)
+  // })
 
-  const specimenStyle = ref({ fontFamily: props.font.family })
+  const fontSize = ref(48)
+  const fontWeight = ref('400')
+
+  const specimenStyle = ref({})
 
   const updateFontControls = (styles) => {
-    console.log('updateFontControls', styles)
-    specimenStyle.value = {
-      ...specimenStyle.value,
-      ...styles
-    }
-    // fontSize.value = Number(size)
-    // fontWeight.value = weight
-    // letterSpacing.value = Number(letterSpacing)
-    // lineHeight.value = Number(lineHeight)
-    // uppercase.value = uppercase
-    // textWrapBalance.value = textWrapBalance
+    // console.log('updateFontControls', styles)
+    specimenStyle.value = { ...styles }
   }
-
-  // const specimenStyle = computed(() => ({
-  //   fontFamily: props.font.family,
-  //   fontSize: `${fontSize.value}px`,
-  //   fontWeight: fontWeight.value,
-  //   fontVariationSettings: `'wght' ${fontWeight.value}`,
-  //   letterSpacing: `${letterSpacing.value}em`,
-  //   lineHeight: lineHeight.value,
-  //   textTransform: uppercase.value ? 'uppercase' : 'none',
-  //   textWrap: textWrapBalance.value ? 'balance' : 'normal'
-  // }))
 </script>
 
 <style lang="scss" scoped>
-
-  /* h1.headline-sample {
-    line-height: 1;
-    color: var(--text-color--loud);
-    text-wrap: balance;
-  } */
   .type-block {
     .text-sample {
       flex: 0 0 75%;

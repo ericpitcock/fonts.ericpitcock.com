@@ -28,13 +28,31 @@ const routes = [
     component: FontsSpecimen,
     props: (route) => ({
       font: store.getters.getFontBySlug(route.params.font)
-    })
+    }),
+    // beforeEnter add query tab=specimen
+    beforeEnter: (to, from, next) => {
+      if (!to.query.tab) {
+        next({
+          path: to.path,
+          query: { ...to.query, tab: 'specimen' }
+        })
+      } else {
+        next()
+      }
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+  // scrollBehavior(to, from, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition
+  //   } else {
+  //     return { top: 0 }
+  //   }
+  // }
 })
 
 router.beforeEach(async (to, from, next) => {

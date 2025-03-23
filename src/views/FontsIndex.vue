@@ -142,9 +142,9 @@
 
   const content = ref(null)
   watch(() => router.currentRoute.value.params, (params) => {
-    if (content.value) {
-      content.value.scrollTop = 0
-    }
+    // if (content.value) {
+    //   content.value.scrollTop = 0
+    // }
     store.commit('setCategoryFilter', params.category)
   })
 </script>
