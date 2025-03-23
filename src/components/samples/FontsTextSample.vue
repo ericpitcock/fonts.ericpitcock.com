@@ -64,10 +64,10 @@
 
   const fontSize = ref(48) // default value in px
   const fontWeight = ref('400') // default weight
-  const letterSpacing = ref(0)
-  const lineHeight = ref(1.2)
-  const uppercase = ref(false)
-  const textWrapBalance = ref(false)
+  // const letterSpacing = ref(0)
+  // const lineHeight = ref(1.2)
+  // const uppercase = ref(false)
+  // const textWrapBalance = ref(false)
 
   const specimenStyle = ref({ fontFamily: props.font.family })
 

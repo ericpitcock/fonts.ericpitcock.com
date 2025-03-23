@@ -49,7 +49,7 @@
         label="Uppercase"
         name="checkboxes"
         value="uppercase"
-        @update:model-value="updateChecked($event, 'Uppercase', 'TextTransform')"
+        @update:model-value="emitStyles"
       />
       <ep-checkbox
         id="TextWrap"
@@ -57,14 +57,14 @@
         label="Text Wrap Balance"
         name="checkboxes"
         value="text-wrap-balance"
-        @update:model-value="updateChecked($event, 'Text Wrap Balance', 'TextWrap')"
+        @update:model-value="emitStyles"
       />
     </ep-flex>
   </ep-flex>
 </template>
 
 <script setup>
-  import { computed, ref, watch } from 'vue'
+  import { computed, onMounted, ref, watch } from 'vue'
 
   import EpRangeInput from '@/components/EpRangeInput.vue'
 
@@ -96,68 +96,31 @@
     }))
   )
 
-  // const updateControl = () => {
-  //   emit('update', { size: localSize.value, weight: localWeight.value })
-  // }
-
-  // const options = ref([
-  //   {
-  //     id: 'TextTransform',
-  //     label: 'Uppercase',
-  //     name: 'checkboxes',
-  //     value: 'uppercase',
-  //     checked: false,
-  //   },
-  //   {
-  //     id: 'TextWrap',
-  //     label: 'Text Wrap Balance',
-  //     name: 'checkboxes',
-  //     value: 'text-wrap-balance',
-  //     checked: false,
-  //   }
-  // ])
+  const computedStyles = computed(() => ({
+    fontSize: `${localSize.value}px`,
+    fontWeight: localWeight.value,
+    fontVariationSettings: `'wght' ${localWeight.value}`,
+    letterSpacing: `${localLetterSpacing.value}px`,
+    lineHeight: localLineHeight.value,
+    textTransform: localTextTransform.value ? 'uppercase' : 'none',
+    textWrap: localTextWrap.value ? 'balance' : 'auto',
+  }))
 
   const emitStyles = () => {
-    emit('update', {
-      fontSize: `${localSize.value}px`,
-      fontWeight: localWeight.value,
-      fontVariationSettings: `'wght' ${localWeight.value}`,
-      letterSpacing: `${localLetterSpacing.value}px`,
-      lineHeight: localLineHeight.value,
-      textTransform: localTextTransform.value ? 'uppercase' : 'none',
-      textWrap: localTextWrap.value ? 'balance' : 'auto',
-    })
+    emit('update', computedStyles.value)
   }
 
-  const updateChecked = (event, label, id) => {
-    // console.log(`${label}:`, event, id)
-    // // find the checkbox by id and update its checked property
-    // const checkbox = options.value.find(checkbox => checkbox.id === id)
-    // checkbox.checked = event
-    // checkbox.indeterminate = false
+  onMounted(() => {
     emitStyles()
-  }
+  })
 
   watch([
     localSize,
     localWeight,
     localLetterSpacing,
     localLineHeight,
-    // localUppercase,
-    // localTextWrapBalance
   ], () => {
     emitStyles()
-    // emit('update', {
-    //   fontSize: localSize.value,
-    //   fontWeight: localWeight.value,
-    //   fontVariationSettings: `'wght' ${localWeight.value}`,
-    //   letterSpacing: localLetterSpacing.value,
-    //   lineHeight: localLineHeight.value,
-    //   textTransform: localUppercase.value ? 'uppercase' : 'none',
-    //   textWrap: localTextWrapBalance.value ? 'balance' : 'normal',
-    //   // textTransform: options.value.find(option => option.value === 'uppercase').checked ? 'uppercase' : 'none',
-    //   // textWrap: options.value.find(option => option.value === 'text-wrap-balance').checked ? 'balance' : 'normal',
-    // })
   })
 </script>
 
