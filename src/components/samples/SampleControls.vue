@@ -16,7 +16,6 @@
         select-id="font-weight"
         :options="weightOptions"
         size="default"
-        @update:model-value="updateControl"
       />
     </div>
     <div class="font-controls__line-height">
@@ -45,6 +44,7 @@
         v-for="option in options"
         :key="option.id"
         v-bind="option"
+        v-model="option.checked"
       />
     </ep-flex>
   </ep-flex>
@@ -79,13 +79,13 @@
     }))
   )
 
-  watch(localSize, () => {
+  watch([localWeight, localSize], () => {
     emit('update', { size: localSize.value, weight: localWeight.value })
   })
 
-  const updateControl = () => {
-    emit('update', { size: localSize.value, weight: localWeight.value })
-  }
+  // const updateControl = () => {
+  //   emit('update', { size: localSize.value, weight: localWeight.value })
+  // }
 
   const localLetterSpacing = ref(0)
   const localLineHeight = ref(1.2)
