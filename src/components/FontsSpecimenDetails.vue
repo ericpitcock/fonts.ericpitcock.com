@@ -6,25 +6,20 @@
         label="Back to index"
       />
       <div>{{ font.family }}</div>
-      <div class="variants">
-        <h3>Weights</h3>
-        <ep-flex class="flex-col gap-10">
-          <div
-            v-for="(variant, index) in font.variants"
-            :key="index"
-          >
-            <div @mouseover="onWeightHover">
-              {{ weightMap[variant] }}
-            </div>
-          </div>
-        </ep-flex>
-      </div>
+      <ep-flex class="flex-col gap-10">
+        <ep-menu
+          :menu-items="specimenMenuItems"
+          menu-type="nav"
+          :active-item="activeMenuItem"
+          @click="onClick"
+        />
+      </ep-flex>
     </ep-flex>
   </header>
 </template>
 
 <script setup>
-  import { useStore } from 'vuex'
+  import { ref } from 'vue'
 
   defineProps({
     font: {
@@ -33,13 +28,28 @@
     }
   })
 
-  const emit = defineEmits(['weight-hover'])
+  // const emit = defineEmits(['weight-hover'])
 
-  const store = useStore()
-  const weightMap = store.state.weightMap
+  const specimenMenuItems = [
+    {
+      id: 'specimen',
+      label: 'Specimen',
+    },
+    {
+      id: 'ui',
+      label: 'User Interface',
+    },
+    {
+      id: 'playground',
+      label: 'Playground',
+    }
+  ]
 
-  const onWeightHover = () => {
-    emit('weight-hover')
+  const activeMenuItem = ref('specimen')
+
+  const onClick = (item) => {
+    console.log(item)
+    activeMenuItem.value = item.label
   }
 </script>
 

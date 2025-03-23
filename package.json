@@ -11,9 +11,9 @@
     "clean-npm": "rm -rf node_modules && npm i"
   },
   "dependencies": {
-    "@ericpitcock/epicenter-icons": "1.0.4",
-    "@ericpitcock/epicenter-styles": "1.0.4",
-    "@ericpitcock/epicenter-vue-components": "1.0.4",
+    "@ericpitcock/epicenter-icons": "file:.yalc/@ericpitcock/epicenter-icons",
+    "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
+    "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
     "@faker-js/faker": "^9.6.0",
     "vue": "^3.4.15",
     "vue-router": "^4.3.0",

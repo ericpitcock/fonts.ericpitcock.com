@@ -14,6 +14,7 @@
 
 <style>
   .sentence-sample {
+    line-height: 1.2;
     color: var(--text-color--loud);
   }
 </style>

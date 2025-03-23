@@ -9,8 +9,14 @@
           <SampleControl />
         </div>
         <div class="index__controls">
+          <ep-button-group
+            :items="viewOptions"
+            :active="viewMode"
+            active-class="ep-button-var--primary"
+            @click="onViewChange"
+          />
           <span>Sort by:</span>
-          <EpSelect
+          <ep-select
             v-model="sortBy"
             :options="sortOptions"
             select-id="sort"
@@ -18,7 +24,7 @@
             style="margin-right: 1rem;"
           />
           <span>Order by:</span>
-          <EpSelect
+          <ep-select
             v-model="orderBy"
             :options="orderOptions"
             select-id="order"
@@ -29,7 +35,7 @@
           ref="content"
           class="index__content"
         >
-          <div class="content-padder">
+          <div :class="['content-padder', `${viewClassName}`]">
             <template v-if="sortedFonts.length === 0">
               <div class="no-results">
                 No fonts found. Try
@@ -38,7 +44,7 @@
                 </span>
               </div>
             </template>
-            <FontContainer
+            <font-container
               v-for="(font, index) in sortedFonts"
               :key="index"
               :font="font"
@@ -89,28 +95,42 @@
     { label: 'Descending', value: 'descending' }
   ]
 
+  // Reactive state for view mode and options for toggle
+  const viewMode = ref(0)
+  const viewOptions = [
+    { label: 'List', value: 'list' },
+    { label: 'Cards', value: 'cards' },
+  ]
+  const viewClassName = computed(() => `content-padder--${viewOptions[viewMode.value].value}`)
+
+  // Handle view change using the @click event, which returns the clicked item.
+  const onViewChange = ({ item, index }) => {
+    viewMode.value = index
+    console.log(item.value, index)
+  }
+
   // Computed property to sort the fonts based on selection
   const sortedFonts = computed(() => {
-    // Create a shallow copy so we don't mutate the original list.
     let fonts = [...getActiveFonts.value]
 
     if (sortBy.value === 'recommended') {
-      // Sort by recommended order first.
       const recommendedList = store.state.recommendedFonts
       fonts.sort((a, b) => {
-        // Get index in recommendedList or set to a high number if not recommended.
-        const aIndex = recommendedList.indexOf(a.family) === -1 ? Number.MAX_VALUE : recommendedList.indexOf(a.family)
-        const bIndex = recommendedList.indexOf(b.family) === -1 ? Number.MAX_VALUE : recommendedList.indexOf(b.family)
-        // If one is recommended and the other isn't, the recommended one comes first.
+        const aIndex =
+          recommendedList.indexOf(a.family) === -1
+            ? Number.MAX_VALUE
+            : recommendedList.indexOf(a.family)
+        const bIndex =
+          recommendedList.indexOf(b.family) === -1
+            ? Number.MAX_VALUE
+            : recommendedList.indexOf(b.family)
         if (aIndex !== bIndex) return aIndex - bIndex
-        // Otherwise, sort alphabetically.
         return a.family.localeCompare(b.family)
       })
     } else if (sortBy.value === 'alphabetical') {
       fonts.sort((a, b) => a.family.localeCompare(b.family))
     }
 
-    // Reverse order if descending.
     if (orderBy.value === 'descending') {
       fonts.reverse()
     }
@@ -121,7 +141,7 @@
   // Navigation function for font specimen
   const toFontSpecimen = (font) => {
     router.push({
-      path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
+      path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`
     })
   }
 
@@ -173,6 +193,30 @@
 
   .content-padder {
     padding: 0 0 20rem 0;
+  }
+
+  /* Example styling for view modes */
+  .content-padder--list {
+    /* styles for list view */
+  }
+
+  .content-padder--cards {
+    display: grid;
+    grid-gap: 3rem;
+    grid-template-columns: repeat(auto-fill, 30rem);
+    justify-content: start;
+    padding: 3rem;
+
+    .font-container {
+      flex: 1;
+      padding: 3rem;
+      border: 0.1rem solid var(--border-color);
+      border-radius: var(--border-radius--large);
+
+      :deep(.font) {
+        padding: 0;
+      }
+    }
   }
 
   .no-results {

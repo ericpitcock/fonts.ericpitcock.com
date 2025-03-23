@@ -7,7 +7,7 @@
       :max="max"
       :step="step"
     >
-    <label>{{ modelValue }}px</label>
+    <label>{{ modelValue }}{{ unit }}</label>
   </div>
 </template>
 
@@ -15,7 +15,8 @@
   const { min, max, step } = defineProps({
     min: { type: [Number, String], default: 12 },
     max: { type: [Number, String], default: 120 },
-    step: { type: [Number, String], default: 1 }
+    step: { type: [Number, String], default: 1 },
+    unit: { type: String, default: 'px' }
   })
 
   const modelValue = defineModel({

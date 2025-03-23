@@ -11,19 +11,42 @@
     </div>
     <div class="font-controls__font-weight">
       <h3>Font Weight</h3>
-      <select
+      <ep-select
         v-model="localWeight"
-        @change="updateControl"
-      >
-        <option
-          v-for="weight in availableWeights"
-          :key="weight"
-          :value="weight"
-        >
-          {{ weight }}
-        </option>
-      </select>
+        select-id="font-weight"
+        :options="weightOptions"
+        size="default"
+        @update:model-value="updateControl"
+      />
     </div>
+    <div class="font-controls__line-height">
+      <h3>Line Height</h3>
+      <ep-range-input
+        v-model="localLineHeight"
+        :min="1"
+        :max="2"
+        :step="0.1"
+        unit=""
+      />
+    </div>
+    <div class="font-controls__letter-spacing">
+      <h3>Letter Spacing</h3>
+      <ep-range-input
+        v-model="localLetterSpacing"
+        :min="-0.5"
+        :max="2"
+        :step="0.1"
+      />
+    </div>
+    <ep-divider direction="horizontal" />
+    <ep-flex class="flex-col gap-10">
+      <h3>Options</h3>
+      <ep-checkbox
+        v-for="option in options"
+        :key="option.id"
+        v-bind="option"
+      />
+    </ep-flex>
   </ep-flex>
 </template>
 
@@ -32,7 +55,6 @@
 
   import EpRangeInput from '@/components/EpRangeInput.vue'
 
-  // props allow for default values and dynamic options
   const props = defineProps({
     initialSize: { type: Number, default: 5 },
     initialWeight: { type: String, default: '400' },
@@ -45,24 +67,45 @@
     stepSize: { type: Number, default: 1 }
   })
 
-  // emit update event with the current values
   const emit = defineEmits(['update'])
 
   const localSize = ref(props.initialSize)
+  const localWeight = ref(props.initialWeight)
+
+  const weightOptions = computed(() =>
+    props.availableWeights.map(weight => ({
+      label: weight,
+      value: weight
+    }))
+  )
 
   watch(localSize, () => {
-    console.log('localSize', localSize.value)
     emit('update', { size: localSize.value, weight: localWeight.value })
   })
-
-  const localWeight = ref(props.initialWeight)
 
   const updateControl = () => {
     emit('update', { size: localSize.value, weight: localWeight.value })
   }
 
-  // Ensure initial values are emitted
-  // updateControl()
+  const localLetterSpacing = ref(0)
+  const localLineHeight = ref(1.2)
+
+  const options = ref([
+    {
+      id: 'checkbox1',
+      label: 'Uppercase',
+      name: 'checkboxes',
+      value: 'uppercase',
+      checked: false,
+    },
+    {
+      id: 'checkbox2',
+      label: 'Text Wrap Balance',
+      name: 'checkboxes',
+      value: 'text-wrap-balance',
+      checked: false,
+    }
+  ])
 </script>
 
 <style scoped>

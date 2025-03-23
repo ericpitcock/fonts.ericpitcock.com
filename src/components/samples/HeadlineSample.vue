@@ -45,7 +45,8 @@
 
 <style>
   h1.headline-sample {
-    font-size: 5rem;
+    line-height: 1;
     color: var(--text-color--loud);
+    text-wrap: balance;
   }
 </style>
