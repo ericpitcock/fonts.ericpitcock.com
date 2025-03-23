@@ -3,25 +3,32 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 
 import FontsIndex from './views/FontsIndex.vue'
+import FontsLanding from './views/FontsLanding.vue'
 import FontsSpecimen from './views/FontsSpecimen.vue'
 
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: FontsIndex,
+    component: FontsLanding,
   },
   {
-    path: '/:font',
+    path: '/:category',
+    name: 'category',
+    component: FontsIndex,
+    beforeEnter: (to, from, next) => {
+      const category = to.params.category
+      store.commit('setCategoryFilter', category)
+      next()
+    }
+  },
+  {
+    path: '/:category/:font',
     name: 'font',
     component: FontsSpecimen,
-    props: route => {
-      const slug = route.params.font
-      const font = store.state.googleFonts.find(
-        font => font.family.toLowerCase().replace(/\s+/g, '-') === slug
-      )
-      return { font }
-    }
+    props: (route) => ({
+      font: store.getters.getFontBySlug(route.params.font)
+    })
   }
 ]
 

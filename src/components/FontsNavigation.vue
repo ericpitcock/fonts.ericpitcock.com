@@ -1,24 +1,26 @@
 <template>
   <nav class="ep-flex flex-col gap-30">
     <div class="title">
-      <h1 :style="titleStyle">
-        Fonts
-      </h1>
+      <router-link to="/">
+        <h1 :style="titleStyle">
+          Fonts
+        </h1>
+      </router-link>
     </div>
     <ep-flex class="flex-col gap-40">
       <ep-flex class="category-filters flex-col gap-10">
         <h3>Categories</h3>
-        <span
+        <router-link
           v-for="(category, index) in getFontCategories"
           :key="index"
           :class="[
             'category-filters__filter-button',
             { 'category-filters__filter-button--active': getCategoryFilter == category }
           ]"
-          @click="$store.commit('setCategoryFilter', category)"
+          :to="`/${category}`"
         >
           {{ category }}
-        </span>
+        </router-link>
       </ep-flex>
       <ep-flex class="flex-col gap-20">
         <h3>Filters</h3>

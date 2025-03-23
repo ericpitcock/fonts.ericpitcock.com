@@ -80,11 +80,9 @@
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
   const getFontCount = computed(() => store.getters.getFontCount)
 
-  // Reactive sort and order states
   const sortBy = ref('recommended')
   const orderBy = ref('ascending')
 
-  // Options for the selects
   const sortOptions = [
     { label: 'Recommended', value: 'recommended' },
     { label: 'Alphabetical', value: 'alphabetical' }
@@ -95,7 +93,6 @@
     { label: 'Descending', value: 'descending' }
   ]
 
-  // Reactive state for view mode and options for toggle
   const viewMode = ref(0)
   const viewOptions = [
     { label: 'List', value: 'list' },
@@ -103,13 +100,11 @@
   ]
   const viewClassName = computed(() => `content-padder--${viewOptions[viewMode.value].value}`)
 
-  // Handle view change using the @click event, which returns the clicked item.
   const onViewChange = ({ item, index }) => {
     viewMode.value = index
     console.log(item.value, index)
   }
 
-  // Computed property to sort the fonts based on selection
   const sortedFonts = computed(() => {
     let fonts = [...getActiveFonts.value]
 
@@ -138,18 +133,19 @@
     return fonts
   })
 
-  // Navigation function for font specimen
+  const category = computed(() => store.state.categoryFilter)
   const toFontSpecimen = (font) => {
     router.push({
-      path: `/${font.family.toLowerCase().replace(/\s+/g, '-')}`
+      path: `/${category.value}/${font.family.toLowerCase().replace(/\s+/g, '-')}`
     })
   }
 
   const content = ref(null)
-  watch(getActiveFonts, () => {
+  watch(() => router.currentRoute.value.params, (params) => {
     if (content.value) {
       content.value.scrollTop = 0
     }
+    store.commit('setCategoryFilter', params.category)
   })
 </script>
 
