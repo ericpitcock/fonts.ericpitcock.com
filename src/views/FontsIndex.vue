@@ -80,7 +80,7 @@
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
   const getFontCount = computed(() => store.getters.getFontCount)
 
-  const sortBy = ref('recommended')
+  const sortBy = ref('alphabetical')
   const orderBy = ref('ascending')
 
   const sortOptions = [

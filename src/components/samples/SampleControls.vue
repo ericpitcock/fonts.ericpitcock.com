@@ -42,7 +42,6 @@
     </div>
     <ep-divider direction="horizontal" />
     <ep-flex class="flex-col gap-10">
-      <h3>Options</h3>
       <ep-checkbox
         v-if="hasItalics"
         id="FontStyle"

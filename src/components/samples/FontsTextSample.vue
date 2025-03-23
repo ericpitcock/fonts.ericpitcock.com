@@ -13,8 +13,8 @@
         <div class="sample-controls-container">
           <sample-controls
             :font="font"
-            :initial-size="fontSize"
-            :initial-weight="fontWeight"
+            :initial-size="initialSize"
+            :initial-weight="initialWeight"
             @update="updateFontControls"
           />
         </div>
@@ -41,6 +41,14 @@
     text: {
       type: String,
       default: faker.lorem.word()
+    },
+    initialSize: {
+      type: Number,
+      default: 48
+    },
+    initialWeight: {
+      type: String,
+      default: '400'
     }
   })
 
@@ -48,20 +56,13 @@
     buttonProps: {
       label: props.element,
       ariaLabel: 'Sample controls',
-      class: ['ep-button-var--ghost'],
+      class: ['ep-button-var--ghost font-family--inter'],
       size: 'small',
     },
   }
 
-  // const availableWeights = computed(() => {
-  //   // return props.font.variants.map(weight => weight === 'regular' ? '400' : weight)
-
-  //   // fitler out any variants with "italic" in the name
-  //   return props.font.variants.filter(weight => !weight.includes('italic')).map(weight => weight === 'regular' ? '400' : weight)
-  // })
-
-  const fontSize = ref(48)
-  const fontWeight = ref('400')
+  // const fontSize = ref(48)
+  // const fontWeight = ref('400')
 
   const specimenStyle = ref({})
 

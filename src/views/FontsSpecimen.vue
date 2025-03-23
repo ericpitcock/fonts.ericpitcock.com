@@ -72,7 +72,7 @@
 
     const variants = props.font.variants.join(',')
     const fontString = `${props.font.family}:${variants}`
-    console.log('fontString', fontString)
+    // console.log('fontString', fontString)
     loadGoogleFonts([fontString])
   })
 </script>
@@ -81,7 +81,7 @@
   .specimen {
     display: flex;
     flex-direction: column;
-    gap: 10rem;
+    // gap: 10rem;
     padding: 10rem;
     overflow: auto;
     font-family: v-bind('font.family');

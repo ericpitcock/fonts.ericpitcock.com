@@ -1,5 +1,5 @@
 <template>
-  This is the FontsSpecimenLanding.vue component
+  <h1>{{ font.family }}</h1>
 </template>
 
 <script setup>
@@ -10,3 +10,13 @@
     }
   })
 </script>
+
+<style scoped>
+  h1 {
+    font-size: 6rem;
+    color: var(--text-color--loud);
+    /* text-box: cap alphabetic; */
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+</style>
