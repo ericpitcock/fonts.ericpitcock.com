@@ -8,21 +8,6 @@
     </template>
     <template #main>
       <div class="specimen">
-        <!-- <ep-flex class="type-block gap-60">
-          <headline-sample :style="specimenStyle" />
-          <ep-dropdown v-bind="dropdownProps">
-            <template #content>
-              <div class="sample-controls-container">
-                <sample-controls
-                  :initial-size="fontSize"
-                  :initial-weight="fontWeight"
-                  :available-weights="availableWeights"
-                  @update="updateFontControls"
-                />
-              </div>
-            </template>
-</ep-dropdown>
-</ep-flex> -->
         <fonts-text-sample
           element="h1"
           :font="font"

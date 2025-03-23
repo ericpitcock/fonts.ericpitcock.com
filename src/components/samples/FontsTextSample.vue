@@ -4,6 +4,7 @@
       :is="element"
       class="text-sample"
       :style="specimenStyle"
+      contenteditable
     >
       {{ text }}
     </component>
@@ -43,9 +44,6 @@
     }
   })
 
-  const fontSize = ref(48) // default value in px
-  const fontWeight = ref('400') // default weight
-
   const dropdownProps = {
     buttonProps: {
       label: props.element,
@@ -64,17 +62,39 @@
     return props.font.variants.map(weight => weight === 'regular' ? '400' : weight)
   })
 
-  const updateFontControls = ({ size, weight }) => {
-    fontSize.value = Number(size)
-    fontWeight.value = weight
+  const fontSize = ref(48) // default value in px
+  const fontWeight = ref('400') // default weight
+  const letterSpacing = ref(0)
+  const lineHeight = ref(1.2)
+  const uppercase = ref(false)
+  const textWrapBalance = ref(false)
+
+  const specimenStyle = ref({ fontFamily: props.font.family })
+
+  const updateFontControls = (styles) => {
+    console.log('updateFontControls', styles)
+    specimenStyle.value = {
+      ...specimenStyle.value,
+      ...styles
+    }
+    // fontSize.value = Number(size)
+    // fontWeight.value = weight
+    // letterSpacing.value = Number(letterSpacing)
+    // lineHeight.value = Number(lineHeight)
+    // uppercase.value = uppercase
+    // textWrapBalance.value = textWrapBalance
   }
 
-  const specimenStyle = computed(() => ({
-    fontFamily: props.font.family,
-    fontSize: `${fontSize.value}px`,
-    fontWeight: fontWeight.value,
-    fontVariationSettings: `'wght' ${fontWeight.value}`,
-  }))
+  // const specimenStyle = computed(() => ({
+  //   fontFamily: props.font.family,
+  //   fontSize: `${fontSize.value}px`,
+  //   fontWeight: fontWeight.value,
+  //   fontVariationSettings: `'wght' ${fontWeight.value}`,
+  //   letterSpacing: `${letterSpacing.value}em`,
+  //   lineHeight: lineHeight.value,
+  //   textTransform: uppercase.value ? 'uppercase' : 'none',
+  //   textWrap: textWrapBalance.value ? 'balance' : 'normal'
+  // }))
 </script>
 
 <style lang="scss" scoped>
