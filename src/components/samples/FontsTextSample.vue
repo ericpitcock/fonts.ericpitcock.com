@@ -12,6 +12,7 @@
       <template #content>
         <div class="sample-controls-container">
           <sample-controls
+            :id="instanceId"
             :font="font"
             :initial-size="initialSize"
             :initial-weight="initialWeight"
@@ -25,7 +26,7 @@
 
 <script setup>
   import { faker } from '@faker-js/faker'
-  import { computed, ref } from 'vue'
+  import { computed, ref, onMounted } from 'vue'
 
   import SampleControls from '@/components/samples/SampleControls.vue'
 
@@ -52,22 +53,25 @@
     }
   })
 
-  const dropdownProps = {
+  const instanceId = `text-sample-${Math.random().toString(36).substring(2, 9)}`
+
+  const dropdownProps = computed(() => ({
     buttonProps: {
       label: props.element,
       ariaLabel: 'Sample controls',
       class: ['ep-button-var--ghost font-family--inter'],
       size: 'small',
-    },
-  }
+    }
+  }))
 
-  // const fontSize = ref(48)
-  // const fontWeight = ref('400')
-
-  const specimenStyle = ref({})
+  // Initialize with the default styles
+  const specimenStyle = ref({
+    fontSize: `${props.initialSize}px`,
+    fontWeight: props.initialWeight,
+    fontFamily: props.font.family
+  })
 
   const updateFontControls = (styles) => {
-    // console.log('updateFontControls', styles)
     specimenStyle.value = { ...styles }
   }
 </script>
@@ -77,7 +81,7 @@
     .text-sample {
       flex: 0 0 75%;
       max-width: 60rem;
-      color: var(--text-color--loud);
+      // color: var(--text-color--loud);
     }
 
     .ep-dropdown {

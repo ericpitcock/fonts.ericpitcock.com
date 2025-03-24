@@ -14,7 +14,9 @@
 
 <style>
   .sentence-sample {
-    line-height: 1.2;
     color: var(--text-color--loud);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
   }
 </style>

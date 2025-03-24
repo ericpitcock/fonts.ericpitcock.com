@@ -1,6 +1,6 @@
 <template>
   <ep-button
-    v-if="isDev && $route.name === 'index'"
+    v-if="isDev && $route.name === 'category'"
     class="json-button"
     label="Toggle JSON"
     @click="$store.commit('toggleJSON')"

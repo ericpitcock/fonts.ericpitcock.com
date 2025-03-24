@@ -80,6 +80,10 @@
     flex: 0 1 60rem;
   }
 
+  :deep(.custom-sample-input) {
+    --ep-input-focus-border-color: var(--primary-color);
+  }
+
   .sample-control__font-size {
     flex: 0 0 20rem;
   }

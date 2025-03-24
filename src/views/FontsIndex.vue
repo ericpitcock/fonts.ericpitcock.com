@@ -15,15 +15,12 @@
             active-class="ep-button-var--primary"
             @click="onViewChange"
           />
-          <span>Sort by:</span>
           <ep-select
             v-model="sortBy"
             :options="sortOptions"
             select-id="sort"
             placeholder="Sort by"
-            style="margin-right: 1rem;"
           />
-          <span>Order by:</span>
           <ep-select
             v-model="orderBy"
             :options="orderOptions"
@@ -167,6 +164,7 @@
     grid-column: 1/2;
     display: flex;
     align-items: center;
+    gap: 2rem;
     padding: 0 6rem;
     border-bottom: 0.1rem solid var(--border-color);
   }

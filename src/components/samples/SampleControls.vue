@@ -16,7 +16,7 @@
       <h3>Font Weight</h3>
       <ep-select
         v-model="localWeight"
-        select-id="font-weight"
+        :select-id="`font-weight-${id}`"
         :options="weightOptions"
         size="default"
       />
@@ -44,26 +44,26 @@
     <ep-flex class="flex-col gap-10">
       <ep-checkbox
         v-if="hasItalics"
-        id="FontStyle"
+        :id="`FontStyle-${id}`"
         v-model="localFontStyle"
         label="Italic"
-        name="checkboxes"
+        :name="`checkboxes-${id}`"
         value="italic"
         @update:model-value="emitStyles"
       />
       <ep-checkbox
-        id="TextTransform"
+        :id="`TextTransform-${id}`"
         v-model="localTextTransform"
         label="Uppercase"
-        name="checkboxes"
+        :name="`checkboxes-${id}`"
         value="uppercase"
         @update:model-value="emitStyles"
       />
       <ep-checkbox
-        id="TextWrap"
+        :id="`TextWrap-${id}`"
         v-model="localTextWrap"
         label="Text Wrap Balance"
-        name="checkboxes"
+        :name="`checkboxes-${id}`"
         value="text-wrap-balance"
         @update:model-value="emitStyles"
       />
@@ -77,6 +77,10 @@
   import EpRangeInput from '@/components/EpRangeInput.vue'
 
   const props = defineProps({
+    id: {
+      type: String,
+      required: true
+    },
     font: {
       type: Object,
       required: true
