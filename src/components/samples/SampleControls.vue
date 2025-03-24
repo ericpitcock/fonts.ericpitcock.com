@@ -52,6 +52,7 @@
         @update:model-value="emitStyles"
       />
       <ep-checkbox
+        v-if="font.category != 'handwriting'"
         :id="`TextTransform-${id}`"
         v-model="localTextTransform"
         label="Uppercase"
@@ -92,7 +93,7 @@
       default: () => []
     },
     minSize: { type: Number, default: 12 },
-    maxSize: { type: Number, default: 64 },
+    maxSize: { type: Number, default: 128 },
     stepSize: { type: Number, default: 1 }
   })
 

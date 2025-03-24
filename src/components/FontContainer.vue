@@ -163,7 +163,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 30px 60px;
+    padding: 30px 60px 30px 0;
 
     &__sample {
       position: relative;

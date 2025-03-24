@@ -26,7 +26,7 @@
 
 <script setup>
   import { faker } from '@faker-js/faker'
-  import { computed, ref, onMounted } from 'vue'
+  import { computed, ref } from 'vue'
 
   import SampleControls from '@/components/samples/SampleControls.vue'
 

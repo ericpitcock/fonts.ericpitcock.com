@@ -18,5 +18,6 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    padding-left: 6rem;
   }
 </style>

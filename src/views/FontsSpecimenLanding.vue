@@ -1,5 +1,5 @@
 <template>
-  <ep-flex class="fonts-specimen-landing flex-col gap-30">
+  <ep-flex class="fonts-specimen-landing flex-col gap-100">
     <ep-flex class="fonts-specimen-landing gap-30">
       <div class="font-family">
         <h1>{{ font.family }}</h1>
@@ -108,13 +108,23 @@
 
   // map variants into an array of objects with name and value properties and boolean for whether there's a matching italic
   // for example, "100" becomes { name: "Thin", value: "100", italic: true }
-  const variants = props.font.variants.map(variant => {
-    return {
+  // const variants = props.font.variants.map(variant => {
+  //   return {
+  //     name: weightMap[variant],
+  //     value: variant,
+  //     italic: props.font.variants.includes(`${variant}italic`)
+  //   }
+  // })
+
+  const variants = props.font.variants
+    .filter(variant => !variant.includes('italic'))
+    .map(variant => ({
       name: weightMap[variant],
       value: variant,
       italic: props.font.variants.includes(`${variant}italic`)
-    }
-  })
+    }))
+
+  console.log(variants)
 </script>
 
 <style scoped>
