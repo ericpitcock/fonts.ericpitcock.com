@@ -4,7 +4,7 @@
       <ep-checkbox
         id="recommended"
         v-model="recommendedFilter"
-        label="Recommended"
+        label="Ep’s Picks"
         name="recommended"
         value="recommended"
       />
@@ -29,7 +29,7 @@
       class="subsets"
     >
       <ep-flex class="flex-col gap-10">
-        <h3>Subsets</h3>
+        <h3 class="ui-heading">Subsets</h3>
         <ep-flex class="flex-col gap-10">
           <ep-checkbox
             v-for="(subset, index) in getSubsets"

@@ -31,9 +31,9 @@
 
   const specimenMenuItems = [
     {
-      id: 'specimen',
-      label: 'Specimen',
-      to: '?tab=specimen',
+      id: 'overview',
+      label: 'Overview',
+      to: '?tab=overview',
     },
     {
       id: 'ui',
@@ -47,7 +47,7 @@
     }
   ]
 
-  const activeMenuItem = ref('specimen')
+  const activeMenuItem = ref('overview')
 
   // const onClick = (item) => {
   //   console.log(item)

@@ -21,7 +21,7 @@
           :key="stat.title"
           class="stat flex-col gap-5"
         >
-          <h3>{{ stat.title }}</h3>
+          <h3 class="ui-heading">{{ stat.title }}</h3>
           <h2>{{ stat.value }}</h2>
         </ep-flex>
       </ep-flex>

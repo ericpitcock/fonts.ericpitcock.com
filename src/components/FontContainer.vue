@@ -173,6 +173,10 @@
       flex-direction: column;
       gap: 20px;
 
+      .error {
+        padding-left: 6rem;
+      }
+
       .json {
         padding-top: 30px;
         font-size: 12px;

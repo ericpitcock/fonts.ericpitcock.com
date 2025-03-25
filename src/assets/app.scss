@@ -37,7 +37,7 @@ textarea {
   height: 100vh;
 }
 
-h3 {
+h3.ui-heading {
   font-family: 'Inter', sans-serif;
   font-size: 1.1rem;
   font-weight: 500;
@@ -50,4 +50,9 @@ h3 {
 
 .font-family--inter {
   font-family: 'Inter', sans-serif;
+}
+
+:root {
+  --text-color--normal: var(--text-color);
+  --text-color--quiet: var(--text-color--subtle);
 }

@@ -44,7 +44,7 @@
 
   watch(() => route.query.tab, (tab) => {
     switch (tab) {
-      case 'specimen': {
+      case 'overview': {
         componentName.value = FontsSpecimenLanding
         break
       }
@@ -65,9 +65,9 @@
   const { loadGoogleFonts } = useWebFont()
 
   onMounted(() => {
-    // change route.query.tab to 'specimen'
+    // change route.query.tab to 'overview'
     if (!route.query.tab) {
-      route.query.tab = 'specimen'
+      route.query.tab = 'overview'
     }
 
     const variants = props.font.variants.join(',')

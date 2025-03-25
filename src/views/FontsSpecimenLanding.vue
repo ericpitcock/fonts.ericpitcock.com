@@ -121,7 +121,15 @@
     .map(variant => ({
       name: weightMap[variant],
       value: variant,
-      italic: props.font.variants.includes(`${variant}italic`)
+      italic: () => {
+        if (props.font.variants.includes(`${variant}italic`)) {
+          return true
+        } else if (variant === 'regular' && props.font.variants.includes('italic')) {
+          return true
+        } else {
+          return false
+        }
+      }
     }))
 
   console.log(variants)

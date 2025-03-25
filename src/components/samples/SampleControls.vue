@@ -1,7 +1,9 @@
 <template>
   <ep-flex class="font-controls flex-col gap-20">
     <div class="font-controls__font-size">
-      <h3>Font Size</h3>
+      <h3 class="ui-heading">
+        Font Size
+      </h3>
       <ep-range-input
         v-model="localSize"
         :min="minSize"
@@ -13,7 +15,9 @@
       v-if="availableWeights.length > 1"
       class="font-controls__font-weight"
     >
-      <h3>Font Weight</h3>
+      <h3 class="ui-heading">
+        Font Weight
+      </h3>
       <ep-select
         v-model="localWeight"
         :select-id="`font-weight-${id}`"
@@ -22,7 +26,9 @@
       />
     </div>
     <div class="font-controls__line-height">
-      <h3>Line Height</h3>
+      <h3 class="ui-heading">
+        Line Height
+      </h3>
       <ep-range-input
         v-model="localLineHeight"
         :min="1"
@@ -32,7 +38,9 @@
       />
     </div>
     <div class="font-controls__letter-spacing">
-      <h3>Letter Spacing</h3>
+      <h3 class="ui-heading">
+        Letter Spacing
+      </h3>
       <ep-range-input
         v-model="localLetterSpacing"
         :min="-1"
@@ -40,6 +48,18 @@
         :step="0.1"
       />
     </div>
+    <ep-divider direction="horizontal" />
+    <ep-flex class="flex-col gap-10">
+      <h3 class="ui-heading">
+        Color
+      </h3>
+      <ep-button-group
+        :items="colorOptions"
+        :active="localColor.index"
+        active-class="selected-font-color"
+        @click="selectColor"
+      />
+    </ep-flex>
     <ep-divider direction="horizontal" />
     <ep-flex class="flex-col gap-10">
       <ep-checkbox
@@ -106,6 +126,24 @@
   const localFontStyle = ref(false)
   const localTextTransform = ref(false)
   const localTextWrap = ref(false)
+  const localColor = ref({
+    index: 1,
+    item: { label: 'Normal', value: 'normal' }
+  })
+
+  const colorOptions = [
+    { label: 'Quiet', value: 'quiet' },
+    { label: 'Normal', value: 'normal' },
+    { label: 'Loud', value: 'loud' }
+  ]
+
+  // find the index of localColor in colorOptions
+  // const colorIndex = computed(() => colorOptions.findIndex(color => color.value === localColor.value))
+
+  const selectColor = (color) => {
+    localColor.value = color
+    console.log(color)
+  }
 
   const hasItalics = computed(() => props.font.variants.some(variant => variant.includes('italic')))
 
@@ -129,6 +167,7 @@
     lineHeight: localLineHeight.value,
     textTransform: localTextTransform.value ? 'uppercase' : 'none',
     textWrap: localTextWrap.value ? 'balance' : 'auto',
+    color: `var(--text-color--${localColor.value.item.value})`,
   }))
 
   const emitStyles = () => {
@@ -144,6 +183,7 @@
     localWeight,
     localLetterSpacing,
     localLineHeight,
+    localColor,
   ], () => {
     emitStyles()
   })
@@ -155,6 +195,10 @@
 
     h3 {
       margin-bottom: 1rem;
+    }
+
+    :deep(.ep-button.selected-font-color) {
+      color: var(--primary-color);
     }
   }
 </style>

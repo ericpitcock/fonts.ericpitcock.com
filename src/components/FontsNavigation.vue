@@ -14,22 +14,28 @@
       >
         Search
       </router-link>
-      <ep-flex class="category-filters flex-col gap-10">
-        <h3>Categories</h3>
-        <router-link
-          v-for="(category, index) in getFontCategories"
-          :key="index"
-          class="category-filters__filter-button"
-          :to="`/${category}`"
-        >
-          {{ category }}
-        </router-link>
+      <ep-flex class="category-filters flex-col gap-20">
+        <h3 class="ui-heading">
+          Categories
+        </h3>
+        <ep-flex class="category-filters flex-col gap-10">
+          <router-link
+            v-for="(category, index) in getFontCategories"
+            :key="index"
+            class="category-filters__filter-button"
+            :to="`/${category}`"
+          >
+            {{ category }}
+          </router-link>
+        </ep-flex>
       </ep-flex>
       <ep-flex
         v-if="$route.name === 'category'"
         class="flex-col gap-20"
       >
-        <h3>Filters</h3>
+        <h3 class="ui-heading">
+          Filters
+        </h3>
         <fonts-filters />
       </ep-flex>
     </ep-flex>

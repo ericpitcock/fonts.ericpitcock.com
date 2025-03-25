@@ -93,25 +93,38 @@
       response.value = raw
 
       try {
+        // convert the raw response to JSON
         const parsedJSON = JSON.parse(raw)
+
+        // for each font in parsedJSON, check if it's in store.state.googleFonts
+        // if it is, add it to the parsedResponse array
+        // if it's not, don't add it to the parsedResponse array
+        parsedJSON.forEach((font) => {
+          console.log('checking font', font)
+          if (googleFonts.map((font) => font.family).includes(font)) {
+            parsedResponse.value.push(font)
+          }
+        })
+
+
         // check store.state.googleFonts for the font names
         // if the font name is in the store, add it to the parsedResponse array
         // if it's not in the store, remove it from the parsedResponse array
-        store.state.googleFonts.forEach((font) => {
-          console.log('checking font', font.family)
-          if (parsedJSON.includes(font.family)) {
-            parsedResponse.value.push(font.family)
-          } else {
-            parsedResponse.value = parsedJSON.filter((item) => item !== font.family)
-          }
-        })
-        console.log(parsedResponse.value)
-
-
-
-        // parsedResponse.value = JSON.parse(raw)
+        // store.state.googleFonts.forEach((font) => {
+        //   console.log('checking font', font.family)
+        //   if (parsedJSON.includes(font.family)) {
+        //     parsedResponse.value.push(font.family)
+        //   } else {
+        //     parsedResponse.value = parsedJSON.filter((item) => item !== font.family)
+        //   }
+        // })
         // console.log(parsedResponse.value)
-        // store.commit('setSearchResults', parsedResponse.value)
+
+
+
+        // // parsedResponse.value = JSON.parse(raw)
+        // // console.log(parsedResponse.value)
+        // // store.commit('setSearchResults', parsedResponse.value)
       } catch (e) {
         console.warn('Could not parse response as JSON. Showing raw output.')
       }

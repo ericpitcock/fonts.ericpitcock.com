@@ -34,7 +34,7 @@ const routes = [
       if (!to.query.tab) {
         next({
           path: to.path,
-          query: { ...to.query, tab: 'specimen' }
+          query: { ...to.query, tab: 'overview' }
         })
       } else {
         next()

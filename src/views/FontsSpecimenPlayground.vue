@@ -1,19 +1,21 @@
 <template>
   <ep-flex class="fonts-specimen-playground flex-col gap-40">
-    <fonts-text-sample
-      element="h1"
-      :font="font"
-      :text="article.headline"
-      :initial-size="48"
-      initial-weight="400"
-    />
-    <fonts-text-sample
-      element="h3"
-      :font="font"
-      :text="article.byline"
-      :initial-size="12"
-      initial-weight="400"
-    />
+    <ep-flex class="flex-col gap-20">
+      <fonts-text-sample
+        element="h1"
+        :font="font"
+        :text="article.headline"
+        :initial-size="48"
+        initial-weight="400"
+      />
+      <fonts-text-sample
+        element="h3"
+        :font="font"
+        :text="article.byline"
+        :initial-size="12"
+        initial-weight="400"
+      />
+    </ep-flex>
     <fonts-text-sample
       element="p"
       :font="font"
@@ -21,35 +23,37 @@
       :initial-size="20"
       initial-weight="400"
     />
-    <fonts-text-sample
-      element="p"
-      :font="font"
-      :text="article.body"
-      :initial-size="16"
-      initial-weight="400"
-    />
-    <fonts-text-sample
-      element="blockquote"
-      :font="font"
-      :text="article.quotes[0]"
-      :initial-size="20"
-      initial-weight="400"
-      italic
-    />
-    <fonts-text-sample
-      element="p"
-      :font="font"
-      :text="article.supportingInformation"
-      :initial-size="16"
-      initial-weight="400"
-    />
-    <fonts-text-sample
-      element="p"
-      :font="font"
-      :text="article.conclusion"
-      :initial-size="16"
-      initial-weight="400"
-    />
+    <ep-flex class="flex-col gap-20">
+      <fonts-text-sample
+        element="p"
+        :font="font"
+        :text="article.body"
+        :initial-size="16"
+        initial-weight="400"
+      />
+      <fonts-text-sample
+        element="blockquote"
+        :font="font"
+        :text="article.quotes[0]"
+        :initial-size="20"
+        initial-weight="400"
+        italic
+      />
+      <fonts-text-sample
+        element="p"
+        :font="font"
+        :text="article.supportingInformation"
+        :initial-size="16"
+        initial-weight="400"
+      />
+      <fonts-text-sample
+        element="p"
+        :font="font"
+        :text="article.conclusion"
+        :initial-size="16"
+        initial-weight="400"
+      />
+    </ep-flex>
   </ep-flex>
 </template>
 
@@ -130,9 +134,5 @@
 <style lang="scss" scoped>
   .fonts-specimen-playground {
     padding: 10rem;
-
-    :deep(h3) {
-      all: unset;
-    }
   }
 </style>
