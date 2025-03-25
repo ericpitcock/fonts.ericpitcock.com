@@ -1,49 +1,49 @@
 <template>
-  <div>
-    <router-link to="/sans-serif">
-      Sans Serif
-    </router-link>
-    <router-link to="/serif">
-      Serif
-    </router-link>
-    <router-link to="/display">
-      Display
-    </router-link>
-    <router-link to="/monospace">
-      Monospace
-    </router-link>
-    <router-link to="/handwriting">
-      Handwriting
-    </router-link>
-    <textarea
-      v-model="input"
-      placeholder="Enter your snack or meal..."
-    />
-    <button @click="sendMessage">
-      Search
-    </button>
+  <fonts-layout>
+    <template #sidebar>
+      <fonts-navigation />
+    </template>
+    <template #main>
+      <div class="search">
+        <ep-textarea
+          v-model="input"
+          placeholder="Give me some fonts that are clean and modern."
+        />
+        <ep-button
+          label="Search"
+          @click="sendMessage"
+        />
 
-    <div v-if="loading">
-      Loading...
-    </div>
+        <ep-loading-state v-if="loading" />
 
-    <div v-if="parsedResponse.rating !== null">
-      <h2>⭐ {{ parsedResponse.rating }} / 5</h2>
-      <p>{{ parsedResponse.explanation }}</p>
-    </div>
+        <div v-if="parsedResponse !== null">
+          <font-container
+            v-for="(font, index) in parsedResponse"
+            :key="index"
+            :font="getFontByName(font)"
+            @click="$router.push(getFontPathByName(font))"
+          />
+        </div>
 
-    <div v-else-if="response">
-      {{ response }}
-    </div>
-  </div>
+        <div v-else-if="response">
+          {{ response }}
+        </div>
+      </div>
+    </template>
+  </fonts-layout>
 </template>
 
 <script setup>
   import { ref } from 'vue'
+  import { useStore } from 'vuex'
+
+  import FontContainer from '@/components/FontContainer.vue'
+  import FontsNavigation from '@/components/FontsNavigation.vue'
+  import FontsLayout from '@/layouts/FontsLayout.vue'
 
   const input = ref('')
   const response = ref('')
-  const parsedResponse = ref({ rating: null, explanation: '' })
+  const parsedResponse = ref([])
   const loading = ref(false)
 
   const sendMessage = async () => {
@@ -51,7 +51,8 @@
 
     loading.value = true
     response.value = ''
-    parsedResponse.value = { rating: null, explanation: '' }
+    // Initialize as an empty array to store the font names.
+    parsedResponse.value = []
 
     try {
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -66,7 +67,7 @@
             {
               role: 'system',
               content:
-                `You are a Google Fonts and typography expert. Your role is to help users find the perfect font from the Google Fonts library based on their natural language descriptions. Use your extensive knowledge of typography—including font classifications (sans-serif, serif, display, monospace, handwriting), design aesthetics, and readability—to provide well-informed and creative recommendations. When responding, explain why the suggested fonts suit the user's description and offer additional insights on usage contexts if needed.`,
+                `You are a Google Fonts and typography expert. Your role is to help users find the perfect fonts from the Google Fonts library based on their natural language descriptions. You should return a JSON array containing the names of the best fonts that best suit the user's request. Limit of 10 fonts. Do not include any additional commentary or explanation—only return the JSON array.`,
             },
             {
               role: 'user',
@@ -96,4 +97,9 @@
       loading.value = false
     }
   }
+
+  const store = useStore()
+
+  const getFontByName = (name) => store.getters.getFontByName(name)
+  const getFontPathByName = (name) => store.getters.getFontPathByName(name)
 </script>

@@ -194,6 +194,17 @@ export default createStore({
         font => font.family.toLowerCase().replace(/\s+/g, '-') === slug
       )
     },
+    getFontByName: (state) => (name) => {
+      return state.googleFonts.find(
+        font => font.family === name
+      )
+    },
+    getFontPathByName: (state, getters) => (name) => {
+      const font = getters.getFontByName(name)
+      if (!font) return
+      const category = font.category
+      return `/${category}/${font.family.toLowerCase().replace(/\s+/g, '-')}`
+    },
     getFontCategories(state) {
       return [...new Set(state.googleFonts.map(font => font.category))]
     },

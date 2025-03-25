@@ -8,14 +8,16 @@
       </router-link>
     </div>
     <ep-flex class="flex-col gap-40">
+      <router-link to="/">
+        Search
+      </router-link>
       <ep-flex class="category-filters flex-col gap-10">
         <h3>Categories</h3>
         <router-link
           v-for="(category, index) in getFontCategories"
           :key="index"
           :class="[
-            'category-filters__filter-button',
-            { 'category-filters__filter-button--active': getCategoryFilter == category }
+            'category-filters__filter-button'
           ]"
           :to="`/${category}`"
         >
