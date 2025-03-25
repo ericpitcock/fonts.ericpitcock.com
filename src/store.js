@@ -89,7 +89,7 @@ export default createStore({
       'Roboto Condensed',
       'Sarabun',
       'Schibsted Grotesk',
-      'Source Sans Pro',
+      'Source Sans 3',
       'Work Sans',
       'Yantramanav',
       // serif
@@ -108,6 +108,12 @@ export default createStore({
       'Buenard',
       'Cambo',
       'Copse',
+      'Cormorant',
+      'Cormorant Garamond',
+      'Cormorant Infant',
+      'Cormorant SC',
+      'Cormorant Unicase',
+      'Cormorant Upright',
       'Crimson Pro',
       'Crimson Text',
       'Domine',
@@ -116,11 +122,15 @@ export default createStore({
       'Fjord One',
       'Gelasio',
       'IBM Plex Serif',
+      'Literata',
       'Petrona',
+      'Playfair Display',
       'Solway',
       'Source Serif Pro',
       'Spectral',
       'Trocchi',
+      'Vesper Libre',
+      'Vollkorn',
       'Zilla Slab',
       // handwriting
       'Meow Script',
@@ -144,6 +154,7 @@ export default createStore({
       'Orelega One',
       'Zen Tokyo Zoo',
     ],
+    searchResults: [],
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false,
@@ -166,28 +177,38 @@ export default createStore({
 
       // Apply recommended fonts filter
       if (state.filters.recommended) {
-        activeFonts = activeFonts.filter(font => state.recommendedFonts.includes(font.family))
+        activeFonts = activeFonts.filter(
+          font => state.recommendedFonts.includes(font.family)
+        )
       }
 
       // if fitlers.italics, filter out the non-italic variants
       if (state.filters.italics) {
-        activeFonts = activeFonts.filter(font => font.variants.includes('italic'))
+        activeFonts = activeFonts.filter(
+          font => font.variants.includes('italic')
+        )
       }
 
       // if multipleWeights, filter out the fonts with only one weight
       if (state.filters.multipleWeights) {
         activeFonts = activeFonts.filter(font => font.variants.length > 1)
         // if there are 2 variants and one of them is italic, filter it out
-        activeFonts = activeFonts.filter(font => !(font.variants.length == 2 && font.variants.includes('italic')))
+        activeFonts = activeFonts.filter(
+          font => !(font.variants.length == 2 && font.variants.includes('italic'))
+        )
       }
 
       return activeFonts
     },
     getLatinFonts(state) {
-      return state.googleFonts.filter(font => font.subsets.includes('latin'))
+      return state.googleFonts.filter(
+        font => font.subsets.includes('latin')
+      )
     },
     getCurrentSpecimen(state, getters) {
-      return getters.getActiveFonts.find(font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase())
+      return getters.getActiveFonts.find(
+        font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase()
+      )
     },
     getFontBySlug: (state) => (slug) => {
       return state.googleFonts.find(
@@ -195,9 +216,13 @@ export default createStore({
       )
     },
     getFontByName: (state) => (name) => {
-      return state.googleFonts.find(
+      // console.log('getFontByName', name)
+      const font = state.googleFonts.find(
         font => font.family === name
       )
+      // console.log('font', font)
+      if (!font) return {}
+      return font
     },
     getFontPathByName: (state, getters) => (name) => {
       const font = getters.getFontByName(name)
@@ -213,7 +238,9 @@ export default createStore({
     },
     getFontsByCategory(state, getters) {
       return (category) => {
-        return getters.getLatinFonts.filter(font => font.category == category)
+        return getters.getLatinFonts.filter(
+          font => font.category == category
+        )
       }
     },
   },
@@ -246,6 +273,9 @@ export default createStore({
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
+    setSearchResults(state, value) {
+      state.searchResults = value
+    },
     setSentenceSample(state, value) {
       state.sentenceSample = value
     },
@@ -268,6 +298,7 @@ export default createStore({
 
         const data = await response.json()
         commit('setGoogleFonts', data.items)
+        // console.log('Google Fonts fetched:', data.items)
       } catch (error) {
         console.error('Error fetching Google Fonts:', error)
         throw error

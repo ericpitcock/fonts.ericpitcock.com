@@ -1,6 +1,5 @@
 <template>
   <div
-    :id="font.family.toLowerCase().split(' ').join('-')"
     ref="el"
     class="font-container"
   >
@@ -23,6 +22,7 @@
         </div>
         <sentence-sample
           v-if="!loading && !error"
+          :id="font.family.toLowerCase().split(' ').join('-')"
           :style="{ fontFamily: `'${font.family}'`, fontSize: `${globalFontSize}px` }"
         />
       </div>

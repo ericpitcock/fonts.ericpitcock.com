@@ -30,6 +30,7 @@
   }
 
   const fontInfo = (font) => {
+    if (!font.variants) return
     // determine the number of weights and italics
     let weights = 0
     let italics = 0

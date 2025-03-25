@@ -8,7 +8,10 @@
       </router-link>
     </div>
     <ep-flex class="flex-col gap-40">
-      <router-link to="/">
+      <router-link
+        class="category-filters__filter-button"
+        to="/"
+      >
         Search
       </router-link>
       <ep-flex class="category-filters flex-col gap-10">
@@ -16,15 +19,16 @@
         <router-link
           v-for="(category, index) in getFontCategories"
           :key="index"
-          :class="[
-            'category-filters__filter-button'
-          ]"
+          class="category-filters__filter-button"
           :to="`/${category}`"
         >
           {{ category }}
         </router-link>
       </ep-flex>
-      <ep-flex class="flex-col gap-20">
+      <ep-flex
+        v-if="$route.name === 'category'"
+        class="flex-col gap-20"
+      >
         <h3>Filters</h3>
         <fonts-filters />
       </ep-flex>
@@ -113,7 +117,7 @@
       text-transform: capitalize;
       cursor: pointer;
 
-      &--active {
+      &.router-link-active {
         color: var(--text-color--loud);
       }
     }
