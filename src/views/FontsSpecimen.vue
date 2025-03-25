@@ -82,7 +82,7 @@
     display: flex;
     flex-direction: column;
     // gap: 10rem;
-    padding: 10rem;
+    // padding: 10rem;
     overflow: auto;
     font-family: v-bind('font.family');
   }

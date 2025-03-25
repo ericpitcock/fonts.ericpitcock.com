@@ -15,6 +15,7 @@
     "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
     "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
     "@faker-js/faker": "^9.6.0",
+    "chart.js": "^4.4.8",
     "vue": "^3.4.15",
     "vue-router": "^4.3.0",
     "vuex": "^4.1.0",

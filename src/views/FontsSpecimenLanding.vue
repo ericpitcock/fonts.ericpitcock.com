@@ -1,6 +1,6 @@
 <template>
   <ep-flex class="fonts-specimen-landing flex-col gap-100">
-    <ep-flex class="fonts-specimen-landing gap-30">
+    <ep-flex class="gap-30">
       <div class="font-family">
         <h1>{{ font.family }}</h1>
       </div>
@@ -127,11 +127,14 @@
   console.log(variants)
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  .fonts-specimen-landing {
+    padding: 10rem;
+  }
+
   h1 {
     font-size: 6rem;
     color: var(--text-color--loud);
-    /* text-box: cap alphabetic; */
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;
   }

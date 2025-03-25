@@ -11,7 +11,7 @@
       element="h3"
       :font="font"
       :text="article.byline"
-      :initial-size="48"
+      :initial-size="12"
       initial-weight="400"
     />
     <fonts-text-sample
@@ -129,6 +129,10 @@
 
 <style lang="scss" scoped>
   .fonts-specimen-playground {
-    padding-bottom: 10rem;
+    padding: 10rem;
+
+    :deep(h3) {
+      all: unset;
+    }
   }
 </style>

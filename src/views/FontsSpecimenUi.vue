@@ -2,6 +2,7 @@
   <div class="ui-container">
     <ep-flex class="app-header align-center justify-between pr-20 pl-20">
       <ep-input
+        v-model="fakeSearch"
         placeholder="Search"
         size="large"
       />
@@ -24,10 +25,14 @@
           <h2>{{ stat.value }}</h2>
         </ep-flex>
       </ep-flex>
-      <div class="content__charts">
-        <!-- column chart of font count by category (sans-serif, etc) -->
-        <!-- donut chart of usage distribution (ui, headlines, code, body copy) -->
-      </div>
+      <ep-flex class="content__charts pt-40 pb-40">
+        <div class="chart-container">
+          <canvas ref="columnChartRef" />
+        </div>
+        <div class="chart-container">
+          <canvas ref="donutChartRef" />
+        </div>
+      </ep-flex>
       <div class="content__table">
         table
       </div>
@@ -37,15 +42,18 @@
 
 <script setup>
   import { faker } from '@faker-js/faker'
-  import { computed } from 'vue'
+  import { Chart } from 'chart.js/auto'
+  import { computed, onMounted, ref } from 'vue'
   import { useStore } from 'vuex'
 
-  defineProps({
+  const props = defineProps({
     font: {
       type: Object,
       required: true
     }
   })
+
+  const fakeSearch = ref('')
 
   const commonActionBarArgs = {
     items: [
@@ -69,32 +77,34 @@
             iconRight: undefined,
             class: 'ep-button-var--ghost'
           },
-          menuClass: 'ep-menu-default',
-          menuItems: [
-            {
-              id: faker.string.uuid(),
-              label: 'Notifications',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Alerts',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Messages',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              divider: true
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Settings',
-              action: (item) => console.log('clicked', item.label),
-            }
-          ],
+          menuProps: {
+            class: 'ep-menu-default',
+            menuItems: [
+              {
+                id: faker.string.uuid(),
+                label: 'Notifications',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Alerts',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Messages',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                divider: true
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Settings',
+                action: (item) => console.log('clicked', item.label),
+              }
+            ],
+          },
           alignRight: true,
           showOnHover: false,
         }
@@ -109,32 +119,34 @@
             iconRight: undefined,
             class: 'ep-button-var--ghost'
           },
-          menuClass: 'ep-menu-default',
-          menuItems: [
-            {
-              id: faker.string.uuid(),
-              label: 'Profile',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Switch account',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Settings',
-              action: (item) => console.log('clicked', item.label),
-            },
-            {
-              divider: true
-            },
-            {
-              id: faker.string.uuid(),
-              label: 'Sign out',
-              action: (item) => console.log('clicked', item.label),
-            }
-          ],
+          menuProps: {
+            class: 'ep-menu-default',
+            menuItems: [
+              {
+                id: faker.string.uuid(),
+                label: 'Profile',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Switch account',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Settings',
+                action: (item) => console.log('clicked', item.label),
+              },
+              {
+                divider: true
+              },
+              {
+                id: faker.string.uuid(),
+                label: 'Sign out',
+                action: (item) => console.log('clicked', item.label),
+              }
+            ],
+          },
           alignRight: true,
           showOnHover: false,
         }
@@ -172,6 +184,150 @@
       value: fakeStatCount()
     }
   ]
+
+  // Refs for the chart canvases
+  const columnChartRef = ref(null)
+  const donutChartRef = ref(null)
+
+  // Compute font counts by category from the Google Fonts data
+  const fontCountsByCategory = computed(() => {
+    const counts = {}
+    store.state.googleFonts.forEach(font => {
+      const category = font.category || 'unknown'
+      counts[category] = (counts[category] || 0) + 1
+    })
+    return counts
+  })
+
+  // Fake usage distribution data for donut chart
+  const usageDistribution = {
+    UI: faker.number.int({ min: 100, max: 1000 }),
+    Headlines: faker.number.int({ min: 100, max: 1000 }),
+    Code: faker.number.int({ min: 100, max: 1000 }),
+    'Body Copy': faker.number.int({ min: 100, max: 1000 })
+  }
+
+  onMounted(() => {
+    Chart.defaults.font.family = props.font.family
+
+    new Chart(columnChartRef.value, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(fontCountsByCategory.value).map(category => category.charAt(0).toUpperCase() + category.slice(1)),
+        datasets: [{
+          label: 'Fonts by Category',
+          data: Object.values(fontCountsByCategory.value),
+          backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--interface-surface--accent'),
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color--lighter'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        // layout: {
+        //   padding: 30
+        // },
+        plugins: {
+          legend: {
+            display: false
+          },
+          title: {
+            align: 'center',
+            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+            display: true,
+            padding: {
+              top: 0,
+              bottom: 30
+            },
+            text: 'Fonts by Category',
+            font: {
+              size: 20
+            },
+          },
+          tooltip: {
+            enabled: false
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+            },
+            ticks: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+            }
+          },
+          y: {
+            border: {
+              display: false,
+            },
+            grid: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--border-color')
+            },
+            ticks: {
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
+            }
+          },
+        }
+      }
+    })
+
+    new Chart(donutChartRef.value, {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(usageDistribution),
+        datasets: [{
+          label: 'Usage Distribution',
+          data: Object.values(usageDistribution),
+          backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--interface-surface--accent'),
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color--lighter'),
+          borderWidth: 1
+        }]
+      },
+      options: {
+        // layout: {
+        //   padding: {
+        //     bottom: 30
+        //   }
+        // },
+        plugins: {
+          legend: {
+            align: 'start',
+            display: true,
+            position: 'chartArea',
+            labels: {
+              boxWidth: 10,
+              boxHeight: 10,
+              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+              font: {
+                size: 12
+              }
+            }
+          },
+          title: {
+            align: 'center',
+            display: true,
+            text: 'Usage Distribution',
+            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+            font: {
+              size: 20
+            },
+            padding: {
+              top: 0,
+              bottom: 30
+            },
+          },
+          tooltip: {
+            enabled: false
+          }
+        },
+        radius: '80%',
+        responsive: true,
+        maintainAspectRatio: false,
+      }
+    })
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -179,7 +335,6 @@
     display: grid;
     grid-template-columns: 30rem 1fr;
     grid-template-rows: 6rem 1fr;
-    // background: red;
     min-height: 100vh;
 
     h2 {
@@ -216,7 +371,7 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 8rem auto 1fr auto;
-    padding: 0 3rem 3rem;
+    padding: 0 5rem 5rem;
   }
 
   .content__header {
@@ -232,6 +387,7 @@
     .stat {
       flex: 1;
       padding: 2rem 3rem;
+      background: var(--interface-foreground);
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius--large);
     }
@@ -240,6 +396,21 @@
   .content__charts {
     grid-column: 1 / 9;
     grid-row: 3 / 4;
+    display: flex;
+    gap: 2rem;
+
+    .chart-container {
+      position: relative;
+      display: flex;
+      justify-content: stretch;
+      flex: 1;
+      position: relative;
+      height: 35rem;
+      padding: 3rem 4rem;
+      background: var(--interface-foreground);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius--large);
+    }
   }
 
   .content__table {
