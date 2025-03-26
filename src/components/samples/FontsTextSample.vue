@@ -90,7 +90,7 @@
   }
 
   .sample-controls-container {
-    background: var(--interface-overlay);
+    background: var(--interface-foreground);
     padding: 3rem;
     border-radius: var(--border-radius--large);
   }
