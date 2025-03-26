@@ -38,8 +38,8 @@
       required: true
     },
     initialTab: {
-      type: String,
-      default: 'overview'
+      type: Number,
+      default: 0
     }
   })
 

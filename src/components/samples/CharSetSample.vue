@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { onMounted, ref } from 'vue'
 
   import EpRangeInput from '@/components/EpRangeInput.vue'
 
@@ -62,6 +62,14 @@
       value: '‘?’“!”(%)[#]{@}/&\\<-+÷×=>®©$€£¥¢:;,.*'
     },
   ]
+
+  onMounted(() => {
+    const viewportWidth = window.innerWidth
+    const initialVwSize = 4 // The desired 4vw
+
+    let calculatedPx = (initialVwSize / 100) * viewportWidth
+    localFontSize.value = calculatedPx.toFixed()
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -77,6 +85,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: var(--interface-foreground);
       border: 0.1rem solid var(--border-color);
       border-radius: var(--border-radius--large);
       color: var(--text-color--loud);

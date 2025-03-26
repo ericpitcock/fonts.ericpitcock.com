@@ -157,7 +157,7 @@ export default createStore({
       'Orelega One',
       'Zen Tokyo Zoo',
     ],
-    searchResults: [],
+    // searchResults: [],
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false,
@@ -276,9 +276,9 @@ export default createStore({
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
     },
-    setSearchResults(state, value) {
-      state.searchResults = value
-    },
+    // setSearchResults(state, value) {
+    //   state.searchResults = value
+    // },
     setSentenceSample(state, value) {
       state.sentenceSample = value
     },

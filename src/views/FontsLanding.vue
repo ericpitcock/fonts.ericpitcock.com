@@ -34,7 +34,8 @@
 </template>
 
 <script setup>
-  import { ref, watch } from 'vue'
+  import { ref, onMounted, watch } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontContainer from '@/components/FontContainer.vue'
@@ -43,20 +44,19 @@
 
   const store = useStore()
 
-  const getSearchResults = () => store.state.searchResults
-
   const input = ref('')
   const response = ref('')
   const parsedResponse = ref([])
   const loading = ref(false)
   const googleFonts = store.state.googleFonts
 
+  const router = useRouter()
+
   const sendMessage = async () => {
     if (!input.value) return
 
     loading.value = true
     response.value = ''
-    // Initialize as an empty array to store the font names.
     parsedResponse.value = []
 
     try {
@@ -87,18 +87,12 @@
       }
 
       const data = await res.json()
-      console.log('data', data)
       const raw = data.choices[0].message.content.trim()
-      console.log('raw', raw)
       response.value = raw
 
       try {
-        // convert the raw response to JSON
         const parsedJSON = JSON.parse(raw)
 
-        // for each font in parsedJSON, check if it's in store.state.googleFonts
-        // if it is, add it to the parsedResponse array
-        // if it's not, don't add it to the parsedResponse array
         parsedJSON.forEach((font) => {
           console.log('checking font', font)
           if (googleFonts.map((font) => font.family).includes(font)) {
@@ -106,25 +100,7 @@
           }
         })
 
-
-        // check store.state.googleFonts for the font names
-        // if the font name is in the store, add it to the parsedResponse array
-        // if it's not in the store, remove it from the parsedResponse array
-        // store.state.googleFonts.forEach((font) => {
-        //   console.log('checking font', font.family)
-        //   if (parsedJSON.includes(font.family)) {
-        //     parsedResponse.value.push(font.family)
-        //   } else {
-        //     parsedResponse.value = parsedJSON.filter((item) => item !== font.family)
-        //   }
-        // })
-        // console.log(parsedResponse.value)
-
-
-
-        // // parsedResponse.value = JSON.parse(raw)
-        // // console.log(parsedResponse.value)
-        // // store.commit('setSearchResults', parsedResponse.value)
+        router.push({ query: { results: parsedResponse.value.join(',') } })
       } catch (e) {
         console.warn('Could not parse response as JSON. Showing raw output.')
       }
@@ -138,6 +114,24 @@
 
   const getFontByName = (name) => store.getters.getFontByName(name)
   const getFontPathByName = (name) => store.getters.getFontPathByName(name)
+
+  // onmounted check for results query
+  // if it exists, set parsedResponse to the query
+  onMounted(() => {
+    const results = router.currentRoute.value.query.results
+    if (results) {
+      parsedResponse.value = results.split(',')
+    }
+  })
+
+  // watch query results
+  watch(() => router.currentRoute.value.query.results, (results) => {
+    if (results) {
+      parsedResponse.value = results.split(',')
+    } else {
+      parsedResponse.value = []
+    }
+  })
 </script>
 
 <style lang="scss" scoped>
