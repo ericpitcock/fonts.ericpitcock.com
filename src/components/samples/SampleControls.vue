@@ -106,8 +106,12 @@
       type: Object,
       required: true
     },
-    initialSize: { type: Number, default: 5 },
-    initialWeight: { type: String, default: '400' },
+    initialStyles: {
+      type: Object,
+      default: () => ({})
+    },
+    // initialSize: { type: Number, default: 5 },
+    // initialWeight: { type: String, default: '400' },
     availableWeights: {
       type: Array,
       default: () => []
@@ -119,17 +123,14 @@
 
   const emit = defineEmits(['update'])
 
-  const localSize = ref(props.initialSize)
-  const localWeight = ref(props.initialWeight)
-  const localLetterSpacing = ref(0)
-  const localLineHeight = ref(1.2)
-  const localFontStyle = ref(false)
-  const localTextTransform = ref(false)
-  const localTextWrap = ref(false)
-  const localColor = ref({
-    index: 1,
-    item: { label: 'Normal', value: 'normal' }
-  })
+  const localSize = ref(props.initialStyles.fontSize)
+  const localWeight = ref(props.initialStyles.fontWeight)
+  const localFontStyle = ref(props.initialStyles.fontStyle)
+  const localLetterSpacing = ref(props.initialStyles.letterSpacing)
+  const localLineHeight = ref(props.initialStyles.lineHeight)
+  const localTextTransform = ref(props.initialStyles.textTransform)
+  const localTextWrap = ref(props.initialStyles.textWrap)
+  const localColor = ref('var(--text-color--normal)')
 
   const colorOptions = [
     { label: 'Quiet', value: 'quiet' },
@@ -167,7 +168,7 @@
     lineHeight: localLineHeight.value,
     textTransform: localTextTransform.value ? 'uppercase' : 'none',
     textWrap: localTextWrap.value ? 'balance' : 'auto',
-    color: `var(--text-color--${localColor.value.item.value})`,
+    color: `var(--text-color--${localColor.value})`,
   }))
 
   const emitStyles = () => {

@@ -15,7 +15,7 @@
         >
           <span>{{ variant.name }}</span>
           <span
-            v-if="variant.italic"
+            v-if="variant.italic()"
             style="font-style: italic; color: var(--text-color--subtle)"
           >
             Italic

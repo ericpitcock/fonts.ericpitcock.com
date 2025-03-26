@@ -14,6 +14,7 @@
           <sample-controls
             :id="instanceId"
             :font="font"
+            :initial-styles="initialStyles"
             :initial-size="initialSize"
             :initial-weight="initialWeight"
             @update="updateFontControls"
@@ -43,6 +44,10 @@
       type: String,
       default: faker.lorem.word()
     },
+    initialStyles: {
+      type: Object,
+      default: () => ({})
+    },
     initialSize: {
       type: Number,
       default: 48
@@ -65,11 +70,7 @@
   }))
 
   // Initialize with the default styles
-  const specimenStyle = ref({
-    fontSize: `${props.initialSize}px`,
-    fontWeight: props.initialWeight,
-    fontFamily: props.font.family
-  })
+  const specimenStyle = ref(props.initialStyles)
 
   const updateFontControls = (styles) => {
     specimenStyle.value = { ...styles }
@@ -86,6 +87,16 @@
 
     .ep-dropdown {
       height: fit-content;
+    }
+
+    blockquote {
+      margin: 3rem 0 3rem -3rem;
+      padding-block: 4rem;
+      border-top: 1px dashed var(--border-color);
+      border-bottom: 1px dashed var(--border-color);
+      text-align: center;
+      text-box-trim: trim-both;
+      text-box-edge: cap alphabetic;
     }
   }
 

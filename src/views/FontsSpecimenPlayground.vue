@@ -5,53 +5,46 @@
         element="h1"
         :font="font"
         :text="article.headline"
-        :initial-size="48"
-        initial-weight="400"
+        :initial-styles="initHeadlineStyles"
       />
       <fonts-text-sample
         element="h3"
         :font="font"
         :text="article.byline"
-        :initial-size="12"
-        initial-weight="400"
+        :initial-styles="initBylineStyles"
       />
     </ep-flex>
     <fonts-text-sample
       element="p"
       :font="font"
       :text="article.lead"
-      :initial-size="20"
-      initial-weight="400"
+      :initial-styles="initLeadStyles"
     />
     <ep-flex class="flex-col gap-20">
       <fonts-text-sample
         element="p"
         :font="font"
         :text="article.body"
-        :initial-size="16"
-        initial-weight="400"
+        :initial-styles="initParagraphStyles"
       />
       <fonts-text-sample
         element="blockquote"
         :font="font"
         :text="article.quotes[0]"
-        :initial-size="20"
-        initial-weight="400"
+        :initial-styles="initBlockquoteStyles"
         italic
       />
       <fonts-text-sample
         element="p"
         :font="font"
         :text="article.supportingInformation"
-        :initial-size="16"
-        initial-weight="400"
+        :initial-styles="initParagraphStyles"
       />
       <fonts-text-sample
         element="p"
         :font="font"
         :text="article.conclusion"
-        :initial-size="16"
-        initial-weight="400"
+        :initial-styles="initParagraphStyles"
       />
     </ep-flex>
   </ep-flex>
@@ -129,6 +122,66 @@
   ]
 
   const article = faker.helpers.arrayElement(articles)
+
+  const initHeadlineStyles = {
+    fontSize: 64,
+    fontWeight: '400',
+    fontStyle: false,
+    fontVariationSettings: `'wght' 400`,
+    letterSpacing: 0,
+    lineHeight: 1.1,
+    textTransform: false,
+    textWrap: false,
+    color: 'var(--text-color--loud)',
+  }
+
+  const initBylineStyles = {
+    fontSize: 16,
+    fontWeight: '400',
+    fontStyle: false,
+    fontVariationSettings: `'wght' 400`,
+    letterSpacing: 1,
+    lineHeight: 1.2,
+    textTransform: true,
+    textWrap: false,
+    color: 'var(--text-color--quiet)',
+  }
+
+  const initLeadStyles = {
+    fontSize: 24,
+    fontWeight: '400',
+    fontStyle: false,
+    fontVariationSettings: `'wght' 400`,
+    letterSpacing: 0,
+    lineHeight: 1.6,
+    textTransform: false,
+    textWrap: false,
+    color: 'var(--text-color--normal)',
+  }
+
+  const initParagraphStyles = {
+    fontSize: 16,
+    fontWeight: '400',
+    fontStyle: false,
+    fontVariationSettings: `'wght' 400`,
+    letterSpacing: 0,
+    lineHeight: 1.6,
+    textTransform: false,
+    textWrap: false,
+    color: 'var(--text-color--normal)',
+  }
+
+  const initBlockquoteStyles = {
+    fontSize: 24,
+    fontWeight: '400',
+    fontStyle: true,
+    fontVariationSettings: `'wght' 400`,
+    letterSpacing: 0,
+    lineHeight: 1.4,
+    textTransform: false,
+    textWrap: false,
+    color: 'var(--text-color--loud)',
+  }
 </script>
 
 <style lang="scss" scoped>
