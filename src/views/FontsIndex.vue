@@ -32,15 +32,18 @@
           ref="content"
           class="index__content"
         >
+          <template v-if="sortedFonts.length === 0">
+            <div class="no-results">
+              <h1 class="ui-heading">
+                No fonts found
+              </h1>
+              <ep-button
+                label="Reset filters"
+                @click="$store.commit('resetFilters')"
+              />
+            </div>
+          </template>
           <div :class="['content-padder', `${viewClassName}`]">
-            <template v-if="sortedFonts.length === 0">
-              <div class="no-results">
-                No fonts found. Try
-                <span @click="$store.commit('resetFilters')">
-                  resetting all filters.
-                </span>
-              </div>
-            </template>
             <font-container
               v-for="(font, index) in sortedFonts"
               :key="index"
@@ -189,10 +192,7 @@
     padding: 0 0 20rem 0;
   }
 
-  /* Example styling for view modes */
-  .content-padder--list {
-    /* styles for list view */
-  }
+  .content-padder--list {}
 
   .content-padder--cards {
     display: grid;
@@ -214,12 +214,9 @@
   }
 
   .no-results {
-    padding: 3rem 6rem;
-    font-size: 1.5em;
-
-    span {
-      color: #007bff;
-      cursor: pointer;
-    }
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 6rem;
   }
 </style>

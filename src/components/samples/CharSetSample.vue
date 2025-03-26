@@ -5,10 +5,26 @@
       :key="index"
       class="flex-col gap-20"
     >
-      <h3 class="ui-heading">
-        {{ set.label }}
-      </h3>
-      <div class="characters">
+      <ep-header>
+        <template #left>
+          <h2 class="ui-heading">
+            {{ set.label }}
+          </h2>
+        </template>
+        <template #right>
+          <ep-range-input
+            v-model="localFontSize"
+            :min="24"
+            :max="128"
+            :step="1"
+            unit="px"
+          />
+        </template>
+      </ep-header>
+      <div
+        class="characters"
+        :style="{ fontSize: `${localFontSize}px` }"
+      >
         <div
           v-for="(char, index) in set.value"
           :key="index"
@@ -22,6 +38,12 @@
 </template>
 
 <script setup>
+  import { ref } from 'vue'
+
+  import EpRangeInput from '@/components/EpRangeInput.vue'
+
+  const localFontSize = ref(24)
+
   const characterSet = [
     {
       label: 'Uppercase',
@@ -44,17 +66,14 @@
 
 <style lang="scss" scoped>
   .characters {
-    word-break: break-all;
-    letter-spacing: 2px;
     display: flex;
-    justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 5px;
-    font-size: 3rem;
+    gap: 2rem;
 
     .character {
-      flex: 0 0 100px;
-      height: 100px;
+      flex: none;
+      width: 2em;
+      height: 2em;
       display: flex;
       justify-content: center;
       align-items: center;

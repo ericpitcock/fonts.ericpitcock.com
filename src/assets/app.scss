@@ -9,6 +9,7 @@
   --primary-color: hsl(344, 100%, 78%);
   --text-selection-bg-color: hsl(from var(--primary-color) h calc(s - 20) calc(l - 30));
   --text-selection-text-color: hsl(var(--gray-0));
+  -webkit-font-smoothing: antialiased;
 }
 
 html[data-color-theme='light'] {
@@ -30,12 +31,25 @@ body,
 input,
 select,
 textarea {
-  font-family: 'CallingCode-Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: 'CallingCode-Regular', monospace;
 }
 
 #app {
   width: 100vw;
   height: 100vh;
+}
+
+h1,
+h2 {
+  color: var(--text-color--loud);
+}
+
+h1.ui-heading {
+  font-size: 3.2rem;
+}
+
+h2.ui-heading {
+  font-size: 2.4rem;
 }
 
 h3.ui-heading {
@@ -47,6 +61,20 @@ h3.ui-heading {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--primary-color);
+}
+
+p.ui-text {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+.text--link {
+  color: var(--primary-color);
+
+  &:hover {
+    color: var(--primary-color) !important;
+    text-decoration: underline;
+  }
 }
 
 .font-family--inter {
