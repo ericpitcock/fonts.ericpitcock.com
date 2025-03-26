@@ -1,5 +1,5 @@
 <template>
-  <ep-flex class="fonts-specimen-playground flex-col gap-40">
+  <ep-flex class="fonts-specimen-playground flex-col align-center gap-40">
     <ep-flex class="flex-col gap-20">
       <fonts-text-sample
         element="h1"

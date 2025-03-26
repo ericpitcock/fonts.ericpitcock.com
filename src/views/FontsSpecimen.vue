@@ -1,7 +1,10 @@
 <template>
   <fonts-layout>
     <template #sidebar>
-      <fonts-specimen-details :font="font" />
+      <fonts-specimen-details
+        :font="font"
+        :initial-tab="initialTab"
+      />
     </template>
     <template #main>
       <div
@@ -19,9 +22,9 @@
 
 <script setup>
   import {
-    // computed,
     defineAsyncComponent,
     onMounted,
+    ref,
     shallowRef,
     watch,
   } from 'vue'
@@ -31,7 +34,7 @@
   import { useWebFont } from '@/composables/useWebFont'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
-  const FontsSpecimenLanding = defineAsyncComponent(() => import('@/views/FontsSpecimenLanding.vue'))
+  const FontsSpecimenOverview = defineAsyncComponent(() => import('@/views/FontsSpecimenOverview.vue'))
   const FontsSpecimenPlayground = defineAsyncComponent(() => import('@/views/FontsSpecimenPlayground.vue'))
   const FontsSpecimenUi = defineAsyncComponent(() => import('@/views/FontsSpecimenUi.vue'))
 
@@ -45,42 +48,53 @@
   const route = useRoute()
   const componentName = shallowRef(null)
 
+  const initialTab = ref(0)
+
   watch(() => route.query.tab, (tab) => {
     switch (tab) {
       case 'overview': {
-        componentName.value = FontsSpecimenLanding
-        break
-      }
-      case 'playground': {
-        componentName.value = FontsSpecimenPlayground
+        componentName.value = FontsSpecimenOverview
+        initialTab.value = 0
         break
       }
       case 'ui': {
         componentName.value = FontsSpecimenUi
+        initialTab.value = 1
+        break
+      }
+      case 'playground': {
+        componentName.value = FontsSpecimenPlayground
+        initialTab.value = 2
         break
       }
       default: {
-        componentName.value = FontsSpecimenLanding
+        componentName.value = FontsSpecimenOverview
       }
     }
   }, { immediate: true })
 
   const { loadGoogleFonts } = useWebFont()
 
+
+
   onMounted(() => {
-    // change route.query.tab to 'overview'
     if (!route.query.tab) {
       route.query.tab = 'overview'
     }
 
     const variants = props.font.variants.join(',')
     const fontString = `${props.font.family}:${variants}`
-    // console.log('fontString', fontString)
+
     loadGoogleFonts([fontString])
   })
 </script>
 
 <style lang="scss" scoped>
+  .grid {
+    grid-template-rows: 6rem 1fr;
+    grid-template-columns: 1fr;
+  }
+
   .specimen {
     display: flex;
     flex-direction: column;

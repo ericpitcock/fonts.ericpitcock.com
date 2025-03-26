@@ -85,3 +85,10 @@ p.ui-text {
   --text-color--normal: var(--text-color);
   --text-color--quiet: var(--text-color--subtle);
 }
+
+// hack the text box into submission
+// need to add this to the ep-button component
+.ep-button .ep-button__label {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}

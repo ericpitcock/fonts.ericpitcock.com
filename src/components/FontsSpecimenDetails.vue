@@ -1,68 +1,94 @@
 <template>
   <header>
-    <ep-flex class="flex-col gap-30">
-      <ep-button
-        label="Back to index"
-        @click="$router.push({ path: `/${font.category}` })"
-      />
-      <div>{{ font.family }}</div>
-      <ep-flex class="flex-col gap-10">
-        <ep-menu
-          :menu-items="specimenMenuItems"
-          menu-type="nav"
-          :active-item="activeMenuItem"
+    <ep-header>
+      <template #left>
+        <ep-button
+          class="ep-button-var--ghost"
+          label="Back"
+          :icon-left="{ name: 'arrow-left' }"
+          @click="$router.go(-1)"
         />
-      </ep-flex>
-    </ep-flex>
+      </template>
+      <template #center>
+        <ep-tabs
+          :items="specimenMenuItems"
+          :active-tab-index="activeTab"
+          @tab-click="setActiveTab"
+        />
+      </template>
+      <template #right>
+        <ep-theme-toggle
+          class="app-header-button ep-button-var--ghost"
+          :current-theme="theme"
+          @toggle-theme="toggleTheme"
+        />
+      </template>
+    </ep-header>
   </header>
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import { useStore } from 'vuex'
 
-  defineProps({
+  const props = defineProps({
     font: {
       type: Object,
       required: true
+    },
+    initialTab: {
+      type: String,
+      default: 'overview'
     }
   })
-
-  // const emit = defineEmits(['weight-hover'])
 
   const specimenMenuItems = [
     {
       id: 'overview',
       label: 'Overview',
-      to: '?tab=overview',
     },
     {
       id: 'ui',
       label: 'User Interface',
-      to: '?tab=ui',
     },
     {
       id: 'playground',
       label: 'Playground',
-      to: '?tab=playground',
     }
   ]
 
-  const activeMenuItem = ref('overview')
+  const router = useRouter()
 
-  // const onClick = (item) => {
-  //   console.log(item)
-  //   activeMenuItem.value = item.label
-  // }
+  const activeTab = ref(props.initialTab)
+
+  const setActiveTab = (item) => {
+    console.log(item)
+    activeTab.value = item.index
+    router.push({ query: { tab: item.item.id } })
+  }
+
+  const store = useStore()
+
+  const toggleTheme = () => store.dispatch('toggleTheme')
+  const theme = computed(() => store.state.theme)
 </script>
 
 <style lang="scss" scoped>
   header {
     grid-row: 1;
     grid-column: 1/2;
-    display: flex;
-    flex-direction: column;
-    padding: 3rem;
-    // background: var(--interface-surface);
-    border-right: 0.1rem solid var(--border-color);
+    // display: flex;
+    // flex-direction: column;
+    // border-right: 0.1rem solid var(--border-color);
+  }
+
+  .ep-header {
+    --ep-header-container-padding: 0 2rem 0 1rem;
+    --ep-header-container-bg-color: var(--interface-bg);
+  }
+
+  .ep-tabs {
+    --ep-tabs-active-border-color: var(--primary-color);
   }
 </style>
