@@ -4,7 +4,10 @@
       <fonts-specimen-details :font="font" />
     </template>
     <template #main>
-      <div class="specimen">
+      <div
+        class="specimen"
+        :style="{ fontFamily: `'${font.family}'` }"
+      >
         <component
           :is="componentName"
           :font="font"
@@ -81,9 +84,6 @@
   .specimen {
     display: flex;
     flex-direction: column;
-    // gap: 10rem;
-    // padding: 10rem;
     overflow: auto;
-    font-family: v-bind('font.family');
   }
 </style>

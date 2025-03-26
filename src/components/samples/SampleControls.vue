@@ -49,13 +49,13 @@
       />
     </div>
     <ep-divider direction="horizontal" />
-    <ep-flex class="flex-col gap-10">
+    <ep-flex class="flex-col">
       <h3 class="ui-heading">
         Color
       </h3>
       <ep-button-group
         :items="colorOptions"
-        :active="localColor.index"
+        :active="colorIndex"
         active-class="selected-font-color"
         @click="selectColor"
       />
@@ -130,19 +130,22 @@
   const localLineHeight = ref(props.initialStyles.lineHeight)
   const localTextTransform = ref(props.initialStyles.textTransform)
   const localTextWrap = ref(props.initialStyles.textWrap)
-  const localColor = ref('var(--text-color--normal)')
+  const localColor = ref(props.initialStyles.color)
 
   const colorOptions = [
-    { label: 'Quiet', value: 'quiet' },
-    { label: 'Normal', value: 'normal' },
-    { label: 'Loud', value: 'loud' }
+    { label: 'Quiet', value: 'var(--text-color--quiet)' },
+    { label: 'Normal', value: 'var(--text-color--normal)' },
+    { label: 'Loud', value: 'var(--text-color--loud)' },
   ]
 
   // find the index of localColor in colorOptions
   // const colorIndex = computed(() => colorOptions.findIndex(color => color.value === localColor.value))
+  // colorIndex find the index of localColor in colorOptions
+  const colorIndex = ref(colorOptions.findIndex(color => color.value === localColor.value))
 
   const selectColor = (color) => {
-    localColor.value = color
+    localColor.value = color.item.value
+    colorIndex.value = color.index
     console.log(color)
   }
 
@@ -168,7 +171,7 @@
     lineHeight: localLineHeight.value,
     textTransform: localTextTransform.value ? 'uppercase' : 'none',
     textWrap: localTextWrap.value ? 'balance' : 'auto',
-    color: `var(--text-color--${localColor.value})`,
+    color: localColor.value,
   }))
 
   const emitStyles = () => {

@@ -12,7 +12,6 @@ export default createStore({
     filters: { ...defaultFilters },
     currentSpecimen: {},
     categoryFilter: 'sans-serif',
-    fontSample: 'SentenceSample',
     globalFontSize: 36,
     googleFonts: [],
     headlines: [

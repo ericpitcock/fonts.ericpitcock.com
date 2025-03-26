@@ -62,10 +62,16 @@
     }
   })
 
+  const createByline = () => {
+    const author = faker.person.fullName()
+    const date = faker.date.recent()
+    return `By ${author} | ${date.toLocaleDateString()}`
+  }
+
   const articles = [
     {
       headline: "The Power of Typeface: How Fonts Influence Perception",
-      byline: "By Steve Samsonite",
+      byline: createByline(),
       lead: "Fonts are more than just design choices—they subtly guide how we perceive information. From trustworthiness to urgency, typography has the power to shape our thoughts before we even read the words.",
       body: "Typography plays a crucial role in communication design. Studies have shown that certain fonts, like serif typefaces, are often perceived as more trustworthy, while sans-serifs can feel more modern and clean. Designers carefully choose fonts to evoke the right emotional tone. For example, brands like The New York Times use traditional typefaces to signal authority and reliability.",
       quotes: [
@@ -76,7 +82,7 @@
     },
     {
       headline: "Kerning: The Hidden Art Behind Beautiful Type",
-      byline: "By Steve Samsonite",
+      byline: createByline(),
       lead: "To the untrained eye, kerning might seem like a minor detail. But to typographers, it’s an art form—one that separates amateur design from professional polish.",
       body: "Kerning is the process of adjusting the space between individual letter pairs to achieve visually pleasing and readable text. Without proper kerning, words can look uneven or distracting. Tools like Adobe Illustrator and Figma allow designers to manually tweak kerning to perfection.",
       quotes: [
@@ -87,7 +93,7 @@
     },
     {
       headline: "Why Web Typography Matters More Than Ever",
-      byline: "By Sarah Sandoval",
+      byline: createByline(),
       lead: "In a digital-first world, web typography has become a crucial component of user experience. It's no longer just about how it looks—it's about how it reads, responds, and renders across devices.",
       body: "Responsive typography adapts to screen size and user preferences, ensuring accessibility and legibility. Modern CSS features like `clamp()` and variable fonts allow designers to scale type fluidly. Google's Core Web Vitals now also take font loading into account when ranking websites.",
       quotes: [
@@ -98,7 +104,7 @@
     },
     {
       headline: "The Comeback of Variable Fonts",
-      byline: "By Sarah Sandoval",
+      byline: createByline(),
       lead: "After years of limited adoption, variable fonts are making a strong comeback—offering flexibility, speed, and expressive possibilities in a single font file.",
       body: "Variable fonts allow designers to adjust weight, width, and slant without loading multiple font files. This reduces page load times and gives designers more creative freedom. They're now supported in all major browsers and are featured prominently in Google Fonts.",
       quotes: [
@@ -110,7 +116,7 @@
     },
     {
       headline: "How to Choose the Right Font for Your Project",
-      byline: "By Jason Johnson",
+      byline: createByline(),
       lead: "With thousands of fonts available, choosing the right one can be overwhelming. But making an intentional choice can elevate your entire project.",
       body: "The key to selecting the right font is to align it with your message and audience. Serif fonts work well for long-form reading, while sans-serifs are better for UI. Display fonts should be used sparingly for emphasis. Tools like Fontpair and Google Fonts make it easy to find complementary font combinations.",
       quotes: [
@@ -129,7 +135,7 @@
     fontStyle: false,
     fontVariationSettings: `'wght' 400`,
     letterSpacing: 0,
-    lineHeight: 1.1,
+    lineHeight: 1.2,
     textTransform: false,
     textWrap: false,
     color: 'var(--text-color--loud)',
@@ -177,7 +183,7 @@
     fontStyle: true,
     fontVariationSettings: `'wght' 400`,
     letterSpacing: 0,
-    lineHeight: 1.4,
+    lineHeight: 1.6,
     textTransform: false,
     textWrap: false,
     color: 'var(--text-color--loud)',
