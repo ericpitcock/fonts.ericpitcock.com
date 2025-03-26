@@ -6,7 +6,7 @@
           class="ep-button-var--ghost"
           label="Back"
           :icon-left="{ name: 'arrow-left' }"
-          @click="$router.push({ path: `/${font.category}` })"
+          :to="$route.query.return || '/'"
         />
       </template>
       <template #center>
@@ -29,7 +29,7 @@
 
 <script setup>
   import { computed, ref } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   const props = defineProps({

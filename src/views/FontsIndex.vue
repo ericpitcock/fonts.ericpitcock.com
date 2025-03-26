@@ -136,7 +136,11 @@
   const category = computed(() => store.state.categoryFilter)
   const toFontSpecimen = (font) => {
     router.push({
-      path: `/${category.value}/${font.family.toLowerCase().replace(/\s+/g, '-')}`
+      path: `/${category.value}/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
+      query: {
+        tab: 'overview',
+        return: router.currentRoute.value.fullPath
+      }
     })
   }
 

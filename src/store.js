@@ -46,6 +46,7 @@ export default createStore({
       'The art of letters is alive and evolving',
       'Form and function meet where stories begin'
     ],
+    prevRoute: null,
     recommendedFonts: [
       // sans-serif
       'Archivo',
@@ -279,6 +280,9 @@ export default createStore({
     // setSearchResults(state, value) {
     //   state.searchResults = value
     // },
+    setPrevRoute(state, value) {
+      state.prevRoute = value
+    },
     setSentenceSample(state, value) {
       state.sentenceSample = value
     },
@@ -306,6 +310,9 @@ export default createStore({
         console.error('Error fetching Google Fonts:', error)
         throw error
       }
+    },
+    setPrevRoute({ commit }, value) {
+      commit('setPrevRoute', value)
     },
     toggleTheme: ({ state, commit }) => {
       let newTheme = state.theme == 'dark' ? 'light' : 'dark'

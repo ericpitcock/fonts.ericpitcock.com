@@ -29,8 +29,8 @@ const routes = [
     props: (route) => ({
       font: store.getters.getFontBySlug(route.params.font)
     }),
-    // beforeEnter add query tab=specimen
     beforeEnter: (to, from, next) => {
+      console.log('from', from)
       if (!to.query.tab) {
         next({
           path: to.path,

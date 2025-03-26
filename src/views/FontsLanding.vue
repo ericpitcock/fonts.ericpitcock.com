@@ -21,7 +21,7 @@
             v-for="(font, index) in parsedResponse"
             :key="index"
             :font="getFontByName(font)"
-            @click="$router.push(getFontPathByName(font))"
+            @click="$router.push({ path: getFontPathByName(font), query: { tab: 'overview', return: $router.currentRoute.value.fullPath } })"
           />
         </template>
 

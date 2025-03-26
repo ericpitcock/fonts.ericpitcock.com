@@ -132,7 +132,7 @@
       }
     }))
 
-  console.log(variants)
+  // console.log(variants)
 </script>
 
 <style lang="scss" scoped>
