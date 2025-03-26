@@ -152,7 +152,7 @@
 <style lang="scss" scoped>
   .index {
     display: grid;
-    grid-template-rows: 8rem 4rem 1fr 4rem;
+    grid-template-rows: 6.1rem 4rem 1fr 4rem;
     grid-template-columns: 1fr;
     overflow: hidden;
   }
@@ -166,10 +166,10 @@
     grid-row: 2/3;
     grid-column: 1/2;
     display: flex;
-    align-items: center;
     gap: 2rem;
     padding: 0 6rem;
     border-bottom: 0.1rem solid var(--border-color);
+    background-color: var(--interface-bg);
   }
 
   .index__content {

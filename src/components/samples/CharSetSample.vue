@@ -78,6 +78,7 @@
       justify-content: center;
       align-items: center;
       border: 0.1rem solid var(--border-color);
+      border-radius: var(--border-radius--large);
       color: var(--text-color--loud);
     }
   }

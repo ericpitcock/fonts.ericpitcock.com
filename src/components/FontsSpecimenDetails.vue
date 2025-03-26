@@ -6,7 +6,7 @@
           class="ep-button-var--ghost"
           label="Back"
           :icon-left="{ name: 'arrow-left' }"
-          @click="$router.go(-1)"
+          @click="$router.push({ path: `/${font.category}` })"
         />
       </template>
       <template #center>

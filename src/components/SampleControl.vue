@@ -67,9 +67,9 @@
     display: flex;
     align-items: center;
     gap: 2rem;
-    padding: 0 6rem;
+    padding: 0 2rem 0 6rem;
     background: var(--interface-bg);
-    border-bottom: 0.1rem solid var(--border-color);
+    // border-bottom: 0.1rem solid var(--border-color);
   }
 
   .sample-control__font-count {

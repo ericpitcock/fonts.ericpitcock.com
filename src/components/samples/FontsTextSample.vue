@@ -95,7 +95,9 @@
     }
 
     blockquote {
-      margin: 3rem 0 3rem -4rem;
+      position: relative;
+      left: -6rem;
+      margin: 3rem 0;
       padding: 4rem;
       border-top: 1px dashed var(--border-color--lighter);
       border-bottom: 1px dashed var(--border-color--lighter);
