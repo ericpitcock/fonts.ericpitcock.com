@@ -81,7 +81,7 @@
   .type-block {
     .text-sample {
       flex: 0 0 75%;
-      max-width: 60rem;
+      max-width: 70rem;
       // color: var(--text-color--loud);
     }
 
@@ -89,11 +89,17 @@
       height: fit-content;
     }
 
+    h3 {
+      padding-bottom: 2rem;
+      border-bottom: 0.1rem dashed var(--border-color);
+    }
+
     blockquote {
-      margin: 3rem 0 3rem -3rem;
-      padding-block: 4rem;
-      border-top: 1px dashed var(--border-color);
-      border-bottom: 1px dashed var(--border-color);
+      margin: 3rem 0 3rem -4rem;
+      padding: 4rem;
+      border-top: 1px dashed var(--border-color--lighter);
+      border-bottom: 1px dashed var(--border-color--lighter);
+      border-left: 1px dashed var(--border-color--lighter);
       text-align: center;
       text-box-trim: trim-both;
       text-box-edge: cap alphabetic;
