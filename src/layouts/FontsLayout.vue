@@ -1,17 +1,86 @@
 <template>
-  <div class="grid">
-    <slot name="sidebar" />
-    <slot name="main" />
+  <div class="fonts-grid">
+    <div
+      v-if="$slots.sidebar"
+      class="fonts-grid__sidebar"
+    >
+      <slot name="sidebar" />
+    </div>
+    <div
+      v-if="$slots.header"
+      class="fonts-grid__header"
+    >
+      <slot name="header" />
+    </div>
+    <div
+      v-if="$slots.main"
+      class="fonts-grid__main"
+    >
+      <slot name="main" />
+    </div>
+    <div
+      v-if="$slots.footer"
+      class="fonts-grid__footer"
+    >
+      <slot name="footer" />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
-  .grid {
+  .fonts-grid {
     display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: 200px 1fr;
-    grid-column-gap: 0;
+    grid-template-rows: 6.1rem 1fr 4rem;
+    grid-template-columns: 20rem 1fr;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+  }
+
+  .fonts-grid__sidebar {
+    grid-row: 1/4;
+    grid-column: 1/2;
+    display: grid;
+  }
+
+  .fonts-grid__header {
+    grid-row: 1/2;
+    grid-column: 2/3;
+  }
+
+  .fonts-grid__main {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .fonts-grid__footer {
+    grid-row: 3/4;
+    grid-column: 2/3;
+  }
+
+  .fonts-grid--no-sidebar {
+    grid-template-columns: 1fr;
+
+    .fonts-grid__header {
+      grid-column: 1/3;
+    }
+
+    .fonts-grid__main {
+      grid-column: 1/3;
+    }
+  }
+
+  .fonts-grid--no-footer {
+    grid-template-rows: 6.1rem 1fr;
+
+    .fonts-grid__header {
+      grid-row: 1/2;
+    }
+
+    .fonts-grid__main {
+      grid-row: 2/3;
+    }
   }
 </style>

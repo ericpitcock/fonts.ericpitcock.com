@@ -1,6 +1,6 @@
 <template>
-  <fonts-layout>
-    <template #sidebar>
+  <fonts-layout class="fonts-grid--no-sidebar fonts-grid--no-footer">
+    <template #header>
       <fonts-specimen-details
         :font="font"
         :initial-tab="initialTab"
@@ -89,11 +89,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .grid {
-    grid-template-rows: 6rem 1fr;
-    grid-template-columns: 1fr;
-  }
 
+  // .fonts-grid {
+  //   grid-template-rows: 6rem 1fr;
+  //   grid-template-columns: 1fr;
+  // }
   .specimen {
     display: flex;
     flex-direction: column;

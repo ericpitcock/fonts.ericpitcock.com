@@ -3,64 +3,62 @@
     <template #sidebar>
       <fonts-navigation />
     </template>
+    <template #header>
+      <sample-control />
+      <ep-button-group
+        :items="viewOptions"
+        :active="viewMode"
+        active-class="ep-button-var--primary"
+        @click="onViewChange"
+      />
+      <ep-select
+        v-model="sortBy"
+        :options="sortOptions"
+        select-id="sort"
+        placeholder="Sort by"
+      />
+      <ep-select
+        v-model="orderBy"
+        :options="orderOptions"
+        select-id="order"
+        placeholder="Order by"
+      />
+    </template>
     <template #main>
-      <div class="index">
-        <div class="index__header">
-          <sample-control />
-        </div>
-        <div class="index__controls">
-          <!-- move these three controls into sample-control -->
-          <ep-button-group
-            :items="viewOptions"
-            :active="viewMode"
-            active-class="ep-button-var--primary"
-            @click="onViewChange"
-          />
-          <ep-select
-            v-model="sortBy"
-            :options="sortOptions"
-            select-id="sort"
-            placeholder="Sort by"
-          />
-          <ep-select
-            v-model="orderBy"
-            :options="orderOptions"
-            select-id="order"
-            placeholder="Order by"
-          />
-          <!-- end controls to move -->
-        </div>
-        <div
-          ref="content"
-          class="index__content"
-        >
-          <template v-if="sortedFonts.length === 0">
-            <div class="no-results">
-              <h1 class="ui-heading">
-                No fonts found
-              </h1>
-              <ep-button
-                label="Reset filters"
-                @click="$store.commit('resetFilters')"
-              />
-            </div>
-          </template>
-          <div :class="['content-padder', `${viewClassName}`]">
-            <font-card
-              v-for="(font, index) in sortedFonts"
-              :key="index"
-              :font="font"
-              @click="toFontSpecimen(font)"
+      <!-- <div class="index"> -->
+      <div
+        ref="content"
+        class="index__content"
+      >
+        <template v-if="sortedFonts.length === 0">
+          <div class="no-results">
+            <h1 class="ui-heading">
+              No fonts found
+            </h1>
+            <ep-button
+              label="Reset filters"
+              @click="$store.commit('resetFilters')"
             />
           </div>
-        </div>
-        <div class="index__status-bar">
-          <ep-item-count
-            :count="getFontCount"
-            singular="font"
-            plural="fonts"
+        </template>
+        <div :class="['content-padder', `${viewClassName}`]">
+          <font-card
+            v-for="(font, index) in sortedFonts"
+            :key="index"
+            :font="font"
+            @click="toFontSpecimen(font)"
           />
         </div>
+      </div>
+      <!-- </div> -->
+    </template>
+    <template #footer>
+      <div class="index__status-bar">
+        <ep-item-count
+          :count="getFontCount"
+          singular="font"
+          plural="fonts"
+        />
       </div>
     </template>
   </fonts-layout>
@@ -156,45 +154,42 @@
 </script>
 
 <style lang="scss" scoped>
-  .index {
-    display: grid;
-    grid-template-rows: 6.1rem 4rem 1fr 4rem;
-    grid-template-columns: 1fr;
-    overflow: hidden;
-  }
 
-  .index__header {
-    grid-row: 1/2;
-    grid-column: 1/2;
-  }
-
-  .index__controls {
-    grid-row: 2/3;
-    grid-column: 1/2;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding: 0 6rem;
-    border-bottom: 0.1rem solid var(--border-color);
-    background-color: var(--interface-bg);
-  }
-
+  // .index {
+  //   // display: grid;
+  //   // grid-template-rows: 6.1rem 4rem 1fr 4rem;
+  //   // grid-template-columns: 1fr;
+  //   overflow: hidden;
+  // }
+  // .index__header {
+  //   grid-row: 1/2;
+  //   grid-column: 1/2;
+  // }
+  // .index__controls {
+  //   grid-row: 2/3;
+  //   grid-column: 1/2;
+  //   display: flex;
+  //   align-items: center;
+  //   gap: 2rem;
+  //   padding: 0 6rem;
+  //   border-bottom: 0.1rem solid var(--border-color);
+  //   background-color: var(--interface-bg);
+  // }
   .index__content {
-    grid-row: 3/4;
-    grid-column: 1/2;
-    overflow: auto;
-    overscroll-behavior: contain;
+    // grid-row: 3/4;
+    // grid-column: 1/2;
+    // overflow: auto;
+    // overscroll-behavior: contain;
   }
 
-  .index__status-bar {
-    grid-row: 4/5;
-    grid-column: 1/2;
-    display: flex;
-    align-items: center;
-    border-top: 0.1rem solid var(--border-color);
-    padding: 0 6rem;
-  }
-
+  // .index__status-bar {
+  //   grid-row: 4/5;
+  //   grid-column: 1/2;
+  //   display: flex;
+  //   align-items: center;
+  //   border-top: 0.1rem solid var(--border-color);
+  //   padding: 0 6rem;
+  // }
   .content-padder {
     display: flex;
     flex-direction: column;
