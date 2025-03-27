@@ -2,20 +2,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import store from '@/store'
 
-import FontsIndex from './views/FontsIndex.vue'
-import FontsLanding from './views/FontsLanding.vue'
-import FontsSpecimen from './views/FontsSpecimen.vue'
-
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: FontsLanding,
+    component: () => import('@/views/FontsSearch.vue'),
   },
   {
     path: '/:category',
     name: 'category',
-    component: FontsIndex,
+    component: () => import('@/views/FontsIndex.vue'),
     beforeEnter: (to, from, next) => {
       const category = to.params.category
       store.commit('setCategoryFilter', category)
@@ -25,7 +21,7 @@ const routes = [
   {
     path: '/:category/:font',
     name: 'font',
-    component: FontsSpecimen,
+    component: () => import('@/views/FontsSpecimen.vue'),
     props: (route) => ({
       font: store.getters.getFontBySlug(route.params.font)
     }),
