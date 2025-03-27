@@ -8,7 +8,7 @@
         <div class="search-input">
           <ep-flex class="flex-col gap-30">
             <h1 class="ui-heading">
-              What kind of fonts are you looking for today?
+              Describe the type fonts you’re looking for today
             </h1>
             <ep-flex class="flex-col gap-10">
               <ep-textarea
@@ -124,8 +124,6 @@
   const getFontByName = (name) => store.getters.getFontByName(name)
   const getFontPathByName = (name) => store.getters.getFontPathByName(name)
 
-  // onmounted check for results query
-  // if it exists, set parsedResponse to the query
   onMounted(() => {
     const results = router.currentRoute.value.query.results
     if (results) {
@@ -133,7 +131,6 @@
     }
   })
 
-  // watch query results
   watch(() => router.currentRoute.value.query.results, (results) => {
     if (results) {
       parsedResponse.value = results.split(',')
