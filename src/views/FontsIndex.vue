@@ -44,7 +44,7 @@
             </div>
           </template>
           <div :class="['content-padder', `${viewClassName}`]">
-            <font-container
+            <font-card
               v-for="(font, index) in sortedFonts"
               :key="index"
               :font="font"
@@ -69,7 +69,7 @@
   import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
-  import FontContainer from '@/components/FontContainer.vue'
+  import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import SampleControl from '@/components/SampleControl.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
@@ -194,7 +194,10 @@
   }
 
   .content-padder {
-    padding: 0 0 20rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 3rem 3rem 20rem 3rem;
   }
 
   .content-padder--list {}
@@ -206,7 +209,7 @@
     justify-content: start;
     padding: 3rem;
 
-    .font-container {
+    .font-card {
       flex: 1;
       padding: 3rem;
       border: 0.1rem solid var(--border-color);

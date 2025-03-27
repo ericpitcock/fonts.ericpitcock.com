@@ -25,7 +25,7 @@
         <div class="search-results">
           <ep-loading-state v-if="loading" />
           <template v-if="!loading && parsedResponse.length > 0">
-            <font-container
+            <font-card
               v-for="(font, index) in parsedResponse"
               :key="index"
               :font="getFontByName(font)"
@@ -47,7 +47,7 @@
   import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
-  import FontContainer from '@/components/FontContainer.vue'
+  import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
@@ -159,9 +159,12 @@
 
   .search-results {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     grid-column: 2;
     overflow: auto;
-    padding: 10rem;
+    padding: 10rem 10rem 20rem 10rem;
     padding-left: 0;
   }
 </style>

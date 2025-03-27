@@ -1,7 +1,7 @@
 <template>
   <div
     ref="el"
-    class="font-container"
+    class="font-card"
   >
     <div class="font">
       <div class="font__sample">
@@ -117,10 +117,11 @@
 </script>
 
 <style lang="scss" scoped>
-  .font-container {
+  .font-card {
     position: relative;
     cursor: pointer;
-    border-bottom: 0.1rem solid var(--border-color);
+    border: 0.1rem solid var(--border-color);
+    border-radius: var(--border-radius--large);
 
     :root & {
       --font-hover-bg: var(--interface-surface--accent);
@@ -155,7 +156,7 @@
     }
   }
 
-  .font-container a {
+  .font-card a {
     text-decoration: none;
   }
 

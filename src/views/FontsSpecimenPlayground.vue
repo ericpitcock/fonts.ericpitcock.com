@@ -192,7 +192,7 @@
 
 <style lang="scss" scoped>
   .fonts-specimen-playground {
-    padding: 10rem;
+    padding: 10rem 10rem 20rem 10rem;
 
     & > .ep-flex {
       width: 100%;
