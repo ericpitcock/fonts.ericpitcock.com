@@ -18,11 +18,11 @@
         :step="1"
       />
     </div>
-    <ep-theme-toggle
+    <!-- <ep-theme-toggle
       class="app-header-button ep-button-var--ghost"
       :current-theme="theme"
       @toggle-theme="toggleTheme"
-    />
+    /> -->
   </div>
 </template>
 
@@ -52,8 +52,8 @@
     }
   })
 
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
+  // const toggleTheme = () => store.dispatch('toggleTheme')
+  // const theme = computed(() => store.state.theme)
 </script>
 
 <style lang="scss" scoped>
@@ -63,8 +63,8 @@
     align-items: center;
     gap: 2rem;
     padding: 0 2rem 0 6rem;
-    background: var(--interface-bg);
-    border-bottom: 0.1rem solid var(--border-color);
+    // background: var(--interface-bg);
+    // border-bottom: 0.1rem solid var(--border-color);
   }
 
   .sample-control__font-count {

@@ -4,25 +4,31 @@
       <fonts-navigation />
     </template>
     <template #header>
-      <sample-control />
-      <ep-button-group
-        :items="viewOptions"
-        :active="viewMode"
-        active-class="ep-button-var--primary"
-        @click="onViewChange"
-      />
-      <ep-select
-        v-model="sortBy"
-        :options="sortOptions"
-        select-id="sort"
-        placeholder="Sort by"
-      />
-      <ep-select
-        v-model="orderBy"
-        :options="orderOptions"
-        select-id="order"
-        placeholder="Order by"
-      />
+      <fonts-app-header>
+        <template #left>
+          <sample-control />
+        </template>
+        <template #center>
+          <ep-button-group
+            :items="viewOptions"
+            :active="viewMode"
+            active-class="ep-button-var--primary"
+            @click="onViewChange"
+          />
+          <ep-select
+            v-model="sortBy"
+            :options="sortOptions"
+            select-id="sort"
+            placeholder="Sort by"
+          />
+          <ep-select
+            v-model="orderBy"
+            :options="orderOptions"
+            select-id="order"
+            placeholder="Order by"
+          />
+        </template>
+      </fonts-app-header>
     </template>
     <template #main>
       <!-- <div class="index"> -->
@@ -70,6 +76,7 @@
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'
+  import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import SampleControl from '@/components/SampleControl.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'

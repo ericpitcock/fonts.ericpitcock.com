@@ -3,6 +3,9 @@
     <template #sidebar>
       <fonts-navigation />
     </template>
+    <template #header>
+      <fonts-app-header />
+    </template>
     <template #main>
       <div class="search">
         <div class="search-input">
@@ -48,6 +51,7 @@
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'
+  import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
