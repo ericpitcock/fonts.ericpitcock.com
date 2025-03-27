@@ -8,26 +8,6 @@
         <div class="index__header">
           <SampleControl />
         </div>
-        <div class="index__controls">
-          <ep-button-group
-            :items="viewOptions"
-            :active="viewMode"
-            active-class="ep-button-var--primary"
-            @click="onViewChange"
-          />
-          <ep-select
-            v-model="sortBy"
-            :options="sortOptions"
-            select-id="sort"
-            placeholder="Sort by"
-          />
-          <ep-select
-            v-model="orderBy"
-            :options="orderOptions"
-            select-id="order"
-            placeholder="Order by"
-          />
-        </div>
         <div
           ref="content"
           class="index__content"
@@ -156,7 +136,7 @@
 <style lang="scss" scoped>
   .index {
     display: grid;
-    grid-template-rows: 6.1rem 4rem 1fr 4rem;
+    grid-template-rows: 6.1rem 1fr 4rem;
     grid-template-columns: 1fr;
     overflow: hidden;
   }
@@ -164,27 +144,28 @@
   .index__header {
     grid-row: 1/2;
     grid-column: 1/2;
-  }
-
-  .index__controls {
-    grid-row: 2/3;
-    grid-column: 1/2;
     display: flex;
-    gap: 2rem;
-    padding: 0 6rem;
-    border-bottom: 0.1rem solid var(--border-color);
-    background-color: var(--interface-bg);
+    align-items: center;
   }
 
+  // .index__controls {
+  //   grid-row: 2/3;
+  //   grid-column: 1/2;
+  //   display: flex;
+  //   gap: 2rem;
+  //   padding: 0 6rem;
+  //   border-bottom: 0.1rem solid var(--border-color);
+  //   background-color: var(--interface-bg);
+  // }
   .index__content {
-    grid-row: 3/4;
+    grid-row: 2/3;
     grid-column: 1/2;
     overflow: auto;
     overscroll-behavior: contain;
   }
 
   .index__status-bar {
-    grid-row: 4/5;
+    grid-row: 3/4;
     grid-column: 1/2;
     display: flex;
     align-items: center;

@@ -9,7 +9,6 @@
   --primary-color: hsl(344, 100%, 78%);
   --text-selection-bg-color: hsl(from var(--primary-color) h calc(s - 20) calc(l - 30));
   --text-selection-text-color: hsl(var(--gray-0));
-  -webkit-font-smoothing: antialiased;
 }
 
 html[data-color-theme='light'] {

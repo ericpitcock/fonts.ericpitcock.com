@@ -8,12 +8,11 @@
       </router-link>
     </div>
     <ep-flex class="flex-col gap-40">
-      <router-link
-        class="category-filters__filter-button"
-        to="/"
-      >
-        Search
-      </router-link>
+      <ep-button
+        label="Search"
+        class="ep-button-var--ghost category-filters__filter-button"
+        @click="toPath"
+      />
       <ep-flex class="category-filters flex-col gap-20">
         <h3 class="ui-heading">
           Categories
@@ -44,7 +43,19 @@
 
 <script setup>
   import { computed, onMounted, ref } from 'vue'
+  import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
+
+  const router = useRouter()
+  const route = useRoute()
+
+  // const toPath = { path: route.path !== '/' ? '/' : null }
+
+  const toPath = () => {
+    if (route.path !== '/') {
+      router.push('/')
+    }
+  }
 
   import FontsFilters from '@/components/FontsFilters.vue'
   import { useWebFont } from '@/composables/useWebFont'
@@ -94,9 +105,6 @@
   nav {
     grid-row: 1;
     grid-column: 1/2;
-    // display: flex;
-    // flex-direction: column;
-    // gap: 3rem;
     padding: 3rem;
     background: var(--interface-bg);
     border-right: 0.1rem solid var(--border-color);
@@ -115,16 +123,16 @@
   }
 
   .category-filters {
-
-    // display: flex;
-    // flex-direction: column;
-    // gap: 10px;
     &__filter-button {
       text-transform: capitalize;
       cursor: pointer;
 
       &.router-link-active {
         color: var(--text-color--loud);
+
+        &:hover {
+          cursor: default;
+        }
       }
     }
   }
@@ -133,20 +141,4 @@
     font-size: 12px;
     color: gray;
   }
-
-  // .optional-filters {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 10px;
-  //   .option {
-  //     display: flex;
-  //     align-items: baseline;
-  //     gap: 10px;
-  //     cursor: pointer;
-  //     input,
-  //     label {
-  //       cursor: pointer;
-  //     }
-  //   }
-  // }
 </style>
