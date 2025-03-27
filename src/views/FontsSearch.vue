@@ -8,7 +8,7 @@
         <div class="search-input">
           <ep-flex class="flex-col gap-30">
             <h1 class="ui-heading">
-              Describe the type fonts you’re looking for today
+              Describe the fonts you’re looking for
             </h1>
             <ep-flex class="flex-col gap-10">
               <ep-textarea
@@ -103,7 +103,6 @@
         const parsedJSON = JSON.parse(raw)
 
         parsedJSON.forEach((font) => {
-          console.log('checking font', font)
           if (googleFonts.map((font) => font.family).includes(font)) {
             parsedResponse.value.push(font)
           }

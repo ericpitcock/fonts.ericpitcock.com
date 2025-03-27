@@ -6,9 +6,10 @@
     <template #main>
       <div class="index">
         <div class="index__header">
-          <SampleControl />
+          <sample-control />
         </div>
         <div class="index__controls">
+          <!-- move these three controls into sample-control -->
           <ep-button-group
             :items="viewOptions"
             :active="viewMode"
@@ -27,6 +28,7 @@
             select-id="order"
             placeholder="Order by"
           />
+          <!-- end controls to move -->
         </div>
         <div
           ref="content"

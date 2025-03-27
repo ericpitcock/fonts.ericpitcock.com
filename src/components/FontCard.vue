@@ -95,6 +95,7 @@
       observer.value.observe(el.value)
     }
   })
+
   watch(getFilters, () => {
     if (el.value && observer.value) {
       observer.value.observe(el.value)

@@ -49,8 +49,6 @@
   const router = useRouter()
   const route = useRoute()
 
-  // const toPath = { path: route.path !== '/' ? '/' : null }
-
   const toPath = () => {
     if (route.path !== '/') {
       router.push('/')
@@ -64,7 +62,6 @@
 
   const currentFontIndex = ref(0)
 
-  const getCategoryFilter = computed(() => store.state.categoryFilter)
   const getFontCategories = computed(() => store.getters.getFontCategories)
 
   const titleFonts = [
@@ -77,7 +74,7 @@
     { fontFamily: 'Faster One', fontSize: 30 },
   ]
 
-  const { loadGoogleFonts, loading, error } = useWebFont()
+  const { loadGoogleFonts } = useWebFont()
 
   const loadTitleFonts = () => {
     const titleFontFamilies = titleFonts.map(font => font.fontFamily)

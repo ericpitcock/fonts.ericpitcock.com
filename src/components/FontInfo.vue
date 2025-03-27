@@ -4,7 +4,7 @@
     <span>{{ fontInfo(font) }}</span>
     <ep-badge
       v-if="isRecommended(font)"
-      label="Ep Pick"
+      label="Top Pick"
     />
   </p>
 </template>
@@ -13,7 +13,12 @@
   import { computed } from 'vue'
   import { useStore } from 'vuex'
 
-  defineProps(['font'])
+  defineProps({
+    font: {
+      type: Object,
+      required: true
+    }
+  })
 
   const store = useStore()
 
@@ -25,6 +30,7 @@
 
   const fontInfo = (font) => {
     if (!font.variants) return
+
     // determine the number of weights and italics
     let weights = 0
     let italics = 0

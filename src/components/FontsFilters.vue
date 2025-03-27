@@ -4,7 +4,7 @@
       <ep-checkbox
         id="recommended"
         v-model="recommendedFilter"
-        label="Ep’s Picks"
+        label="Top Picks"
         name="recommended"
         value="recommended"
       />

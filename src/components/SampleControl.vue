@@ -1,10 +1,5 @@
 <template>
   <div class="sample-control">
-    <!-- <ep-item-count
-      :count="getFontCount"
-      singular="font"
-      plural="fonts"
-    /> -->
     <div class="sample-control__input">
       <ep-input
         v-model="sentenceSample"
@@ -86,70 +81,6 @@
 
   .sample-control__font-size {
     flex: 0 0 20rem;
-  }
-
-  input[type="range"] {
-    appearance: none;
-  }
-
-  input[type="range"]:focus {
-    outline: none;
-  }
-
-  // range input track styles
-  @mixin track-styles {
-    height: 0.4rem;
-    cursor: pointer;
-    background: var(--border-color);
-    border-radius: 0.2rem;
-  }
-
-  input[type="range"]::-webkit-slider-runnable-track {
-    @include track-styles;
-  }
-
-  input[type="range"]::-moz-range-track {
-    @include track-styles;
-  }
-
-  input[type="range"]::-ms-track {
-    @include track-styles;
-  }
-
-  // range input thumb styles
-  @mixin thumb-styles {
-    width: 1.8rem;
-    height: 1.8rem;
-    cursor: pointer;
-    background: var(--primary-color);
-    border: 0.2rem solid var(--interface-surface);
-    border-radius: 50%;
-  }
-
-  input[type="range"] {
-    appearance: none;
-
-    &::-webkit-slider-thumb {
-      @include thumb-styles;
-      -webkit-appearance: none;
-      margin-top: -0.7rem;
-    }
-
-    &::-moz-range-thumb {
-      @include thumb-styles;
-      width: 1.8rem !important;
-      height: 1.8rem !important;
-      box-sizing: border-box;
-    }
-
-    &::-ms-thumb {
-      @include thumb-styles;
-    }
-  }
-
-  input[type="range"]:focus::-webkit-slider-runnable-track {
-    // background: #ccc;
-    /* Track background color on focus */
   }
 
   .app-header-button {
