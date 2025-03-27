@@ -5,28 +5,37 @@
     </template>
     <template #main>
       <div class="search">
-        <ep-textarea
-          v-model="input"
-          placeholder="Give me some fonts that are clean and modern."
-        />
-        <ep-button
-          label="Search"
-          @click="sendMessage"
-        />
+        <div class="search-input">
+          <ep-flex class="flex-col gap-30">
+            <h1 class="ui-heading">
+              What kind of fonts are you looking for today?
+            </h1>
+            <ep-flex class="flex-col gap-10">
+              <ep-textarea
+                v-model="input"
+                placeholder="Give me some fonts that are clean and modern."
+              />
+              <ep-button
+                label="Search"
+                @click="sendMessage"
+              />
+            </ep-flex>
+          </ep-flex>
+        </div>
+        <div class="search-results">
+          <ep-loading-state v-if="loading" />
+          <template v-if="!loading && parsedResponse.length > 0">
+            <font-container
+              v-for="(font, index) in parsedResponse"
+              :key="index"
+              :font="getFontByName(font)"
+              @click="$router.push({ path: getFontPathByName(font), query: { tab: 'overview', return: $router.currentRoute.value.fullPath } })"
+            />
+          </template>
 
-        <ep-loading-state v-if="loading" />
-
-        <template v-if="!loading && parsedResponse.length > 0">
-          <font-container
-            v-for="(font, index) in parsedResponse"
-            :key="index"
-            :font="getFontByName(font)"
-            @click="$router.push({ path: getFontPathByName(font), query: { tab: 'overview', return: $router.currentRoute.value.fullPath } })"
-          />
-        </template>
-
-        <div v-else-if="response">
-          {{ response }}
+          <div v-else-if="response">
+            {{ response }}
+          </div>
         </div>
       </div>
     </template>
@@ -34,7 +43,7 @@
 </template>
 
 <script setup>
-  import { ref, onMounted, watch } from 'vue'
+  import { onMounted, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
@@ -136,6 +145,23 @@
 
 <style lang="scss" scoped>
   .search {
+    display: grid;
+    grid-template-columns: 50rem 1fr;
+    gap: 10rem;
+    overflow: hidden;
+  }
+
+  .search-input {
+    grid-column: 1;
+    padding: 10rem;
+    padding-right: 0;
+  }
+
+  .search-results {
     position: relative;
+    grid-column: 2;
+    overflow: auto;
+    padding: 10rem;
+    padding-left: 0;
   }
 </style>

@@ -30,7 +30,7 @@ const routes = [
       font: store.getters.getFontBySlug(route.params.font)
     }),
     beforeEnter: (to, from, next) => {
-      console.log('from', from)
+      console.log('beforeEnter')
       if (!to.query.tab) {
         next({
           path: to.path,

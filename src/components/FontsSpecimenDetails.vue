@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-  import { computed, ref } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
@@ -59,19 +59,30 @@
   ]
 
   const router = useRouter()
+  const route = useRoute()
 
   const activeTab = ref(props.initialTab)
 
   const setActiveTab = (item) => {
     console.log(item)
     activeTab.value = item.index
-    router.push({ query: { tab: item.item.id } })
+    router.push({
+      query: {
+        ...route.query,
+        tab: item.item.id
+      }
+    })
   }
 
   const store = useStore()
 
   const toggleTheme = () => store.dispatch('toggleTheme')
   const theme = computed(() => store.state.theme)
+
+  //watch initialTab
+  watch(() => props.initialTab, (tab) => {
+    activeTab.value = tab
+  })
 </script>
 
 <style lang="scss" scoped>

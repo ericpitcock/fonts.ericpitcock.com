@@ -65,7 +65,7 @@
 
   onMounted(() => {
     const viewportWidth = window.innerWidth
-    const initialVwSize = 4 // The desired 4vw
+    const initialVwSize = 3
 
     let calculatedPx = (initialVwSize / 100) * viewportWidth
     localFontSize.value = calculatedPx.toFixed()
