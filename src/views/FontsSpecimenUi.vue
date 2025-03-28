@@ -1,13 +1,17 @@
 <template>
   <div class="ui-container">
-    <ep-flex class="app-header align-center justify-between pr-20 pl-20">
-      <ep-input
-        v-model="fakeSearch"
-        placeholder="Search"
-        size="large"
-      />
-      <ep-action-bar v-bind="commonActionBarArgs" />
-    </ep-flex>
+    <ep-header class="app-header">
+      <template #left>
+        <ep-input
+          v-model="fakeSearch"
+          placeholder="Search"
+          size="large"
+        />
+      </template>
+      <template #right>
+        <ep-action-bar v-bind="commonActionBarArgs" />
+      </template>
+    </ep-header>
     <div class="sidebar">
       sidebar
     </div>
@@ -428,6 +432,7 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     border-bottom: 1px solid var(--border-color);
+    --ep-header-container-padding: 0 5rem;
 
     .ep-action-bar {
       width: auto;
