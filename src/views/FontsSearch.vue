@@ -28,10 +28,20 @@
                 @click="sendMessage"
               />
             </ep-flex>
-            <ep-button
-              label="Modern sans ui fonts for web apps"
-              size="xlarge"
-            />
+            <ep-flex class="flex-col gap-10">
+              <h3 class="ui-heading">
+                Example prompts
+              </h3>
+              <ep-flex class="flex-col gap-10">
+                <ep-button
+                  v-for="(button, index) in cannedPrompts"
+                  :key="index"
+                  :label="button.label"
+                  size="xlarge"
+                  @click="runCannedPrompt(button.prompt)"
+                />
+              </ep-flex>
+            </ep-flex>
           </ep-flex>
         </div>
         <div class="search-results">
@@ -83,7 +93,21 @@
     sendMessage()
   }
 
-  const sendMessage = async () => {
+  const runCannedPrompt = async (prompt) => {
+    input.value = prompt
+    sendMessage(prompt)
+  }
+
+  const cannedPrompts = [
+    { label: "Modern sans ui fonts for web apps", prompt: "Modern sans ui fonts for web apps" },
+    { label: "Elegant serif fonts for editorial designs", prompt: "Elegant serif fonts for editorial designs" },
+    { label: "Playful handwritten fonts for creative projects", prompt: "Playful handwritten fonts for creative projects" },
+    { label: "Futuristic display fonts for tech startups", prompt: "Futuristic display fonts for tech startups" },
+    { label: "Vintage typewriter fonts for retro aesthetics", prompt: "Vintage typewriter fonts for retro aesthetics" },
+    { label: "Minimalist monospaced fonts for coding environments", prompt: "Minimalist monospaced fonts for coding environments" }
+  ]
+
+  const sendMessage = async (prompt = null) => {
     if (!input.value) return
 
     loading.value = true
@@ -107,7 +131,7 @@
             },
             {
               role: 'user',
-              content: input.value,
+              content: prompt || input.value,
             },
           ],
         }),
