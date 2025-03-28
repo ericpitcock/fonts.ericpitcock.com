@@ -7,9 +7,9 @@
     >
       <ep-header>
         <template #left>
-          <h2 class="ui-heading">
+          <h3 class="ui-heading">
             {{ set.label }}
-          </h2>
+          </h3>
         </template>
         <template #right>
           <ep-range-input

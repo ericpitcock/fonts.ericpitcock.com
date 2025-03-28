@@ -21,6 +21,7 @@
               <ep-textarea
                 v-model="input"
                 placeholder="Give me some fonts that are clean and modern."
+                @keydown.enter="onEnter"
               />
               <ep-button
                 label="Search"
@@ -70,6 +71,13 @@
   const googleFonts = store.state.googleFonts
 
   const router = useRouter()
+
+  const onEnter = (event) => {
+    if (event.shiftKey) return
+
+    event.preventDefault()
+    sendMessage()
+  }
 
   const sendMessage = async () => {
     if (!input.value) return
