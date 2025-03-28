@@ -103,7 +103,7 @@
     grid-row: 1;
     grid-column: 1/2;
     padding: 3rem;
-    background: var(--interface-bg);
+    background: var(--interface-surface);
     border-right: 0.1rem solid var(--border-color);
     overflow-y: auto;
   }

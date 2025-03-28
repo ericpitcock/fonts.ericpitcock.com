@@ -53,6 +53,11 @@ h2 {
   color: var(--text-color--loud);
 }
 
+.ui-heading:is(h1, h2) {
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
 h1.ui-heading {
   font-size: 3.2rem;
 }

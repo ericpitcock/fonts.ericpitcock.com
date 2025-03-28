@@ -28,6 +28,10 @@
                 @click="sendMessage"
               />
             </ep-flex>
+            <ep-button
+              label="Modern sans ui fonts for web apps"
+              size="xlarge"
+            />
           </ep-flex>
         </div>
         <div class="search-results">
@@ -165,7 +169,8 @@
     justify-content: flex-end;
     grid-template-columns: 50rem 1fr;
     gap: 10rem;
-    // height: 100%;
+    min-height: 100%;
+    background: var(--interface-bg);
     // padding: 10rem;
     // overflow: hidden;
   }
@@ -180,8 +185,13 @@
     // width: 50rem;
   }
 
+  .ep-loading {
+    --ep-loading-state-bg-color: var(--interface-bg);
+  }
+
   .ep-textarea {
     --ep-textarea-border-radius: var(--border-radius--large);
+    --ep-textarea-bg-color: var(--interface-surface);
   }
 
   .search-container {

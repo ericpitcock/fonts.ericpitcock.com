@@ -29,6 +29,6 @@
 <style lang="scss" scoped>
   .ep-header {
     --ep-header-container-padding: 0 2rem;
-    --ep-header-container-bg-color: var(--interface-bg);
+    --ep-header-container-bg-color: var(--interface-surface);
   }
 </style>

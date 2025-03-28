@@ -63,7 +63,7 @@
     align-items: center;
     gap: 2rem;
     padding: 0 2rem 0 6rem;
-    // background: var(--interface-bg);
+    // background: var(--interface-surface);
     // border-bottom: 0.1rem solid var(--border-color);
   }
 

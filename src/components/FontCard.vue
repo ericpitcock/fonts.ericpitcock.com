@@ -121,6 +121,7 @@
   .font-card {
     position: relative;
     cursor: pointer;
+    background: var(--interface-surface);
     border: 0.1rem solid var(--border-color);
     border-radius: var(--border-radius--large);
 

@@ -69,7 +69,7 @@
   const activeTab = ref(props.initialTab)
 
   const setActiveTab = (item) => {
-    console.log(item)
+    // console.log(item)
     activeTab.value = item.index
     router.push({
       query: {

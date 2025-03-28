@@ -17,7 +17,7 @@
     </div>
     <div class="content">
       <ep-flex class="content__header align-center">
-        <h1>Font Analytics</h1>
+        <h1 class="ui-heading">Font Analytics</h1>
       </ep-flex>
       <ep-flex class="content__stats gap-20">
         <ep-flex
@@ -43,7 +43,6 @@
           :data="tableData"
           :bordered="true"
           :striped="true"
-          :selectable="true"
         >
           <template #thead="{ visibleColumns, cellWidths, showActionsMenu }">
             <ep-table-head
@@ -379,11 +378,9 @@
     }
   ]
 
-  const googleFonts = store.state.googleFonts
+  const googleFonts = [...store.state.googleFonts]
 
-  // get 20 random fonts from googleFonts
   const randomFonts = googleFonts.sort(() => Math.random() - Math.random()).slice(0, 20)
-  // generate table data from randomFonts
   const tableData = randomFonts.map(font => ({
     id: faker.string.uuid(),
     name: font.family,
@@ -391,14 +388,6 @@
     weight: font.variants[0],
     downloads: faker.number.int({ min: 100, max: 100000 })
   }))
-
-  // const tableData = Array.from({ length: 20 }, () => ({
-  //   id: faker.string.uuid(),
-  //   name: faker.lorem.word({ length: { min: 5, max: 15 } }) + ' Font',
-  //   category: faker.helpers.arrayElement(['Serif', 'Sans-Serif', 'Display', 'Handwriting', 'Monospace']),
-  //   weight: faker.helpers.arrayElement(['Thin', 'Light', 'Regular', 'Medium', 'Bold', 'Black']),
-  //   downloads: faker.number.int({ min: 100, max: 100000 })
-  // }))
 </script>
 
 <style lang="scss" scoped>
@@ -451,8 +440,9 @@
     grid-row: 2 / 3;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 8rem auto 1fr auto;
+    grid-template-rows: 12rem auto 1fr auto;
     padding: 0 5rem 20rem 5rem;
+    background: var(--interface-bg);
     overflow: auto;
   }
 
@@ -469,7 +459,7 @@
     .stat {
       flex: 1;
       padding: 2rem 3rem;
-      background: var(--interface-foreground);
+      background: var(--interface-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius--large);
     }
@@ -489,7 +479,7 @@
       position: relative;
       height: 35rem;
       padding: 3rem 4rem;
-      background: var(--interface-foreground);
+      background: var(--interface-surface);
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius--large);
     }
@@ -498,9 +488,14 @@
   .content__table {
     grid-column: 1 / 9;
     grid-row: 4 / 5;
+    background: var(--interface-surface);
+    padding: 2rem 3rem 3rem;
+    border: 0.1rem solid var(--border-color);
+    border-radius: var(--border-radius--large);
 
     .ep-table-container {
       --ep-table-width: 100%;
+      --ep-table-header-bg-color: var(--interface-surface);
     }
   }
 </style>

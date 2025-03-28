@@ -51,7 +51,7 @@
   const initialTab = ref(0)
 
   watch(() => route.query.tab, (tab) => {
-    console.log('route.query.tab changed:', tab)
+    // console.log('route.query.tab changed:', tab)
     switch (tab) {
       case 'overview': {
         componentName.value = FontsSpecimenOverview

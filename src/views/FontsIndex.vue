@@ -159,6 +159,7 @@
     flex-direction: column;
     gap: 1rem;
     padding: 3rem 3rem 20rem 3rem;
+    background: var(--interface-bg);
   }
 
   .content-padder--list {}
