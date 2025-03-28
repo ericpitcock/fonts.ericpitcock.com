@@ -1,6 +1,12 @@
 <template>
   <div class="fonts-grid">
     <div
+      v-if="$slots.corner"
+      class="fonts-grid__corner"
+    >
+      <slot name="corner" />
+    </div>
+    <div
       v-if="$slots.sidebar"
       class="fonts-grid__sidebar"
     >
@@ -35,6 +41,18 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+  }
+
+  .fonts-grid__corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 7.8rem;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
   }
 
   .fonts-grid__sidebar {
@@ -81,6 +99,14 @@
 
     .fonts-grid__main {
       grid-row: 2/3;
+    }
+  }
+
+  .fonts-grid--no-header-footer {
+    grid-template-rows: 1fr;
+
+    .fonts-grid__main {
+      grid-row: 1/2;
     }
   }
 </style>

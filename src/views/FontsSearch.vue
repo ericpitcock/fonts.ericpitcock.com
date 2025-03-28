@@ -1,15 +1,19 @@
 <template>
-  <fonts-layout>
+  <fonts-layout class="fonts-grid--no-header-footer">
     <template #sidebar>
       <fonts-navigation />
     </template>
-    <template #header>
-      <fonts-app-header />
+    <template #corner>
+      <ep-theme-toggle
+        class="app-header-button ep-button-var--ghost"
+        :current-theme="theme"
+        @toggle-theme="toggleTheme"
+      />
     </template>
     <template #main>
       <div class="search">
         <div class="search-input">
-          <ep-flex class="flex-col gap-30">
+          <ep-flex class="search-container flex-col gap-30">
             <h1 class="ui-heading">
               Describe the fonts you’re looking for
             </h1>
@@ -46,16 +50,18 @@
 </template>
 
 <script setup>
-  import { onMounted, ref, watch } from 'vue'
+  import { computed, onMounted, ref, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'
-  import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
   const store = useStore()
+
+  const toggleTheme = () => store.dispatch('toggleTheme')
+  const theme = computed(() => store.state.theme)
 
   const input = ref('')
   const response = ref('')
@@ -145,16 +151,32 @@
 
 <style lang="scss" scoped>
   .search {
-    display: grid;
+    // position: relative;
+    // display: grid;
+    display: flex;
+    justify-content: flex-end;
     grid-template-columns: 50rem 1fr;
     gap: 10rem;
-    overflow: hidden;
+    // height: 100%;
+    // padding: 10rem;
+    // overflow: hidden;
   }
 
   .search-input {
-    grid-column: 1;
-    padding: 10rem;
-    padding-right: 0;
+    // position: sticky;
+    grid-column: 1/2;
+    align-self: flex-start;
+    // top: 10rem;
+    padding-left: 10rem;
+    // left: 10rem;
+    // width: 50rem;
+  }
+
+  .search-container {
+    position: fixed;
+    top: 10rem;
+    left: 30rem;
+    max-width: 40rem;
   }
 
   .search-results {
@@ -163,8 +185,9 @@
     flex-direction: column;
     gap: 1rem;
     grid-column: 2;
-    overflow: auto;
+    // overflow: auto;
     padding: 10rem 10rem 20rem 10rem;
     padding-left: 0;
+    width: calc(100% - 60rem);
   }
 </style>
