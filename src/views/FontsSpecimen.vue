@@ -97,6 +97,7 @@
   .specimen {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    // overflow: auto;
+    height: 100%;
   }
 </style>

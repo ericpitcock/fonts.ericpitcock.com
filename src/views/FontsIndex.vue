@@ -31,11 +31,7 @@
       </fonts-app-header>
     </template>
     <template #main>
-      <!-- <div class="index"> -->
-      <div
-        ref="content"
-        class="index__content"
-      >
+      <div class="index__content">
         <template v-if="sortedFonts.length === 0">
           <div class="no-results">
             <h1 class="ui-heading">
@@ -56,7 +52,6 @@
           />
         </div>
       </div>
-      <!-- </div> -->
     </template>
     <template #footer>
       <div class="index__status-bar">
@@ -72,7 +67,7 @@
 
 <script setup>
   import { computed, ref, watch } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'
@@ -91,13 +86,13 @@
   const orderBy = ref('ascending')
 
   const sortOptions = [
-    { label: 'Recommended', value: 'recommended' },
-    { label: 'Alphabetical', value: 'alphabetical' }
+    { label: 'Sort: Top Picks', value: 'recommended' },
+    { label: 'Sort: A-Z', value: 'alphabetical' }
   ]
 
   const orderOptions = [
-    { label: 'Ascending', value: 'ascending' },
-    { label: 'Descending', value: 'descending' }
+    { label: 'Order: Asc', value: 'ascending' },
+    { label: 'Order: Desc', value: 'descending' }
   ]
 
   const viewMode = ref(0)
@@ -151,52 +146,14 @@
     })
   }
 
-  const content = ref(null)
-  watch(() => router.currentRoute.value.params, (params) => {
-    if (content.value) {
-      content.value.scrollTop = 0
-    }
+  const route = useRoute()
+
+  watch(() => route.params, (params) => {
     store.commit('setCategoryFilter', params.category)
   })
 </script>
 
 <style lang="scss" scoped>
-
-  // .index {
-  //   // display: grid;
-  //   // grid-template-rows: 6.1rem 4rem 1fr 4rem;
-  //   // grid-template-columns: 1fr;
-  //   overflow: hidden;
-  // }
-  // .index__header {
-  //   grid-row: 1/2;
-  //   grid-column: 1/2;
-  // }
-  // .index__controls {
-  //   grid-row: 2/3;
-  //   grid-column: 1/2;
-  //   display: flex;
-  //   align-items: center;
-  //   gap: 2rem;
-  //   padding: 0 6rem;
-  //   border-bottom: 0.1rem solid var(--border-color);
-  //   background-color: var(--interface-bg);
-  // }
-  .index__content {
-    // grid-row: 3/4;
-    // grid-column: 1/2;
-    // overflow: auto;
-    // overscroll-behavior: contain;
-  }
-
-  // .index__status-bar {
-  //   grid-row: 4/5;
-  //   grid-column: 1/2;
-  //   display: flex;
-  //   align-items: center;
-  //   border-top: 0.1rem solid var(--border-color);
-  //   padding: 0 6rem;
-  // }
   .content-padder {
     display: flex;
     flex-direction: column;
@@ -208,7 +165,7 @@
 
   .content-padder--cards {
     display: grid;
-    grid-gap: 3rem;
+    grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, 30rem);
     justify-content: start;
     padding: 3rem;

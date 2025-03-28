@@ -202,7 +202,7 @@
     }
 
     :deep(.ep-button.selected-font-color) {
-      color: var(--primary-color);
+      color: var(--primary-color-base);
     }
   }
 </style>

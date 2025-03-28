@@ -3,7 +3,7 @@
     <template #left>
       <ep-button
         class="ep-button-var--ghost"
-        label="Back"
+        :label="backButtonLabel"
         :icon-left="{ name: 'arrow-left' }"
         :to="$route.query.return || '/'"
       />
@@ -24,6 +24,18 @@
   import { useStore } from 'vuex'
 
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
+
+  const store = useStore()
+
+  const categoryMap = store.state.categoryMap
+
+  // back button label computed
+  const backButtonLabel = computed(() => {
+    // if query starts with "/?" then it's search results
+    // otherwise it's a font category and return everything but the /
+    const returnPath = route.query.return || '/'
+    return returnPath.startsWith('/?') ? 'Search results' : `${categoryMap[returnPath.replace(/^\//, '')]} fonts`
+  })
 
   const props = defineProps({
     font: {
@@ -67,12 +79,6 @@
     })
   }
 
-  const store = useStore()
-
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
-
-  //watch initialTab
   watch(() => props.initialTab, (tab) => {
     activeTab.value = tab
   })
@@ -80,6 +86,6 @@
 
 <style lang="scss" scoped>
   .ep-tabs {
-    --ep-tabs-active-border-color: var(--primary-color);
+    --ep-tabs-active-border-color: var(--primary-color-base);
   }
 </style>

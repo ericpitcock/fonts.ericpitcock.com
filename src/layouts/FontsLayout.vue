@@ -20,6 +20,7 @@
     </div>
     <div
       v-if="$slots.main"
+      ref="main"
       class="fonts-grid__main"
     >
       <slot name="main" />
@@ -32,6 +33,27 @@
     </div>
   </div>
 </template>
+
+<script setup>
+  import { useTemplateRef, watch } from 'vue'
+  import { useRoute } from 'vue-router'
+  import { useStore } from 'vuex'
+
+  const route = useRoute()
+  const store = useStore()
+
+  const main = useTemplateRef('main')
+
+  watch(
+    [() => route.fullPath, () => store.state.filters],
+    () => {
+      if (main.value) {
+        main.value.scrollTop = 0
+      }
+    },
+    { deep: true }
+  )
+</script>
 
 <style lang="scss">
   .fonts-grid {
@@ -70,7 +92,7 @@
     grid-row: 2/3;
     grid-column: 2/3;
     overflow: auto;
-    overscroll-behavior: contain;
+    // overscroll-behavior: contain;
   }
 
   .fonts-grid__footer {

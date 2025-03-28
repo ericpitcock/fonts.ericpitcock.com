@@ -12,6 +12,13 @@ export default createStore({
     filters: { ...defaultFilters },
     currentSpecimen: {},
     categoryFilter: 'sans-serif',
+    categoryMap: {
+      'sans-serif': 'Sans Serif',
+      'display': 'Display',
+      'handwriting': 'Handwriting',
+      'monospace': 'Monospace',
+      'serif': 'Serif'
+    },
     globalFontSize: 36,
     googleFonts: [],
     headlines: [

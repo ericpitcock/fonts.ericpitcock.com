@@ -180,6 +180,10 @@
     // width: 50rem;
   }
 
+  .ep-textarea {
+    --ep-textarea-border-radius: var(--border-radius--large);
+  }
+
   .search-container {
     position: fixed;
     top: 10rem;

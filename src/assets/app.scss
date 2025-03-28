@@ -1,3 +1,12 @@
+@use '@epicenter-styles/mixins/_generate-color-variants.scss' as *;
+$base-lightness: 0.78;
+$base-chroma: 0.22;
+$base-hue: 19;
+
+:root {
+  @include generate-color-variants($base-lightness, $base-chroma, $base-hue);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @font-face {
@@ -6,14 +15,15 @@
 }
 
 :root {
-  --primary-color: hsl(344, 100%, 78%);
-  --text-selection-bg-color: hsl(from var(--primary-color) h calc(s - 20) calc(l - 30));
+  --primary-color-base: hsl(from var(--primary-color-down-15-500) h calc(s - 50) l);
+  --text-selection-bg-color: hsl(from var(--primary-color-base) h calc(s - 20) calc(l - 30));
   --text-selection-text-color: hsl(var(--gray-0));
 }
 
 html[data-color-theme='light'] {
-  --primary-color: hsl(344, 70%, 50%);
-  --text-selection-bg-color: hsl(from var(--primary-color) h calc(s - 10) l);
+  // --primary-color: hsl(344, 70%, 50%);
+  --primary-color-base: var(--primary-color-down-5-900);
+  --text-selection-bg-color: hsl(from var(--primary-color-base) h calc(s - 10) l);
 }
 
 *:not(input):not(textarea) {
@@ -59,7 +69,7 @@ h3.ui-heading {
   font-optical-sizing: auto;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--primary-color);
+  color: var(--primary-color-base);
 }
 
 p.ui-text {
@@ -68,10 +78,10 @@ p.ui-text {
 }
 
 .text--link {
-  color: var(--primary-color);
+  color: var(--primary-color-base);
 
   &:hover {
-    color: var(--primary-color) !important;
+    color: var(--primary-color-base) !important;
     text-decoration: underline;
   }
 }

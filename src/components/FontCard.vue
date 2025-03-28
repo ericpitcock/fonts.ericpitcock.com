@@ -153,7 +153,7 @@
     .error {
       display: flex;
       align-items: center;
-      color: var(--primary-color);
+      color: var(--primary-color-base);
     }
   }
 

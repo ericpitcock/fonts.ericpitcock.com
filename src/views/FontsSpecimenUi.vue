@@ -34,7 +34,21 @@
         </div>
       </ep-flex>
       <div class="content__table">
-        table
+        <ep-table
+          :columns="columns"
+          :data="tableData"
+          :bordered="true"
+          :striped="true"
+          :selectable="true"
+        >
+          <template #thead="{ visibleColumns, cellWidths, showActionsMenu }">
+            <ep-table-head
+              :columns="visibleColumns"
+              :cell-widths="cellWidths"
+              :show-actions-menu="showActionsMenu"
+            />
+          </template>
+        </ep-table>
       </div>
     </div>
   </div>
@@ -328,14 +342,76 @@
       }
     })
   })
+
+  // table
+  const columns = [
+    {
+      key: 'name',
+      label: 'Font Name',
+      sortable: true,
+      filterable: true,
+      // formatter: (value) => value.toUpperCase()
+    },
+    {
+      key: 'category',
+      label: 'Category',
+      sortable: true,
+      filterable: true
+    },
+    {
+      key: 'weight',
+      label: 'Weight',
+      sortable: true,
+      sorter: (a, b) => {
+        const weightOrder = ['Thin', 'Light', 'Regular', 'Medium', 'Bold', 'Black']
+        return weightOrder.indexOf(a) - weightOrder.indexOf(b)
+      }
+    },
+    {
+      key: 'downloads',
+      label: 'Downloads',
+      sortable: true,
+      formatter: (value) => value.toLocaleString()
+    }
+  ]
+
+  const googleFonts = store.state.googleFonts
+
+  // get 20 random fonts from googleFonts
+  const randomFonts = googleFonts.sort(() => Math.random() - Math.random()).slice(0, 20)
+  // generate table data from randomFonts
+  const tableData = randomFonts.map(font => ({
+    id: faker.string.uuid(),
+    name: font.family,
+    category: font.category,
+    weight: font.variants[0],
+    downloads: faker.number.int({ min: 100, max: 100000 })
+  }))
+
+  // const tableData = Array.from({ length: 20 }, () => ({
+  //   id: faker.string.uuid(),
+  //   name: faker.lorem.word({ length: { min: 5, max: 15 } }) + ' Font',
+  //   category: faker.helpers.arrayElement(['Serif', 'Sans-Serif', 'Display', 'Handwriting', 'Monospace']),
+  //   weight: faker.helpers.arrayElement(['Thin', 'Light', 'Regular', 'Medium', 'Bold', 'Black']),
+  //   downloads: faker.number.int({ min: 100, max: 100000 })
+  // }))
 </script>
 
 <style lang="scss" scoped>
+  .specimen {
+    height: 100%;
+  }
+
+  .fonts-grid__main {
+    overflow: hidden;
+  }
+
   .ui-container {
     display: grid;
     grid-template-columns: 30rem 1fr;
     grid-template-rows: 6rem 1fr;
-    min-height: 100vh;
+    min-height: 100%;
+    overflow: hidden;
 
     h2 {
       font-size: var(--font-size--large);
@@ -371,7 +447,8 @@
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 8rem auto 1fr auto;
-    padding: 0 5rem 5rem;
+    padding: 0 5rem 20rem 5rem;
+    overflow: auto;
   }
 
   .content__header {
@@ -416,5 +493,9 @@
   .content__table {
     grid-column: 1 / 9;
     grid-row: 4 / 5;
+
+    .ep-table-container {
+      --ep-table-width: 100%;
+    }
   }
 </style>
