@@ -1,6 +1,6 @@
 <template>
   <div
-    ref="el"
+    ref="fontCardRef"
     class="font-card"
   >
     <div class="font">
@@ -23,7 +23,7 @@
         <sentence-sample
           v-if="!loading && !error"
           :id="font.family.toLowerCase().split(' ').join('-')"
-          :style="{ fontFamily: `'${font.family}'`, fontSize: `${globalFontSize}px` }"
+          :style="sampleStyles"
         />
       </div>
       <font-info :font="font" />
@@ -38,7 +38,13 @@
 </template>
 
 <script setup>
-  import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+  import {
+    computed,
+    onBeforeUnmount,
+    onMounted,
+    ref,
+    watch
+  } from 'vue'
   import { useStore } from 'vuex'
 
   import FontInfo from '@/components/FontInfo.vue'
@@ -53,7 +59,7 @@
   })
 
   const store = useStore()
-  const el = ref(null)
+  const fontCardRef = ref(null)
   const observer = ref(null)
 
   const getCategoryFilter = computed(() => store.state.categoryFilter)
@@ -63,7 +69,24 @@
 
   const { loadGoogleFonts, loading, error } = useWebFont()
 
-  // Encapsulated function to (re)create the observer for a given font family.
+  const getFontWeight = (font) => {
+    if (font.variants.includes('regular')) {
+      return '400'
+    } else if (font.variants.length > 0) {
+      return font.variants[0]
+    }
+    return '400'
+  }
+
+  const sampleStyles = computed(() => {
+    return {
+      fontFamily: `'${props.font.family}'`,
+      fontSize: `${globalFontSize.value}px`,
+      fontWeight: getFontWeight(props.font),
+      fontVariationSettings: `'wght' ${getFontWeight(props.font)}`,
+    }
+  })
+
   const setupObserver = (fontFamily) => {
     if (observer.value) {
       observer.value.disconnect()
@@ -80,8 +103,8 @@
       threshold: 0.25
     })
 
-    if (el.value) {
-      observer.value.observe(el.value)
+    if (fontCardRef.value) {
+      observer.value.observe(fontCardRef.value)
     }
   }
 
@@ -89,21 +112,18 @@
     setupObserver(props.font.family)
   })
 
-  // When category or filters change, we re‑observe the element (in case the container scrolls back into view)
   watch(getCategoryFilter, () => {
-    if (el.value && observer.value) {
-      observer.value.observe(el.value)
+    if (fontCardRef.value && observer.value) {
+      observer.value.observe(fontCardRef.value)
     }
   })
 
   watch(getFilters, () => {
-    if (el.value && observer.value) {
-      observer.value.observe(el.value)
+    if (fontCardRef.value && observer.value) {
+      observer.value.observe(fontCardRef.value)
     }
   }, { deep: true })
 
-  // When the font prop changes (as can happen when sorting/order reorders items),
-  // reset the observer to load the new font.
   watch(() => props.font, (newFont, oldFont) => {
     if (newFont.family !== oldFont.family) {
       setupObserver(newFont.family)

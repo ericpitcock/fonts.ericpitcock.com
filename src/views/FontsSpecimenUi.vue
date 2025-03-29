@@ -345,7 +345,7 @@
         responsive: true,
         maintainAspectRatio: false,
         resizeDelay: 100,
-        onResize: function(chart, size) {
+        onResize: function(chart) {
           // Force a complete redraw after resize
           chart.resize()
         },
@@ -426,7 +426,7 @@
         responsive: true,
         maintainAspectRatio: false,
         resizeDelay: 100,
-        onResize: function(chart, size) {
+        onResize: function(chart) {
           // Force a complete redraw after resize
           chart.resize()
         },
@@ -446,6 +446,13 @@
 
   onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
+    // destroy the chart instances
+    if (columnChartInstance) {
+      columnChartInstance.destroy()
+    }
+    if (donutChartInstance) {
+      donutChartInstance.destroy()
+    }
   })
 
   // watch store.state.theme to update custom properties
