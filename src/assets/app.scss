@@ -18,6 +18,12 @@ $base-hue: 19;
   --primary-color-base: hsl(from var(--primary-color-down-15-500) h calc(s - 50) l);
   --text-selection-bg-color: hsl(from var(--primary-color-base) h calc(s - 20) calc(l - 30));
   --text-selection-text-color: hsl(var(--gray-0));
+
+  // menu
+  .ep-menu {
+    --ep-button-menu-item-hover-bg-color: var(--primary-color-800);
+    --ep-button-menu-item-hover-border-color: var(--ep-button-menu-item-hover-bg-color);
+  }
 }
 
 html[data-color-theme='light'] {

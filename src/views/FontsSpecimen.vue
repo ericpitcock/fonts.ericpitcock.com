@@ -8,6 +8,7 @@
     </template>
     <template #main>
       <div
+        v-show="!loading"
         class="specimen"
         :style="{ fontFamily: `'${font.family}'` }"
       >
@@ -74,7 +75,7 @@
     }
   }, { immediate: true })
 
-  const { loadGoogleFonts } = useWebFont()
+  const { loadGoogleFonts, loading } = useWebFont()
 
   onMounted(() => {
     if (!route.query.tab) {

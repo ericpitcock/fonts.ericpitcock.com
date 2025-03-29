@@ -64,7 +64,7 @@
 <script setup>
   import { faker } from '@faker-js/faker'
   import { Chart } from 'chart.js/auto'
-  import { computed, onMounted, ref } from 'vue'
+  import { computed, nextTick, onMounted, ref, watch } from 'vue'
   import { useStore } from 'vuex'
 
   const props = defineProps({
@@ -259,18 +259,32 @@
     'Body Copy': faker.number.int({ min: 100, max: 1000 })
   }
 
+  let columnChartInstance = null
+  let donutChartInstance = null
+
+  // computed property to get getComputedStyle values
+  const getCustomPropertyValue = (property) => {
+    return getComputedStyle(document.documentElement).getPropertyValue(property)
+  }
+
+  const chartBackgroundColor = getCustomPropertyValue('--interface-surface--accent')
+  const chartBorderColor = getCustomPropertyValue('--border-color--lighter')
+  const chartTextColorLoud = getCustomPropertyValue('--text-color--loud')
+  const chartGridColor = getCustomPropertyValue('--border-color')
+  const chartTextColor = getCustomPropertyValue('--text-color')
+
   onMounted(() => {
     Chart.defaults.font.family = props.font.family
 
-    new Chart(columnChartRef.value, {
+    columnChartInstance = new Chart(columnChartRef.value, {
       type: 'bar',
       data: {
         labels: Object.keys(fontCountsByCategory.value).map(category => category.charAt(0).toUpperCase() + category.slice(1)),
         datasets: [{
           label: 'Fonts by Category',
           data: Object.values(fontCountsByCategory.value),
-          backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--interface-surface--accent'),
-          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color--lighter'),
+          backgroundColor: chartBackgroundColor,
+          borderColor: chartBorderColor,
           borderWidth: 1
         }]
       },
@@ -284,7 +298,7 @@
           },
           title: {
             align: 'center',
-            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+            color: chartTextColorLoud,
             display: true,
             padding: {
               top: 0,
@@ -307,7 +321,7 @@
               display: false,
             },
             ticks: {
-              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+              color: chartTextColorLoud,
             }
           },
           y: {
@@ -315,25 +329,25 @@
               display: false,
             },
             grid: {
-              color: getComputedStyle(document.documentElement).getPropertyValue('--border-color')
+              color: chartGridColor,
             },
             ticks: {
-              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color'),
+              color: chartTextColor,
             }
           },
         }
       }
     })
 
-    new Chart(donutChartRef.value, {
+    donutChartInstance = new Chart(donutChartRef.value, {
       type: 'doughnut',
       data: {
         labels: Object.keys(usageDistribution),
         datasets: [{
           label: 'Usage Distribution',
           data: Object.values(usageDistribution),
-          backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--interface-surface--accent'),
-          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color--lighter'),
+          backgroundColor: chartBackgroundColor,
+          borderColor: chartBorderColor,
           borderWidth: 1
         }]
       },
@@ -351,7 +365,7 @@
             labels: {
               boxWidth: 10,
               boxHeight: 10,
-              color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+              color: chartTextColorLoud,
               font: {
                 size: 12
               }
@@ -361,7 +375,7 @@
             align: 'center',
             display: true,
             text: 'Usage Distribution',
-            color: getComputedStyle(document.documentElement).getPropertyValue('--text-color--loud'),
+            color: chartTextColorLoud,
             font: {
               size: 20
             },
@@ -378,6 +392,31 @@
         responsive: true,
         maintainAspectRatio: false,
       }
+    })
+  })
+
+  // watch store.state.theme to update custom properties
+  watch(() => store.state.theme, () => {
+    const chartBackgroundColor = getCustomPropertyValue('--interface-surface--accent')
+    const chartBorderColor = getCustomPropertyValue('--border-color--lighter')
+    const chartTextColorLoud = getCustomPropertyValue('--text-color--loud')
+    const chartGridColor = getCustomPropertyValue('--border-color')
+    const chartTextColor = getCustomPropertyValue('--text-color')
+
+    nextTick(() => {
+      columnChartInstance.data.datasets[0].backgroundColor = chartBackgroundColor
+      columnChartInstance.data.datasets[0].borderColor = chartBorderColor
+      columnChartInstance.options.scales.x.ticks.color = chartTextColorLoud
+      columnChartInstance.options.scales.y.ticks.color = chartTextColor
+      columnChartInstance.options.scales.y.grid.color = chartGridColor
+      columnChartInstance.options.plugins.title.color = chartTextColorLoud
+      columnChartInstance.update()
+
+      donutChartInstance.data.datasets[0].backgroundColor = chartBackgroundColor
+      donutChartInstance.data.datasets[0].borderColor = chartBorderColor
+      donutChartInstance.options.plugins.legend.labels.color = chartTextColorLoud
+      donutChartInstance.options.plugins.title.color = chartTextColorLoud
+      donutChartInstance.update()
     })
   })
 

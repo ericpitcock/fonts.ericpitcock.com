@@ -6,7 +6,7 @@
     <template #header>
       <fonts-app-header>
         <template #left>
-          <sample-control />
+          <index-control />
         </template>
         <template #center>
           <ep-button-group
@@ -73,7 +73,7 @@
   import FontCard from '@/components/FontCard.vue'
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
-  import SampleControl from '@/components/SampleControl.vue'
+  import IndexControl from '@/components/IndexControl.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
   const store = useStore()

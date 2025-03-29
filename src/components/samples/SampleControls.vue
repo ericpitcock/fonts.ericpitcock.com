@@ -138,15 +138,11 @@
     { label: 'Loud', value: 'var(--text-color--loud)' },
   ]
 
-  // find the index of localColor in colorOptions
-  // const colorIndex = computed(() => colorOptions.findIndex(color => color.value === localColor.value))
-  // colorIndex find the index of localColor in colorOptions
   const colorIndex = ref(colorOptions.findIndex(color => color.value === localColor.value))
 
   const selectColor = (color) => {
     localColor.value = color.item.value
     colorIndex.value = color.index
-    console.log(color)
   }
 
   const hasItalics = computed(() => props.font.variants.some(variant => variant.includes('italic')))

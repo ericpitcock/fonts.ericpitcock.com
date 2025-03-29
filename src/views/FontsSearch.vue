@@ -97,12 +97,30 @@
   }
 
   const cannedPrompts = [
-    { label: "Modern sans ui fonts for web apps", prompt: "Modern sans ui fonts for web apps" },
-    { label: "Elegant serif fonts for editorial designs", prompt: "Elegant serif fonts for editorial designs" },
-    { label: "Playful handwritten fonts for creative projects", prompt: "Playful handwritten fonts for creative projects" },
-    { label: "Futuristic display fonts for tech startups", prompt: "Futuristic display fonts for tech startups" },
-    { label: "Vintage typewriter fonts for retro aesthetics", prompt: "Vintage typewriter fonts for retro aesthetics" },
-    { label: "Minimalist monospaced fonts for coding environments", prompt: "Minimalist monospaced fonts for coding environments" }
+    {
+      label: "Modern sans ui fonts for web apps",
+      prompt: "Modern sans ui fonts for web apps"
+    },
+    {
+      label: "Elegant serif fonts for editorial designs",
+      prompt: "Elegant serif fonts for editorial designs"
+    },
+    {
+      label: "Playful handwritten fonts for creative projects",
+      prompt: "Playful handwritten fonts for creative projects"
+    },
+    {
+      label: "Futuristic display fonts for tech startups",
+      prompt: "Futuristic display fonts for tech startups"
+    },
+    {
+      label: "Vintage typewriter fonts for retro aesthetics",
+      prompt: "Vintage typewriter fonts for retro aesthetics"
+    },
+    {
+      label: "Minimalist monospaced fonts for coding environments",
+      prompt: "Minimalist monospaced fonts for coding environments"
+    }
   ]
 
   const sendMessage = async (prompt = null) => {
