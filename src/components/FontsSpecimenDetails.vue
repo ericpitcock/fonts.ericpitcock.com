@@ -7,6 +7,8 @@
         :icon-left="{ name: 'arrow-left' }"
         :to="$route.query.return || '/'"
       />
+      <ep-divider direction="vertical" />
+      <font-info :font="font" />
     </template>
     <template #center>
       <ep-tabs
@@ -24,6 +26,7 @@
   import { useStore } from 'vuex'
 
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
+  import FontInfo from '@/components/FontInfo.vue'
 
   const store = useStore()
 

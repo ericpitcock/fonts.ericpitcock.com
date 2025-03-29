@@ -425,29 +425,18 @@
     {
       key: 'name',
       label: 'Font Name',
-      sortable: true,
-      filterable: true,
-      // formatter: (value) => value.toUpperCase()
     },
     {
       key: 'category',
       label: 'Category',
-      sortable: true,
-      filterable: true
     },
     {
       key: 'weight',
       label: 'Weight',
-      sortable: true,
-      sorter: (a, b) => {
-        const weightOrder = ['Thin', 'Light', 'Regular', 'Medium', 'Bold', 'Black']
-        return weightOrder.indexOf(a) - weightOrder.indexOf(b)
-      }
     },
     {
       key: 'downloads',
       label: 'Downloads',
-      sortable: true,
       formatter: (value) => value.toLocaleString()
     }
   ]
@@ -516,11 +505,6 @@
   }
 
   .content {
-    // grid-column: 2 / 3;
-    // grid-row: 2 / 3;
-    // display: grid;
-    // grid-template-columns: repeat(8, 1fr);
-    // grid-template-rows: 12rem auto 1fr auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -536,15 +520,10 @@
   }
 
   .content__header {
-    // grid-column: 1 / 9;
-    // grid-row: 1 / 2;
     padding: 4rem 0 2rem 0.2rem;
   }
 
   .content__stats {
-
-    // grid-column: 1 / 9;
-    // grid-row: 2 / 3;
     .stat {
       flex: 1;
       padding: 2rem 3rem;
@@ -555,8 +534,6 @@
   }
 
   .content__charts {
-    // grid-column: 1 / 9;
-    // grid-row: 3 / 4;
     display: flex;
     gap: 2rem;
 
@@ -575,8 +552,6 @@
   }
 
   .content__table {
-    // grid-column: 1 / 9;
-    // grid-row: 4 / 5;
     background: var(--interface-surface);
     padding: 2rem 3rem 3rem;
     border: 0.1rem solid var(--border-color);

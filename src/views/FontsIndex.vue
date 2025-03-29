@@ -196,7 +196,7 @@
   .no-results {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 3rem;
     padding: 6rem;
   }
 </style>
