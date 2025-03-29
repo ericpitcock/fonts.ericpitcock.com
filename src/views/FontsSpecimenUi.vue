@@ -64,7 +64,7 @@
 <script setup>
   import { faker } from '@faker-js/faker'
   import { Chart } from 'chart.js/auto'
-  import { computed, nextTick, onMounted, ref, watch } from 'vue'
+  import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useStore } from 'vuex'
 
   const props = defineProps({
@@ -273,6 +273,35 @@
   const chartGridColor = getCustomPropertyValue('--border-color')
   const chartTextColor = getCustomPropertyValue('--text-color')
 
+  const handleResize = () => {
+    // Force a complete redraw rather than just a resize
+    if (columnChartInstance) {
+      const columnCanvas = columnChartRef.value
+      const columnParent = columnCanvas.parentNode
+      const columnWidth = columnParent.clientWidth
+      const columnHeight = columnParent.clientHeight
+
+      columnCanvas.style.width = '100%'
+      columnCanvas.style.height = '100%'
+      columnCanvas.width = columnWidth
+      columnCanvas.height = columnHeight
+      columnChartInstance.resize()
+    }
+
+    if (donutChartInstance) {
+      const donutCanvas = donutChartRef.value
+      const donutParent = donutCanvas.parentNode
+      const donutWidth = donutParent.clientWidth
+      const donutHeight = donutParent.clientHeight
+
+      donutCanvas.style.width = '100%'
+      donutCanvas.style.height = '100%'
+      donutCanvas.width = donutWidth
+      donutCanvas.height = donutHeight
+      donutChartInstance.resize()
+    }
+  }
+
   onMounted(() => {
     Chart.defaults.font.family = props.font.family
 
@@ -315,6 +344,11 @@
         },
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 100,
+        onResize: function(chart, size) {
+          // Force a complete redraw after resize
+          chart.resize()
+        },
         scales: {
           x: {
             grid: {
@@ -391,8 +425,27 @@
         radius: '80%',
         responsive: true,
         maintainAspectRatio: false,
+        resizeDelay: 100,
+        onResize: function(chart, size) {
+          // Force a complete redraw after resize
+          chart.resize()
+        },
       }
     })
+
+    // Debounce the resize handler for better performance
+    let resizeTimeout
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout)
+      resizeTimeout = setTimeout(handleResize, 100)
+    })
+
+    // Initial resize to ensure proper layout
+    handleResize()
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', handleResize)
   })
 
   // watch store.state.theme to update custom properties
@@ -542,8 +595,8 @@
       display: flex;
       justify-content: stretch;
       flex: 1;
-      position: relative;
-      height: 35rem;
+      height: 300px;
+      min-height: 200px;
       padding: 3rem 4rem;
       background: var(--interface-surface);
       border: 1px solid var(--border-color);
