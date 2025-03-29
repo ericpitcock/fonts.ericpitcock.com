@@ -33,7 +33,7 @@
           <h2>{{ stat.value }}</h2>
         </ep-flex>
       </ep-flex>
-      <ep-flex class="content__charts pt-40 pb-40">
+      <ep-flex class="content__charts">
         <div class="chart-container">
           <canvas ref="columnChartRef" />
         </div>
@@ -516,26 +516,35 @@
   }
 
   .content {
-    grid-column: 2 / 3;
-    grid-row: 2 / 3;
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: 12rem auto 1fr auto;
+    // grid-column: 2 / 3;
+    // grid-row: 2 / 3;
+    // display: grid;
+    // grid-template-columns: repeat(8, 1fr);
+    // grid-template-rows: 12rem auto 1fr auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
     padding: 0 5rem 20rem 5rem;
     background: var(--interface-bg);
     overflow: auto;
+
+    & > * {
+      width: 100%;
+      max-width: 120rem;
+    }
   }
 
   .content__header {
-    grid-column: 1 / 9;
-    grid-row: 1 / 2;
-    padding-left: 0.2rem;
+    // grid-column: 1 / 9;
+    // grid-row: 1 / 2;
+    padding: 4rem 0 2rem 0.2rem;
   }
 
   .content__stats {
-    grid-column: 1 / 9;
-    grid-row: 2 / 3;
 
+    // grid-column: 1 / 9;
+    // grid-row: 2 / 3;
     .stat {
       flex: 1;
       padding: 2rem 3rem;
@@ -546,8 +555,8 @@
   }
 
   .content__charts {
-    grid-column: 1 / 9;
-    grid-row: 3 / 4;
+    // grid-column: 1 / 9;
+    // grid-row: 3 / 4;
     display: flex;
     gap: 2rem;
 
@@ -566,8 +575,8 @@
   }
 
   .content__table {
-    grid-column: 1 / 9;
-    grid-row: 4 / 5;
+    // grid-column: 1 / 9;
+    // grid-row: 4 / 5;
     background: var(--interface-surface);
     padding: 2rem 3rem 3rem;
     border: 0.1rem solid var(--border-color);
