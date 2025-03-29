@@ -13,7 +13,11 @@
       </template>
     </ep-header>
     <div class="sidebar">
-      sidebar
+      <ep-menu
+        class="fake-menu"
+        size="large"
+        :menu-items="fakeNavItems"
+      />
     </div>
     <div class="content">
       <ep-flex class="content__header align-center">
@@ -69,6 +73,37 @@
       required: true
     }
   })
+
+  const fakeNavItems = [
+    {
+      id: faker.string.uuid(),
+      label: 'Dashboard',
+      iconLeft: {
+        name: 'dashboard'
+      },
+    },
+    {
+      id: faker.string.uuid(),
+      label: 'Fonts',
+      iconLeft: {
+        name: 'f-bold',
+      },
+    },
+    {
+      id: faker.string.uuid(),
+      label: 'Designers',
+      iconLeft: {
+        name: 'f-users'
+      },
+    },
+    {
+      id: faker.string.uuid(),
+      label: 'Settings',
+      iconLeft: {
+        name: 'settings'
+      },
+    }
+  ]
 
   const fakeSearch = ref('')
 
@@ -186,7 +221,7 @@
   const stats = [
     {
       title: 'Total Fonts',
-      value: totalFonts.value
+      value: totalFonts.value.toLocaleString()
     },
     {
       title: 'Recommended Fonts',
@@ -422,6 +457,7 @@
     grid-row: 1 / 2;
     border-bottom: 1px solid var(--border-color);
     --ep-header-container-padding: 0 5rem;
+    --ep-header-container-bg-color: var(--interface-surface);
 
     .ep-action-bar {
       width: auto;
@@ -433,6 +469,11 @@
     grid-row: 1 / 3;
     padding: 1rem;
     border-right: 1px solid var(--border-color);
+    background: var(--interface-surface);
+  }
+
+  .fake-menu {
+    --ep-menu-border-width: 0;
   }
 
   .content {

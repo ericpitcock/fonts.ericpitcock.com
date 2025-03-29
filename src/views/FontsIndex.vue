@@ -183,6 +183,16 @@
     }
   }
 
+  .index__status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 3rem;
+    background: var(--interface-surface);
+    border-top: 0.1rem solid var(--border-color);
+  }
+
   .no-results {
     display: flex;
     flex-direction: column;

@@ -1,5 +1,5 @@
 <template>
-  <ep-flex class="fonts-specimen-landing flex-col gap-100">
+  <ep-flex class="fonts-specimen-overview flex-col gap-100">
     <ep-flex class="gap-30">
       <div class="font-family">
         <h1>{{ font.family }}</h1>
@@ -136,8 +136,9 @@
 </script>
 
 <style lang="scss" scoped>
-  .fonts-specimen-landing {
+  .fonts-specimen-overview {
     padding: 10rem;
+    background: var(--interface-surface);
   }
 
   h1 {

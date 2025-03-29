@@ -29,13 +29,11 @@
               />
             </ep-flex>
             <ep-flex class="flex-col gap-10">
-              <h3 class="ui-heading">
-                Example prompts
-              </h3>
-              <ep-flex class="flex-col gap-10">
+              <ep-flex class="canned-prompts flex-col gap-10">
                 <ep-button
                   v-for="(button, index) in cannedPrompts"
                   :key="index"
+                  class="canned-prompt-button"
                   :label="button.label"
                   size="xlarge"
                   @click="runCannedPrompt(button.prompt)"
@@ -154,7 +152,12 @@
           }
         })
 
-        router.push({ query: { results: parsedResponse.value.join(',') } })
+        router.push({
+          query: {
+            input: input.value,
+            results: parsedResponse.value.join(',')
+          }
+        })
       } catch (e) {
         console.warn('Could not parse response as JSON. Showing raw output.')
       }
@@ -173,7 +176,10 @@
     const results = router.currentRoute.value.query.results
     if (results) {
       parsedResponse.value = results.split(',')
+    } else {
+      parsedResponse.value = []
     }
+    input.value = router.currentRoute.value.query.input || ''
   })
 
   watch(() => router.currentRoute.value.query.results, (results) => {
@@ -187,26 +193,18 @@
 
 <style lang="scss" scoped>
   .search {
-    // position: relative;
-    // display: grid;
     display: flex;
     justify-content: flex-end;
     grid-template-columns: 50rem 1fr;
     gap: 10rem;
     min-height: 100%;
     background: var(--interface-bg);
-    // padding: 10rem;
-    // overflow: hidden;
   }
 
   .search-input {
-    // position: sticky;
     grid-column: 1/2;
     align-self: flex-start;
-    // top: 10rem;
     padding-left: 10rem;
-    // left: 10rem;
-    // width: 50rem;
   }
 
   .ep-loading {
@@ -216,6 +214,17 @@
   .ep-textarea {
     --ep-textarea-border-radius: var(--border-radius--large);
     --ep-textarea-bg-color: var(--interface-surface);
+    --ep-textarea-resize: vertical;
+    field-sizing: content;
+    pointer-events: all;
+  }
+
+  .canned-prompts {
+    margin-top: 2rem;
+  }
+
+  .canned-prompt-button {
+    --ep-button-bg-color: var(--interface-surface);
   }
 
   .search-container {
@@ -223,6 +232,11 @@
     top: 10rem;
     left: 30rem;
     max-width: 40rem;
+    pointer-events: none;
+
+    .ep-button {
+      pointer-events: all;
+    }
   }
 
   .search-results {
@@ -231,7 +245,6 @@
     flex-direction: column;
     gap: 1rem;
     grid-column: 2;
-    // overflow: auto;
     padding: 10rem 10rem 20rem 10rem;
     padding-left: 0;
     width: calc(100% - 60rem);
