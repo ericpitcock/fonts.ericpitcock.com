@@ -43,12 +43,11 @@
             />
           </div>
         </template>
-        <div :class="['content-padder', `${viewClassName}`]">
-          <font-card
-            v-for="(font, index) in sortedFonts"
-            :key="index"
-            :font="font"
-            @click="onFontCardClick(font)"
+        <div class="content-padder">
+          <fonts-card-layout
+            :fonts="sortedFonts"
+            :view="viewModeName"
+            @click="onFontCardClick"
           />
         </div>
       </div>
@@ -70,10 +69,10 @@
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
-  import FontCard from '@/components/FontCard.vue'
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import IndexControl from '@/components/IndexControl.vue'
+  import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
 
   const store = useStore()
@@ -100,7 +99,7 @@
     { label: 'List', value: 'list' },
     { label: 'Cards', value: 'cards' },
   ]
-  const viewClassName = computed(() => `content-padder--${viewOptions[viewMode.value].value}`)
+  const viewModeName = computed(() => viewOptions[viewMode.value].value)
 
   const onViewChange = ({ item, index }) => {
     viewMode.value = index
@@ -156,34 +155,31 @@
 
 <style lang="scss" scoped>
   .content-padder {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    // display: flex;
+    // flex-direction: column;
+    // gap: 1rem;
     padding: 3rem 3rem 20rem 3rem;
     background: var(--interface-bg);
   }
 
   .content-padder--list {}
 
-  .content-padder--cards {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, 30rem);
-    justify-content: start;
-    padding: 3rem;
-
-    .font-card {
-      flex: 1;
-      padding: 3rem;
-      border: 0.1rem solid var(--border-color);
-      border-radius: var(--border-radius--large);
-
-      :deep(.font) {
-        padding: 0;
-      }
-    }
-  }
-
+  // .content-padder--cards {
+  //   display: grid;
+  //   grid-gap: 1rem;
+  //   grid-template-columns: repeat(auto-fill, 30rem);
+  //   justify-content: start;
+  //   padding: 3rem;
+  //   .font-card {
+  //     flex: 1;
+  //     padding: 3rem;
+  //     border: 0.1rem solid var(--border-color);
+  //     border-radius: var(--border-radius--large);
+  //     :deep(.font) {
+  //       padding: 0;
+  //     }
+  //   }
+  // }
   .index__status-bar {
     display: flex;
     justify-content: space-between;
