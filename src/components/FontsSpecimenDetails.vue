@@ -39,8 +39,17 @@
   const backButtonLabel = computed(() => {
     // if query starts with "/?" then it's search results
     // otherwise it's a font category and return everything but the /
-    const returnPath = route.query.return || '/'
-    return returnPath.startsWith('/?') ? 'Search results' : `${categoryMap[returnPath.replace(/^\//, '')]} fonts`
+    let returnPath = route.query.return || '/'
+    // strip the leading slash and ? and everything after it
+    // returnPath = returnPath.replace(/^\//, '').replace(/\?.*$/, '')
+    // if returnPath is empty, set it to '/'
+    if (returnPath === '') {
+      returnPath = '/'
+    }
+    // if returnPath is /? then it's search results
+    // otherwise it's a font category and return everything but the /
+    returnPath = returnPath.replace(/^\//, '').replace(/\?.*$/, '')
+    return returnPath.startsWith('/?') ? 'Search results' : `${categoryMap[returnPath]} fonts`
   })
 
   const props = defineProps({

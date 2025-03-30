@@ -4,7 +4,7 @@ const defaultFilters = {
   category: 'sans-serif',
   italics: false,
   multipleWeights: false,
-  recommended: true,
+  recommended: false,
 }
 
 export default createStore({
@@ -146,6 +146,9 @@ export default createStore({
       // handwriting
       'Meow Script',
       'Ms Madi',
+      'Playwrite AT',
+      'Playwrite GB J',
+      'Playwrite GB S',
       'Sacramento',
       // monospace
       'Anonymous Pro',
@@ -254,6 +257,19 @@ export default createStore({
         )
       }
     },
+    getFiltersAsQuery(state) {
+      const queryParams = {}
+
+      // Only include filter values that are true
+      Object.keys(state.filters).forEach(key => {
+        // Skip category as it's part of the path
+        if (key !== 'category' && state.filters[key] === true) {
+          queryParams[key] = 'true'
+        }
+      })
+
+      return queryParams
+    }
   },
   mutations: {
     resetFilters(state) {
@@ -280,6 +296,28 @@ export default createStore({
       for (let key in value) {
         state.filters[key] = value[key]
       }
+    },
+    applyFiltersFromQuery(state, query) {
+      const newFilters = { ...defaultFilters }
+
+      // // Apply category from state (already set by route)
+      // newFilters.category = state.categoryFilter
+
+      // // Set all boolean filters to false initially
+      // for (const key in newFilters) {
+      //   if (key !== 'category') {
+      //     newFilters[key] = false
+      //   }
+      // }
+
+      // Only set to true the filters that are present in the query with value 'true'
+      for (const key in query) {
+        if (key !== 'tab' && key in newFilters) {
+          newFilters[key] = query[key] === 'true'
+        }
+      }
+
+      state.filters = newFilters
     },
     setGlobalFontSize(state, value) {
       state.globalFontSize = value
@@ -326,5 +364,21 @@ export default createStore({
       document.documentElement.setAttribute('data-color-theme', newTheme)
       commit('setTheme', newTheme)
     },
+    // Revised action to update URL with filter parameters
+    updateURLWithFilters({ getters }, router) {
+      const currentRoute = router.currentRoute.value
+      const queryParams = { ...getters.getFiltersAsQuery }
+
+      // Preserve the tab parameter if it exists
+      if (currentRoute.query.tab) {
+        queryParams.tab = currentRoute.query.tab
+      }
+
+      // Always update URL to ensure consistency
+      router.replace({
+        path: currentRoute.path,
+        query: queryParams
+      })
+    }
   }
 })

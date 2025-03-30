@@ -22,7 +22,7 @@
             v-for="(category, index) in getFontCategories"
             :key="index"
             class="category-filters__filter-button"
-            :to="`/${category}`"
+            :to="{ path: `/${category}`, query: { ...$route.query } }"
           >
             {{ category }}
           </router-link>

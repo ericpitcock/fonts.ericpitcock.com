@@ -7,6 +7,7 @@
         label="Top Picks"
         name="recommended"
         value="recommended"
+        @change="onFilterChange('recommended')"
       />
       <ep-checkbox
         id="italics"
@@ -15,6 +16,7 @@
         name="italics"
         value="italics"
         :disabled="!hasItalics"
+        @change="updateURL"
       />
       <ep-checkbox
         id="multiple-weights"
@@ -22,34 +24,19 @@
         label="2+ Weights"
         name="multiple-weights"
         value="multipleWeights"
+        @change="updateURL"
       />
     </ep-flex>
-    <!-- <div
-      v-if="getSubsets.length > 0"
-      class="subsets"
-    >
-      <ep-flex class="flex-col gap-10">
-        <h3 class="ui-heading">Subsets</h3>
-        <ep-flex class="flex-col gap-10">
-          <ep-checkbox
-            v-for="(subset, index) in getSubsets"
-            :id="subset"
-            :key="index"
-            :label="subset.charAt(0).toUpperCase() + subset.slice(1)"
-            :name="subset"
-            :value="subset"
-          />
-        </ep-flex>
-      </ep-flex>
-    </div> -->
   </ep-flex>
 </template>
 
 <script setup>
-  import { computed } from 'vue'
+  import { computed, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   const store = useStore()
+  const router = useRouter()
 
   const recommendedFilter = computed({
     get: () => store.state.filters.recommended,
@@ -78,24 +65,33 @@
     return getActiveFonts.value.some(font => font.variants.some(variant => variant.includes('italic')))
   })
 
-  // in active fonts, create an array of unique values from .subsets
-  const getSubsets = computed(() => {
-    let subsets = []
-    getActiveFonts.value.forEach(font => {
-      font.subsets.forEach(subset => {
-        if (!subsets.includes(subset)) {
-          subsets.push(subset)
+  const onFilterChange = (filter) => {
+    // if filter is false, remove it from the URL
+    if (!store.state.filters[filter]) {
+      const newQuery = { ...router.currentRoute.value.query }
+      delete newQuery[filter]
+      router.replace({ query: newQuery })
+    } else {
+      // if filter is true, add it to the URL
+      router.replace({
+        query: {
+          ...router.currentRoute.value.query,
+          [filter]: store.state.filters[filter]
         }
       })
-    })
-    return subsets
+    }
+  }
+
+  // Update URL directly on checkbox change
+  const updateURL = () => {
+    // Use a small delay to ensure the store state is updated first
+    setTimeout(() => {
+      store.dispatch('updateURLWithFilters', router)
+    }, 10)
+  }
+
+  // Initialize URL with current filters on component mount
+  onMounted(() => {
+    updateURL()
   })
 </script>
-
-<style lang="scss" scoped>
-  // .optional-filters {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 10px;
-  // }
-</style>

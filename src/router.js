@@ -15,6 +15,10 @@ const routes = [
     beforeEnter: (to, from, next) => {
       const category = to.params.category
       store.commit('setCategoryFilter', category)
+
+      // Apply filters from query parameters if they exist
+      store.commit('applyFiltersFromQuery', to.query)
+
       next()
     }
   },
@@ -27,6 +31,7 @@ const routes = [
     }),
     beforeEnter: (to, from, next) => {
       if (!to.query.tab) {
+        // Preserve existing query parameters when adding tab
         next({
           path: to.path,
           query: { ...to.query, tab: 'overview' }

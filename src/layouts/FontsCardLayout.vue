@@ -1,8 +1,8 @@
 <template>
   <div :class="['fonts-card-layout', layoutClass]">
     <font-card
-      v-for="(font, index) in fonts"
-      :key="index"
+      v-for="(font) in fonts"
+      :key="font.family"
       :font="font"
       @click="onFontCardClick(font)"
     />
