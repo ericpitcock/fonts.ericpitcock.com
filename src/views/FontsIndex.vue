@@ -48,7 +48,7 @@
             v-for="(font, index) in sortedFonts"
             :key="index"
             :font="font"
-            @click="toFontSpecimen(font)"
+            @click="onFontCardClick(font)"
           />
         </div>
       </div>
@@ -136,7 +136,8 @@
   })
 
   const category = computed(() => store.state.categoryFilter)
-  const toFontSpecimen = (font) => {
+
+  const onFontCardClick = (font) => {
     router.push({
       path: `/${category.value}/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
       query: {
