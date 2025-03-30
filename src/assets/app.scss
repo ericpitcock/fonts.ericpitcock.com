@@ -1,5 +1,8 @@
 @use '@epicenter-styles/mixins/_generate-color-variants.scss' as *;
-$base-lightness: 0.78;
+// $base-lightness: 0.78;
+// $base-chroma: 0.22;
+// $base-hue: 19;
+$base-lightness: 0.6;
 $base-chroma: 0.22;
 $base-hue: 19;
 
@@ -14,21 +17,29 @@ $base-hue: 19;
   src: url('./fonts/390A5D_0_0.woff2') format('woff2');
 }
 
+.font-family--inter {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-family--calling-code {
+  font-family: 'CallingCode-Regular', monospace;
+}
+
 :root {
-  --primary-color-base: hsl(from var(--primary-color-down-15-500) h calc(s - 50) l);
+  // --primary-color-base: hsl(from var(--primary-color-down-15-500) h calc(s - 50) l);
   --text-selection-bg-color: hsl(from var(--primary-color-base) h calc(s - 20) calc(l - 30));
   --text-selection-text-color: hsl(var(--gray-0));
 
   // menu
   .ep-menu {
-    --ep-button-menu-item-hover-bg-color: var(--primary-color-800);
+    --ep-button-menu-item-hover-bg-color: var(--primary-color-up-5-base);
     --ep-button-menu-item-hover-border-color: var(--ep-button-menu-item-hover-bg-color);
   }
 }
 
 html[data-color-theme='light'] {
   // --primary-color: hsl(344, 70%, 50%);
-  --primary-color-base: var(--primary-color-down-5-900);
+  // --primary-color-base: var(--primary-color-down-5-900);
   --text-selection-bg-color: hsl(from var(--primary-color-base) h calc(s - 10) l);
 }
 
@@ -80,7 +91,11 @@ h3.ui-heading {
   font-optical-sizing: auto;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--primary-color-base);
+  color: var(--primary-color-300);
+}
+
+html[data-color-theme='light'] h3.ui-heading {
+  color: var(--primary-color-600);
 }
 
 p.ui-text {
@@ -95,10 +110,6 @@ p.ui-text {
     color: var(--primary-color-base) !important;
     text-decoration: underline;
   }
-}
-
-.font-family--inter {
-  font-family: 'Inter', sans-serif;
 }
 
 :root {

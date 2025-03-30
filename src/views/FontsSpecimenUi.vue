@@ -21,7 +21,9 @@
     </div>
     <div class="content">
       <ep-flex class="content__header align-center">
-        <h1 class="ui-heading">Font Analytics</h1>
+        <h1 class="ui-heading">
+          Font Analytics
+        </h1>
       </ep-flex>
       <ep-flex class="content__stats gap-20">
         <ep-flex
@@ -29,7 +31,7 @@
           :key="stat.title"
           class="stat flex-col gap-5"
         >
-          <h3 class="ui-heading">{{ stat.title }}</h3>
+          <h3>{{ stat.title }}</h3>
           <h2>{{ stat.value }}</h2>
         </ep-flex>
       </ep-flex>
@@ -433,20 +435,14 @@
       }
     })
 
-    // Debounce the resize handler for better performance
-    let resizeTimeout
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout)
-      resizeTimeout = setTimeout(handleResize, 100)
-    })
+    window.addEventListener('resize', handleResize)
 
-    // Initial resize to ensure proper layout
     handleResize()
   })
 
   onBeforeUnmount(() => {
     window.removeEventListener('resize', handleResize)
-    // destroy the chart instances
+
     if (columnChartInstance) {
       columnChartInstance.destroy()
     }
@@ -455,7 +451,6 @@
     }
   })
 
-  // watch store.state.theme to update custom properties
   watch(() => store.state.theme, () => {
     const chartBackgroundColor = getCustomPropertyValue('--interface-surface--accent')
     const chartBorderColor = getCustomPropertyValue('--border-color--lighter')
@@ -536,7 +531,9 @@
 
     h3 {
       font-family: v-bind('font.family');
-      color: var(--text-color);
+      color: var(--text-color--quiet);
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
     }
   }
 

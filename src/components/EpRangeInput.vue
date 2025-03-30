@@ -1,5 +1,5 @@
 <template>
-  <div class="ep-range-input">
+  <div class="ep-range-input font-family--calling-code">
     <input
       v-model="modelValue"
       type="range"

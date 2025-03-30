@@ -8,7 +8,10 @@
         :to="$route.query.return || '/'"
       />
       <ep-divider direction="vertical" />
-      <font-info :font="font" />
+      <font-info
+        :font="font"
+        style="padding-left: 0;"
+      />
     </template>
     <template #center>
       <ep-tabs
