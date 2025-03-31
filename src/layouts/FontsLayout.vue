@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-  import { useTemplateRef, watch } from 'vue'
+  import { computed, useTemplateRef, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import { useStore } from 'vuex'
 
@@ -43,6 +43,18 @@
   const store = useStore()
 
   const main = useTemplateRef('main')
+
+  const categoryFilter = computed(() => store.state.categoryFilter)
+
+  // watch category filter to reset scroll position
+  watch(
+    () => categoryFilter.value,
+    () => {
+      if (main.value) {
+        main.value.scrollTop = 0
+      }
+    }
+  )
 
   // watch(
   //   [() => route.fullPath, () => store.state.filters],
