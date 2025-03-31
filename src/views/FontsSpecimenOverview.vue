@@ -23,6 +23,7 @@
         </h1>
       </ep-flex>
     </ep-flex>
+    <fonts-strings-sample />
     <char-set-sample />
   </ep-flex>
 </template>
@@ -31,6 +32,7 @@
   import { useStore } from 'vuex'
 
   import CharSetSample from '@/components/samples/CharSetSample.vue'
+  import FontsStringsSample from '@/components/samples/FontsStringsSample.vue'
 
   const props = defineProps({
     font: {
