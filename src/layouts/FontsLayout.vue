@@ -44,25 +44,28 @@
 
   const main = useTemplateRef('main')
 
-  watch(
-    [() => route.fullPath, () => store.state.filters],
-    () => {
-      if (main.value) {
-        main.value.scrollTop = 0
-      }
-    },
-    { deep: true }
-  )
+  // watch(
+  //   [() => route.fullPath, () => store.state.filters],
+  //   () => {
+  //     if (main.value) {
+  //       main.value.scrollTop = 0
+  //     }
+  //   },
+  //   { deep: true }
+  // )
 </script>
 
 <style lang="scss">
   .fonts-grid {
+    position: absolute;
+    inset: 0;
     display: grid;
     grid-template-rows: 6.1rem 1fr 4rem;
     grid-template-columns: 20rem 1fr;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
+    background-color: var(--interface-bg);
   }
 
   .fonts-grid__corner {

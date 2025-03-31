@@ -21,25 +21,6 @@ const routes = [
 
       next()
     }
-  },
-  {
-    path: '/:category/:font',
-    name: 'font',
-    component: () => import('@/views/FontsSpecimen.vue'),
-    props: (route) => ({
-      font: store.getters.getFontBySlug(route.params.font)
-    }),
-    beforeEnter: (to, from, next) => {
-      if (!to.query.tab) {
-        // Preserve existing query parameters when adding tab
-        next({
-          path: to.path,
-          query: { ...to.query, tab: 'overview' }
-        })
-      } else {
-        next()
-      }
-    }
   }
 ]
 

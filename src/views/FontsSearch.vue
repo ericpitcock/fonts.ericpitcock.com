@@ -15,7 +15,7 @@
         <div class="search-input">
           <ep-flex class="search-container flex-col gap-30">
             <h1 class="ui-heading">
-              Describe the fonts you’re looking for
+              Describe the fonts you're looking for
             </h1>
             <ep-flex class="flex-col gap-10">
               <ep-textarea
@@ -49,7 +49,7 @@
               v-for="(font, index) in parsedResponse"
               :key="index"
               :font="getFontByName(font)"
-              @click="$router.push({ path: getFontPathByName(font), query: { tab: 'overview', return: $router.currentRoute.value.fullPath } })"
+              @click="onFontCardClick(getFontByName(font))"
             />
           </template>
 
@@ -60,18 +60,29 @@
       </div>
     </template>
   </fonts-layout>
+
+  <!-- Font specimen modal -->
+  <fonts-specimen-modal
+    v-if="!!selectedFont"
+    :font="selectedFont"
+    @close="closeModal"
+  />
 </template>
 
 <script setup>
   import { computed, onMounted, ref, watch } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
+  import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
 
   const store = useStore()
+  const router = useRouter()
+  const route = useRoute()
+  const selectedFont = ref(null)
 
   const toggleTheme = () => store.dispatch('toggleTheme')
   const theme = computed(() => store.state.theme)
@@ -81,8 +92,6 @@
   const parsedResponse = ref([])
   const loading = ref(false)
   const googleFonts = store.state.googleFonts
-
-  const router = useRouter()
 
   const onEnter = (event) => {
     if (event.shiftKey) return
@@ -188,7 +197,25 @@
   }
 
   const getFontByName = (name) => store.getters.getFontByName(name)
-  const getFontPathByName = (name) => store.getters.getFontPathByName(name)
+
+  const onFontCardClick = (font) => {
+    router.push({
+      query: {
+        ...route.query,
+        font: font.family,
+        tab: 'overview'
+      }
+    })
+  }
+
+  const closeModal = () => {
+    selectedFont.value = null
+  }
+
+  // Watch for font parameter in URL
+  watch(() => route.query.font, (fontName) => {
+    selectedFont.value = fontName || null
+  }, { immediate: true })
 
   onMounted(() => {
     const results = router.currentRoute.value.query.results

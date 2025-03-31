@@ -62,6 +62,13 @@
       </div>
     </template>
   </fonts-layout>
+
+  <!-- Font specimen modal -->
+  <fonts-specimen-modal
+    v-if="!!selectedFont"
+    :font="selectedFont"
+    @close="closeModal"
+  />
 </template>
 
 <script setup>
@@ -74,12 +81,15 @@
   import IndexControl from '@/components/IndexControl.vue'
   import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
+  import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
 
   const store = useStore()
   const router = useRouter()
+  const route = useRoute()
 
   const getActiveFonts = computed(() => store.getters.getActiveFonts)
   const getFontCount = computed(() => store.getters.getFontCount)
+  const selectedFont = ref(null)
 
   const sortBy = ref('alphabetical')
   const orderBy = ref('ascending')
@@ -137,17 +147,28 @@
   const category = computed(() => store.state.categoryFilter)
 
   const onFontCardClick = (font) => {
+    // Update the URL with the font and tab parameters
     router.push({
-      path: `/${category.value}/${font.family.toLowerCase().replace(/\s+/g, '-')}`,
+      path: `/${category.value}`,
       query: {
-        tab: 'overview',
-        return: router.currentRoute.value.fullPath
+        ...route.query,
+        font: font.family,
+        tab: 'overview'
       }
     })
   }
 
-  const route = useRoute()
+  const closeModal = () => {
+    console.log('closeModal')
+    selectedFont.value = null
+  }
 
+  // Watch for font parameter in URL
+  watch(() => route.query.font, (fontName) => {
+    selectedFont.value = fontName || null
+  }, { immediate: true })
+
+  // Watch for category parameter changes
   watch(() => route.params, (params) => {
     store.commit('setCategoryFilter', params.category)
   })
@@ -155,31 +176,10 @@
 
 <style lang="scss" scoped>
   .content-padder {
-    // display: flex;
-    // flex-direction: column;
-    // gap: 1rem;
     padding: 3rem 3rem 20rem 3rem;
     background: var(--interface-bg);
   }
 
-  .content-padder--list {}
-
-  // .content-padder--cards {
-  //   display: grid;
-  //   grid-gap: 1rem;
-  //   grid-template-columns: repeat(auto-fill, 30rem);
-  //   justify-content: start;
-  //   padding: 3rem;
-  //   .font-card {
-  //     flex: 1;
-  //     padding: 3rem;
-  //     border: 0.1rem solid var(--border-color);
-  //     border-radius: var(--border-radius--large);
-  //     :deep(.font) {
-  //       padding: 0;
-  //     }
-  //   }
-  // }
   .index__status-bar {
     display: flex;
     justify-content: space-between;

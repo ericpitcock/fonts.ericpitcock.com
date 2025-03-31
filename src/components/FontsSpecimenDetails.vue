@@ -3,9 +3,9 @@
     <template #left>
       <ep-button
         class="ep-button-var--ghost"
-        :label="backButtonLabel"
-        :icon-left="{ name: 'arrow-left' }"
-        :to="$route.query.return || '/'"
+        label=""
+        :icon-left="{ name: 'close' }"
+        @click="onClick"
       />
       <ep-divider direction="vertical" />
       <font-info
@@ -90,6 +90,19 @@
       query: {
         ...route.query,
         tab: item.item.id
+      }
+    })
+  }
+
+  const emit = defineEmits(['close', 'tab-change'])
+
+  const onClick = () => {
+    // remove font query
+    router.replace({
+      query: {
+        ...route.query,
+        font: undefined,
+        tab: undefined
       }
     })
   }
