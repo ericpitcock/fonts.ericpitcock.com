@@ -3,12 +3,15 @@
     v-if="isDev && $route.name === 'category'"
     class="json-button"
     label="Toggle JSON"
-    @click="$store.commit('toggleJSON')"
+    @click="fontsStore.toggleJSON()"
   />
   <router-view />
 </template>
 
 <script setup>
+  import { useFontsStore } from '@/store/fontsStore'
+  const fontsStore = useFontsStore()
+
   const isDev = import.meta.env.DEV
 </script>
 

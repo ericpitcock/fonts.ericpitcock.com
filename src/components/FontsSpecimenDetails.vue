@@ -26,16 +26,17 @@
 <script setup>
   import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useStore } from 'vuex'
 
   import FontInfo from '@/components/FontInfo.vue'
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const router = useRouter()
   const route = useRoute()
-  const store = useStore()
+  const fontsStore = useFontsStore()
 
-  // const categoryMap = store.state.categoryMap
+  // Uncomment if needed
+  // const categoryMap = fontsStore.categoryMap
 
   // back button label computed
   // const backButtonLabel = computed(() => {
@@ -66,7 +67,7 @@
   })
 
   const font = computed(() => {
-    return store.getters.getCurrentFont(route.query.font)
+    return fontsStore.getCurrentFont(route.query.font)
   })
 
   const specimenMenuItems = [
@@ -83,8 +84,6 @@
       label: 'Playground',
     }
   ]
-
-
 
   const activeTab = ref(props.initialTab)
 

@@ -44,14 +44,14 @@
 <script setup>
   import { computed, onMounted, ref } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useStore } from 'vuex'
 
   import FontsFilters from '@/components/FontsFilters.vue'
   import { useWebFont } from '@/composables/useWebFont'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const router = useRouter()
   const route = useRoute()
-  const store = useStore()
+  const fontsStore = useFontsStore()
 
   const toPath = () => {
     if (route.path !== '/') {
@@ -61,7 +61,7 @@
 
   const currentFontIndex = ref(0)
 
-  const getFontCategories = computed(() => store.getters.getFontCategories)
+  const getFontCategories = computed(() => fontsStore.getFontCategories)
 
   const titleFonts = [
     { fontFamily: 'Bungee Shade', fontSize: 30 },

@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   import CharSetSample from '@/components/samples/CharSetSample.vue'
   import FontsStringsSample from '@/components/samples/FontsStringsSample.vue'
@@ -41,8 +41,8 @@
     }
   })
 
-  const store = useStore()
-  const weightMap = store.state.weightMap
+  const fontsStore = useFontsStore()
+  const weightMap = fontsStore.weightMap
 
   const variants = props.font.variants
     .filter(variant => !variant.includes('italic'))

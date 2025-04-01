@@ -18,12 +18,13 @@
 
 <script setup>
   import { computed } from 'vue'
-  import { useStore } from 'vuex'
 
-  const store = useStore()
+  import { useFontsStore } from '@/store/fontsStore'
 
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
+  const fontsStore = useFontsStore()
+
+  const toggleTheme = () => fontsStore.toggleTheme()
+  const theme = computed(() => fontsStore.theme)
 </script>
 
 <style lang="scss" scoped>

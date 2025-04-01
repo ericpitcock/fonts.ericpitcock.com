@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import store from '@/store'
+import { useFontsStore } from '@/store/fontsStore'
 
 const routes = [
   {
@@ -13,11 +13,13 @@ const routes = [
     name: 'category',
     component: () => import('@/views/FontsIndex.vue'),
     beforeEnter: (to, from, next) => {
+      const fontsStore = useFontsStore()
       const category = to.params.category
-      store.commit('setCategoryFilter', category)
+
+      fontsStore.setCategoryFilter(category)
 
       // Apply filters from query parameters if they exist
-      store.commit('applyFiltersFromQuery', to.query)
+      fontsStore.applyFiltersFromQuery(to.query)
 
       next()
     }
@@ -30,13 +32,15 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (!store.state.googleFonts.length) {
-    await store.dispatch('fetchGoogleFonts')
+  const fontsStore = useFontsStore()
+
+  if (!fontsStore.googleFonts.length) {
+    await fontsStore.fetchGoogleFonts()
   }
 
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    if (store.state.theme === 'dark') {
-      store.commit('toggleTheme')
+    if (fontsStore.theme === 'dark') {
+      fontsStore.toggleTheme()
     }
   }
 

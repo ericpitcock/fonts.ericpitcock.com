@@ -33,14 +33,15 @@
 <script setup>
   import { computed, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  import { useStore } from 'vuex'
 
-  const store = useStore()
+  import { useFontsStore } from '@/store/fontsStore'
+
+  const fontsStore = useFontsStore()
   const router = useRouter()
 
   const recommendedFilter = computed({
-    get: () => store.state.filters.recommended,
-    set: (value) => store.commit('setFilters', { recommended: value })
+    get: () => fontsStore.filters.recommended,
+    set: (value) => fontsStore.setFilters({ recommended: value })
   })
 
   const italicsFilter = computed({
@@ -48,26 +49,26 @@
       if (!hasItalics.value) {
         return false
       }
-      return store.state.filters.italics
+      return fontsStore.filters.italics
     },
-    set: (value) => store.commit('setFilters', { italics: value })
+    set: (value) => fontsStore.setFilters({ italics: value })
   })
 
   const multipleWeightsFilter = computed({
-    get: () => store.state.filters.multipleWeights,
-    set: (value) => store.commit('setFilters', { multipleWeights: value })
+    get: () => fontsStore.filters.multipleWeights,
+    set: (value) => fontsStore.setFilters({ multipleWeights: value })
   })
-
-  const getActiveFonts = computed(() => store.getters.getActiveFonts)
 
   // check if any active fonts have italics by searching the .variants array for 'italic' hasItalics boolean
   const hasItalics = computed(() => {
-    return getActiveFonts.value.some(font => font.variants.some(variant => variant.includes('italic')))
+    return fontsStore.getActiveFonts.some(font =>
+      font.variants.some(variant => variant.includes('italic'))
+    )
   })
 
   const onFilterChange = (filter) => {
     // if filter is false, remove it from the URL
-    if (!store.state.filters[filter]) {
+    if (!fontsStore.filters[filter]) {
       const newQuery = { ...router.currentRoute.value.query }
       delete newQuery[filter]
       router.replace({ query: newQuery })
@@ -76,7 +77,7 @@
       router.replace({
         query: {
           ...router.currentRoute.value.query,
-          [filter]: store.state.filters[filter]
+          [filter]: fontsStore.filters[filter]
         }
       })
     }
@@ -86,7 +87,7 @@
   const updateURL = () => {
     // Use a small delay to ensure the store state is updated first
     setTimeout(() => {
-      store.dispatch('updateURLWithFilters', router)
+      fontsStore.updateURLWithFilters(router)
     }, 10)
   }
 

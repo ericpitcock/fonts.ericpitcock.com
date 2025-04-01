@@ -71,26 +71,26 @@
 <script setup>
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
   import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
 
-  const store = useStore()
+  const fontsStore = useFontsStore()
   const router = useRouter()
   const route = useRoute()
   const selectedFont = ref(null)
 
-  const toggleTheme = () => store.dispatch('toggleTheme')
-  const theme = computed(() => store.state.theme)
+  const toggleTheme = () => fontsStore.toggleTheme()
+  const theme = computed(() => fontsStore.theme)
 
   const input = ref('')
   const response = ref('')
   const parsedResponse = ref([])
   const loading = ref(false)
-  const googleFonts = store.state.googleFonts
+  const googleFonts = fontsStore.googleFonts
 
   const onEnter = (event) => {
     if (event.shiftKey) return
@@ -195,7 +195,7 @@
     }
   }
 
-  const getFontByName = (name) => store.getters.getFontByName(name)
+  const getFontByName = (name) => fontsStore.getFontByName(name)
 
   const onFontCardClick = (font) => {
     router.push({

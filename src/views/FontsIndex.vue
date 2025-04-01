@@ -39,7 +39,7 @@
             </h1>
             <ep-button
               label="Reset filters"
-              @click="$store.commit('resetFilters')"
+              @click="fontsStore.resetFilters()"
             />
           </div>
         </template>
@@ -72,7 +72,7 @@
 <script setup>
   import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   import FontsAppHeader from '@/components/FontsAppHeader.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
@@ -81,12 +81,12 @@
   import FontsLayout from '@/layouts/FontsLayout.vue'
   import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
 
-  const store = useStore()
+  const fontsStore = useFontsStore()
   const router = useRouter()
   const route = useRoute()
 
-  const getActiveFonts = computed(() => store.getters.getActiveFonts)
-  const getFontCount = computed(() => store.getters.getFontCount)
+  const getActiveFonts = computed(() => fontsStore.getActiveFonts)
+  const getFontCount = computed(() => fontsStore.getFontCount)
   const selectedFont = ref(null)
 
   const sortBy = ref('alphabetical')
@@ -118,7 +118,7 @@
     let fonts = [...getActiveFonts.value]
 
     if (sortBy.value === 'recommended') {
-      const recommendedList = store.state.recommendedFonts
+      const recommendedList = fontsStore.recommendedFonts
       fonts.sort((a, b) => {
         const aIndex =
           recommendedList.indexOf(a.family) === -1
@@ -142,7 +142,7 @@
     return fonts
   })
 
-  const category = computed(() => store.state.categoryFilter)
+  const category = computed(() => fontsStore.categoryFilter)
 
   const onFontCardClick = (font) => {
     // Update the URL with the font and tab parameters
@@ -168,7 +168,7 @@
 
   // Watch for category parameter changes
   watch(() => route.params, (params) => {
-    store.commit('setCategoryFilter', params.category)
+    fontsStore.setCategoryFilter(params.category)
   })
 </script>
 

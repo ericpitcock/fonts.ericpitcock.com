@@ -28,32 +28,32 @@
 
 <script setup>
   import { computed } from 'vue'
-  import { useStore } from 'vuex'
 
   import EpRangeInput from '@/components/EpRangeInput.vue'
+  import { useFontsStore } from '@/store/fontsStore'
 
-  const store = useStore()
+  const fontsStore = useFontsStore()
 
   const sentenceSample = computed({
     get() {
-      return store.state.sentenceSample
+      return fontsStore.sentenceSample
     },
     set(value) {
-      store.commit('setSentenceSample', value)
+      fontsStore.setSentenceSample(value)
     }
   })
 
   const fontSize = computed({
     get() {
-      return store.state.globalFontSize
+      return fontsStore.globalFontSize
     },
     set(value) {
-      store.commit('setGlobalFontSize', value)
+      fontsStore.setGlobalFontSize(value)
     }
   })
 
-  // const toggleTheme = () => store.dispatch('toggleTheme')
-  // const theme = computed(() => store.state.theme)
+  // const toggleTheme = () => fontsStore.toggleTheme()
+  // const theme = computed(() => fontsStore.theme)
 </script>
 
 <style lang="scss" scoped>

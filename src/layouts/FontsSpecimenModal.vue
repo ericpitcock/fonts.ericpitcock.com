@@ -34,7 +34,7 @@
     watch,
   } from 'vue'
   import { useRoute } from 'vue-router'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import { useWebFont } from '@/composables/useWebFont'
@@ -45,13 +45,13 @@
   const FontsSpecimenUi = defineAsyncComponent(() => import('@/views/FontsSpecimenUi.vue'))
 
   const route = useRoute()
-  const store = useStore()
+  const fontsStore = useFontsStore()
 
   const componentName = shallowRef(null)
   const initialTab = ref(0)
 
   const font = computed(() => {
-    return store.getters.getCurrentFont(route.query.font)
+    return fontsStore.getCurrentFont(route.query.font)
   })
 
   const { loadGoogleFonts, loading } = useWebFont()

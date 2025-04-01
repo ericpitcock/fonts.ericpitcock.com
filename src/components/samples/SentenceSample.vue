@@ -6,10 +6,10 @@
 
 <script setup>
   import { computed } from 'vue'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
-  const store = useStore()
-  const sentenceSample = computed(() => store.state.sentenceSample)
+  const fontsStore = useFontsStore()
+  const sentenceSample = computed(() => fontsStore.sentenceSample)
 </script>
 
 <style>

@@ -10,8 +10,7 @@
 </template>
 
 <script setup>
-  import { computed } from 'vue'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   defineProps({
     font: {
@@ -20,12 +19,10 @@
     }
   })
 
-  const store = useStore()
-
-  const getRecommendedFonts = computed(() => store.state.recommendedFonts)
+  const fontsStore = useFontsStore()
 
   const isRecommended = (font) => {
-    return getRecommendedFonts.value.includes(font.family)
+    return fontsStore.recommendedFonts.includes(font.family)
   }
 
   const fontInfo = (font) => {

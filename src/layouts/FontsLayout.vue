@@ -36,13 +36,13 @@
 
 <script setup>
   import { computed, useTemplateRef, watch } from 'vue'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
-  const store = useStore()
+  const fontsStore = useFontsStore()
 
   const main = useTemplateRef('main')
 
-  const categoryFilter = computed(() => store.state.categoryFilter)
+  const categoryFilter = computed(() => fontsStore.categoryFilter)
 
   watch(
     () => categoryFilter.value,
@@ -54,7 +54,7 @@
   )
 
   watch(
-    [() => store.state.filters],
+    [() => fontsStore.filters],
     () => {
       if (main.value) {
         main.value.scrollTop = 0

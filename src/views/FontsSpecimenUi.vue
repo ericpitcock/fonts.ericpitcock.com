@@ -67,7 +67,7 @@
   import { faker } from '@faker-js/faker'
   import { Chart } from 'chart.js/auto'
   import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-  import { useStore } from 'vuex'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const props = defineProps({
     font: {
@@ -208,9 +208,9 @@
     ],
   }
 
-  const store = useStore()
-  const totalFonts = computed(() => store.state.googleFonts.length)
-  const recommendedFonts = computed(() => store.state.recommendedFonts.length)
+  const fontsStore = useFontsStore()
+  const totalFonts = computed(() => fontsStore.googleFonts.length)
+  const recommendedFonts = computed(() => fontsStore.recommendedFonts.length)
 
   const fakeStatCount = () =>
     Number(
@@ -246,7 +246,7 @@
   // Compute font counts by category from the Google Fonts data
   const fontCountsByCategory = computed(() => {
     const counts = {}
-    store.state.googleFonts.forEach(font => {
+    fontsStore.googleFonts.forEach(font => {
       const category = font.category || 'unknown'
       counts[category] = (counts[category] || 0) + 1
     })
@@ -451,7 +451,7 @@
     }
   })
 
-  watch(() => store.state.theme, () => {
+  watch(() => fontsStore.theme, () => {
     const chartBackgroundColor = getCustomPropertyValue('--interface-surface--accent')
     const chartBorderColor = getCustomPropertyValue('--border-color--lighter')
     const chartTextColorLoud = getCustomPropertyValue('--text-color--loud')
@@ -496,7 +496,7 @@
     }
   ]
 
-  const googleFonts = [...store.state.googleFonts]
+  const googleFonts = [...fontsStore.googleFonts]
 
   const randomFonts = googleFonts.sort(() => Math.random() - Math.random()).slice(0, 20)
   const tableData = randomFonts.map(font => ({

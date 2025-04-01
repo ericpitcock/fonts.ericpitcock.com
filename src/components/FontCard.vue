@@ -45,11 +45,11 @@
     ref,
     watch
   } from 'vue'
-  import { useStore } from 'vuex'
 
   import FontInfo from '@/components/FontInfo.vue'
   import SentenceSample from '@/components/samples/SentenceSample.vue'
   import { useWebFont } from '@/composables/useWebFont'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const props = defineProps({
     font: {
@@ -58,14 +58,9 @@
     }
   })
 
-  const store = useStore()
+  const fontsStore = useFontsStore()
   const fontCardRef = ref(null)
   const observer = ref(null)
-
-  const getCategoryFilter = computed(() => store.state.categoryFilter)
-  const getFilters = computed(() => store.state.filters)
-  const globalFontSize = computed(() => store.state.globalFontSize)
-  const showJSON = computed(() => store.state.showJSON)
 
   const { loadGoogleFonts, loading, error } = useWebFont()
 
@@ -81,7 +76,7 @@
   const sampleStyles = computed(() => {
     return {
       fontFamily: `'${props.font.family}'`,
-      fontSize: `${globalFontSize.value}px`,
+      fontSize: `${fontsStore.globalFontSize}px`,
       fontWeight: getFontWeight(props.font),
       fontVariationSettings: `'wght' ${getFontWeight(props.font)}`,
     }
@@ -112,13 +107,13 @@
     setupObserver(props.font.family)
   })
 
-  watch(getCategoryFilter, () => {
+  watch(() => fontsStore.categoryFilter, () => {
     if (fontCardRef.value && observer.value) {
       observer.value.observe(fontCardRef.value)
     }
   })
 
-  watch(getFilters, () => {
+  watch(() => fontsStore.filters, () => {
     if (fontCardRef.value && observer.value) {
       observer.value.observe(fontCardRef.value)
     }
@@ -135,6 +130,9 @@
       observer.value.disconnect()
     }
   })
+
+  // Use computed for showJSON from the store
+  const showJSON = computed(() => fontsStore.showJSON)
 </script>
 
 <style lang="scss" scoped>
