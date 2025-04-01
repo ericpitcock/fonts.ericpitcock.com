@@ -90,15 +90,9 @@
 </script>
 
 <style lang="scss" scoped>
-
-  // .fonts-grid {
-  //   grid-template-rows: 6rem 1fr;
-  //   grid-template-columns: 1fr;
-  // }
   .specimen {
     display: flex;
     flex-direction: column;
-    // overflow: auto;
     height: 100%;
   }
 </style>

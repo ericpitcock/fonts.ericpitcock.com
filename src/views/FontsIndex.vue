@@ -63,10 +63,8 @@
     </template>
   </fonts-layout>
 
-  <!-- Font specimen modal -->
   <fonts-specimen-modal
-    v-if="!!selectedFont"
-    :font="selectedFont"
+    v-if="$route.query.font"
     @close="closeModal"
   />
 </template>

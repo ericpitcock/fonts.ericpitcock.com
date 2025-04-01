@@ -10,7 +10,7 @@ const defaultFilters = {
 export default createStore({
   state: {
     filters: { ...defaultFilters },
-    currentSpecimen: {},
+    currentFont: {},
     categoryFilter: 'sans-serif',
     categoryMap: {
       'sans-serif': 'Sans Serif',
@@ -167,7 +167,6 @@ export default createStore({
       'Orelega One',
       'Zen Tokyo Zoo',
     ],
-    // searchResults: [],
     sentenceSample: 'The quick brown fox jumps over the lazy dog.',
     sentenceSampleDefault: 'The quick brown fox jumps over the lazy dog.',
     showJSON: false,
@@ -218,10 +217,8 @@ export default createStore({
         font => font.subsets.includes('latin')
       )
     },
-    getCurrentSpecimen(state, getters) {
-      return getters.getActiveFonts.find(
-        font => font.family.toUpperCase() == state.currentSpecimen.toUpperCase()
-      )
+    getCurrentFont: (state) => (fontQuery) => {
+      return state.googleFonts.find(font => font.family === fontQuery)
     },
     getFontBySlug: (state) => (slug) => {
       return state.googleFonts.find(
@@ -280,8 +277,8 @@ export default createStore({
     setCategoryFilter(state, value) {
       state.categoryFilter = value
     },
-    setCurrentSpecimen(state, fontFamily) {
-      state.currentSpecimen = fontFamily
+    setCurrentFont(state, font) {
+      state.currentFont = font
     },
     setFilters(state, value = {}) {
       if (Object.keys(value).length === 0) {
@@ -299,17 +296,6 @@ export default createStore({
     applyFiltersFromQuery(state, query) {
       const newFilters = { ...defaultFilters }
 
-      // // Apply category from state (already set by route)
-      // newFilters.category = state.categoryFilter
-
-      // // Set all boolean filters to false initially
-      // for (const key in newFilters) {
-      //   if (key !== 'category') {
-      //     newFilters[key] = false
-      //   }
-      // }
-
-      // Only set to true the filters that are present in the query with value 'true'
       for (const key in query) {
         if (key !== 'tab' && key in newFilters) {
           newFilters[key] = query[key] === 'true'

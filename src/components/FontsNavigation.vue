@@ -46,19 +46,18 @@
   import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
+  import FontsFilters from '@/components/FontsFilters.vue'
+  import { useWebFont } from '@/composables/useWebFont'
+
   const router = useRouter()
   const route = useRoute()
+  const store = useStore()
 
   const toPath = () => {
     if (route.path !== '/') {
       router.push('/')
     }
   }
-
-  import FontsFilters from '@/components/FontsFilters.vue'
-  import { useWebFont } from '@/composables/useWebFont'
-
-  const store = useStore()
 
   const currentFontIndex = ref(0)
 

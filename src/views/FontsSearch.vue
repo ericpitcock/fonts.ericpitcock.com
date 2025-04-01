@@ -15,7 +15,7 @@
         <div class="search-input">
           <ep-flex class="search-container flex-col gap-30">
             <h1 class="ui-heading">
-              Describe the fonts you're looking for
+              Describe the fonts you’re looking for
             </h1>
             <ep-flex class="flex-col gap-10">
               <ep-textarea
@@ -61,7 +61,6 @@
     </template>
   </fonts-layout>
 
-  <!-- Font specimen modal -->
   <fonts-specimen-modal
     v-if="!!selectedFont"
     :font="selectedFont"
@@ -71,7 +70,7 @@
 
 <script setup>
   import { computed, onMounted, ref, watch } from 'vue'
-  import { useRouter, useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useStore } from 'vuex'
 
   import FontCard from '@/components/FontCard.vue'

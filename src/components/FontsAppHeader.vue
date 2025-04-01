@@ -30,5 +30,6 @@
   .ep-header {
     --ep-header-container-padding: 0 2rem;
     --ep-header-container-bg-color: var(--interface-surface);
+    --ep-header-left-gap: 2rem;
   }
 </style>

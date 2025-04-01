@@ -35,7 +35,7 @@
         minSize: 16,
         maxSize: 512,
       })
-    }, 50)
+    }, 500)
   })
 </script>
 

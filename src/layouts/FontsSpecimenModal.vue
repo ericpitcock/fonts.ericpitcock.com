@@ -11,7 +11,7 @@
     </template>
     <template #main>
       <div
-        v-show="!loading && font"
+        v-show="!loading"
         class="specimen"
         :style="{ fontFamily: `'${font.family}'` }"
       >
@@ -26,12 +26,15 @@
 
 <script setup>
   import {
+    computed,
     defineAsyncComponent,
+    onMounted,
     ref,
     shallowRef,
     watch,
   } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useRoute } from 'vue-router'
+  import { useStore } from 'vuex'
 
   import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import { useWebFont } from '@/composables/useWebFont'
@@ -41,36 +44,28 @@
   const FontsSpecimenPlayground = defineAsyncComponent(() => import('@/views/FontsSpecimenPlayground.vue'))
   const FontsSpecimenUi = defineAsyncComponent(() => import('@/views/FontsSpecimenUi.vue'))
 
-  const props = defineProps({
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
-    font: {
-      type: String,
-      default: ''
-    }
-  })
-
-  const emit = defineEmits(['close'])
-
   const route = useRoute()
-  const router = useRouter()
+  const store = useStore()
+
   const componentName = shallowRef(null)
-  const font = ref(null)
   const initialTab = ref(0)
 
-  const closeModal = () => {
-    emit('close')
-    // Remove font parameter from URL
-    const query = { ...route.query }
-    delete query.font
-    delete query.tab
-    router.push({
-      path: route.path,
-      query
-    })
-  }
+  const font = computed(() => {
+    return store.getters.getCurrentFont(route.query.font)
+  })
+
+  const { loadGoogleFonts, loading } = useWebFont()
+
+  onMounted(() => {
+    if (!route.query.tab) {
+      route.query.tab = 'overview'
+    }
+
+    const variants = font.value.variants.join(',')
+    const fontString = `${font.value.family}:${variants}`
+
+    loadGoogleFonts([fontString])
+  })
 
   watch(() => route.query.tab, (tab) => {
     switch (tab) {
@@ -94,25 +89,6 @@
       }
     }
   }, { immediate: true })
-
-  // Watch for changes in font prop
-  watch(() => props.font, (newFontFamily) => {
-    if (newFontFamily) {
-      // Get font from store
-      import('@/store').then(({ default: store }) => {
-        font.value = store.getters.getFontByName(newFontFamily)
-
-        if (font.value) {
-          // Load the font if it's found
-          const variants = font.value.variants.join(',')
-          const fontString = `${font.value.family}:${variants}`
-          loadGoogleFonts([fontString])
-        }
-      })
-    }
-  }, { immediate: true })
-
-  const { loadGoogleFonts, loading } = useWebFont()
 </script>
 
 <style lang="scss" scoped>
@@ -125,8 +101,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    // max-height: calc(90vh - 10rem);
-    /* Adjust height accounting for header */
     overflow-y: auto;
   }
 </style>
