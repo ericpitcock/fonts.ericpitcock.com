@@ -67,6 +67,7 @@
   import { faker } from '@faker-js/faker'
   import { Chart } from 'chart.js/auto'
   import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+
   import { useFontsStore } from '@/store/fontsStore'
 
   const props = defineProps({

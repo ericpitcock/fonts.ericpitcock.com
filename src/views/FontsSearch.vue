@@ -71,12 +71,12 @@
 <script setup>
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useFontsStore } from '@/store/fontsStore'
 
   import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
   import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const fontsStore = useFontsStore()
   const router = useRouter()

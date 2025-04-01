@@ -36,6 +36,7 @@
 
 <script setup>
   import { computed, useTemplateRef, watch } from 'vue'
+
   import { useFontsStore } from '@/store/fontsStore'
 
   const fontsStore = useFontsStore()

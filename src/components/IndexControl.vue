@@ -18,11 +18,6 @@
         :step="1"
       />
     </div>
-    <!-- <ep-theme-toggle
-      class="app-header-button ep-button-var--ghost"
-      :current-theme="theme"
-      @toggle-theme="toggleTheme"
-    /> -->
   </div>
 </template>
 
@@ -51,9 +46,6 @@
       fontsStore.globalFontSize = value
     }
   })
-
-  // const toggleTheme = () => fontsStore.toggleTheme()
-  // const theme = computed(() => fontsStore.theme)
 </script>
 
 <style lang="scss" scoped>
@@ -63,8 +55,6 @@
     align-items: center;
     gap: 2rem;
     padding: 0 2rem 0 6rem;
-    // background: var(--interface-surface);
-    // border-bottom: 0.1rem solid var(--border-color);
   }
 
   .sample-control__font-count {

@@ -29,10 +29,9 @@
 </template>
 
 <script setup>
-  import { useFontsStore } from '@/store/fontsStore'
-
   import CharSetSample from '@/components/samples/CharSetSample.vue'
   import FontsStringsSample from '@/components/samples/FontsStringsSample.vue'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const props = defineProps({
     font: {
