@@ -35,7 +35,7 @@
         minSize: 16,
         maxSize: 512,
       })
-    }, 500)
+    }, 100)
   })
 </script>
 
@@ -57,7 +57,7 @@
   }
 
   .fitty-text {
-    display: block;
+    display: inline-block;
     white-space: nowrap;
     text-box-trim: trim-both;
     text-box-edge: cap alphabetic;

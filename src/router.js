@@ -16,7 +16,7 @@ const routes = [
       const fontsStore = useFontsStore()
       const category = to.params.category
 
-      fontsStore.setCategoryFilter(category)
+      fontsStore.categoryFilter = category
 
       // Apply filters from query parameters if they exist
       fontsStore.applyFiltersFromQuery(to.query)

@@ -24,7 +24,6 @@ export const useFontsStore = defineStore('font', () => {
   const headlinesRef = ref(headlines)
   const recommendedFontsRef = ref(recommendedFonts)
   const sentenceSample = ref('The quick brown fox jumps over the lazy dog.')
-  const sentenceSampleDefault = ref('The quick brown fox jumps over the lazy dog.')
   const showJSON = ref(false)
   const theme = ref('dark')
   const weightMapRef = ref(weightMap)
@@ -123,18 +122,6 @@ export const useFontsStore = defineStore('font', () => {
     filters.value = { ...defaultFilters }
   }
 
-  const setGoogleFonts = (fonts) => {
-    googleFonts.value = fonts
-  }
-
-  const setCategoryFilter = (value) => {
-    categoryFilter.value = value
-  }
-
-  const setCurrentFont = (font) => {
-    currentFont.value = font
-  }
-
   const setFilters = (value = {}) => {
     if (Object.keys(value).length === 0) {
       for (let key in filters.value) {
@@ -161,22 +148,6 @@ export const useFontsStore = defineStore('font', () => {
     filters.value = newFilters
   }
 
-  const setGlobalFontSize = (value) => {
-    globalFontSize.value = value
-  }
-
-  const setSentenceSample = (value) => {
-    sentenceSample.value = value
-  }
-
-  const setTheme = (data) => {
-    theme.value = data
-  }
-
-  const toggleJSON = () => {
-    showJSON.value = !showJSON.value
-  }
-
   const fetchGoogleFonts = async () => {
     try {
       const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_GOOGLE_FONTS_API_KEY}`)
@@ -186,7 +157,8 @@ export const useFontsStore = defineStore('font', () => {
       }
 
       const data = await response.json()
-      setGoogleFonts(data.items)
+      googleFonts.value = data.items
+
     } catch (error) {
       console.error('Error fetching Google Fonts:', error)
       throw error
@@ -196,7 +168,7 @@ export const useFontsStore = defineStore('font', () => {
   const toggleTheme = () => {
     const newTheme = theme.value === 'dark' ? 'light' : 'dark'
     document.documentElement.setAttribute('data-color-theme', newTheme)
-    setTheme(newTheme)
+    theme.value = newTheme
   }
 
   const updateURLWithFilters = (router) => {
@@ -227,7 +199,6 @@ export const useFontsStore = defineStore('font', () => {
     headlines: headlinesRef,
     recommendedFonts: recommendedFontsRef,
     sentenceSample,
-    sentenceSampleDefault,
     showJSON,
     theme,
     weightMap: weightMapRef,
@@ -248,15 +219,8 @@ export const useFontsStore = defineStore('font', () => {
 
     // Actions
     resetFilters,
-    setGoogleFonts,
-    setCategoryFilter,
-    setCurrentFont,
     setFilters,
     applyFiltersFromQuery,
-    setGlobalFontSize,
-    setSentenceSample,
-    setTheme,
-    toggleJSON,
     fetchGoogleFonts,
     toggleTheme,
     updateURLWithFilters

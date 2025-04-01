@@ -168,7 +168,7 @@
 
   // Watch for category parameter changes
   watch(() => route.params, (params) => {
-    fontsStore.setCategoryFilter(params.category)
+    fontsStore.categoryFilter = params.category
   })
 </script>
 

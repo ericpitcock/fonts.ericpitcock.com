@@ -1,6 +1,7 @@
 <template>
+  <ep-loading-state v-if="loading && !font" />
   <fonts-layout
-    v-if="font"
+    v-else
     class="fonts-grid--no-sidebar fonts-grid--no-footer"
   >
     <template #header>
@@ -34,11 +35,11 @@
     watch,
   } from 'vue'
   import { useRoute } from 'vue-router'
-  import { useFontsStore } from '@/store/fontsStore'
 
   import FontsSpecimenDetails from '@/components/FontsSpecimenDetails.vue'
   import { useWebFont } from '@/composables/useWebFont'
   import FontsLayout from '@/layouts/FontsLayout.vue'
+  import { useFontsStore } from '@/store/fontsStore'
 
   const FontsSpecimenOverview = defineAsyncComponent(() => import('@/views/FontsSpecimenOverview.vue'))
   const FontsSpecimenPlayground = defineAsyncComponent(() => import('@/views/FontsSpecimenPlayground.vue'))

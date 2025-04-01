@@ -39,7 +39,7 @@
       return fontsStore.sentenceSample
     },
     set(value) {
-      fontsStore.setSentenceSample(value)
+      fontsStore.sentenceSample = value
     }
   })
 
@@ -48,7 +48,7 @@
       return fontsStore.globalFontSize
     },
     set(value) {
-      fontsStore.setGlobalFontSize(value)
+      fontsStore.globalFontSize = value
     }
   })
 
