@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-  import { computed, ref, watch } from 'vue'
+  import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
   import FontInfo from '@/components/FontInfo.vue'
@@ -75,7 +75,6 @@
   }
 
   const onCloseClick = () => {
-    // remove font query
     router.replace({
       query: {
         ...route.query,
@@ -84,6 +83,20 @@
       }
     })
   }
+
+  const onKeydown = (event) => {
+    if (event.key === 'Escape') {
+      onCloseClick()
+    }
+  }
+
+  onMounted(() => {
+    window.addEventListener('keydown', onKeydown)
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('keydown', onKeydown)
+  })
 
   watch(() => props.initialTab, (tab) => {
     activeTab.value = tab

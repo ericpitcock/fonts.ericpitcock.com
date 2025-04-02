@@ -2,7 +2,7 @@
   <ep-loading-state v-if="loading && !font" />
   <fonts-layout
     v-else
-    class="fonts-grid--no-sidebar fonts-grid--no-footer"
+    class="specimen-modal fonts-grid--no-sidebar fonts-grid--no-footer"
   >
     <template #header>
       <fonts-specimen-details
@@ -94,8 +94,7 @@
 
 <style lang="scss" scoped>
   .specimen-modal {
-    position: absolute;
-    inset: 0;
+    z-index: var(--z-index--modal);
   }
 
   .specimen {

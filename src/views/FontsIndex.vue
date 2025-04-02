@@ -62,8 +62,6 @@
       </div>
     </template>
   </fonts-layout>
-
-  <fonts-specimen-modal v-if="$route.query.font" />
 </template>
 
 <script setup>
@@ -75,7 +73,6 @@
   import IndexControl from '@/components/IndexControl.vue'
   import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
-  import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
   import { useFontsStore } from '@/store/fontsStore'
 
   const fontsStore = useFontsStore()
@@ -141,7 +138,6 @@
   const category = computed(() => fontsStore.filters.category)
 
   const onFontCardClick = (font) => {
-    // Update the URL with the font and tab parameters
     router.push({
       path: `/${category.value}`,
       query: {
@@ -152,7 +148,6 @@
     })
   }
 
-  // Watch for category parameter changes
   watch(() => route.params, (params) => {
     fontsStore.filters.category = params.category
   })

@@ -5,11 +5,14 @@
     label="Toggle JSON"
     @click="toggleJSON"
   />
+  <fonts-specimen-modal v-if="$route.query.font" />
   <router-view />
 </template>
 
 <script setup>
+  import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
   import { useFontsStore } from '@/store/fontsStore'
+
   const fontsStore = useFontsStore()
 
   const toggleJSON = () => {

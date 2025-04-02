@@ -60,12 +60,6 @@
       </div>
     </template>
   </fonts-layout>
-
-  <fonts-specimen-modal
-    v-if="!!selectedFont"
-    :font="selectedFont"
-    @close="closeModal"
-  />
 </template>
 
 <script setup>
@@ -75,13 +69,11 @@
   import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
-  import FontsSpecimenModal from '@/layouts/FontsSpecimenModal.vue'
   import { useFontsStore } from '@/store/fontsStore'
 
   const fontsStore = useFontsStore()
   const router = useRouter()
   const route = useRoute()
-  const selectedFont = ref(null)
 
   const toggleTheme = () => fontsStore.toggleTheme()
   const theme = computed(() => fontsStore.theme)
@@ -206,15 +198,6 @@
       }
     })
   }
-
-  const closeModal = () => {
-    selectedFont.value = null
-  }
-
-  // Watch for font parameter in URL
-  watch(() => route.query.font, (fontName) => {
-    selectedFont.value = fontName || null
-  }, { immediate: true })
 
   onMounted(() => {
     const results = router.currentRoute.value.query.results
