@@ -14,9 +14,7 @@ const defaultFilters = {
 }
 
 export const useFontsStore = defineStore('font', () => {
-  // State
   const filters = ref({ ...defaultFilters })
-  const categoryFilter = ref('sans-serif')
   const categoryMapRef = ref(categoryMap)
   const globalFontSize = ref(36)
   const googleFonts = ref([])
@@ -27,50 +25,41 @@ export const useFontsStore = defineStore('font', () => {
   const theme = ref('dark')
   const weightMapRef = ref(weightMap)
 
-  // Getters
   const getLatinFonts = computed(() => {
     return googleFonts.value.filter(
       font => font.subsets.includes('latin')
     )
   })
 
-  const getFontCategories = computed(() => {
-    return [...new Set(googleFonts.value.map(font => font.category))]
-  })
-
-  const getActiveFonts = computed(() => {
-    let activeFonts = getLatinFonts.value.filter(
-      font => font.category === categoryFilter.value
+  const getFilteredFonts = computed(() => {
+    let filteredFonts = getLatinFonts.value.filter(
+      font => font.category === filters.value.category
     )
 
     // Apply recommended fonts filter
     if (filters.value.recommended) {
-      activeFonts = activeFonts.filter(
+      filteredFonts = filteredFonts.filter(
         font => recommendedFontsRef.value.includes(font.family)
       )
     }
 
     // if filters.italics, filter out the non-italic variants
     if (filters.value.italics) {
-      activeFonts = activeFonts.filter(
+      filteredFonts = filteredFonts.filter(
         font => font.variants.includes('italic')
       )
     }
 
     // if multipleWeights, filter out the fonts with only one weight
     if (filters.value.multipleWeights) {
-      activeFonts = activeFonts.filter(font => font.variants.length > 1)
+      filteredFonts = filteredFonts.filter(font => font.variants.length > 1)
       // if there are 2 variants and one of them is italic, filter it out
-      activeFonts = activeFonts.filter(
+      filteredFonts = filteredFonts.filter(
         font => !(font.variants.length === 2 && font.variants.includes('italic'))
       )
     }
 
-    return activeFonts
-  })
-
-  const getFontCount = computed(() => {
-    return getActiveFonts.value.length
+    return filteredFonts
   })
 
   const getFiltersAsQuery = computed(() => {
@@ -87,35 +76,16 @@ export const useFontsStore = defineStore('font', () => {
     return queryParams
   })
 
-  // Methods (formerly mutations and actions)
   const getCurrentFont = (fontQuery) => {
     return googleFonts.value.find(font => font.family === fontQuery)
   }
 
   const getFontByName = (name) => {
-    const font = googleFonts.value.find(
-      font => font.family === name
-    )
-    if (!font) return {}
-    return font
+    return googleFonts.value.find(font => font.family === name) || {}
   }
 
   const resetFilters = () => {
     filters.value = { ...defaultFilters }
-  }
-
-  const setFilters = (value = {}) => {
-    if (Object.keys(value).length === 0) {
-      for (let key in filters.value) {
-        if (key !== 'category') {
-          filters.value[key] = false
-        }
-      }
-      return
-    }
-    for (let key in value) {
-      filters.value[key] = value[key]
-    }
   }
 
   const applyFiltersFromQuery = (query) => {
@@ -169,11 +139,9 @@ export const useFontsStore = defineStore('font', () => {
     })
   }
 
-  // Return all state properties, getters, and actions
   return {
     // State
     filters,
-    categoryFilter,
     categoryMap: categoryMapRef,
     globalFontSize,
     googleFonts,
@@ -185,19 +153,12 @@ export const useFontsStore = defineStore('font', () => {
     weightMap: weightMapRef,
 
     // Getters
-    getLatinFonts,
-    getFontCategories,
-    getActiveFonts,
-    getFontCount,
-    getFiltersAsQuery,
-
-    // Methods that act as getters
+    getFilteredFonts,
     getCurrentFont,
     getFontByName,
 
     // Actions
     resetFilters,
-    setFilters,
     applyFiltersFromQuery,
     fetchGoogleFonts,
     toggleTheme,

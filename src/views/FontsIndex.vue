@@ -63,10 +63,7 @@
     </template>
   </fonts-layout>
 
-  <fonts-specimen-modal
-    v-if="$route.query.font"
-    @close="closeModal"
-  />
+  <fonts-specimen-modal v-if="$route.query.font" />
 </template>
 
 <script setup>
@@ -85,9 +82,8 @@
   const router = useRouter()
   const route = useRoute()
 
-  const getActiveFonts = computed(() => fontsStore.getActiveFonts)
-  const getFontCount = computed(() => fontsStore.getFontCount)
-  const selectedFont = ref(null)
+  const getFilteredFonts = computed(() => fontsStore.getFilteredFonts)
+  const getFontCount = computed(() => fontsStore.getFilteredFonts.length)
 
   const sortBy = ref('alphabetical')
   const orderBy = ref('ascending')
@@ -115,7 +111,7 @@
   }
 
   const sortedFonts = computed(() => {
-    let fonts = [...getActiveFonts.value]
+    let fonts = [...getFilteredFonts.value]
 
     if (sortBy.value === 'recommended') {
       const recommendedList = fontsStore.recommendedFonts
@@ -142,7 +138,7 @@
     return fonts
   })
 
-  const category = computed(() => fontsStore.categoryFilter)
+  const category = computed(() => fontsStore.filters.category)
 
   const onFontCardClick = (font) => {
     // Update the URL with the font and tab parameters
@@ -156,19 +152,9 @@
     })
   }
 
-  const closeModal = () => {
-    console.log('closeModal')
-    selectedFont.value = null
-  }
-
-  // Watch for font parameter in URL
-  watch(() => route.query.font, (fontName) => {
-    selectedFont.value = fontName || null
-  }, { immediate: true })
-
   // Watch for category parameter changes
   watch(() => route.params, (params) => {
-    fontsStore.categoryFilter = params.category
+    fontsStore.filters.category = params.category
   })
 </script>
 

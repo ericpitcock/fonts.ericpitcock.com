@@ -107,7 +107,7 @@
     setupObserver(props.font.family)
   })
 
-  watch(() => fontsStore.categoryFilter, () => {
+  watch(() => fontsStore.filters.category, () => {
     if (fontCardRef.value && observer.value) {
       observer.value.observe(fontCardRef.value)
     }

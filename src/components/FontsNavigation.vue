@@ -19,12 +19,12 @@
         </h3>
         <ep-flex class="category-filters flex-col gap-10">
           <router-link
-            v-for="(category, index) in getFontCategories"
+            v-for="(category, index) in fontCategories"
             :key="index"
             class="category-filters__filter-button"
-            :to="{ path: `/${category}`, query: { ...$route.query } }"
+            :to="{ path: `/${category.value}`, query: { ...$route.query } }"
           >
-            {{ category }}
+            {{ category.label }}
           </router-link>
         </ep-flex>
       </ep-flex>
@@ -47,11 +47,9 @@
 
   import FontsFilters from '@/components/FontsFilters.vue'
   import { useWebFont } from '@/composables/useWebFont'
-  import { useFontsStore } from '@/store/fontsStore'
 
   const router = useRouter()
   const route = useRoute()
-  const fontsStore = useFontsStore()
 
   const toPath = () => {
     if (route.path !== '/') {
@@ -61,7 +59,13 @@
 
   const currentFontIndex = ref(0)
 
-  const getFontCategories = computed(() => fontsStore.getFontCategories)
+  const fontCategories = [
+    { label: 'Sans Serif', value: 'sans-serif' },
+    { label: 'Serif', value: 'serif' },
+    { label: 'Display', value: 'display' },
+    { label: 'Handwriting', value: 'handwriting' },
+    { label: 'Monospace', value: 'monospace' }
+  ]
 
   const titleFonts = [
     { fontFamily: 'Bungee Shade', fontSize: 30 },

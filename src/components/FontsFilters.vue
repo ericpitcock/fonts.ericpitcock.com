@@ -41,7 +41,7 @@
 
   const recommendedFilter = computed({
     get: () => fontsStore.filters.recommended,
-    set: (value) => fontsStore.setFilters({ recommended: value })
+    set: (value) => fontsStore.filters.recommended = value
   })
 
   const italicsFilter = computed({
@@ -51,17 +51,17 @@
       }
       return fontsStore.filters.italics
     },
-    set: (value) => fontsStore.setFilters({ italics: value })
+    set: (value) => fontsStore.filters.italics = value
   })
 
   const multipleWeightsFilter = computed({
     get: () => fontsStore.filters.multipleWeights,
-    set: (value) => fontsStore.setFilters({ multipleWeights: value })
+    set: (value) => fontsStore.filters.multipleWeights = value
   })
 
   // check if any active fonts have italics by searching the .variants array for 'italic' hasItalics boolean
   const hasItalics = computed(() => {
-    return fontsStore.getActiveFonts.some(font =>
+    return fontsStore.getFilteredFonts.some(font =>
       font.variants.some(variant => variant.includes('italic'))
     )
   })
