@@ -16,7 +16,6 @@ const defaultFilters = {
 export const useFontsStore = defineStore('font', () => {
   // State
   const filters = ref({ ...defaultFilters })
-  const currentFont = ref({})
   const categoryFilter = ref('sans-serif')
   const categoryMapRef = ref(categoryMap)
   const globalFontSize = ref(36)
@@ -39,14 +38,10 @@ export const useFontsStore = defineStore('font', () => {
     return [...new Set(googleFonts.value.map(font => font.category))]
   })
 
-  const getFontsByCategory = (category) => {
-    return getLatinFonts.value.filter(
-      font => font.category === category
-    )
-  }
-
   const getActiveFonts = computed(() => {
-    let activeFonts = getFontsByCategory(categoryFilter.value)
+    let activeFonts = getLatinFonts.value.filter(
+      font => font.category === categoryFilter.value
+    )
 
     // Apply recommended fonts filter
     if (filters.value.recommended) {
@@ -97,25 +92,12 @@ export const useFontsStore = defineStore('font', () => {
     return googleFonts.value.find(font => font.family === fontQuery)
   }
 
-  const getFontBySlug = (slug) => {
-    return googleFonts.value.find(
-      font => font.family.toLowerCase().replace(/\s+/g, '-') === slug
-    )
-  }
-
   const getFontByName = (name) => {
     const font = googleFonts.value.find(
       font => font.family === name
     )
     if (!font) return {}
     return font
-  }
-
-  const getFontPathByName = (name) => {
-    const font = getFontByName(name)
-    if (!font) return
-    const category = font.category
-    return `/${category}/${font.family.toLowerCase().replace(/\s+/g, '-')}`
   }
 
   const resetFilters = () => {
@@ -191,7 +173,6 @@ export const useFontsStore = defineStore('font', () => {
   return {
     // State
     filters,
-    currentFont,
     categoryFilter,
     categoryMap: categoryMapRef,
     globalFontSize,
@@ -212,10 +193,7 @@ export const useFontsStore = defineStore('font', () => {
 
     // Methods that act as getters
     getCurrentFont,
-    getFontBySlug,
     getFontByName,
-    getFontPathByName,
-    getFontsByCategory,
 
     // Actions
     resetFilters,
