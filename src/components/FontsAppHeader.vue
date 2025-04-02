@@ -1,5 +1,5 @@
 <template>
-  <ep-header>
+  <ep-header v-bind="$attrs">
     <template #left>
       <slot name="left" />
     </template>
@@ -20,6 +20,10 @@
   import { computed } from 'vue'
 
   import { useFontsStore } from '@/store/fontsStore'
+
+  defineOptions({
+    inheritAttrs: false
+  })
 
   const fontsStore = useFontsStore()
 

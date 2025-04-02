@@ -1,12 +1,14 @@
 <template>
-  <p class="font-info">
-    <span>{{ font.family }}</span>
-    <span>{{ fontInfo(font) }}</span>
-    <ep-badge
-      v-if="isRecommended(font)"
-      label="Top Pick"
-    />
-  </p>
+  <div class="font-info-container">
+    <p class="font-info">
+      <span>{{ font.family }}</span>
+      <span>{{ fontInfo(font) }}</span>
+      <ep-badge
+        v-if="isRecommended(font)"
+        label="Top Pick"
+      />
+    </p>
+  </div>
 </template>
 
 <script setup>
@@ -51,15 +53,30 @@
 </script>
 
 <style lang="scss" scoped>
+  .font-info-container {
+    width: 100%;
+    container-name: fontinfo;
+    container-type: inline-size;
+  }
+
   .font-info {
     display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-left: 6rem;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.5rem;
 
     .ep-badge {
       --ep-badge-bg-color: transparent;
       padding-bottom: 0.3rem;
+    }
+  }
+
+  @container fontinfo (width > 300px) {
+    .font-info {
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
     }
   }
 </style>

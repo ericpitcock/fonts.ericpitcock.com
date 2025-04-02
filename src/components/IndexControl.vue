@@ -1,24 +1,24 @@
 <template>
-  <div class="sample-control">
-    <div class="sample-control__input">
-      <ep-input
-        v-model="sentenceSample"
-        size="large"
-        class="custom-sample-input"
-        type="text"
-        placeholder="Enter your own words"
-      />
-    </div>
-    <div class="sample-control__font-size">
-      <ep-range-input
-        v-model="fontSize"
-        class="font-size-input"
-        :min="12"
-        :max="120"
-        :step="1"
-      />
-    </div>
+  <!-- <div class="sample-control"> -->
+  <div class="sample-control__input">
+    <ep-input
+      v-model="sentenceSample"
+      size="large"
+      class="custom-sample-input"
+      type="text"
+      placeholder="Enter your own words"
+    />
   </div>
+  <div class="sample-control__font-size">
+    <ep-range-input
+      v-model="fontSize"
+      class="font-size-input"
+      :min="12"
+      :max="120"
+      :step="1"
+    />
+  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -58,11 +58,11 @@
   }
 
   .sample-control__font-count {
-    flex: 0 0 10rem;
+    flex: 0 1 10rem;
   }
 
   .sample-control__input {
-    flex: 0 1 60rem;
+    flex: 0 1 40rem;
   }
 
   :deep(.custom-sample-input) {

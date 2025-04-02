@@ -3,37 +3,32 @@
     ref="fontCardRef"
     class="font-card"
   >
-    <div class="font">
-      <div class="font__sample">
-        <div
-          v-if="loading"
-          class="loading"
-        >
-          <img
-            src="/img/loading.svg"
-            alt="loading"
-          >
-        </div>
-        <div
-          v-if="error"
-          class="error"
-        >
-          <p>There was an error loading this font</p>
-        </div>
-        <sentence-sample
-          v-if="!loading && !error"
-          :id="font.family.toLowerCase().split(' ').join('-')"
-          :style="sampleStyles"
-        />
-      </div>
-      <font-info :font="font" />
+    <ep-loading-state
+      v-if="loading"
+      class="loading"
+    />
+    <!-- <div class="font"> -->
+    <div class="font-card__sample">
       <div
-        v-if="showJSON"
-        class="json"
+        v-if="error"
+        class="error"
       >
-        <pre>{{ font }}</pre>
+        <p>There was an error loading this font</p>
       </div>
+      <sentence-sample
+        v-if="!loading && !error"
+        :id="font.family.toLowerCase().split(' ').join('-')"
+        :style="sampleStyles"
+      />
     </div>
+    <font-info :font="font" />
+    <div
+      v-if="showJSON"
+      class="json"
+    >
+      <pre>{{ font }}</pre>
+    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -131,17 +126,23 @@
     }
   })
 
-  // Use computed for showJSON from the store
   const showJSON = computed(() => fontsStore.showJSON)
 </script>
 
 <style lang="scss" scoped>
   .font-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
     cursor: pointer;
     background: var(--interface-surface);
+    padding: 3rem 4rem;
     border: 0.1rem solid var(--border-color);
     border-radius: var(--border-radius--large);
+    container-name: fontcard;
+    container-type: inline-size;
 
     :root & {
       --font-hover-bg: var(--interface-surface--accent);
@@ -154,54 +155,47 @@
     &:hover {
       background: var(--font-hover-bg);
     }
+  }
 
-    .loading {
-      position: absolute;
-      top: 1px;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-    }
+  .loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+  }
 
-    .loading img {
-      height: 20px;
-    }
+  .loading img {
+    height: 20px;
+  }
 
-    .error {
-      display: flex;
-      align-items: center;
-      color: var(--primary-color-base);
-    }
+  .error {
+    display: flex;
+    align-items: center;
+    color: var(--primary-color-base);
   }
 
   .font-card a {
     text-decoration: none;
   }
 
-  .font {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 30px 60px 30px 0;
+  .font-card__sample {}
 
-    &__sample {
-      position: relative;
-      flex: 1 1 auto;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-
-      .error {
-        padding-left: 6rem;
-      }
-
-      .json {
-        padding-top: 30px;
-        font-size: 12px;
-      }
-    }
-  }
+  // .font {
+  //   display: flex;
+  //   flex-direction: column;
+  //   height: 100%;
+  //   gap: 2rem;
+  //   &__sample {
+  //     position: relative;
+  //     flex: 1 1 auto;
+  //     align-self: stretch;
+  //     display: flex;
+  //     flex-direction: column;
+  //     gap: 2rem;
+  //     background: red;
+  //   }
+  //   .json {
+  //     font-size: 1.2rem;
+  //   }
+  // }
 </style>

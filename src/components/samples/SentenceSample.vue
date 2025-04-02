@@ -16,8 +16,14 @@
   .sentence-sample {
     color: var(--text-color--loud);
     text-overflow: ellipsis;
-    white-space: nowrap;
     overflow: hidden;
-    padding-left: 6rem;
+    line-height: 1.2;
+  }
+
+  @container fontcard (width > 300px) {
+    .sentence-sample {
+      line-height: normal;
+      white-space: nowrap;
+    }
   }
 </style>

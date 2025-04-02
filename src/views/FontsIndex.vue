@@ -4,7 +4,7 @@
       <fonts-navigation />
     </template>
     <template #header>
-      <fonts-app-header>
+      <fonts-app-header class="index__header">
         <template #left>
           <index-control />
         </template>
@@ -154,6 +154,15 @@
 </script>
 
 <style lang="scss" scoped>
+  .index__header {
+    --ep-header-container-padding: 0 2rem 0 3rem;
+    --ep-header-content-gap: 2rem;
+    --ep-header-left-flex: 4;
+    --ep-header-center-flex: 3;
+    --ep-header-center-gap: 2rem;
+    --ep-header-right-flex: 1;
+  }
+
   .content-padder {
     padding: 3rem 3rem 20rem 3rem;
     background: var(--interface-bg);
