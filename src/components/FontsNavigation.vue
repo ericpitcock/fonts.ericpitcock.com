@@ -10,19 +10,19 @@
     <ep-flex class="flex-col gap-40">
       <ep-button
         label="AI Search"
-        class="ep-button-var--ghost category-filters__filter-button"
-        @click="toPath"
+        class="ep-button-var--ghost category-filters__button"
+        :to="{ path: '/', query: undefined }"
       />
       <ep-flex class="category-filters flex-col gap-20">
         <h3 class="ui-heading">
           Categories
         </h3>
-        <ep-flex class="category-filters flex-col gap-10">
+        <ep-flex class="category-filters flex-col gap-5">
           <ep-button
             v-for="(category, index) in fontCategories"
             :key="index"
             :label="category.label"
-            class="ep-button-var--ghost category-filters__filter-button"
+            class="ep-button-var--ghost category-filters__button"
             :to="{ path: `/${category.value}`, query: { ...$route.query } }"
           />
         </ep-flex>
@@ -42,19 +42,9 @@
 
 <script setup>
   import { computed, onMounted, ref } from 'vue'
-  import { useRoute, useRouter } from 'vue-router'
 
   import FontsFilters from '@/components/FontsFilters.vue'
   import { useWebFont } from '@/composables/useWebFont'
-
-  const router = useRouter()
-  const route = useRoute()
-
-  const toPath = () => {
-    if (route.path !== '/') {
-      router.push('/')
-    }
-  }
 
   const currentFontIndex = ref(0)
 
@@ -123,23 +113,25 @@
     color: var(--text-color--loud);
   }
 
-  .category-filters {
-    &__filter-button {
-      text-transform: capitalize;
-      cursor: pointer;
+  .ep-button-var--ghost.category-filters__button {
+    cursor: pointer;
+    --ep-button-hover-bg-color: var(--primary-color-base);
+    --ep-button-hover-text-color: white;
+    --ep-button-hover-border-color: var(--primary-color-base);
 
-      &.router-link-active {
-        color: var(--text-color--loud);
+    // &:hover {
+    //   cursor: pointer;
+    //   --ep-button-text-color: var(--primary-color-base);
+    // }
+    &.router-link-active {
+      --ep-button-text-color: white;
+      --ep-button-bg-color: var(--primary-color-base);
 
-        &:hover {
-          cursor: default;
-        }
+      &:hover {
+        --ep-button-text-color: white;
+        --ep-button-bg-color: var(--primary-color-base);
+        cursor: default;
       }
     }
-  }
-
-  .font-count {
-    font-size: 12px;
-    color: gray;
   }
 </style>

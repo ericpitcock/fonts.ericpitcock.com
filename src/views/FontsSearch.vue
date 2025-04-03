@@ -45,11 +45,16 @@
         <div class="search-results">
           <ep-loading-state v-if="loading" />
           <template v-if="!loading && parsedResponse.length > 0">
-            <font-card
+            <!-- <font-card
               v-for="(font, index) in parsedResponse"
               :key="index"
               :font="getFontByName(font)"
               @click="onFontCardClick(getFontByName(font))"
+            /> -->
+            <fonts-card-layout
+              :fonts="fontResults"
+              view="cards"
+              @click="onFontCardClick"
             />
           </template>
 
@@ -68,6 +73,7 @@
 
   import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
+  import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
   import { useFontsStore } from '@/store/fontsStore'
 
@@ -186,6 +192,12 @@
       loading.value = false
     }
   }
+
+  const fontResults = computed(() => {
+    return parsedResponse.value.map((font) => {
+      return fontsStore.getFontByName(font)
+    })
+  })
 
   const getFontByName = (name) => fontsStore.getFontByName(name)
 
