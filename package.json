@@ -11,9 +11,9 @@
     "clean-npm": "rm -rf node_modules && npm i"
   },
   "dependencies": {
-    "@ericpitcock/epicenter-icons": "file:.yalc/@ericpitcock/epicenter-icons",
-    "@ericpitcock/epicenter-styles": "file:.yalc/@ericpitcock/epicenter-styles",
-    "@ericpitcock/epicenter-vue-components": "file:.yalc/@ericpitcock/epicenter-vue-components",
+    "@ericpitcock/epicenter-icons": "1.0.4",
+    "@ericpitcock/epicenter-styles": "1.0.5",
+    "@ericpitcock/epicenter-vue-components": "1.0.5",
     "@faker-js/faker": "^9.6.0",
     "chart.js": "^4.4.8",
     "fitty": "^2.4.2",
