@@ -9,7 +9,7 @@
     </div>
     <ep-flex class="flex-col gap-40">
       <ep-button
-        label="Search"
+        label="AI Search"
         class="ep-button-var--ghost category-filters__filter-button"
         @click="toPath"
       />
@@ -18,14 +18,13 @@
           Categories
         </h3>
         <ep-flex class="category-filters flex-col gap-10">
-          <router-link
+          <ep-button
             v-for="(category, index) in fontCategories"
             :key="index"
-            class="category-filters__filter-button"
+            :label="category.label"
+            class="ep-button-var--ghost category-filters__filter-button"
             :to="{ path: `/${category.value}`, query: { ...$route.query } }"
-          >
-            {{ category.label }}
-          </router-link>
+          />
         </ep-flex>
       </ep-flex>
       <ep-flex

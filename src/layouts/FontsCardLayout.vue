@@ -49,15 +49,5 @@
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, 30rem);
     justify-content: start;
-    padding: 3rem;
-    // .font-card {
-    //   flex: 1;
-    //   padding: 3rem;
-    //   border: 0.1rem solid var(--border-color);
-    //   border-radius: var(--border-radius--large);
-    //   :deep(.font) {
-    //     padding: 0;
-    //   }
-    // }
   }
 </style>

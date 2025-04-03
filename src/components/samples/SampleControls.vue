@@ -110,8 +110,6 @@
       type: Object,
       default: () => ({})
     },
-    // initialSize: { type: Number, default: 5 },
-    // initialWeight: { type: String, default: '400' },
     availableWeights: {
       type: Array,
       default: () => []

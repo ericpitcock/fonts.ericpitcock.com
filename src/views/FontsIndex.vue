@@ -103,8 +103,11 @@
   const viewModeName = computed(() => viewOptions[viewMode.value].value)
 
   const onViewChange = ({ item, index }) => {
+    if (item.value === 'cards') {
+      fontsStore.globalFontSize = 30
+    }
+
     viewMode.value = index
-    console.log(item.value, index)
   }
 
   const sortedFonts = computed(() => {

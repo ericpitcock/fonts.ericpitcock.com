@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="sample-control"> -->
   <div class="sample-control__input">
     <ep-input
       v-model="sentenceSample"
@@ -18,7 +17,6 @@
       :step="1"
     />
   </div>
-  <!-- </div> -->
 </template>
 
 <script setup>

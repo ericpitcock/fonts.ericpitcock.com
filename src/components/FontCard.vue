@@ -7,7 +7,6 @@
       v-if="loading"
       class="loading"
     />
-    <!-- <div class="font"> -->
     <div class="font-card__sample">
       <div
         v-if="error"
@@ -28,7 +27,6 @@
     >
       <pre>{{ font }}</pre>
     </div>
-    <!-- </div> -->
   </div>
 </template>
 
@@ -102,11 +100,11 @@
     setupObserver(props.font.family)
   })
 
-  watch(() => fontsStore.filters.category, () => {
-    if (fontCardRef.value && observer.value) {
-      observer.value.observe(fontCardRef.value)
-    }
-  })
+  // watch(() => fontsStore.filters.category, () => {
+  //   if (fontCardRef.value && observer.value) {
+  //     observer.value.observe(fontCardRef.value)
+  //   }
+  // })
 
   watch(() => fontsStore.filters, () => {
     if (fontCardRef.value && observer.value) {
@@ -141,6 +139,7 @@
     padding: 3rem 4rem;
     border: 0.1rem solid var(--border-color);
     border-radius: var(--border-radius--large);
+    overflow: hidden;
     container-name: fontcard;
     container-type: inline-size;
 
@@ -177,25 +176,4 @@
   .font-card a {
     text-decoration: none;
   }
-
-  .font-card__sample {}
-
-  // .font {
-  //   display: flex;
-  //   flex-direction: column;
-  //   height: 100%;
-  //   gap: 2rem;
-  //   &__sample {
-  //     position: relative;
-  //     flex: 1 1 auto;
-  //     align-self: stretch;
-  //     display: flex;
-  //     flex-direction: column;
-  //     gap: 2rem;
-  //     background: red;
-  //   }
-  //   .json {
-  //     font-size: 1.2rem;
-  //   }
-  // }
 </style>
