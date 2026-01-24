@@ -68,10 +68,11 @@
 </template>
 
 <script setup>
+  import { GoogleGenAI } from '@google/genai'
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
-  import FontCard from '@/components/FontCard.vue'
+  // import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
@@ -137,34 +138,18 @@
     parsedResponse.value = []
 
     try {
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_OPEN_AI}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'system',
-              content:
-                `You are a Google Fonts and typography expert. Your role is to help users find the perfect fonts from the Google Fonts library based on their natural language descriptions. You should return a JSON array containing the names of the best fonts that best suit the user's request. Limit of 10 fonts. Do not include any additional commentary or explanation—only return the JSON array. Do not return an object. Do not include any additional information. Only return font names exactly as they appear in the available google fonts: ${googleFonts.map((font) => font.family).join(', ')}. Do not return "Source Sans Pro" - it's known as "Source Sans 3" now.`,
-            },
-            {
-              role: 'user',
-              content: prompt || input.value,
-            },
-          ],
-        }),
+      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
+
+      const systemPrompt = `You are a Google Fonts and typography expert. Your role is to help users find the perfect fonts from the Google Fonts library based on their natural language descriptions. You should return a JSON array containing the names of the best fonts that best suit the user's request. Limit of 10 fonts. Do not include any additional commentary or explanation—only return the JSON array. Do not return an object. Do not include any additional information. Only return font names exactly as they appear in the available google fonts: ${googleFonts.map((font) => font.family).join(', ')}. Do not return "Source Sans Pro" - it's known as "Source Sans 3" now.`
+
+      const userPrompt = prompt || input.value
+
+      const result = await ai.models.generateContent({
+        model: 'gemini-3-flash-preview',
+        contents: `${systemPrompt}\n\nUser request: ${userPrompt}`,
       })
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! Status: ${res.status}`)
-      }
-
-      const data = await res.json()
-      const raw = data.choices[0].message.content.trim()
+      const raw = result.text.trim()
       response.value = raw
 
       try {
@@ -199,7 +184,7 @@
     })
   })
 
-  const getFontByName = (name) => fontsStore.getFontByName(name)
+  // const getFontByName = (name) => fontsStore.getFontByName(name)
 
   const onFontCardClick = (font) => {
     router.push({
