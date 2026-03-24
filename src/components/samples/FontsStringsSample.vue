@@ -12,7 +12,22 @@
 
 <script setup>
   import fitty from 'fitty'
-  import { onMounted } from 'vue'
+  import { onMounted, onUnmounted } from 'vue'
+
+  let fittyInstances = null
+
+  const initFitty = () => {
+    // Clean up existing instances first
+    if (fittyInstances) {
+      fittyInstances.forEach(instance => instance.unsubscribe())
+    }
+
+    fittyInstances = fitty('.fitty-text', {
+      multiLine: false,
+      minSize: 16,
+      maxSize: 1024,
+    })
+  }
 
   const specimenStrings = [
     [
@@ -168,13 +183,21 @@
   const randomSpecimenArray = specimenStrings[Math.floor(Math.random() * specimenStrings.length)]
 
   onMounted(() => {
-    setTimeout(() => {
-      fitty('.fitty-text', {
-        multiLine: false,
-        minSize: 16,
-        maxSize: 1024,
-      })
-    }, 100)
+    // Wait for all fonts to be loaded before initializing fitty
+    document.fonts.ready.then(() => {
+      initFitty()
+    })
+
+    // Re-run fitty when fonts change (handles subsequent font loads)
+    document.fonts.addEventListener('loadingdone', initFitty)
+  })
+
+  onUnmounted(() => {
+    // Clean up fitty instances
+    if (fittyInstances) {
+      fittyInstances.forEach(instance => instance.unsubscribe())
+    }
+    document.fonts.removeEventListener('loadingdone', initFitty)
   })
 </script>
 

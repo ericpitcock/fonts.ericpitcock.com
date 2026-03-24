@@ -65,6 +65,7 @@
     height: 100vh;
     overflow: hidden;
     background-color: var(--interface-bg);
+    z-index: var(--z-index--default);
   }
 
   .fonts-grid__corner {
