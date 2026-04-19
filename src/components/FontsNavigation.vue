@@ -9,7 +9,7 @@
     </div>
     <ep-flex class="flex-col gap-40">
       <ep-button
-        label="AI Search"
+        label="Search"
         class="ep-button-var--ghost category-filters__button"
         :to="{ path: '/', query: undefined }"
       />

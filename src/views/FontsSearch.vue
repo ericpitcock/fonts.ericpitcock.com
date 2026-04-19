@@ -43,14 +43,22 @@
           </ep-flex>
         </div>
         <div class="search-results">
-          <ep-loading-state v-if="loading" />
-          <template v-if="!loading && parsedResponse.length > 0">
-            <!-- <font-card
-              v-for="(font, index) in parsedResponse"
-              :key="index"
-              :font="getFontByName(font)"
-              @click="onFontCardClick(getFontByName(font))"
-            /> -->
+          <ep-loading-state
+            v-if="loading"
+            :message="loadingMessage"
+          />
+          <ep-flex
+            v-else-if="error"
+            class="search-error flex-col gap-10"
+          >
+            <h2>Something went wrong</h2>
+            <p>{{ error }}</p>
+            <ep-button
+              label="Try again"
+              @click="sendMessage()"
+            />
+          </ep-flex>
+          <template v-else-if="parsedResponse.length > 0">
             <fonts-card-layout
               :fonts="fontResults"
               view="cards"
@@ -72,7 +80,6 @@
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
-  // import FontCard from '@/components/FontCard.vue'
   import FontsNavigation from '@/components/FontsNavigation.vue'
   import FontsCardLayout from '@/layouts/FontsCardLayout.vue'
   import FontsLayout from '@/layouts/FontsLayout.vue'
@@ -89,7 +96,19 @@
   const response = ref('')
   const parsedResponse = ref([])
   const loading = ref(false)
+  const loadingMessage = ref({ message: '' })
+  const error = ref()
   const googleFonts = fontsStore.googleFonts
+  let messageTimeouts = []
+  let abortTimeout = null
+  let abortController = null
+
+  const loadingMessages = [
+    { delay: 0, message: 'Searching for the best fonts…' },
+    { delay: 8000, message: 'Really thinking about it…' },
+    { delay: 20000, message: 'Struggling right now…' },
+    { delay: 40000, message: 'Still trying, hang tight…' },
+  ]
 
   const onEnter = (event) => {
     if (event.shiftKey) return
@@ -131,11 +150,30 @@
   ]
 
   const sendMessage = async (prompt = null) => {
-    if (!input.value) return
+    if (!input.value || loading.value) return
 
     loading.value = true
+    loadingMessage.value = { message: '' }
     response.value = ''
     parsedResponse.value = []
+    error.value = null
+
+    messageTimeouts.forEach(clearTimeout)
+    messageTimeouts = []
+    clearTimeout(abortTimeout)
+    if (abortController) abortController.abort()
+    abortController = new AbortController()
+
+    loadingMessages.forEach(({ delay, message }) => {
+      const id = setTimeout(() => {
+        loadingMessage.value = { message }
+      }, delay)
+      messageTimeouts.push(id)
+    })
+
+    abortTimeout = setTimeout(() => {
+      if (abortController) abortController.abort()
+    }, 60000)
 
     try {
       const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
@@ -147,6 +185,9 @@
       const result = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: `${systemPrompt}\n\nUser request: ${userPrompt}`,
+        config: {
+          abortSignal: abortController.signal,
+        },
       })
 
       const raw = result.text.trim()
@@ -171,10 +212,26 @@
         console.warn('Could not parse response as JSON. Showing raw output.')
       }
     } catch (err) {
-      response.value = 'Something went wrong.'
       console.error(err)
+
+      if (err?.name === 'AbortError' || abortController?.signal?.aborted) {
+        error.value = 'The request took too long. The server may be experiencing high demand. Please try again.'
+      } else if (err?.message) {
+        try {
+          const parsed = JSON.parse(err.message)
+          error.value = parsed?.error?.message || err.message
+        } catch {
+          error.value = err.message
+        }
+      } else {
+        error.value = 'An unexpected error occurred. Please try again.'
+      }
     } finally {
       loading.value = false
+      loadingMessage.value = { message: '' }
+      messageTimeouts.forEach(clearTimeout)
+      messageTimeouts = []
+      clearTimeout(abortTimeout)
     }
   }
 
@@ -239,6 +296,7 @@
     --ep-textarea-border-radius: var(--border-radius--large);
     --ep-textarea-bg-color: var(--interface-surface);
     --ep-textarea-resize: vertical;
+    --ep-textarea-min-height: 10rem;
     field-sizing: content;
     pointer-events: all;
   }
@@ -272,5 +330,23 @@
     padding: 10rem 10rem 20rem 10rem;
     padding-left: 0;
     width: calc(100% - 60rem);
+  }
+
+  .search-error {
+    padding: 3rem;
+    border-radius: var(--border-radius--large);
+    background: var(--interface-surface);
+    max-width: 500px;
+    align-self: center;
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--primary-color-up-15-500);
+
+    h2 {
+      font-size: var(--font-size--body);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
   }
 </style>
