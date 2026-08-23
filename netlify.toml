@@ -1,3 +1,9 @@
+[build.environment]
+  # Pinned here rather than left to whatever the build image defaulted to when
+  # this site was created, so the runtime lives with the code and matches local
+  # and the test server. Node 20 reached end of life on 2026-04-30.
+  NODE_VERSION = "24.19.0"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
