@@ -27,19 +27,17 @@
                 Search
               </ep-button>
             </ep-flex>
-            <ep-flex class="flex-col gap-10">
-              <ep-flex class="canned-prompts flex-col gap-10">
-                <ep-button
-                  v-for="(button, index) in cannedPrompts"
-                  :key="index"
-                  class="canned-prompt-button"
-                  size="xlarge"
-                  @click="runCannedPrompt(button.prompt)"
-                >
-                  {{ button.label }}
-                </ep-button>
-              </ep-flex>
-            </ep-flex>
+            <div class="canned-prompts">
+              <ep-button
+                v-for="(button, index) in cannedPrompts"
+                :key="index"
+                class="canned-prompt-button"
+                size="large"
+                @click="runCannedPrompt(button.prompt)"
+              >
+                {{ button.label }}
+              </ep-button>
+            </div>
           </ep-flex>
         </div>
         <div class="search-results">
@@ -281,12 +279,28 @@
     pointer-events: all;
   }
 
+  // Prompt cards: two columns in the 40rem search column, each label
+  // wrapping over as many lines as it needs
   .canned-prompts {
-    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   .canned-prompt-button {
     --ep-button-bg-color: var(--interface-surface);
+    height: auto;
+    min-height: 8rem;
+    padding: 1.6rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    line-height: 1.4;
+    border-radius: var(--border-radius--large);
+
+    :deep(.ep-button__label) {
+      white-space: normal;
+    }
   }
 
   .search-container {
