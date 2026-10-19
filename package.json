@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "epicenter-icons-vue",
     "dev": "vite --host --port 5179",
+    "dev:netlify": "npx -y netlify-cli@27 dev",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",

@@ -77,7 +77,6 @@
 </template>
 
 <script setup>
-  import { GoogleGenAI } from '@google/genai'
   import { computed, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
@@ -97,7 +96,6 @@
   const loading = ref(false)
   const loadingMessage = ref({ message: '' })
   const error = ref()
-  const googleFonts = fontsStore.googleFonts
   let messageTimeouts = []
   let abortTimeout = null
   let abortController = null
@@ -175,53 +173,36 @@
     }, 60000)
 
     try {
-      const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY })
-
-      const systemPrompt = `You are a Google Fonts and typography expert. Your role is to help users find the perfect fonts from the Google Fonts library based on their natural language descriptions. You should return a JSON array containing the names of the best fonts that best suit the user's request. Limit of 10 fonts. Do not include any additional commentary or explanation—only return the JSON array. Do not return an object. Do not include any additional information. Only return font names exactly as they appear in the available google fonts: ${googleFonts.map((font) => font.family).join(', ')}. Do not return "Source Sans Pro" - it's known as "Source Sans 3" now.`
-
-      const userPrompt = prompt || input.value
-
-      const result = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: `${systemPrompt}\n\nUser request: ${userPrompt}`,
-        config: {
-          abortSignal: abortController.signal,
-        },
+      // Gemini runs in netlify/functions/font-search.mjs so the API key
+      // stays server-side
+      const res = await fetch('/api/font-search', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ request: prompt || input.value }),
+        signal: abortController.signal,
       })
+      const data = await res.json().catch(() => ({}))
 
-      const raw = result.text.trim()
-      response.value = raw
-
-      try {
-        const parsedJSON = JSON.parse(raw)
-
-        parsedJSON.forEach((font) => {
-          if (googleFonts.map((font) => font.family).includes(font)) {
-            parsedResponse.value.push(font)
-          }
-        })
-
-        router.push({
-          query: {
-            input: input.value,
-            results: parsedResponse.value.join(',')
-          }
-        })
-      } catch (e) {
-        console.warn('Could not parse response as JSON. Showing raw output.')
+      if (!res.ok) {
+        throw new Error(data.error || `Font search failed (${res.status})`)
       }
+
+      response.value = JSON.stringify(data.fonts)
+      parsedResponse.value.push(...data.fonts)
+
+      router.push({
+        query: {
+          input: input.value,
+          results: parsedResponse.value.join(',')
+        }
+      })
     } catch (err) {
       console.error(err)
 
       if (err?.name === 'AbortError' || abortController?.signal?.aborted) {
         error.value = 'The request took too long. The server may be experiencing high demand. Please try again.'
       } else if (err?.message) {
-        try {
-          const parsed = JSON.parse(err.message)
-          error.value = parsed?.error?.message || err.message
-        } catch {
-          error.value = err.message
-        }
+        error.value = err.message
       } else {
         error.value = 'An unexpected error occurred. Please try again.'
       }
