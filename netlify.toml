@@ -8,11 +8,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-# `npm run dev:netlify` runs Vite and the font-search function together on
-# :8888. Plain `npm run dev` has no /api routes.
-[dev]
-  framework = "#custom"
-  command = "npm run dev"
-  targetPort = 5179
-  port = 8888
