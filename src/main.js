@@ -7,13 +7,15 @@ import router from './router'
 const pinia = createPinia()
 const app = createApp(App)
 
-import Epicenter from '@ericpitcock/epicenter-vue-components'
+import Epicenter, { themePlugin } from '@ericpitcock/epicenter-components-vue'
 
 app.use(Epicenter)
+app.use(themePlugin)
 app.use(pinia)
 app.use(router)
 app.mount('#app')
 
-import '@epicenter-styles/epicenter-design-system.css'
+import '@ericpitcock/epicenter-styles'
+import '@ericpitcock/epicenter-icons-vue/base.scss'
 // import app variables and overrides
 import './assets/app.scss'

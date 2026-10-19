@@ -64,7 +64,7 @@
   }
 
   :deep(.custom-sample-input) {
-    --ep-input-focus-border-color: var(--primary-color-base);
+    --ep-input-focus-border-color: var(--primary-color);
   }
 
   .sample-control__font-size {

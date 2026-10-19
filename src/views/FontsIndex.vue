@@ -9,11 +9,10 @@
           <index-control />
         </template>
         <template #center>
-          <ep-button-group
-            :items="viewOptions"
-            :active="viewMode"
-            active-class="ep-button-var--primary"
-            @click="onViewChange"
+          <ep-segmented-control
+            v-model="viewMode"
+            :options="viewOptions"
+            aria-label="View"
           />
           <ep-select
             v-model="sortBy"
@@ -38,15 +37,16 @@
               No fonts found
             </h1>
             <ep-button
-              label="Reset filters"
               @click="fontsStore.resetFilters()"
-            />
+            >
+              Reset filters
+            </ep-button>
           </div>
         </template>
         <div class="content-padder">
           <fonts-card-layout
             :fonts="sortedFonts"
-            :view="viewModeName"
+            :view="viewMode"
             @click="onFontCardClick"
           />
         </div>
@@ -95,20 +95,17 @@
     { label: 'Order: Desc', value: 'descending' }
   ]
 
-  const viewMode = ref(0)
+  const viewMode = ref('list')
   const viewOptions = [
     { label: 'List', value: 'list' },
     { label: 'Cards', value: 'cards' },
   ]
-  const viewModeName = computed(() => viewOptions[viewMode.value].value)
 
-  const onViewChange = ({ item, index }) => {
-    if (item.value === 'cards') {
+  watch(viewMode, mode => {
+    if (mode === 'cards') {
       fontsStore.globalFontSize = 30
     }
-
-    viewMode.value = index
-  }
+  })
 
   const sortedFonts = computed(() => {
     let fonts = [...getFilteredFonts.value]
@@ -158,7 +155,7 @@
 
 <style lang="scss" scoped>
   .index__header {
-    --ep-header-container-padding: 0 2rem 0 3rem;
+    --ep-header-padding: 0 2rem 0 3rem;
     --ep-header-content-gap: 2rem;
     --ep-header-left-flex: 4;
     --ep-header-center-flex: 3;

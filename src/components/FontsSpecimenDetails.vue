@@ -3,10 +3,13 @@
     <template #left>
       <ep-button
         class="ep-button-var--ghost"
-        label=""
-        :icon-left="{ name: 'close' }"
+        aria-label="Close"
         @click="onCloseClick"
-      />
+      >
+        <template #icon-left>
+          <cancel-01 />
+        </template>
+      </ep-button>
       <ep-divider direction="vertical" />
       <font-info
         :font="font"
@@ -24,6 +27,7 @@
 </template>
 
 <script setup>
+  import Cancel01 from '@ericpitcock/epicenter-icons-vue/Cancel01'
   import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
@@ -63,13 +67,14 @@
 
   const activeTab = ref(props.initialTab)
 
-  const setActiveTab = (item) => {
-    // console.log(item)
-    activeTab.value = item.index
+  // EpTabs emits { item, index } on click but a bare index on Enter/Space
+  const setActiveTab = (payload) => {
+    const index = typeof payload === 'number' ? payload : payload.index
+    activeTab.value = index
     router.replace({
       query: {
         ...route.query,
-        tab: item.item.id
+        tab: specimenMenuItems[index].id
       }
     })
   }
@@ -105,6 +110,6 @@
 
 <style lang="scss" scoped>
   .ep-tabs {
-    --ep-tabs-active-border-color: var(--primary-color-base);
+    --ep-tabs-active-border-color: var(--primary-color);
   }
 </style>

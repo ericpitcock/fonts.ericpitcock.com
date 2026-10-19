@@ -63,7 +63,7 @@
     width: 1.8rem;
     height: 1.8rem;
     cursor: pointer;
-    background: var(--primary-color-base);
+    background: var(--primary-color);
     border: 0.2rem solid var(--interface-surface);
     border-radius: 50%;
   }

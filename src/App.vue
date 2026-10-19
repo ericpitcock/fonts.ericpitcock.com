@@ -2,9 +2,10 @@
   <ep-button
     v-if="isDev && $route.name === 'category'"
     class="json-button"
-    label="Toggle JSON"
     @click="toggleJSON"
-  />
+  >
+    Toggle JSON
+  </ep-button>
   <fonts-specimen-modal v-if="$route.query.font" />
   <router-view />
 </template>

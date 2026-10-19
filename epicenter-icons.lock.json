@@ -1,0 +1,19 @@
+{
+  "source": "@hugeicons-pro/core-stroke-standard",
+  "version": "4.3.4",
+  "icons": {
+    "ArrowDown01": "dded4a7b76021f4a",
+    "ArrowLeft01": "8953ceba4ba34735",
+    "ArrowRight01": "019add9a5916a0bc",
+    "ArrowTurnBackward": "c8b300dca54b5ed6",
+    "ArrowUp01": "1ff26d52f4fb0424",
+    "ArrowUpRight01": "6868cd3a26397442",
+    "Asterisk02": "5ee0b46656b85d0e",
+    "Calendar01": "5326c56364845967",
+    "Cancel01": "ac2c2ebdf52e45e5",
+    "Moon02": "6b60e327587b6ba4",
+    "Search01": "add7003fcb68722a",
+    "Sun02": "a82f9b32e474ab4b",
+    "UserCircle02": "34c2f9abc1d2cda2"
+  }
+}

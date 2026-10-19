@@ -9,15 +9,73 @@
         />
       </template>
       <template #right>
-        <ep-action-bar v-bind="commonActionBarArgs" />
+        <ep-flex class="app-header__actions align-center gap-5">
+          <ep-button
+            class="ep-button-var--ghost"
+            aria-label="Help"
+            @click="() => console.log('the help button was clicked')"
+          >
+            <template #icon-left>
+              <help-circle />
+            </template>
+          </ep-button>
+          <ep-dropdown
+            v-for="headerMenu in headerMenus"
+            :key="headerMenu.label"
+            align-right
+          >
+            <template #trigger="{ attrs, on }">
+              <ep-button
+                v-bind="attrs"
+                class="ep-button-var--ghost"
+                :aria-label="headerMenu.label"
+                v-on="on"
+              >
+                <template #icon-left>
+                  <component :is="headerMenu.icon" />
+                </template>
+              </ep-button>
+            </template>
+            <template #content="{ close }">
+              <ep-menu @escape="close">
+                <ep-menu-item
+                  v-for="(item, index) in headerMenu.items"
+                  :key="index"
+                  :type="item.type"
+                  @select="() => { console.log('clicked', item.label); close() }"
+                >
+                  <ep-button
+                    v-if="item.type === 'item'"
+                    class="ep-button--menu-item"
+                    tabindex="-1"
+                  >
+                    {{ item.label }}
+                  </ep-button>
+                </ep-menu-item>
+              </ep-menu>
+            </template>
+          </ep-dropdown>
+        </ep-flex>
       </template>
     </ep-header>
     <div class="sidebar">
-      <ep-menu
-        class="fake-menu"
-        size="large"
-        :menu-items="fakeNavItems"
-      />
+      <ep-menu class="fake-menu">
+        <ep-menu-item
+          v-for="item in fakeNavItems"
+          :key="item.label"
+        >
+          <ep-button
+            class="ep-button--menu-item"
+            size="large"
+            tabindex="-1"
+          >
+            <template #icon-left>
+              <component :is="item.icon" />
+            </template>
+            {{ item.label }}
+          </ep-button>
+        </ep-menu-item>
+      </ep-menu>
     </div>
     <div class="content">
       <ep-flex class="content__header align-center">
@@ -50,10 +108,9 @@
           :bordered="true"
           :striped="true"
         >
-          <template #thead="{ visibleColumns, cellWidths, showActionsMenu }">
+          <template #thead="{ visibleColumns, showActionsMenu }">
             <ep-table-head
               :columns="visibleColumns"
-              :cell-widths="cellWidths"
               :show-actions-menu="showActionsMenu"
             />
           </template>
@@ -64,6 +121,13 @@
 </template>
 
 <script setup>
+  import DashboardSquare01 from '@ericpitcock/epicenter-icons-vue/DashboardSquare01'
+  import HelpCircle from '@ericpitcock/epicenter-icons-vue/HelpCircle'
+  import Notification01 from '@ericpitcock/epicenter-icons-vue/Notification01'
+  import Settings01 from '@ericpitcock/epicenter-icons-vue/Settings01'
+  import TextBold from '@ericpitcock/epicenter-icons-vue/TextBold'
+  import User from '@ericpitcock/epicenter-icons-vue/User'
+  import UserGroup from '@ericpitcock/epicenter-icons-vue/UserGroup'
   import { faker } from '@faker-js/faker'
   import { Chart } from 'chart.js/auto'
   import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
@@ -78,136 +142,30 @@
   })
 
   const fakeNavItems = [
-    {
-      id: faker.string.uuid(),
-      label: 'Dashboard',
-      iconLeft: {
-        name: 'dashboard'
-      },
-    },
-    {
-      id: faker.string.uuid(),
-      label: 'Fonts',
-      iconLeft: {
-        name: 'f-bold',
-      },
-    },
-    {
-      id: faker.string.uuid(),
-      label: 'Designers',
-      iconLeft: {
-        name: 'f-users'
-      },
-    },
-    {
-      id: faker.string.uuid(),
-      label: 'Settings',
-      iconLeft: {
-        name: 'settings'
-      },
-    }
+    { label: 'Dashboard', icon: DashboardSquare01 },
+    { label: 'Fonts', icon: TextBold },
+    { label: 'Designers', icon: UserGroup },
+    { label: 'Settings', icon: Settings01 },
   ]
 
   const fakeSearch = ref('')
 
-  const commonActionBarArgs = {
-    items: [
-      {
-        component: 'ep-button',
-        props: {
-          label: '',
-          ariaLabel: 'Help',
-          iconLeft: { name: 'help' },
-          class: 'ep-button-var--ghost',
-          action: () => console.log('the help button was clicked')
-        },
-      },
-      {
-        component: 'ep-dropdown',
-        props: {
-          buttonProps: {
-            label: '',
-            ariaLabel: 'Notifications',
-            iconLeft: { name: 'notifications' },
-            iconRight: undefined,
-            class: 'ep-button-var--ghost'
-          },
-          menuProps: {
-            class: 'ep-menu-default',
-            menuItems: [
-              {
-                id: faker.string.uuid(),
-                label: 'Notifications',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Alerts',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Messages',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                divider: true
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Settings',
-                action: (item) => console.log('clicked', item.label),
-              }
-            ],
-          },
-          alignRight: true,
-          showOnHover: false,
-        }
-      },
-      {
-        component: 'ep-dropdown',
-        props: {
-          buttonProps: {
-            label: '',
-            ariaLabel: 'User',
-            iconLeft: { name: 'user' },
-            iconRight: undefined,
-            class: 'ep-button-var--ghost'
-          },
-          menuProps: {
-            class: 'ep-menu-default',
-            menuItems: [
-              {
-                id: faker.string.uuid(),
-                label: 'Profile',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Switch account',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Settings',
-                action: (item) => console.log('clicked', item.label),
-              },
-              {
-                divider: true
-              },
-              {
-                id: faker.string.uuid(),
-                label: 'Sign out',
-                action: (item) => console.log('clicked', item.label),
-              }
-            ],
-          },
-          alignRight: true,
-          showOnHover: false,
-        }
-      }
-    ],
-  }
+  const menuItems = labels => labels.map(label =>
+    label === '-' ? { type: 'divider' } : { type: 'item', label },
+  )
+
+  const headerMenus = [
+    {
+      label: 'Notifications',
+      icon: Notification01,
+      items: menuItems(['Notifications', 'Alerts', 'Messages', '-', 'Settings']),
+    },
+    {
+      label: 'User',
+      icon: User,
+      items: menuItems(['Profile', 'Switch account', 'Settings', '-', 'Sign out']),
+    },
+  ]
 
   const fontsStore = useFontsStore()
   const totalFonts = computed(() => fontsStore.googleFonts.length)
@@ -266,8 +224,22 @@
   let donutChartInstance = null
 
   // computed property to get getComputedStyle values
+  // Epicenter v2 tokens are light-dark()/oklch(from ...) expressions, which
+  // Chart.js can't parse, so resolve them to rgba by painting a pixel
+  const colorProbe = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+
   const getCustomPropertyValue = (property) => {
-    return getComputedStyle(document.documentElement).getPropertyValue(property)
+    const el = document.createElement('div')
+    el.style.color = `var(${property})`
+    document.body.append(el)
+    const resolved = getComputedStyle(el).color
+    el.remove()
+
+    colorProbe.clearRect(0, 0, 1, 1)
+    colorProbe.fillStyle = resolved
+    colorProbe.fillRect(0, 0, 1, 1)
+    const [r, g, b, a] = colorProbe.getImageData(0, 0, 1, 1).data
+    return `rgba(${r}, ${g}, ${b}, ${a / 255})`
   }
 
   const chartBackgroundColor = getCustomPropertyValue('--interface-surface--accent')
@@ -542,12 +514,8 @@
     grid-column: 2 / 3;
     grid-row: 1 / 2;
     border-bottom: 1px solid var(--border-color);
-    --ep-header-container-padding: 0 5rem;
-    --ep-header-container-bg-color: var(--interface-surface);
-
-    .ep-action-bar {
-      width: auto;
-    }
+    --ep-header-padding: 0 5rem;
+    --ep-header-bg-color: var(--interface-surface);
   }
 
   .sidebar {

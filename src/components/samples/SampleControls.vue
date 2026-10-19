@@ -53,11 +53,10 @@
       <h3 class="ui-heading">
         Color
       </h3>
-      <ep-button-group
-        :items="colorOptions"
-        :active="colorIndex"
-        active-class="selected-font-color"
-        @click="selectColor"
+      <ep-segmented-control
+        v-model="localColor"
+        :options="colorOptions"
+        aria-label="Text color"
       />
     </ep-flex>
     <ep-divider direction="horizontal" />
@@ -136,13 +135,6 @@
     { label: 'Loud', value: 'var(--text-color--loud)' },
   ]
 
-  const colorIndex = ref(colorOptions.findIndex(color => color.value === localColor.value))
-
-  const selectColor = (color) => {
-    localColor.value = color.item.value
-    colorIndex.value = color.index
-  }
-
   const hasItalics = computed(() => props.font.variants.some(variant => variant.includes('italic')))
 
   const availableWeights = computed(() => {
@@ -193,10 +185,6 @@
 
     h3 {
       margin-bottom: 1rem;
-    }
-
-    :deep(.ep-button.selected-font-color) {
-      color: var(--primary-color-base);
     }
   }
 </style>

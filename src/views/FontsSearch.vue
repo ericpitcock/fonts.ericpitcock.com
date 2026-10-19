@@ -6,8 +6,6 @@
     <template #corner>
       <ep-theme-toggle
         class="app-header-button ep-button-var--ghost"
-        :current-theme="theme"
-        @toggle-theme="toggleTheme"
       />
     </template>
     <template #main>
@@ -24,9 +22,10 @@
                 @keydown.enter="onEnter"
               />
               <ep-button
-                label="Search"
                 @click="sendMessage"
-              />
+              >
+                Search
+              </ep-button>
             </ep-flex>
             <ep-flex class="flex-col gap-10">
               <ep-flex class="canned-prompts flex-col gap-10">
@@ -34,10 +33,11 @@
                   v-for="(button, index) in cannedPrompts"
                   :key="index"
                   class="canned-prompt-button"
-                  :label="button.label"
                   size="xlarge"
                   @click="runCannedPrompt(button.prompt)"
-                />
+                >
+                  {{ button.label }}
+                </ep-button>
               </ep-flex>
             </ep-flex>
           </ep-flex>
@@ -54,9 +54,10 @@
             <h2>Something went wrong</h2>
             <p>{{ error }}</p>
             <ep-button
-              label="Try again"
               @click="sendMessage()"
-            />
+            >
+              Try again
+            </ep-button>
           </ep-flex>
           <template v-else-if="parsedResponse.length > 0">
             <fonts-card-layout
@@ -89,8 +90,6 @@
   const router = useRouter()
   const route = useRoute()
 
-  const toggleTheme = () => fontsStore.toggleTheme()
-  const theme = computed(() => fontsStore.theme)
 
   const input = ref('')
   const response = ref('')
@@ -289,7 +288,7 @@
   }
 
   .ep-loading {
-    --ep-loading-state-bg-color: var(--interface-bg);
+    --ep-loading-bg-color: var(--interface-bg);
   }
 
   .ep-textarea {
@@ -339,7 +338,7 @@
     max-width: 500px;
     align-self: center;
     border: 1px solid var(--border-color);
-    border-left: 5px solid var(--primary-color-up-15-500);
+    border-left: 5px solid oklch(from var(--primary-color--500) l c calc(h + 15));
 
     h2 {
       font-size: var(--font-size--body);

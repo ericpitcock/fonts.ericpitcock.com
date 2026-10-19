@@ -1,3 +1,4 @@
+import { useTheme } from '@ericpitcock/epicenter-components-vue'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -22,7 +23,7 @@ export const useFontsStore = defineStore('font', () => {
   const recommendedFontsRef = ref(recommendedFonts)
   const sentenceSample = ref('The quick brown fox jumps over the lazy dog.')
   const showJSON = ref(false)
-  const theme = ref('dark')
+  const { theme } = useTheme()
   const weightMapRef = ref(weightMap)
 
   const getLatinFonts = computed(() => {
@@ -117,12 +118,6 @@ export const useFontsStore = defineStore('font', () => {
     }
   }
 
-  const toggleTheme = () => {
-    const newTheme = theme.value === 'dark' ? 'light' : 'dark'
-    document.documentElement.setAttribute('data-color-theme', newTheme)
-    theme.value = newTheme
-  }
-
   const updateURLWithFilters = (router) => {
     const currentRoute = router.currentRoute.value
     const queryParams = { ...getFiltersAsQuery.value }
@@ -161,7 +156,6 @@ export const useFontsStore = defineStore('font', () => {
     resetFilters,
     applyFiltersFromQuery,
     fetchGoogleFonts,
-    toggleTheme,
     updateURLWithFilters
   }
 })

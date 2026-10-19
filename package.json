@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "postinstall": "epicenter-icons-vue",
     "dev": "vite --host --port 5179",
     "build": "vite build",
     "preview": "vite preview",
@@ -11,11 +12,12 @@
     "clean-npm": "rm -rf node_modules && npm i"
   },
   "dependencies": {
-    "@ericpitcock/epicenter-icons": "1.0.4",
-    "@ericpitcock/epicenter-styles": "1.0.5",
-    "@ericpitcock/epicenter-vue-components": "1.0.5",
+    "@ericpitcock/epicenter-components-vue": "2.0.0-beta.14",
+    "@ericpitcock/epicenter-icons-vue": "2.0.0-beta.14",
+    "@ericpitcock/epicenter-styles": "2.0.0-beta.14",
     "@faker-js/faker": "^9.6.0",
     "@google/genai": "^1.38.0",
+    "@hugeicons-pro/core-stroke-standard": "4.3.4",
     "chart.js": "^4.4.8",
     "fitty": "^2.4.2",
     "pinia": "^3.0.1",

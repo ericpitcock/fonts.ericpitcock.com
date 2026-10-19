@@ -8,7 +8,21 @@
     >
       {{ text }}
     </component>
-    <ep-dropdown v-bind="dropdownProps">
+    <ep-dropdown>
+      <template #trigger="{ attrs, on }">
+        <ep-button
+          v-bind="attrs"
+          class="ep-button-var--ghost font-family--inter"
+          aria-label="Sample controls"
+          size="small"
+          v-on="on"
+        >
+          {{ element }}
+          <template #icon-right>
+            <arrow-down-01 />
+          </template>
+        </ep-button>
+      </template>
       <template #content>
         <div class="sample-controls-container">
           <sample-controls
@@ -26,8 +40,9 @@
 </template>
 
 <script setup>
+  import ArrowDown01 from '@ericpitcock/epicenter-icons-vue/ArrowDown01'
   import { faker } from '@faker-js/faker'
-  import { computed, ref } from 'vue'
+  import { ref } from 'vue'
 
   import SampleControls from '@/components/samples/SampleControls.vue'
 
@@ -59,15 +74,6 @@
   })
 
   const instanceId = `text-sample-${Math.random().toString(36).substring(2, 9)}`
-
-  const dropdownProps = computed(() => ({
-    buttonProps: {
-      label: props.element,
-      ariaLabel: 'Sample controls',
-      class: ['ep-button-var--ghost font-family--inter'],
-      size: 'small',
-    }
-  }))
 
   // Initialize with the default styles
   const specimenStyle = ref(props.initialStyles)

@@ -147,7 +147,7 @@
       --font-hover-bg: var(--interface-surface--accent);
     }
 
-    html[data-color-theme='light'] & {
+    html.light-theme & {
       --font-hover-bg: var(--interface-overlay);
     }
 
@@ -170,7 +170,7 @@
   .error {
     display: flex;
     align-items: center;
-    color: var(--primary-color-base);
+    color: var(--primary-color);
   }
 
   .font-card a {

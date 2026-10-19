@@ -9,10 +9,11 @@
     </div>
     <ep-flex class="flex-col gap-40">
       <ep-button
-        label="Search"
         class="ep-button-var--ghost category-filters__button"
         :to="{ path: '/', query: undefined }"
-      />
+      >
+        Search
+      </ep-button>
       <ep-flex class="category-filters flex-col gap-20">
         <h3 class="ui-heading">
           Categories
@@ -21,10 +22,11 @@
           <ep-button
             v-for="(category, index) in fontCategories"
             :key="index"
-            :label="category.label"
             class="ep-button-var--ghost category-filters__button"
             :to="{ path: `/${category.value}`, query: { ...$route.query } }"
-          />
+          >
+            {{ category.label }}
+          </ep-button>
         </ep-flex>
       </ep-flex>
       <ep-flex
@@ -115,21 +117,21 @@
 
   .ep-button-var--ghost.category-filters__button {
     cursor: pointer;
-    --ep-button-hover-bg-color: var(--primary-color-base);
+    --ep-button-hover-bg-color: var(--primary-color);
     --ep-button-hover-text-color: white;
-    --ep-button-hover-border-color: var(--primary-color-base);
+    --ep-button-hover-border-color: var(--primary-color);
 
     // &:hover {
     //   cursor: pointer;
-    //   --ep-button-text-color: var(--primary-color-base);
+    //   --ep-button-text-color: var(--primary-color);
     // }
     &.router-link-active {
       --ep-button-text-color: white;
-      --ep-button-bg-color: var(--primary-color-base);
+      --ep-button-bg-color: var(--primary-color);
 
       &:hover {
         --ep-button-text-color: white;
-        --ep-button-bg-color: var(--primary-color-base);
+        --ep-button-bg-color: var(--primary-color);
         cursor: default;
       }
     }

@@ -38,12 +38,6 @@ router.beforeEach(async (to, from, next) => {
     await fontsStore.fetchGoogleFonts()
   }
 
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-    if (fontsStore.theme === 'dark') {
-      fontsStore.toggleTheme()
-    }
-  }
-
   next()
 })
 
